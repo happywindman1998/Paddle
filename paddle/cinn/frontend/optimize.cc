@@ -71,6 +71,22 @@ OptimizeOptions DefaultTrainingOptimizeOptions() {
   }
 #endif
 
+#ifdef CINN_WITH_ONEDNN
+  auto can_find_custom_call_deny_op = [](const std::string& op) {
+    return FLAGS_cinn_custom_call_deny_ops.find(op) != std::string::npos;
+  };
+  bool is_gemm_use_onednn = FLAGS_cinn_use_custom_call &&
+                            !can_find_custom_call_deny_op("matmul") &&
+                            !can_find_custom_call_deny_op("onednn_gemm") &&
+                            !can_find_custom_call_deny_op("onednn_matmul");
+  if (is_gemm_use_onednn) {
+    options.program_passes.emplace_back("TransposeFoldingInput");
+    options.program_passes.emplace_back("GemmRewriter");
+    options.program_passes.emplace_back("TransposeFoldingOutput");
+    options.program_passes.emplace_back("GemmRewriter");
+  }
+#endif
+
   options.program_passes.emplace_back("AutoBroadcast");
   options.program_passes.emplace_back("FillConstantRewriter");
   if (FLAGS_cinn_use_fill_constant_folding) {
@@ -108,7 +124,7 @@ OptimizeOptions DefaultTrainingOptimizeOptions() {
     options.graph_passes.emplace_back("BuildNonFusedGroupsPass");
   }
 
-#ifdef CINN_WITH_CUDA
+#ifdef CINN_WITH_CUDA || CINN_WITH_ONEDNN
   options.graph_passes.emplace_back("SingleGroupOptimizePass");
 #endif
 

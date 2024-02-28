@@ -191,7 +191,10 @@ class GemmRewriterPass : public ProgramPass {
         // 1) tow-dim matrix multiply, such as m * k, k * n
         // 2) three-dim tensor multiply, such as b * m * k, b * k * n
         if (lhs_dim_size <= 4 && rhs_dim_size <= 4) {
-          instr->op_type = "cublas_matmul";
+          #ifdef CINN_WITH_ONEDNN
+            instr->op_type = "onednn_matmul";
+          #else
+            instr->op_type = "cublas_matmul"
         }
       }
     }
