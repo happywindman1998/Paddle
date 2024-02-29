@@ -11,6 +11,9 @@ set(USE_OPENMP "intel")
 # - OFF: disable SYCL
 # - /path/to/sycl: use specific path to sycl root
 set(CINN_WITH_SYCL OFF)
+
+set(CINN_WITH_ONEDNN OFF)
+
 # Whether enable ROCM runtime
 #
 # Possible values:

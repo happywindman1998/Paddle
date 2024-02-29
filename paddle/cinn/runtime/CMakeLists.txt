@@ -22,7 +22,10 @@ if(WITH_OPENMP)
 endif()
 
 add_subdirectory(cuda)
+
 if (CINN_WITH_SYCL)
   add_subdirectory(sycl)
 endif()
+
+
 add_subdirectory(cpu)
