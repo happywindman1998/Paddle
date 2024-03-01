@@ -14,8 +14,6 @@
 
 #pragma once
 
-#include "oneapi/dnnl/dnnl.hpp"
-
 #include <string>
 #include <vector>
 

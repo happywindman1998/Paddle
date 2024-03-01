@@ -13,53 +13,68 @@
 #include "paddle/cinn/utils/profiler.h"
 #include "paddle/cinn/utils/timer.h"
 
+#include "dnnl.hpp"
+#include "dnnl_sycl.hpp"
+
 using namespace dnnl;
 
 using tag = memory::format_tag;
 using dt = memory::data_type;
-/*
-// Read from handle, write to memory
-static inline void write_to_dnnl_memory(void *handle, dnnl::memory mem) {
-    dnnl_engine_t eng;
-    dnnl_engine_kind_t eng_kind;
-    const_dnnl_memory_desc_t md;
-
-    CHECK(dnnl_memory_get_engine(mem, &eng));
-    CHECK(dnnl_engine_get_kind(eng, &eng_kind));
-    CHECK(dnnl_memory_get_memory_desc(mem, &md));
-    size_t bytes = dnnl_memory_desc_get_size(md);
-    
-    void *mapped_ptr = NULL;
-    CHECK(dnnl_memory_map_data(mem, &mapped_ptr));
-    if (mapped_ptr) {
-        for (size_t i = 0; i < bytes; ++i) {
-            ((char *)mapped_ptr)[i] = ((char *)handle)[i];
-        }
-    }
-    CHECK(dnnl_memory_unmap_data(mem, mapped_ptr));
-    return;
-}
-
 
 // Read from memory, write to handle
-static inline void read_from_dnnl_memory(void *handle, dnnl::memory mem) {
-    dnnl_engine_t eng;
-    dnnl_engine_kind_t eng_kind;
-    const_dnnl_memory_desc_t md;
+inline void read_from_dnnl_memory(void *handle, dnnl::memory &mem) {
+  dnnl::engine eng = mem.get_engine();
+  size_t size = mem.get_desc().get_size();
 
-    CHECK(dnnl_memory_get_engine(mem, &eng));
-    CHECK(dnnl_engine_get_kind(eng, &eng_kind));
-    CHECK(dnnl_memory_get_memory_desc(mem, &md));
-    size_t bytes = dnnl_memory_desc_get_size(md);
+  if (!handle) throw std::runtime_error("handle is nullptr.");
 
-    void *mapped_ptr = NULL;
-    CHECK(dnnl_memory_map_data(mem, &mapped_ptr));
-    if (mapped_ptr) memcpy(handle, mapped_ptr, bytes);
-    CHECK(dnnl_memory_unmap_data(mem, mapped_ptr));
-    return;
-    
+  auto mkind = dnnl::sycl_interop::get_memory_kind(mem);
+  if (mkind == dnnl::sycl_interop::memory_kind::buffer) {
+    auto buffer = dnnl::sycl_interop::get_buffer<uint8_t>(mem);
+    auto src = buffer.get_host_access();
+    uint8_t *src_ptr = src.get_pointer();
+    if (!src_ptr)
+        throw std::runtime_error("get_pointer returned nullptr.");
+    for (size_t i = 0; i < size; ++i)
+        ((uint8_t *)handle)[i] = src_ptr[i];
+  } else {
+    assert(mkind == dnnl::sycl_interop::memory_kind::usm);
+    uint8_t *src_ptr = (uint8_t *)mem.get_data_handle();
+    if (!src_ptr)
+        throw std::runtime_error("get_data_handle returned nullptr."); 
+    auto sycl_queue
+            = dnnl::sycl_interop::get_queue(dnnl::stream(eng));
+    sycl_queue.memcpy(handle, src_ptr, size).wait();
+  }
+  return;
 }
-*/
+
+// Read from handle, write to memory
+inline void write_to_dnnl_memory(void *handle, dnnl::memory &mem) {
+  dnnl::engine eng = mem.get_engine();
+  size_t size = mem.get_desc().get_size();
+
+  if (!handle) throw std::runtime_error("handle is nullptr.");
+  auto mkind = dnnl::sycl_interop::get_memory_kind(mem);
+  if (mkind == dnnl::sycl_interop::memory_kind::buffer) {
+    auto buffer = dnnl::sycl_interop::get_buffer<uint8_t>(mem);
+    auto dst = buffer.get_host_access();
+    uint8_t *dst_ptr = dst.get_pointer();
+    if (!dst_ptr)
+        throw std::runtime_error("get_pointer returned nullptr.");
+    for (size_t i = 0; i < size; ++i)
+        dst_ptr[i] = ((uint8_t *)handle)[i];
+  } else {
+    assert(mkind == dnnl::sycl_interop::memory_kind::usm);
+    uint8_t *dst_ptr = (uint8_t *)mem.get_data_handle();
+    if (!dst_ptr)
+        throw std::runtime_error("get_data_handle returned nullptr.");
+    auto sycl_queue
+            = dnnl::sycl_interop::get_queue(dnnl::stream(eng));
+    sycl_queue.memcpy(dst_ptr, handle, size).wait();
+  }
+  return;
+}
 
 class OneDNNHandle {
  public:
@@ -127,8 +142,8 @@ void cinn_gpu_onednn_mul(const std::vector<int> &attrs,
   auto b_mem = memory(b_md, onednn_engine);
   
   // Write data to memory object's handles.
-  //write_to_dnnl_memory(a_data.data(), a_mem);
-  //write_to_dnnl_memory(b_data.data(), b_mem);
+  write_to_dnnl_memory(a_data.data(), a_mem);
+  write_to_dnnl_memory(b_data.data(), b_mem);
 
   // Create primitive descriptor.
   auto matmul_pd = matmul::primitive_desc(onednn_engine, a_md, b_md, c_md);
