@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include <dnnl.hpp>
+#include "oneapi/dnnl/dnnl.hpp"
 
 #include <string>
 #include <vector>
@@ -30,8 +30,7 @@ namespace onednn {
 void cinn_gpu_onednn_mul(const std::vector<int>& attrs,
                          cinn_buffer_t* input1,
                          cinn_buffer_t* input2,
-                         cinn_buffer_t* output,
-                         cudaStream_t stream = nullptr);
+                         cinn_buffer_t* output);
 
 }  // namespace onednn
 }  // namespace runtime

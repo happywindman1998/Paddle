@@ -7,7 +7,7 @@
 
 #include "paddle/cinn/backends/extern_func_jit_register.h"
 #include "paddle/cinn/common/target.h"
-#include "paddle/cinn/runtime/onednn/onednn_util.h"
+#include "paddle/cinn/runtime/sycl/onednn_util.h"
 #include "paddle/cinn/runtime/custom_function.h"
 #include "paddle/cinn/runtime/flags.h"
 #include "paddle/cinn/utils/profiler.h"
@@ -17,9 +17,9 @@ using namespace dnnl;
 
 using tag = memory::format_tag;
 using dt = memory::data_type;
-
+/*
 // Read from handle, write to memory
-static inline void write_to_dnnl_memory(void *handle, dnnl_memory_t mem) {
+static inline void write_to_dnnl_memory(void *handle, dnnl::memory mem) {
     dnnl_engine_t eng;
     dnnl_engine_kind_t eng_kind;
     const_dnnl_memory_desc_t md;
@@ -40,8 +40,9 @@ static inline void write_to_dnnl_memory(void *handle, dnnl_memory_t mem) {
     return;
 }
 
+
 // Read from memory, write to handle
-static inline void read_from_dnnl_memory(void *handle, dnnl_memory_t mem) {
+static inline void read_from_dnnl_memory(void *handle, dnnl::memory mem) {
     dnnl_engine_t eng;
     dnnl_engine_kind_t eng_kind;
     const_dnnl_memory_desc_t md;
@@ -58,6 +59,7 @@ static inline void read_from_dnnl_memory(void *handle, dnnl_memory_t mem) {
     return;
     
 }
+*/
 
 class OneDNNHandle {
  public:
@@ -74,12 +76,12 @@ class OneDNNHandle {
  private:
   OneDNNHandle() {
     // Create execution dnnl::engine.
-    dnnl::engine engine(dnnl_gpu, 0);
-    onednn_engine = engine;
+    dnnl::engine tmp_engine(dnnl::engine::kind::gpu, 0);
+    onednn_engine = tmp_engine;
 
     // Create dnnl::stream.
-    dnnl::stream engine_stream(engine);
-    onednn_stream = engine_stream;
+    dnnl::stream tmp_stream(tmp_engine);
+    onednn_stream = tmp_stream;
   }
 
   dnnl::engine onednn_engine;
@@ -89,8 +91,7 @@ class OneDNNHandle {
 void cinn_gpu_onednn_mul(const std::vector<int> &attrs,
                          cinn_buffer_t *input1,
                          cinn_buffer_t *input2,
-                         cinn_buffer_t *output,
-                         cudaStream_t stream) {
+                         cinn_buffer_t *output) {
   
   dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
   dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
@@ -109,7 +110,7 @@ void cinn_gpu_onednn_mul(const std::vector<int> &attrs,
   float beta = 0.f;
 
   // Allocate buffers
-  std::vector<float> a_data(M*k, 0.5);
+  std::vector<float> a_data(M*K, 0.5);
   std::vector<float> b_data(K*N, 0.5);
   std::vector<float> c_data(M*N, 0);
   
@@ -120,17 +121,18 @@ void cinn_gpu_onednn_mul(const std::vector<int> &attrs,
 
   auto a_md = memory::desc(a_dims, dt::f32, tag::ab);
   auto b_md = memory::desc(b_dims, dt::f32, tag::ab);
+  auto c_md = memory::desc(c_dims, dt::f32, tag::ab);
   
-  auto a_mem = memory(a_md, engine);
-  auto b_mem = memory(b_md, engine);
+  auto a_mem = memory(a_md, onednn_engine);
+  auto b_mem = memory(b_md, onednn_engine);
   
   // Write data to memory object's handles.
-  write_to_dnnl_memory(a_data.data(), a_mem);
-  write_to_dnnl_memory(b_data.data(), b_mem);
+  //write_to_dnnl_memory(a_data.data(), a_mem);
+  //write_to_dnnl_memory(b_data.data(), b_mem);
 
   // Create primitive descriptor.
-  auto matmul_pd = matmul::primitive_desc(engine, a_md, b_md, c_md);
-  auto c_mem = memory(matmul_pd.dst_desc(), engine)
+  auto matmul_pd = matmul::primitive_desc(onednn_engine, a_md, b_md, c_md);
+  auto c_mem = memory(matmul_pd.dst_desc(), onednn_engine);
 
   // Create the primitive.
   auto matmul_prim = matmul(matmul_pd);
@@ -142,7 +144,7 @@ void cinn_gpu_onednn_mul(const std::vector<int> &attrs,
   matmul_args.insert({DNNL_ARG_DST, c_mem});
 
   // Execution.
-  matmul_prim.execute(engine_stream, matmul_args);
-  engine_stream.wait();
+  matmul_prim.execute(onednn_stream, matmul_args);
+  onednn_stream.wait();
 
 }

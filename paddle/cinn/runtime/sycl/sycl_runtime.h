@@ -86,7 +86,7 @@ class SYCLWorkspace {
   // the mutex for initialization
   std::mutex mu;
   // destructor
-  ~SYCLWorkspace() {
+  ~() {
     for(auto queue : active_queues){
       SYCL_CALL(queue->wait_and_throw());
       delete queue;

@@ -194,7 +194,8 @@ class GemmRewriterPass : public ProgramPass {
           #ifdef CINN_WITH_ONEDNN
             instr->op_type = "onednn_matmul";
           #else
-            instr->op_type = "cublas_matmul"
+            instr->op_type = "cublas_matmul";
+          #endif
         }
       }
     }
