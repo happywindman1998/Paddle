@@ -1936,6 +1936,37 @@ CINN_REGISTER_HELPER(transform_ops) {
       .set_support_level(4);
 #endif
 
+#ifdef CINN_WITH_SYCL
+  std::cout<<"Reigster SYCL OP"<<std::endl;
+  CINN_REGISTER_OP(onednn_gemm)
+      .describe("This operator uses onednn to compute the gemm.")
+      .set_num_inputs(3)
+      .set_num_outputs(1)
+      .set_attr<cinn::hlir::framework::StrategyFunction>(
+          "CINNStrategy", cinn::hlir::op::StrategyForCublasGemm)
+      .set_attr("infershape",
+                MakeOpFunction(cinn::hlir::op::InferShapeForCublasGemm))
+      .set_attr("inferdtype",
+                MakeOpFunction(cinn::hlir::op::InferDtypeForCublasGemm))
+      .set_attr<cinn::hlir::framework::OpPatternKind>(
+          "OpPattern", cinn::hlir::framework::OpPatternKind::kNonFusible)
+      .set_support_level(4);
+
+  CINN_REGISTER_OP(onednn_matmul)
+      .describe("This operator uses cublas to compute the matmul.")
+      .set_num_inputs(2)
+      .set_num_outputs(1)
+      .set_attr<cinn::hlir::framework::StrategyFunction>(
+          "CINNStrategy", cinn::hlir::op::StrategyForMatMul)
+      .set_attr("infershape",
+                MakeOpFunction(cinn::hlir::op::InferShapeForMatMul))
+      .set_attr("inferdtype",
+                MakeOpFunction(cinn::hlir::op::InferDtypeForMatMul))
+      .set_attr<cinn::hlir::framework::OpPatternKind>(
+          "OpPattern", cinn::hlir::framework::OpPatternKind::kNonFusible)
+      .set_support_level(4);
+#endif
+
   CINN_REGISTER_OP(layout_transform)
       .describe("This operator is used to transform op's layouts")
       .set_num_inputs(1)

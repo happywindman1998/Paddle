@@ -128,7 +128,7 @@ std::shared_ptr<OpStrategy> StrategyForCustomCall(
   return strategy;
 }
 
-#ifdef CINN_WITH_CUDA
+#ifdef CINN_WITH_CUDA || #ifdef CINN_WITH_SYCL
 std::vector<ir::Expr> CustomCallArgsForCublas(
     const framework::NodeAttr &attrs,
     const std::vector<ir::Tensor> &inputs,
@@ -994,6 +994,12 @@ bool RegisteryCustomCallArgsFunc() {
       "cinn_call_cudnn_pool2d_backward",
       common::DefaultNVGPUTarget(),
       CustomCallArgsForCudnnPoolBackward);
+#endif
+
+#ifdef CINN_WITH_ONEDNN
+  CustomCallArgsFuncRegistry::Global().Register("cinn_call_onednn",
+                                                common::SYCLTarget(),
+                                                CustomCallArgsForCublas);
 #endif
 
 #ifdef CINN_WITH_DNNL

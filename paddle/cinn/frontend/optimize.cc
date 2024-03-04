@@ -17,6 +17,7 @@
 #include <memory>
 #include <string>
 #include <unordered_set>
+#include <iostream>
 
 #include "paddle/cinn/common/target.h"
 #include "paddle/cinn/frontend/decomposer/use_decomposer.h"
@@ -44,6 +45,7 @@ namespace cinn {
 namespace frontend {
 
 OptimizeOptions DefaultTrainingOptimizeOptions() {
+  std::cout<<"============ DefaultTrainingOptimizeOptions ========="<<std::endl;
   OptimizeOptions options;
   options.program_passes.emplace_back("ExpandZeroDim");
   options.program_passes.emplace_back("AutoCast");
@@ -71,10 +73,12 @@ OptimizeOptions DefaultTrainingOptimizeOptions() {
   }
 #endif
 
+std::cout<<"======== call optimize.cc ======="<<std::endl;
 #ifdef CINN_WITH_ONEDNN
   auto can_find_custom_call_deny_op = [](const std::string& op) {
     return FLAGS_cinn_custom_call_deny_ops.find(op) != std::string::npos;
   };
+  std::cout<<"======== sycl ondnn cinn_use_custom_call======="<<std::endl;
   bool is_gemm_use_onednn = FLAGS_cinn_use_custom_call &&
                             !can_find_custom_call_deny_op("matmul") &&
                             !can_find_custom_call_deny_op("onednn_gemm") &&
@@ -175,6 +179,8 @@ std::shared_ptr<hlir::framework::Graph> Optimize(
   OptimizeOptions options;
 
   bool enbale_fusion = false;
+  VLOG(1) << "Apply Optimizae Passes";
+  /*
   if (!passes.empty()) {
     for (const auto& pass : passes) {
       auto* p_pass = ProgramPassRegistry::Global()->Find(pass);
@@ -200,6 +206,10 @@ std::shared_ptr<hlir::framework::Graph> Optimize(
     // if pass empty, default enable all pass
     options = DefaultTrainingOptimizeOptions();
   }
+  */
+
+  // TODO: fix it, default enable all pass
+  options = DefaultTrainingOptimizeOptions();
 
   return Optimize(program, fetch_ids, target, options);
 }

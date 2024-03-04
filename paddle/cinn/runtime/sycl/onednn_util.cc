@@ -163,3 +163,71 @@ void cinn_gpu_onednn_mul(const std::vector<int> &attrs,
   onednn_stream.wait();
 
 }
+
+
+void cinn_call_onednn(void *v_args,
+                      int num_args,
+                      bool trans_a,
+                      bool trans_b,
+                      bool trans_o,
+                      float alpha,
+                      float beta,
+                      int a1,
+                      int a2,
+                      int a3,
+                      int a4,
+                      int b1,
+                      int b2,
+                      int b3,
+                      int b4,
+                      void *stream) {
+  cinn::utils::RecordEvent record_run("cinn_call_onednn",
+                                      cinn::utils::EventType::kInstruction);
+  dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
+  dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+  
+  //float *x_data = reinterpret_cast<float *>(input1->memory);
+  //float *y_data = reinterpret_cast<float *>(input2->memory);
+  //float *out_data = reinterpret_cast<float *>(output->memory);
+  int M = a3;
+  int N = a4;
+  int K= b4;
+
+  // Allocate buffers
+  std::vector<float> a_data(M*K, 0.5);
+  std::vector<float> b_data(K*N, 0.5);
+  std::vector<float> c_data(M*N, 0);
+  
+  // Source (A), weights (B), and destination (C) matrix dimensions.
+  memory::dims a_dims = {M, K};
+  memory::dims b_dims = {K, N};
+  memory::dims c_dims = {M, N};
+
+  auto a_md = memory::desc(a_dims, dt::f32, tag::ab);
+  auto b_md = memory::desc(b_dims, dt::f32, tag::ab);
+  auto c_md = memory::desc(c_dims, dt::f32, tag::ab);
+  
+  auto a_mem = memory(a_md, onednn_engine);
+  auto b_mem = memory(b_md, onednn_engine);
+  
+  // Write data to memory object's handles.
+  write_to_dnnl_memory(a_data.data(), a_mem);
+  write_to_dnnl_memory(b_data.data(), b_mem);
+
+  // Create primitive descriptor.
+  auto matmul_pd = matmul::primitive_desc(onednn_engine, a_md, b_md, c_md);
+  auto c_mem = memory(matmul_pd.dst_desc(), onednn_engine);
+
+  // Create the primitive.
+  auto matmul_prim = matmul(matmul_pd);
+
+  // Primitive arguments.
+  std::unordered_map<int, memory> matmul_args;
+  matmul_args.insert({DNNL_ARG_SRC, a_mem});
+  matmul_args.insert({DNNL_ARG_WEIGHTS, b_mem});
+  matmul_args.insert({DNNL_ARG_DST, c_mem});
+
+  // Execution.
+  matmul_prim.execute(onednn_stream, matmul_args);
+  onednn_stream.wait();
+}

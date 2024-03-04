@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include "paddle/cinn/hlir/op/external_api_registry.h"
+#include <iostream>
 
 namespace cinn {
 namespace hlir {
@@ -57,6 +58,7 @@ std::string ExternalApiRegistry::GenKey(const std::string& op_name,
 CINN_REGISTER_HELPER(op_external_api) {
   const auto& default_nvgpu = ::cinn::common::DefaultNVGPUTarget();
   const auto& default_host = ::cinn::common::DefaultHostTarget();
+  const auto& default_sycl = ::cinn::common::SYCLTarget();
 
   CINN_OP_REGISTER_EXTERNAL_API(matmul, default_nvgpu)
       .set_api_name("cinn_call_cublas");
@@ -66,13 +68,13 @@ CINN_REGISTER_HELPER(op_external_api) {
       .set_api_name("cinn_call_cublas");
   CINN_OP_REGISTER_EXTERNAL_API(cublas_matmul, default_nvgpu)
       .set_api_name("cinn_call_cublas");
-  CINN_OP_REGISTER_EXTERNAL_API(matmul, default_nvgpu)
+  CINN_OP_REGISTER_EXTERNAL_API(matmul, default_sycl)
       .set_api_name("cinn_call_onednn");
-  CINN_OP_REGISTER_EXTERNAL_API(mul, default_nvgpu)
+  CINN_OP_REGISTER_EXTERNAL_API(mul, default_sycl)
       .set_api_name("cinn_call_onednn");
-  CINN_OP_REGISTER_EXTERNAL_API(onednn_gemm, default_nvgpu)
+  CINN_OP_REGISTER_EXTERNAL_API(onednn_gemm, default_sycl)
       .set_api_name("cinn_call_onednn");
-  CINN_OP_REGISTER_EXTERNAL_API(onednn_matmul, default_nvgpu)
+  CINN_OP_REGISTER_EXTERNAL_API(onednn_matmul, default_sycl)
       .set_api_name("cinn_call_onednn");
   CINN_OP_REGISTER_EXTERNAL_API(gaussian_random, default_nvgpu)
       .set_api_name("cinn_call_gaussian_random");

@@ -16,6 +16,7 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <iostream>
 
 #include "glog/logging.h"
 #include "paddle/cinn/frontend/net_builder.h"
@@ -65,7 +66,7 @@ class GemmRewriterPass : public ProgramPass {
     }
     *prog = builder.Build(true);
 
-    // Use the cublas call instead of the single matmul
+    // Use the cublas/onednn call instead of the single matmul
     RewriteSingleMatmul(prog);
 
     // relink old outputs to new outputs
@@ -179,7 +180,7 @@ class GemmRewriterPass : public ProgramPass {
     return false;
   }
 
-  // Rewrite the left single matmul, use cublas call instead
+  // Rewrite the left single matmul, use cublas/onednn call instead
   void RewriteSingleMatmul(Program* prog) {
     for (int i = 0; i < prog->size(); i++) {
       auto& instr = (*prog)[i];
@@ -193,6 +194,7 @@ class GemmRewriterPass : public ProgramPass {
         if (lhs_dim_size <= 4 && rhs_dim_size <= 4) {
           #ifdef CINN_WITH_ONEDNN
             instr->op_type = "onednn_matmul";
+            std::cout<<"========== use onednn_matmul op =========="<<std::endl;
           #else
             instr->op_type = "cublas_matmul";
           #endif

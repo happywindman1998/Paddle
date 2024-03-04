@@ -25,10 +25,27 @@ namespace runtime {
 namespace onednn {
 
 
-void cinn_gpu_onednn_mul(const std::vector<int>& attrs,
+void cinn_gpu_onednn_matmul(const std::vector<int>& attrs,
                          cinn_buffer_t* input1,
                          cinn_buffer_t* input2,
                          cinn_buffer_t* output);
+
+void cinn_call_onednn(void* v_args,
+                      int num_args,
+                      bool trans_a,
+                      bool trans_b,
+                      bool trans_o,
+                      float alpha,
+                      float beta,
+                      int a1,
+                      int a2,
+                      int a3,
+                      int a4,
+                      int b1,
+                      int b2,
+                      int b3,
+                      int b4,
+                      void* stream);
 
 }  // namespace onednn
 }  // namespace runtime
