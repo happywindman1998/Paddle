@@ -40,6 +40,10 @@
 #include "paddle/cinn/utils/string.h"
 #include "paddle/cinn/utils/timer.h"
 
+#ifdef CINN_WITH_SYCL
+#include "paddle/cinn/runtime/sycl/sycl_backend_api.h"
+#endif
+
 namespace cinn::pybind {
 using common::Type;
 using frontend::Placeholder;
@@ -220,13 +224,20 @@ void BindFrontend(pybind11::module *m) {
               CHECK_EQ(input_data[i].size(), in_tensor->shape().numel())
                   << "The size of tensor [" << tensor_inputs[i]->id
                   << "] is different with the input data's size! Please check.";
-              if (target.arch == Target::Arch::NVGPU) {
+              if (target.language == Target::Language::sycl) {
+#ifdef CINN_WITH_SYCL
+               sycl::queue Q;
+               Q.memcpy(data, input_data[i].data(),in_tensor->shape().numel() * dtype.bytes()).wait();
+#else
+     LOG(FATAL) <<"To use SYCL backends, you need to set WITH_SYCL ON!";
+#endif
+              } else if (target.arch == Target::Arch::NVGPU) {
 #ifdef CINN_WITH_CUDA
                 CUDA_CALL(cudaMemcpy(data,
                                      input_data[i].data(),
                                      in_tensor->shape().numel() * dtype.bytes(),
-                                     cudaMemcpyHostToDevice));
-#else
+
+#else                                     cudaMemcpyHostToDevice));
      LOG(FATAL) <<"To use CUDA backends, you need to set WITH_CUDA ON!";
 #endif
               } else if (target.arch == Target::Arch::X86) {

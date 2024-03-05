@@ -31,6 +31,18 @@ if(WITH_CUDA)
   if(NVTX_FOUND)
     target_link_libraries(core_api ${CUDA_NVTX_LIB})
   endif()
+elif(WITH_SYCL)
+ message(STATUS "Compile core_api with SYCL support")
+  cinn_sycl_library(
+    core_api
+    SHARED
+    SRCS
+    ${srcs}
+    DEPS
+    cinncore_static
+    cinn_runtime
+    pybind)
+  target_link_libraries(core_api ${DPCPP_LIB} ${ONEDNN_LIB} sycl dnnl)
 else()
   message(STATUS "Compile core_api without CUDA support")
   cinn_cc_library(
