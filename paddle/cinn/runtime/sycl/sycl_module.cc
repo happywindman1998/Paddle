@@ -76,6 +76,6 @@ void cinn_call_sycl_kernel(void* kernel_fn,
   }
 }
 
-}  // namespace Sycl
+}  // namespace sycl
 }  // namespace runtime
 }  // namespace cinn

@@ -22,13 +22,14 @@
 
 namespace cinn {
 namespace runtime {
-namespace onednn {
+namespace Sycl {
 
 
-void cinn_gpu_onednn_matmul(const std::vector<int>& attrs,
-                         cinn_buffer_t* input1,
-                         cinn_buffer_t* input2,
-                         cinn_buffer_t* output);
+void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
+                          cinn_buffer_t *lhs,
+                          cinn_buffer_t *rhs,
+                          cinn_buffer_t *bias,
+                          cinn_buffer_t *output);
 
 void cinn_call_onednn(void* v_args,
                       int num_args,

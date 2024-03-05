@@ -26,6 +26,8 @@
 #include "paddle/cinn/ir/ir_printer.h"
 #include "paddle/cinn/utils/string.h"
 
+#include<iostream>
+
 #ifdef CINN_WITH_CUDNN
 #include <cudnn.h>
 #endif
@@ -128,7 +130,7 @@ std::shared_ptr<OpStrategy> StrategyForCustomCall(
   return strategy;
 }
 
-#ifdef CINN_WITH_CUDA || #ifdef CINN_WITH_SYCL
+#if defined(CINN_WITH_CUDA)
 std::vector<ir::Expr> CustomCallArgsForCublas(
     const framework::NodeAttr &attrs,
     const std::vector<ir::Tensor> &inputs,
@@ -706,6 +708,133 @@ std::vector<ir::Expr> CustomCallArgsForCudnnPoolBackward(
 }
 #endif
 
+#ifdef CINN_WITH_ONEDNN
+std::vector<ir::Expr> CustomCallArgsForOneDNN(
+    const framework::NodeAttr &attrs,
+    const std::vector<ir::Tensor> &inputs,
+    const std::vector<std::vector<int>> &output_shapes) {
+  CHECK_EQ(inputs.size(), 2);
+  CHECK_EQ(output_shapes.size(), 1);
+  CHECK_LE(inputs[0]->shape.size(), 4);
+  CHECK_LE(inputs[1]->shape.size(), 4);
+
+  const auto &attr_store = attrs.attr_store;
+  bool trans_a = attr_store.count("trans_a")
+                     ? absl::get<bool>(attr_store.at("trans_a"))
+                     : false;
+  bool trans_b = attr_store.count("trans_b")
+                     ? absl::get<bool>(attr_store.at("trans_b"))
+                     : false;
+  bool trans_out = attr_store.count("trans_out")
+                       ? absl::get<bool>(attr_store.at("trans_out"))
+                       : false;
+  float alpha = attr_store.count("alpha")
+                    ? absl::get<float>(attr_store.at("alpha"))
+                    : 1.0f;
+  float beta =
+      attr_store.count("beta") ? absl::get<float>(attr_store.at("beta")) : 0.0f;
+
+  int x_num_col_dims = attr_store.count("x_num_col_dims")
+                           ? absl::get<int>(attr_store.at("x_num_col_dims"))
+                           : 0;
+  int y_num_col_dims = attr_store.count("y_num_col_dims")
+                           ? absl::get<int>(attr_store.at("y_num_col_dims"))
+                           : 0;
+  bool is_infer = attr_store.count("is_infer")
+                      ? absl::get<bool>(attr_store.at("is_infer"))
+                      : false;
+  CHECK((x_num_col_dims == 0 && y_num_col_dims == 0) ||
+        (x_num_col_dims > 0 && y_num_col_dims > 0));
+
+  std::vector<ir::Expr> a_shape, b_shape;
+  if (x_num_col_dims == 0 && y_num_col_dims == 0) {
+    int a_rank = inputs[0]->shape.size();
+    int b_rank = inputs[1]->shape.size();
+
+    if (a_rank == 1) {
+      a_shape.resize(4, ir::Expr(1));
+
+      if (trans_a) {
+        a_shape[2] = inputs[0]->shape[0];
+      } else {
+        a_shape[3] = inputs[0]->shape[0];
+      }
+    } else {
+      a_shape = inputs[0]->shape;
+      int insert_1_to_a = 4 - a_shape.size();
+      for (int idx = 0; idx < insert_1_to_a; ++idx) {
+        a_shape.insert(a_shape.begin(), ir::Expr(1));
+      }
+    }
+
+    if (b_rank == 1) {
+      b_shape.resize(4, ir::Expr(1));
+
+      if (trans_b) {
+        b_shape[3] = inputs[1]->shape[0];
+      } else {
+        b_shape[2] = inputs[1]->shape[0];
+      }
+    } else {
+      b_shape = inputs[1]->shape;
+      int insert_1_to_b = 4 - b_shape.size();
+      for (int idx = 0; idx < insert_1_to_b; ++idx) {
+        b_shape.insert(b_shape.begin(), ir::Expr(1));
+      }
+    }
+  } else if (x_num_col_dims > 0 && y_num_col_dims > 0) {
+    // input a shape.
+    a_shape = {Expr(1), Expr(1)};
+    int a_height = 1;
+    int a_width = 1;
+    for (int idx = 0; idx < x_num_col_dims; ++idx) {
+      a_height *= inputs[0]->shape[idx].as_int32();
+    }
+    for (int idx = x_num_col_dims; idx < inputs[0]->shape.size(); ++idx) {
+      a_width *= inputs[0]->shape[idx].as_int32();
+    }
+    a_shape.emplace_back(a_height);
+    a_shape.emplace_back(a_width);
+
+    // input b shape.
+    b_shape = {Expr(1), Expr(1)};
+    int b_height = 1;
+    int b_width = 1;
+    for (int idx = 0; idx < y_num_col_dims; ++idx) {
+      b_height *= inputs[1]->shape[idx].as_int32();
+    }
+    for (int idx = y_num_col_dims; idx < inputs[1]->shape.size(); ++idx) {
+      b_width *= inputs[1]->shape[idx].as_int32();
+    }
+    b_shape.emplace_back(b_height);
+    b_shape.emplace_back(b_width);
+
+    if (is_infer) {
+      CHECK_EQ(a_width, b_width)
+          << "The K dimension of mul shold be equal! Please check.";
+      trans_b = true;
+    } else {
+      CHECK_EQ(a_width, b_height)
+          << "The K dimension of mul shold be equal! Please check.";
+    }
+  } else {
+    LOG(FATAL) << "Unkown Matmul Setting!";
+  }
+
+  CHECK_EQ(a_shape.size(), 4);
+  CHECK_EQ(b_shape.size(), 4);
+  // func args
+  std::vector<ir::Expr> args = {ir::Expr(trans_a),
+                                ir::Expr(trans_b),
+                                ir::Expr(trans_out),
+                                ir::Expr(alpha),
+                                ir::Expr(beta)};
+  args.insert(args.end(), a_shape.begin(), a_shape.end());
+  args.insert(args.end(), b_shape.begin(), b_shape.end());
+  return args;
+}
+#endif
+
 std::vector<ir::Expr> CustomCallArgsForAssertTrue(
     const framework::NodeAttr &attrs,
     const std::vector<ir::Tensor> &inputs,
@@ -996,11 +1125,14 @@ bool RegisteryCustomCallArgsFunc() {
       CustomCallArgsForCudnnPoolBackward);
 #endif
 
-#ifdef CINN_WITH_ONEDNN
+std::cout<<"before register onednn sycl target"<<std::endl;
+//#ifdef CINN_WITH_ONEDNN
+  
   CustomCallArgsFuncRegistry::Global().Register("cinn_call_onednn",
-                                                common::SYCLTarget(),
-                                                CustomCallArgsForCublas);
-#endif
+                                                common::DefaultNVGPUTarget(),
+                                                CustomCallArgsForOneDNN);
+  std::cout<<"register onednn sycl target"<<std::endl;
+//#endif
 
 #ifdef CINN_WITH_DNNL
 

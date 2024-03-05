@@ -72,6 +72,11 @@ if (CINN_WITH_SYCL)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++17")
 endif()
 
+if (CINN_WITH_ONEDNN)
+  message(STATUS "Compile with oneDNN support")
+  add_definitions(-DCINN_WITH_ONEDNN)
+endif()
+
 if (CINN_WITH_ROCM)
     message(STATUS "CINN Compile with ROCM support")
     if (NOT WITH_ROCM)

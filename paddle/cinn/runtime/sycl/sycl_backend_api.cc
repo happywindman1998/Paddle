@@ -224,6 +224,6 @@ std::string SYCLBackendAPI::GetGpuVersion() {
       LOG(ERROR) << "unknown sycl backend!";
   }
 }
-}  // namespace Sycl
+}  // namespace sycl
 }  // namespace runtime
 }  // namespace cinn

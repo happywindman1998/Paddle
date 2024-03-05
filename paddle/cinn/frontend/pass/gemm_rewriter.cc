@@ -41,10 +41,12 @@ class GemmRewriterPass : public ProgramPass {
   void ApplyImpl(Program* prog,
                  const std::unordered_set<std::string>& fetch_ids,
                  const common::Target& target) override {
+    
     if (target.arch != Target::Arch::NVGPU || !prog->size()) {
       return;
     }
 
+    std::cout<<"After call gemm rewrite"<<std::endl;
     CollectInfo(*prog);
 
     NetBuilder builder("gemm_rewriter_builder");
@@ -193,8 +195,8 @@ class GemmRewriterPass : public ProgramPass {
         // 2) three-dim tensor multiply, such as b * m * k, b * k * n
         if (lhs_dim_size <= 4 && rhs_dim_size <= 4) {
           #ifdef CINN_WITH_ONEDNN
+            std::cout<<"======== sycl ondnn cinn_use_custom_call======="<<std::endl;
             instr->op_type = "onednn_matmul";
-            std::cout<<"========== use onednn_matmul op =========="<<std::endl;
           #else
             instr->op_type = "cublas_matmul";
           #endif

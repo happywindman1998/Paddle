@@ -21,6 +21,10 @@ using namespace dnnl;
 using tag = memory::format_tag;
 using dt = memory::data_type;
 
+namespace cinn {
+namespace runtime {
+namespace Sycl {
+
 // Read from memory, write to handle
 inline void read_from_dnnl_memory(void *handle, dnnl::memory &mem) {
   dnnl::engine eng = mem.get_engine();
@@ -77,7 +81,7 @@ inline void write_to_dnnl_memory(void *handle, dnnl::memory &mem) {
 }
 
 class OneDNNHandle {
- public:
+public:
   OneDNNHandle(const OneDNNHandle &) = delete;
   OneDNNHandle &operator=(const OneDNNHandle &) = delete;
   static OneDNNHandle &GetInstance() {
@@ -88,7 +92,7 @@ class OneDNNHandle {
   dnnl::engine GetOneDNNEngine() { return onednn_engine; }
   dnnl::stream GetOneDNNStream() { return onednn_stream; }
 
- private:
+private:
   OneDNNHandle() {
     // Create execution dnnl::engine.
     dnnl::engine tmp_engine(dnnl::engine::kind::gpu, 0);
@@ -103,10 +107,11 @@ class OneDNNHandle {
   dnnl::stream onednn_stream;
 };
 
-void cinn_gpu_onednn_mul(const std::vector<int> &attrs,
-                         cinn_buffer_t *input1,
-                         cinn_buffer_t *input2,
-                         cinn_buffer_t *output) {
+void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
+                          cinn_buffer_t *lhs,
+                          cinn_buffer_t *rhs,
+                          cinn_buffer_t *bias,
+                          cinn_buffer_t *output) {
   
   dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
   dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
@@ -161,9 +166,7 @@ void cinn_gpu_onednn_mul(const std::vector<int> &attrs,
   // Execution.
   matmul_prim.execute(onednn_stream, matmul_args);
   onednn_stream.wait();
-
 }
-
 
 void cinn_call_onednn(void *v_args,
                       int num_args,
@@ -230,4 +233,8 @@ void cinn_call_onednn(void *v_args,
   // Execution.
   matmul_prim.execute(onednn_stream, matmul_args);
   onednn_stream.wait();
+}
+
+}
+}
 }

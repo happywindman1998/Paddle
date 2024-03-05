@@ -180,7 +180,7 @@ std::shared_ptr<hlir::framework::Graph> Optimize(
 
   bool enbale_fusion = false;
   VLOG(1) << "Apply Optimizae Passes";
-  /*
+
   if (!passes.empty()) {
     for (const auto& pass : passes) {
       auto* p_pass = ProgramPassRegistry::Global()->Find(pass);
@@ -206,10 +206,6 @@ std::shared_ptr<hlir::framework::Graph> Optimize(
     // if pass empty, default enable all pass
     options = DefaultTrainingOptimizeOptions();
   }
-  */
-
-  // TODO: fix it, default enable all pass
-  options = DefaultTrainingOptimizeOptions();
 
   return Optimize(program, fetch_ids, target, options);
 }

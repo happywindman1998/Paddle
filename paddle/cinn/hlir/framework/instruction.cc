@@ -128,7 +128,7 @@ void Instruction::Run(
     void* stream,
     bool use_cache) {
   
-  
+
   utils::RecordEvent record_run(function_name_,
                                 cinn::utils::EventType::kInstruction);
   CHECK(finalized_flag_) << "Instruction must be finalized before run";
@@ -189,13 +189,12 @@ void Instruction::Run(
     VLOG(3) << "Done Runing extern function " << function_name_;
   }
 
-std::cout<<"out function name is: "<<function_name<<std::endl;
+
 #elif defined(CINN_WITH_SYCL) && defined(CINN_WITH_ONEDNN)
-  std::cout<<"function name is: "<<function_name<<std::endl;
   if (function_name_ == "onednn_gemm") {
     auto& pod_args = args_cached_[0];
     VLOG(3) << "The pod_args size of onednn_gemm: " << pod_args.size();
-    runtime::cuda::cinn_gpu_onednn_matmul(attrs,
+    runtime::Sycl::cinn_gpu_onednn_matmul(attrs,
                                         pod_args[0],
                                         pod_args[1],
                                         pod_args[2],
@@ -203,17 +202,19 @@ std::cout<<"out function name is: "<<function_name<<std::endl;
   } else if (function_name_ == "onednn_matmul") {
     auto& pod_args = args_cached_[0];
     VLOG(3) << "The pod_args size of onednn_matmul: " << pod_args.size();
-    runtime::cuda::cinn_gpu_onednn_matmul(attrs,
+    runtime::Sycl::cinn_gpu_onednn_matmul(attrs,
                                         pod_args[0],
                                         pod_args[1],
                                         nullptr,
                                         pod_args[2]);
   } else if (function_name_ == "mul") {
+    auto& pod_args = args_cached_[0];
     CHECK_EQ(pod_args.size(), 4);
-    runtime::cuda::cinn_gpu_onednn_matmul(attrs,
+    runtime::Sycl::cinn_gpu_onednn_matmul(attrs,
                                        pod_args[0],
                                        pod_args[1],
-                                       pod_args[2]);
+                                       pod_args[2],
+                                       nullptr);
   } else {
     VLOG(3) << "Runing extern function " << function_name_;
     for (int idx = 0; idx < fn_ptrs_.size(); ++idx) {
@@ -227,7 +228,6 @@ std::cout<<"out function name is: "<<function_name<<std::endl;
       }
     }
     VLOG(3) << "Done Runing extern function " << function_name_;
-}
 
 #elif defined(CINN_WITH_CUDNN)
   auto& pod_args = args_cached_[0];

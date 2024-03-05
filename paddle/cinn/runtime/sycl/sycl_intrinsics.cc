@@ -12,7 +12,7 @@ using cinn::backends::GlobalSymbolRegistry;
 using cinn::runtime::Sycl::SYCLBackendAPI;
 
 #include "paddle/cinn/runtime/sycl/onednn_util.h"
-using cinn::runtime::onednn::cinn_call_onednn;
+using cinn::runtime::Sycl::cinn_call_onednn;
 
 CINN_REGISTER_HELPER(cinn_sycl_host_api) {
   REGISTER_EXTERN_FUNC_HELPER(cinn_call_sycl_kernel,
@@ -38,6 +38,7 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<int>()     // num_args
       .AddInputType<bool>()    // trans_a
       .AddInputType<bool>()    // trans_b
+      .AddInputType<bool>()    // trans_o
       .AddInputType<float>()   // alpha
       .AddInputType<float>()   // beta
       .AddInputType<int>()     // a1

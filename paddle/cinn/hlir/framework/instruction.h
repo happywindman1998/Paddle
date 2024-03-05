@@ -24,6 +24,9 @@
 #ifdef CINN_WITH_CUDA
 #include "paddle/cinn/runtime/cuda/cuda_util.h"
 #endif
+#ifdef CINN_WITH_ONEDNN
+#include "paddle/cinn/runtime/sycl/onednn_util.h"
+#endif
 #include "paddle/cinn/utils/string.h"
 #include "paddle/cinn/utils/timer.h"
 

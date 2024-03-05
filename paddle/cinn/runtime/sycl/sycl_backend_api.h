@@ -109,6 +109,6 @@ class SYCLBackendAPI final : public BackendAPI {
   // whether the BackendAPI is initialized.
   bool initialized_{false};
 };
-}  // namespace Sycl
+}  // namespace sycl
 }  // namespace runtime
 }  // namespace cinn
