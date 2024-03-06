@@ -16,7 +16,6 @@
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
-#include <iostream>
 
 #include "glog/logging.h"
 #include "paddle/cinn/frontend/net_builder.h"
@@ -46,7 +45,6 @@ class GemmRewriterPass : public ProgramPass {
       return;
     }
 
-    std::cout<<"After call gemm rewrite"<<std::endl;
     CollectInfo(*prog);
 
     NetBuilder builder("gemm_rewriter_builder");
@@ -195,7 +193,6 @@ class GemmRewriterPass : public ProgramPass {
         // 2) three-dim tensor multiply, such as b * m * k, b * k * n
         if (lhs_dim_size <= 4 && rhs_dim_size <= 4) {
           #ifdef CINN_WITH_ONEDNN
-            std::cout<<"======== sycl ondnn cinn_use_custom_call======="<<std::endl;
             instr->op_type = "onednn_matmul";
           #else
             instr->op_type = "cublas_matmul";

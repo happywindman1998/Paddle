@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+#pragma once
 
 #include <sycl/sycl.hpp>
 #include "paddle/cinn/runtime/backend_api.h"
@@ -95,6 +96,8 @@ class SYCLBackendAPI final : public BackendAPI {
   void device_sync() final;
   sycl::queue* get_now_queue();
   std::string GetGpuVersion();
+  sycl::context* get_default_context();
+  sycl::device get_default_device();
 
  private:
   Target::Arch arch;

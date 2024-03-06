@@ -198,7 +198,8 @@ void Instruction::Run(
                                         pod_args[0],
                                         pod_args[1],
                                         pod_args[2],
-                                        pod_args[3]);
+                                        pod_args[3],
+                                        stream);
   } else if (function_name_ == "onednn_matmul") {
     auto& pod_args = args_cached_[0];
     VLOG(3) << "The pod_args size of onednn_matmul: " << pod_args.size();
@@ -206,7 +207,8 @@ void Instruction::Run(
                                         pod_args[0],
                                         pod_args[1],
                                         nullptr,
-                                        pod_args[2]);
+                                        pod_args[2],
+                                        stream);
   } else if (function_name_ == "mul") {
     auto& pod_args = args_cached_[0];
     CHECK_EQ(pod_args.size(), 4);
@@ -214,7 +216,8 @@ void Instruction::Run(
                                        pod_args[0],
                                        pod_args[1],
                                        pod_args[2],
-                                       nullptr);
+                                       nullptr,
+                                       stream);
   } else {
     VLOG(3) << "Runing extern function " << function_name_;
     for (int idx = 0; idx < fn_ptrs_.size(); ++idx) {

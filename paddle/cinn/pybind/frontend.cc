@@ -39,10 +39,8 @@
 #include "paddle/cinn/runtime/flags.h"
 #include "paddle/cinn/utils/string.h"
 #include "paddle/cinn/utils/timer.h"
-
-#ifdef CINN_WITH_SYCL
-#include "paddle/cinn/runtime/sycl/sycl_backend_api.h"
-#endif
+#include "paddle/cinn/runtime/backend_api.h"
+using cinn::runtime::BackendAPI;
 
 namespace cinn::pybind {
 using common::Type;
@@ -226,8 +224,11 @@ void BindFrontend(pybind11::module *m) {
                   << "] is different with the input data's size! Please check.";
               if (target.language == Target::Language::sycl) {
 #ifdef CINN_WITH_SYCL
-               sycl::queue Q;
-               Q.memcpy(data, input_data[i].data(),in_tensor->shape().numel() * dtype.bytes()).wait();
+               BackendAPI::get_backend(target)->memcpy(
+                   data,
+                   input_data[i].data(),
+                   in_tensor->shape().numel() * dtype.bytes(),
+                   BackendAPI::MemcpyType::HostToDevice);
 #else
      LOG(FATAL) <<"To use SYCL backends, you need to set WITH_SYCL ON!";
 #endif
@@ -236,8 +237,8 @@ void BindFrontend(pybind11::module *m) {
                 CUDA_CALL(cudaMemcpy(data,
                                      input_data[i].data(),
                                      in_tensor->shape().numel() * dtype.bytes(),
-
-#else                                     cudaMemcpyHostToDevice));
+                                     cudaMemcpyHostToDevice));
+#else                                     
      LOG(FATAL) <<"To use CUDA backends, you need to set WITH_CUDA ON!";
 #endif
               } else if (target.arch == Target::Arch::X86) {

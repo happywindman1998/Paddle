@@ -29,7 +29,8 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
                           cinn_buffer_t *lhs,
                           cinn_buffer_t *rhs,
                           cinn_buffer_t *bias,
-                          cinn_buffer_t *output);
+                          cinn_buffer_t *output,
+                          void* queue);
 
 void cinn_call_onednn(void* v_args,
                       int num_args,
@@ -46,7 +47,7 @@ void cinn_call_onednn(void* v_args,
                       int b2,
                       int b3,
                       int b4,
-                      void* stream);
+                      void* queue);
 
 }  // namespace onednn
 }  // namespace runtime

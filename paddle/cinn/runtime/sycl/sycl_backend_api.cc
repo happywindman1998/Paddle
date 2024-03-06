@@ -195,6 +195,14 @@ sycl::queue* SYCLBackendAPI::get_now_queue() {
   return this->queues[now_device_id][0];
 }
 
+sycl::context* SYCLBackendAPI::get_default_context() {
+  return this->contexts[now_device_id];
+}
+
+sycl::device SYCLBackendAPI::get_default_device() {
+  return this->devices[now_device_id];
+}
+
 std::string SYCLBackendAPI::GetGpuVersion() {
   if (now_device_id == -1) set_device(0);
   sycl::device device = this->devices[now_device_id];

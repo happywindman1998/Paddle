@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <string>
 
+#include <iostream>
+
 #include "paddle/cinn/backends/extern_func_jit_register.h"
 #include "paddle/cinn/common/target.h"
 #include "paddle/cinn/runtime/sycl/onednn_util.h"
@@ -12,6 +14,10 @@
 #include "paddle/cinn/runtime/flags.h"
 #include "paddle/cinn/utils/profiler.h"
 #include "paddle/cinn/utils/timer.h"
+
+#include <sycl/sycl.hpp>
+#include "paddle/cinn/runtime/sycl/sycl_backend_api.h"
+using cinn::runtime::Sycl::SYCLBackendAPI;
 
 #include "dnnl.hpp"
 #include "dnnl_sycl.hpp"
@@ -24,61 +30,6 @@ using dt = memory::data_type;
 namespace cinn {
 namespace runtime {
 namespace Sycl {
-
-// Read from memory, write to handle
-inline void read_from_dnnl_memory(void *handle, dnnl::memory &mem) {
-  dnnl::engine eng = mem.get_engine();
-  size_t size = mem.get_desc().get_size();
-
-  if (!handle) throw std::runtime_error("handle is nullptr.");
-
-  auto mkind = dnnl::sycl_interop::get_memory_kind(mem);
-  if (mkind == dnnl::sycl_interop::memory_kind::buffer) {
-    auto buffer = dnnl::sycl_interop::get_buffer<uint8_t>(mem);
-    auto src = buffer.get_host_access();
-    uint8_t *src_ptr = src.get_pointer();
-    if (!src_ptr)
-        throw std::runtime_error("get_pointer returned nullptr.");
-    for (size_t i = 0; i < size; ++i)
-        ((uint8_t *)handle)[i] = src_ptr[i];
-  } else {
-    assert(mkind == dnnl::sycl_interop::memory_kind::usm);
-    uint8_t *src_ptr = (uint8_t *)mem.get_data_handle();
-    if (!src_ptr)
-        throw std::runtime_error("get_data_handle returned nullptr."); 
-    auto sycl_queue
-            = dnnl::sycl_interop::get_queue(dnnl::stream(eng));
-    sycl_queue.memcpy(handle, src_ptr, size).wait();
-  }
-  return;
-}
-
-// Read from handle, write to memory
-inline void write_to_dnnl_memory(void *handle, dnnl::memory &mem) {
-  dnnl::engine eng = mem.get_engine();
-  size_t size = mem.get_desc().get_size();
-
-  if (!handle) throw std::runtime_error("handle is nullptr.");
-  auto mkind = dnnl::sycl_interop::get_memory_kind(mem);
-  if (mkind == dnnl::sycl_interop::memory_kind::buffer) {
-    auto buffer = dnnl::sycl_interop::get_buffer<uint8_t>(mem);
-    auto dst = buffer.get_host_access();
-    uint8_t *dst_ptr = dst.get_pointer();
-    if (!dst_ptr)
-        throw std::runtime_error("get_pointer returned nullptr.");
-    for (size_t i = 0; i < size; ++i)
-        dst_ptr[i] = ((uint8_t *)handle)[i];
-  } else {
-    assert(mkind == dnnl::sycl_interop::memory_kind::usm);
-    uint8_t *dst_ptr = (uint8_t *)mem.get_data_handle();
-    if (!dst_ptr)
-        throw std::runtime_error("get_data_handle returned nullptr.");
-    auto sycl_queue
-            = dnnl::sycl_interop::get_queue(dnnl::stream(eng));
-    sycl_queue.memcpy(dst_ptr, handle, size).wait();
-  }
-  return;
-}
 
 class OneDNNHandle {
 public:
@@ -95,12 +46,11 @@ public:
 private:
   OneDNNHandle() {
     // Create execution dnnl::engine.
-    dnnl::engine tmp_engine(dnnl::engine::kind::gpu, 0);
-    onednn_engine = tmp_engine;
-
-    // Create dnnl::stream.
-    dnnl::stream tmp_stream(tmp_engine);
-    onednn_stream = tmp_stream;
+    sycl::context *sycl_context = SYCLBackendAPI::Global()->get_default_context();
+    sycl::device sycl_device = SYCLBackendAPI::Global()->get_default_device();
+    onednn_engine = sycl_interop::make_engine(sycl_device, *sycl_context);
+    sycl::queue interop_queue(*sycl_context, sycl_device);
+    onednn_stream = sycl_interop::make_stream(onednn_engine, interop_queue);
   }
 
   dnnl::engine onednn_engine;
@@ -111,8 +61,10 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
                           cinn_buffer_t *lhs,
                           cinn_buffer_t *rhs,
                           cinn_buffer_t *bias,
-                          cinn_buffer_t *output) {
+                          cinn_buffer_t *output,
+                          void* vqueue) {
   
+  VLOG(3) << "call cinn_gpu_onednn_matmul";
   dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
   dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
   
@@ -128,31 +80,43 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
   int K = attrs[attrs.size() - 4];
   float alpha = 1.f;
   float beta = 0.f;
-
-  // Allocate buffers
-  std::vector<float> a_data(M*K, 0.5);
-  std::vector<float> b_data(K*N, 0.5);
-  std::vector<float> c_data(M*N, 0);
   
+  auto type_code = lhs->type.code;
+  memory::data_type onednn_dtype;
+  bool is_float = type_code == cinn_type_float;
+  bool is_bfloat16 = type_code == cinn_type_bfloat;
+  int bytes = lhs->type.bits / CHAR_BIT;
+  if (is_float && bytes == sizeof(common::float16)) {
+    onednn_dtype = memory::data_type::f16;
+  } else if (is_float && bytes == sizeof(float)) {
+    onednn_dtype = memory::data_type::f32;
+  } else if (is_float && bytes == sizeof(double)) {
+    onednn_dtype = memory::data_type::f64;
+  } else if (is_bfloat16) {
+    onednn_dtype = memory::data_type::bf16;
+  } else {
+    LOG(FATAL) << "unsupported cublas data type: "
+               << static_cast<int>(type_code) << ", bytes = " << bytes;
+  }
+
+  void *A = lhs->memory;
+  void *B = rhs->memory;
+  void *C = output->memory;
+
   // Source (A), weights (B), and destination (C) matrix dimensions.
   memory::dims a_dims = {M, K};
   memory::dims b_dims = {K, N};
   memory::dims c_dims = {M, N};
 
-  auto a_md = memory::desc(a_dims, dt::f32, tag::ab);
-  auto b_md = memory::desc(b_dims, dt::f32, tag::ab);
-  auto c_md = memory::desc(c_dims, dt::f32, tag::ab);
+  auto a_md = memory::desc(a_dims, onednn_dtype, tag::ab);
+  auto b_md = memory::desc(b_dims, onednn_dtype, tag::ab);
+  auto c_md = memory::desc(c_dims, onednn_dtype, tag::ab);
   
-  auto a_mem = memory(a_md, onednn_engine);
-  auto b_mem = memory(b_md, onednn_engine);
-  
-  // Write data to memory object's handles.
-  write_to_dnnl_memory(a_data.data(), a_mem);
-  write_to_dnnl_memory(b_data.data(), b_mem);
-
+  auto a_mem = dnnl::memory(a_md, onednn_engine, A);
+  auto b_mem = dnnl::memory(b_md, onednn_engine, B);
+  auto c_mem = dnnl::memory(c_md, onednn_engine, C);
   // Create primitive descriptor.
   auto matmul_pd = matmul::primitive_desc(onednn_engine, a_md, b_md, c_md);
-  auto c_mem = memory(matmul_pd.dst_desc(), onednn_engine);
 
   // Create the primitive.
   auto matmul_prim = matmul(matmul_pd);
@@ -183,43 +147,64 @@ void cinn_call_onednn(void *v_args,
                       int b2,
                       int b3,
                       int b4,
-                      void *stream) {
+                      void *vqueue) {
   cinn::utils::RecordEvent record_run("cinn_call_onednn",
                                       cinn::utils::EventType::kInstruction);
+
+  CHECK_EQ(num_args, 3);
+  
+  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
+
   dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
   dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
-  
-  //float *x_data = reinterpret_cast<float *>(input1->memory);
-  //float *y_data = reinterpret_cast<float *>(input2->memory);
-  //float *out_data = reinterpret_cast<float *>(output->memory);
-  int M = a3;
-  int N = a4;
-  int K= b4;
 
-  // Allocate buffers
-  std::vector<float> a_data(M*K, 0.5);
-  std::vector<float> b_data(K*N, 0.5);
-  std::vector<float> c_data(M*N, 0);
-  
-  // Source (A), weights (B), and destination (C) matrix dimensions.
-  memory::dims a_dims = {M, K};
-  memory::dims b_dims = {K, N};
-  memory::dims c_dims = {M, N};
+  VLOG(3) << "a1 ~ a4: " << a1 << " " << a2 << " " << a3 << " " << a4;
+  VLOG(3) << "b1 ~ b4: " << b1 << " " << b2 << " " << b3 << " " << b4;
+  VLOG(3) << "trans_a: " << trans_a << ", trans_b: " << trans_b
+          << ", trans_o: " << trans_o;
 
-  auto a_md = memory::desc(a_dims, dt::f32, tag::ab);
-  auto b_md = memory::desc(b_dims, dt::f32, tag::ab);
-  auto c_md = memory::desc(c_dims, dt::f32, tag::ab);
+  void *A = args[0].operator cinn_buffer_t *()->memory;
+  void *B = args[1].operator cinn_buffer_t *()->memory;
+  void *C = args[2].operator cinn_buffer_t *()->memory;
+
+  int m = trans_o ? (trans_a ? a4 : a3) : (trans_b ? b3 : b4);
+  int n = trans_o ? (trans_b ? b3 : b4) : (trans_a ? a4 : a3);
+  int k = trans_a ? a3 : a4;
+
+  VLOG(3) << "m: " << m << ", n: " << n << ", k: " << k;
+
+  memory::data_type onednn_dtype;
+  auto type_code = args[0].operator cinn_buffer_t *()->type.code;
+  bool is_float = type_code == cinn_type_float;
+  bool is_bfloat16 = type_code == cinn_type_bfloat;
+  int bytes = args[0].operator cinn_buffer_t *()->type.bits / CHAR_BIT;
+  if (is_float && bytes == sizeof(common::float16)) {
+    onednn_dtype = memory::data_type::f16;
+  } else if (is_float && bytes == sizeof(float)) {
+    onednn_dtype = memory::data_type::f32;
+  } else if (is_float && bytes == sizeof(double)) {
+    onednn_dtype = memory::data_type::f64;
+  } else if (is_bfloat16) {
+    onednn_dtype = memory::data_type::bf16;
+  } else {
+    LOG(FATAL) << "unsupported cublas data type: "
+               << static_cast<int>(type_code) << ", bytes = " << bytes;
+  }
+
+  memory::dims a_dims = {m, k};
+  memory::dims b_dims = {k, n};
+  memory::dims c_dims = {m, n};
+
+  auto a_md = memory::desc(a_dims, onednn_dtype, tag::ab);
+  auto b_md = memory::desc(b_dims, onednn_dtype, tag::ab);
+  auto c_md = memory::desc(c_dims, onednn_dtype, tag::ab);
   
-  auto a_mem = memory(a_md, onednn_engine);
-  auto b_mem = memory(b_md, onednn_engine);
-  
-  // Write data to memory object's handles.
-  write_to_dnnl_memory(a_data.data(), a_mem);
-  write_to_dnnl_memory(b_data.data(), b_mem);
+  auto a_mem = dnnl::memory(a_md, onednn_engine, A);
+  auto b_mem = dnnl::memory(b_md, onednn_engine, B);
+  auto c_mem = dnnl::memory(c_md, onednn_engine, C);
 
   // Create primitive descriptor.
   auto matmul_pd = matmul::primitive_desc(onednn_engine, a_md, b_md, c_md);
-  auto c_mem = memory(matmul_pd.dst_desc(), onednn_engine);
 
   // Create the primitive.
   auto matmul_prim = matmul(matmul_pd);
@@ -232,6 +217,7 @@ void cinn_call_onednn(void *v_args,
 
   // Execution.
   matmul_prim.execute(onednn_stream, matmul_args);
+    
   onednn_stream.wait();
 }
 
