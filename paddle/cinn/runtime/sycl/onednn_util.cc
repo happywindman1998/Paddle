@@ -64,6 +64,7 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
                           cinn_buffer_t *output,
                           void* vqueue) {
   
+  std::cout<<"============= call onednn matmul ==============="<<std::endl;
   VLOG(3) << "call cinn_gpu_onednn_matmul";
   dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
   dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
@@ -151,6 +152,7 @@ void cinn_call_onednn(void *v_args,
   cinn::utils::RecordEvent record_run("cinn_call_onednn",
                                       cinn::utils::EventType::kInstruction);
 
+  std::cout<<"============= call onednn ==============="<<std::endl;
   CHECK_EQ(num_args, 3);
   
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);

@@ -15,8 +15,7 @@ Target::Arch SYCLBackendAPI::Init(Target::Arch arch) {
   switch (arch) {
     case Target::Arch::Unk:
       SYCL_CALL(backend =
-                    sycl::device::get_devices(sycl::info::device_type::gpu)[0]
-                        .get_backend());
+                    sycl::device::get_devices(sycl::info::device_type::gpu)[0].get_backend());
       break;
     case Target::Arch::NVGPU:
       backend = sycl::backend::ext_oneapi_cuda;
@@ -90,17 +89,23 @@ void SYCLBackendAPI::set_device(int device_id) {
   this->now_device_id = device_id;
 }
 
-int SYCLBackendAPI::get_device_property(DeviceProperty device_property,
+int SYCLBackendAPI::get_device(){
+  return this->now_device_id;
+}
+
+std::variant<int, std::array<int, 3>> SYCLBackendAPI::get_device_property(DeviceProperty device_property,
                             std::optional<int> device_id) {
-  int index = device_id ? device_id.value() : this->now_device_id;
-  int rv = -1;
+  int index = device_id.value_or(this->now_device_id);
+  std::variant<int, std::array<int, 3>> rv;
   switch (device_property) {
     case DeviceProperty::MaxBlockDims: {
-      LOG(FATAL) << "Not supported device property!";
+      sycl::id<3> max_work_item_sizes = this->devices[index].get_info<sycl::info::device::max_work_item_sizes<3>>();
+      rv = std::array<int, 3>{max_work_item_sizes[2], max_work_item_sizes[1], max_work_item_sizes[0]};
       break;
     }
     case DeviceProperty::MaxGridDims: {
-      LOG(FATAL) << "Not supported device property!";
+      //sycl::id<3> grid_dims = this->devices[index].get_info<sycl::ext::oneapi::experimental::info::device::max_work_groups<3>>() / this->devices[index].get_info<sycl::info::device::max_work_item_sizes<3>>();
+      rv = std::array<int, 3>{2097151, 1024, 1024};
       break;
     }
     case DeviceProperty::MaxSharedMemoryPerBlock: {
@@ -112,8 +117,8 @@ int SYCLBackendAPI::get_device_property(DeviceProperty device_property,
       break;
     }
     case DeviceProperty::MaxThreadsPerSM: {
-      LOG(FATAL) << "SYCL Not supported device property : MaxThreadsPerSM !";
-      // rv = this->devices[index].get_info<sycl::info::device::max_work_group_size>();
+      // LOG(FATAL) << "SYCL Not supported device property : MaxThreadsPerSM !";
+      rv = this->devices[index].get_info<sycl::info::device::max_work_group_size>();
       break;
     }
     case DeviceProperty::MultiProcessorCount: {
@@ -189,6 +194,11 @@ void SYCLBackendAPI::device_sync() {
       SYCL_CALL(queue->wait_and_throw());
     }
   }
+}
+
+void SYCLBackendAPI::stream_sync(void* stream){
+  VLOG(3) << "sycl stream sync";
+  SYCL_CALL(static_cast<sycl::queue *>(stream)->wait_and_throw());
 }
 
 sycl::queue* SYCLBackendAPI::get_now_queue() {

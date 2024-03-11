@@ -23,6 +23,10 @@ namespace cinn {
 namespace common {
 
 struct Target {
+
+  static Target* now_target;
+  static void set_now_target(Target * target);
+  static Target* get_now_target();
   /**
    * The operating system used by the target. Determines which system calls to
    * generate.
@@ -102,6 +106,8 @@ struct Target {
 
   int max_num_threads() const;
 
+  int get_warp_size() const;
+
   int get_multi_processor_count() const;
 
   int get_max_threads_per_sm() const;
@@ -109,6 +115,9 @@ struct Target {
   int get_max_blocks_per_sm() const;
 
   int get_target_bits() const;
+
+  std::array<int, 3> get_max_grid_dims() const;
+  std::array<int, 3> get_max_block_dims() const;
 
   std::vector<Lib> get_target_libs() const;
 
