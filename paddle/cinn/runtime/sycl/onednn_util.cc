@@ -48,9 +48,10 @@ private:
     // Create execution dnnl::engine.
     sycl::context *sycl_context = SYCLBackendAPI::Global()->get_default_context();
     sycl::device sycl_device = SYCLBackendAPI::Global()->get_default_device();
+    sycl::queue *sycl_queue = SYCLBackendAPI::Global()->get_now_queue();
+    
     onednn_engine = sycl_interop::make_engine(sycl_device, *sycl_context);
-    sycl::queue interop_queue(*sycl_context, sycl_device);
-    onednn_stream = sycl_interop::make_stream(onednn_engine, interop_queue);
+    onednn_stream = sycl_interop::make_stream(onednn_engine, *sycl_queue);
   }
 
   dnnl::engine onednn_engine;
@@ -130,7 +131,7 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
 
   // Execution.
   matmul_prim.execute(onednn_stream, matmul_args);
-  onednn_stream.wait();
+  //onednn_stream.wait();
 }
 
 void cinn_call_onednn(void *v_args,
@@ -220,7 +221,7 @@ void cinn_call_onednn(void *v_args,
   // Execution.
   matmul_prim.execute(onednn_stream, matmul_args);
     
-  onednn_stream.wait();
+  //onednn_stream.wait();
 }
 
 }
