@@ -1,8 +1,55 @@
+
 <p align="center">
 <img align="center" src="doc/imgs/logo.png", width=1600>
 <p>
 
 --------------------------------------------------------------------------------
+## Paddle-CINN-oneDNN的搭建过程
+
+### Step 1. Build Intel SYCL LLVM
+- 当前选择的intel-llvm版本为20230201，选择依据是为了兼容我们使用的oneDNN版本
+
+### Step 2. Build oneDNN
+- 当前选择的oneDNN版本是v3.2，选择依据是这个版本具有MIOpen的实现
+- oneDNN依赖于oneTBB，下载与编译oneTBB
+- oneDNN的编译命令为:
+
+```
+source /CINN-SYCL/llvm-sycl-nightly-20230201/env.sh
+
+export CC=clang
+export CXX=clang++
+export TBBROOT=/CINN-SYCL/oneTBB_installed
+
+mkdir build
+cd build
+cmake -DDNNL_CPU_RUNTIME=TBB -DDNNL_GPU_RUNTIME=DPCPP \
+      -DDNNL_GPU_VENDOR=NVIDIA -DONEDNN_BUILD_GRAPH=OFF -G Ninja ..
+ninja -j 16
+
+```
+- 其中，DNNL_CPU_RUNTIME或许可以设为DPCPP（未尝式），但是一定不能设为None，因为Paddle中有些算子需要调到用cpu
+
+### Step 3. Build Paddle
+当前选择的Paddle版本为2.6，是最新的发版
+编译命令为：
+
+```
+export CC=gcc
+export CXX=g++
+
+export DPCPP_ROOT=/CINN-SYCL/llvm-sycl-nightly-20230201
+export ONEDNN_ROOT=/CINN-SYCL/oneDNN
+
+mkdir build-docker
+cd build-docker
+cmake -DCINN_ONLY=ON -DWITH_CINN=ON -DWITH_GPU=OFF -DCINN_WITH_SYCL=ON  -DCINN_WITH_ONEDNN=ON -DWITH_DLNNE=ON -DWITH_TESTING=OFF \
+      -DWITH_MKL=OFF -DPYTHON_EXECUTABLE=python3.8 -DPY_VERSION=3.8 -G Ninja ..
+ninja -j 16
+
+```
+
+-----------------------------------------------------------------------------------
 
 English | [简体中文](./README_cn.md) | [日本語](./README_ja.md)
 
