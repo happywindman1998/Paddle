@@ -7,7 +7,8 @@
 ## Paddle-CINN-oneDNN的搭建过程
 
 ### Step 1. Build Intel SYCL LLVM
-- 当前选择的intel-llvm版本为20230201，选择依据是为了兼容我们使用的oneDNN版本
+- ~~当前选择的intel-llvm版本为20220501，选择依据是为了兼容我们使用的oneDNN版本~~
+- 选用llvm-sycl 20220501的版本是为了兼容DCU，更高版的llvm在dtk-23.04.1上执行asinh，和atanh会有精度问题
 
 ### Step 2. Build oneDNN
 - 当前选择的oneDNN版本是v3.2，选择依据是这个版本具有MIOpen的实现
