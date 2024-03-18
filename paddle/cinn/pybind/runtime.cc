@@ -339,6 +339,9 @@ void BindCinnRuntime(py::module *m) {
   m->def("set_cinn_cudnn_deterministic",
          &cinn::runtime::SetCinnCudnnDeterministic,
          py::arg("state") = true);
+  m->def("set_cinn_onednn_deterministic",
+         &cinn::runtime::SetCinnOnednnDeterministic,
+         py::arg("state") = true);
   m->def("seed", &cinn::runtime::RandomSeed::GetOrSet, py::arg("seed") = 0);
   m->def("clear_seed", &cinn::runtime::RandomSeed::Clear);
 }

@@ -167,9 +167,9 @@ std::shared_ptr<OpStrategy> StrategyForConv2d(
     conv_type = "forward";
   }
 
-#ifndef CINN_WITH_CUDNN
+#if (!defined CINN_WITH_CUDNN) && (!defined CINN_WITH_ONEDNN)
   CHECK_EQ(conv_type, "forward")
-      << "cudnn is not found, backward_data/backward_filter is not supported!";
+      << "cudnn/onednn is not found, backward_data/backward_filter is not supported!";
 #endif
 
   framework::CINNCompute conv2d_compute(
@@ -251,9 +251,9 @@ std::shared_ptr<OpStrategy> StrategyForConv2d(
                                     tensor_name);
               out.push_back(B.as_tensor_ref());
             } else {
-#ifdef CINN_WITH_CUDNN
+#if (defined CINN_WITH_CUDNN) || (defined CINN_WITH_ONEDNN)
               // as backward_data and backward_filter is not support now, we
-              // built a fake op to instead. as the runtime use cudnn to compute
+              // built a fake op to instead. as the runtime use cudnn/onednn to compute
               // the conv2d, so this fake op is not been called. When cinn
               // support backward_filter/backward_data code gen, this code is to
               // be removed.
@@ -311,11 +311,12 @@ std::shared_ptr<OpStrategy> StrategyForConv2d(
     ir_sch.MergeExprs();
     if (target.arch_is_gpu()) {
       if (target.arch == Target::Arch::NVGPU) {
-#ifdef CINN_WITH_CUDNN
+#if (defined CINN_WITH_CUDNN) || (defined CINN_WITH_ONEDNN)
         // If conv_type is backward_filter or backward_data, we built a fake op.
-        // As runtime use cudnn to compute conv2d, this fake op is not to be
+        // As runtime use cudnn/onednn to compute conv2d, this fake op is not to be
         // called. When cinn support backward_filter/backward_data code gen,
         // this code is to be removed.
+        //TODO for onednn
         if (conv_type != "forward") {
           CHECK_EQ(vec_ast.size(), 1);
           pe::IRCudaScheduleInjective(ir_sch, output_shapes.front(), target);

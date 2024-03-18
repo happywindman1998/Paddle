@@ -27,6 +27,9 @@ bool CheckStringFlagFalse(const std::string &flag);
 void SetCinnCudnnDeterministic(bool state);
 bool GetCinnCudnnDeterministic();
 
+void SetCinnOnednnDeterministic(bool state);
+bool GetCinnOnednnDeterministic();
+
 bool CanUseNvccCompiler();
 
 class RandomSeed {
@@ -45,6 +48,7 @@ class RandomSeed {
 bool IsCompiledWithCUDA();
 bool IsCompiledWithCUDNN();
 bool IsCompiledWithSYCL();
+bool IsCompiledWithOneDNN();
 bool IsCompiledWithHIP();
 bool IsCompiledWithBangC();
 /**

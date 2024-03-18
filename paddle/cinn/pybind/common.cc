@@ -104,6 +104,7 @@ void BindTarget(py::module *m) {
   m->def("is_compiled_with_cuda", cinn::runtime::IsCompiledWithCUDA);
   m->def("is_compiled_with_cudnn", cinn::runtime::IsCompiledWithCUDNN);
   m->def("is_compiled_with_sycl", cinn::runtime::IsCompiledWithSYCL);
+  m->def("is_compiled_with_onednn", cinn::runtime::IsCompiledWithOneDNN);
   m->def("is_compiled_with_hip", cinn::runtime::IsCompiledWithHIP);
   m->def("is_compiled_with_bangc", cinn::runtime::IsCompiledWithBangC);
   m->def("reset_name_id", ResetGlobalNameID);

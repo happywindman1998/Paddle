@@ -65,6 +65,7 @@ from cinn.core_api.runtime import (  # noqa: F401
     nullptr,
     seed,
     set_cinn_cudnn_deterministic,
+    set_cinn_onednn_deterministic
 )
 
 from .cinn_jit import CinnLowerLevelIrJit

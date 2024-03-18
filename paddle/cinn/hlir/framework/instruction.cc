@@ -192,6 +192,7 @@ void Instruction::Run(
 
 #elif defined(CINN_WITH_SYCL) && defined(CINN_WITH_ONEDNN)
   auto& pod_args = args_cached_[0];
+  std::cout<<"instruction function name: "<<function_name_<<std::endl;
   if (function_name_ == "onednn_gemm") {
     
     VLOG(3) << "The pod_args size of onednn_gemm: " << pod_args.size();

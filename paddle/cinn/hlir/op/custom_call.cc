@@ -1451,9 +1451,9 @@ std::cout<<"before register onednn sycl target"<<std::endl;
 CustomCallArgsFuncRegistry::Global().Register("cinn_call_onednn_matmul",
                                                 common::DefaultNVGPUTarget(),
                                                 CustomCallArgsForOneDNN);
-CustomCallArgsFuncRegistry::Global().Register("cinn_call_onednn_conv2d",
-                                                common::DefaultNVGPUTarget(),
-                                                CustomCallArgsForOneDNN);
+// CustomCallArgsFuncRegistry::Global().Register("cinn_call_onednn_conv2d",
+//                                                common::DefaultNVGPUTarget(),
+//                                                CustomCallArgsForOneDNN);
 CustomCallArgsFuncRegistry::Global().Register(
       "cinn_call_onednn_conv2d_forward",
       common::DefaultNVGPUTarget(),

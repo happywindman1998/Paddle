@@ -293,7 +293,10 @@ void cinn_gpu_onednn_conv2d(const absl::flat_hash_map<std::string, int> &attr,
                            void* stream,
                            common::Layout target) {
   
-  std::cout<<"============= call onednn conv2d ==============="<<std::endl;
+  cinn::utils::RecordEvent record_run("cinn_gpu_onednn_conv2d",
+                                      cinn::utils::EventType::kInstruction);
+  
+  std::cout<<"============= call gpu onednn conv2d ==============="<<std::endl;
 
   dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
   dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
@@ -459,7 +462,111 @@ void cinn_call_onednn_conv2d_forward(void* v_args,
                                     int output_c,
                                     int output_h,
                                     int output_w,
-                                    void* stream) {}
+                                    void* stream) {
+
+  cinn::utils::RecordEvent record_run("cinn_call_onednn_conv2d_forward",
+                                      cinn::utils::EventType::kInstruction);
+  
+  std::cout<<"============= cinn call onednn conv2d forward ==============="<<std::endl;
+
+  dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
+  dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+
+  // Get tensor data layout
+  memory::format_tag tensor_format;
+  if (format == static_cast<int>(memory::format_tag::nchw)) {
+    tensor_format = memory::format_tag::nchw;
+  } else if (format == static_cast<int>(memory::format_tag::nhwc)) {
+    tensor_format = memory::format_tag::nhwc;
+  } else {
+    //tensor_format = memory::format_tag::nchw;
+    //std::cout<<"common::layout is: "<<format<<std::endl;
+    CINN_NOT_IMPLEMENTED
+  }
+
+  // Tensor dimensions.
+  const memory::dim N = input_n, // batch size
+          IC = input_c, // input channels
+          IH = input_h, // input height
+          IW = input_w, // input width
+          OC = output_c, // output channels
+          KH = filter_h, // weights height
+          KW = filter_w, // weights width
+          PH_L = pad_h, // height padding: left
+          PH_R = pad_h, // height padding: right
+          PW_L = pad_w, // width padding: left
+          PW_R = pad_w, // width padding: right
+          SH = stride_h, // height-wise stride
+          SW = stride_w, // width-wise stride
+          OH = (IH - KH + PH_L + PH_R) / SH + 1, // output height
+          OW = (IW - KW + PW_L + PW_R) / SW + 1; // output width
+
+  // Source (src), weights, bias, and destination (dst) tensors
+  // dimensions.
+  memory::dims src_dims = {N, IC, IH, IW};
+  memory::dims weights_dims = {OC, IC, KH, KW};
+  memory::dims bias_dims = {OC};
+  memory::dims dst_dims = {N, OC, OH, OW};
+
+  // Strides, padding dimensions.
+  memory::dims strides_dims = {SH, SW};
+  memory::dims padding_dims_l = {PH_L, PW_L};
+  memory::dims padding_dims_r = {PH_R, PW_R};
+
+  // TODO: Get data type
+  auto data_type = convert_to_onednn_dtype(v_args, num_args);
+
+  // Get input and output memory handle
+  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
+  void *_x = args[0].operator cinn_buffer_t *()->memory;
+  void *_w = args[1].operator cinn_buffer_t *()->memory;
+  void *_y = args[2].operator cinn_buffer_t *()->memory;
+
+  // Create memory objects for tensor data (src, weights, dst). In this
+  // example, NCHW layout is assumed for src and dst, and OIHW for weights.
+  auto conv_src_mem = dnnl::memory({src_dims, data_type, tag::nchw}, onednn_engine, _x);
+  auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
+  auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tag::nchw}, onednn_engine, _y);
+
+  // Create memory descriptors with format_tag::any for the primitive. This
+  // enables the convolution primitive to choose memory layouts for an
+  // optimized primitive implementation, and these layouts may differ from the
+  // ones provided by the user.
+  auto conv_src_md = dnnl::memory::desc(src_dims, data_type, tag::any);
+  auto conv_weights_md = dnnl::memory::desc(weights_dims, data_type, tag::any);
+  auto conv_dst_md = dnnl::memory::desc(dst_dims, data_type, tag::any);
+
+
+  // Create primitive post-ops (ReLU).
+  /*
+  const float alpha = 0.f;
+  const float beta = 0.f;
+  post_ops conv_ops;
+  conv_ops.append_eltwise(algorithm::eltwise_relu, alpha, beta);
+  primitive_attr conv_attr;
+  conv_attr.set_post_ops(conv_ops);
+  */
+
+  // Create primitive descriptor.
+  auto conv_pd = convolution_forward::primitive_desc(onednn_engine,
+          prop_kind::forward_training, algorithm::convolution_direct,
+          conv_src_md, conv_weights_md, conv_dst_md,
+          strides_dims, padding_dims_l, padding_dims_r);
+  
+  // Create the primitive.
+  auto conv_prim = convolution_forward(conv_pd);
+
+  // Primitive arguments.
+  std::unordered_map<int, memory> conv_args;
+  conv_args.insert({DNNL_ARG_SRC, conv_src_mem});
+  conv_args.insert({DNNL_ARG_WEIGHTS, conv_weights_mem});
+  //conv_args.insert({DNNL_ARG_BIAS, user_bias_mem});
+  conv_args.insert({DNNL_ARG_DST, conv_dst_mem});
+
+  // Primitive execution: convolution with ReLU.
+  conv_prim.execute(onednn_stream, conv_args);
+
+}
 
 void cinn_call_onednn_conv2d_backward_data(void* v_args,
                                           int num_args,

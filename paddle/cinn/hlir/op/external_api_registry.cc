@@ -131,6 +131,21 @@ CINN_REGISTER_HELPER(op_external_api) {
             << "unknown conv_type=" << conv_type;
         return "cinn_call_onednn_conv2d_" + conv_type;
       });
+  CINN_OP_REGISTER_EXTERNAL_API(depthwise_conv2d, default_sycl)
+      .set_trans_func([](const ::cinn::hlir::framework::Node* node) {
+        std::string conv_type =
+            node->attrs.attr_store.count("conv_type")
+                ? absl::get<std::string>(node->attrs.attr_store.at("conv_type"))
+                : "forward";
+        CHECK(conv_type == "forward" || conv_type == "backward_data" ||
+              conv_type == "backward_filter")
+            << "unknown conv_type=" << conv_type;
+        return "cinn_call_onednn_conv2d_" + conv_type;
+      });
+  CINN_OP_REGISTER_EXTERNAL_API(pool2d, default_sycl)
+      .set_api_name("cinn_call_onednn_pool2d_forward");
+  CINN_OP_REGISTER_EXTERNAL_API(pool2d_grad, default_sycl)
+      .set_api_name("cinn_call_onednn_pool2d_backward");
 #endif
 
   return true;

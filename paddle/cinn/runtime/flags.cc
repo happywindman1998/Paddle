@@ -33,6 +33,15 @@ PD_DEFINE_bool(
     "true, the algorithm is deterministic.");
 #endif
 
+#ifdef CINN_WITH_ONEDNN
+PD_DEFINE_bool(
+    cinn_onednn_deterministic,
+    false,
+    "Whether allow using an autotuning algorithm for convolution "
+    "operator. The autotuning algorithm may be non-deterministic. If "
+    "true, the algorithm is deterministic.");
+#endif
+
 using ::paddle::flags::BoolFromEnv;
 using ::paddle::flags::DoubleFromEnv;
 using ::paddle::flags::Int32FromEnv;
@@ -267,6 +276,23 @@ bool GetCinnCudnnDeterministic() {
 #endif
 }
 
+void SetCinnOnednnDeterministic(bool state) {
+#ifdef CINN_WITH_ONEDNN
+  FLAGS_cinn_onednn_deterministic = state;
+#else
+  LOG(WARNING) << "CINN is compiled without oneDNN, this api is invalid!";
+#endif
+}
+
+bool GetCinnOnednnDeterministic() {
+#ifdef CINN_WITH_ONEDNN
+  return FLAGS_cinn_onednn_deterministic;
+#else
+  LOG(FATAL) << "CINN is compiled without oneDNN, this api is invalid!";
+  return false;
+#endif
+}
+
 uint64_t RandomSeed::seed_ = 0ULL;
 
 uint64_t RandomSeed::GetOrSet(uint64_t seed) {
@@ -298,6 +324,14 @@ bool IsCompiledWithCUDA() {
 
 bool IsCompiledWithCUDNN() {
 #if !defined(CINN_WITH_CUDNN)
+  return false;
+#else
+  return true;
+#endif
+}
+
+bool IsCompiledWithOneDNN() {
+#if !defined(CINN_WITH_ONEDNN)
   return false;
 #else
   return true;

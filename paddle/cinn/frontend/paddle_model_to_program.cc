@@ -640,7 +640,8 @@ void PaddleModelToProgram::TransposeVar(const std::string& name) {
     } else if (target_.arch_is_gpu()){
       using cinn::runtime::BackendAPI;
       using cinn::runtime::IsCompiledWithCUDNN;
-      if(target_.language == Target::Language::cuda && IsCompiledWithCUDNN()){
+      using cinn::runtime::IsCompiledWithOneDNN;
+      if((target_.language == Target::Language::cuda && IsCompiledWithCUDNN()) || (target_.language == Target::Language::sycl && IsCompiledWithOneDNN())){
         // To use cublas mul api, there is no need to transpose data.
       } else {
         std::vector<float> data(tensor->shape().numel());
