@@ -32,6 +32,10 @@
 #include <cudnn.h>
 #endif
 
+#ifdef CINN_WITH_ONEDNN
+#include "dnnl.hpp"
+#endif
+
 namespace cinn {
 namespace hlir {
 namespace op {
@@ -833,6 +837,321 @@ std::vector<ir::Expr> CustomCallArgsForOneDNN(
   args.insert(args.end(), b_shape.begin(), b_shape.end());
   return args;
 }
+
+std::vector<ir::Expr> CustomCallArgsForOneDNNConvForward(
+    const framework::NodeAttr &attrs,
+    const std::vector<ir::Tensor> &inputs,
+    const std::vector<std::vector<int>> &output_shapes) {
+  CHECK_EQ(inputs.size(), 2UL);
+  // CHECK_EQ(output_shapes.size(), 1UL);
+  const auto &attr_store = attrs.attr_store;
+  float alpha = attr_store.count("alpha")
+                    ? absl::get<float>(attr_store.at("alpha"))
+                    : 1.0f;
+  float beta =
+      attr_store.count("beta") ? absl::get<float>(attr_store.at("beta")) : 0.0f;
+
+  CHECK(attr_store.count("padding"));
+  auto padding = absl::get<std::vector<int>>(attr_store.at("padding"));
+  CHECK(attr_store.count("stride"));
+  auto stride = absl::get<std::vector<int>>(attr_store.at("stride"));
+  auto dilation = attr_store.count("dilation")
+                      ? absl::get<std::vector<int>>(attr_store.at("dilation"))
+                      : std::vector<int>({1, 1});
+  std::string data_format =
+      attr_store.count("data_format")
+          ? absl::get<std::string>(attr_store.at("data_format"))
+          : "NCHW";
+  if (data_format == "AnyLayout") {
+    data_format = "NCHW";
+  }
+
+  int groups =
+      attr_store.count("groups") ? absl::get<int>(attr_store.at("groups")) : 1;
+  dnnl::memory::format_tag format =
+      data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
+
+  std::vector<Expr> input = inputs[0]->shape;
+  std::vector<Expr> filter = inputs[1]->shape;
+  std::vector<Expr> output = {};
+  std::transform(output_shapes[0].begin(),
+                 output_shapes[0].end(),
+                 std::back_inserter(output),
+                 [](const int dim) { return ir::Expr(dim); });
+  // if format is nhwc
+  if (format == dnnl::memory::format_tag::nhwc) {
+    input = {input[0], input[3], input[1], input[2]};
+    filter = {filter[0], filter[3], filter[1], filter[2]};
+    output = {output[0], output[3], output[1], output[2]};
+  }
+
+  std::vector<ir::Expr> args = {
+      ir::Expr(static_cast<int>(format)), ir::Expr(alpha), ir::Expr(beta)};
+  args.insert(args.end(), input.begin(), input.end());
+  args.insert(args.end(), filter.begin(), filter.end());
+  args.push_back(ir::Expr(padding[0]));
+  args.push_back(ir::Expr(padding[1]));
+  args.push_back(ir::Expr(stride[0]));
+  args.push_back(ir::Expr(stride[1]));
+  args.push_back(ir::Expr(dilation[0]));
+  args.push_back(ir::Expr(dilation[1]));
+  args.push_back(ir::Expr(groups));
+  args.insert(args.end(), output.begin(), output.end());
+
+  return args;
+}
+
+std::vector<ir::Expr> CustomCallArgsForOneDNNConvBackwardData(
+    const framework::NodeAttr &attrs,
+    const std::vector<ir::Tensor> &inputs,
+    const std::vector<std::vector<int>> &output_shapes) {
+  CHECK_EQ(inputs.size(), 2UL);
+  CHECK_EQ(output_shapes.size(), 1UL);
+  const auto &attr_store = attrs.attr_store;
+  float alpha = attr_store.count("alpha")
+                    ? absl::get<float>(attr_store.at("alpha"))
+                    : 1.0f;
+  float beta =
+      attr_store.count("beta") ? absl::get<float>(attr_store.at("beta")) : 0.0f;
+
+  CHECK(attr_store.count("padding"));
+  auto padding = absl::get<std::vector<int>>(attr_store.at("padding"));
+  CHECK(attr_store.count("stride"));
+  auto stride = absl::get<std::vector<int>>(attr_store.at("stride"));
+  auto dilation = attr_store.count("dilation")
+                      ? absl::get<std::vector<int>>(attr_store.at("dilation"))
+                      : std::vector<int>({1, 1});
+  std::string data_format =
+      attr_store.count("data_format")
+          ? absl::get<std::string>(attr_store.at("data_format"))
+          : "NCHW";
+  if (data_format == "AnyLayout") {
+    data_format = "NCHW";
+  }
+
+  int groups =
+      attr_store.count("groups") ? absl::get<int>(attr_store.at("groups")) : 1;
+  dnnl::memory::format_tag format =
+      data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
+
+  std::vector<Expr> input = {};
+  std::transform(output_shapes[0].begin(),
+                 output_shapes[0].end(),
+                 std::back_inserter(input),
+                 [](const int dim) { return ir::Expr(dim); });
+  std::vector<Expr> filter = inputs[0]->shape;
+  std::vector<Expr> output = inputs[1]->shape;
+  // if format is nhwc
+  if (format == dnnl::memory::format_tag::nhwc) {
+    input = {input[0], input[3], input[1], input[2]};
+    filter = {filter[0], filter[3], filter[1], filter[2]};
+    output = {output[0], output[3], output[1], output[2]};
+  }
+
+  std::vector<ir::Expr> args = {
+      ir::Expr(static_cast<int>(format)), ir::Expr(alpha), ir::Expr(beta)};
+  args.insert(args.end(), input.begin(), input.end());
+  args.insert(args.end(), filter.begin(), filter.end());
+  args.push_back(ir::Expr(padding[0]));
+  args.push_back(ir::Expr(padding[1]));
+  args.push_back(ir::Expr(stride[0]));
+  args.push_back(ir::Expr(stride[1]));
+  args.push_back(ir::Expr(dilation[0]));
+  args.push_back(ir::Expr(dilation[1]));
+  args.push_back(ir::Expr(groups));
+  args.insert(args.end(), output.begin(), output.end());
+  return args;
+}
+
+std::vector<ir::Expr> CustomCallArgsForOneDNNConvBackwardFilter(
+    const framework::NodeAttr &attrs,
+    const std::vector<ir::Tensor> &inputs,
+    const std::vector<std::vector<int>> &output_shapes) {
+  CHECK_EQ(inputs.size(), 2UL);
+  CHECK_EQ(output_shapes.size(), 1UL);
+  const auto &attr_store = attrs.attr_store;
+  float alpha = attr_store.count("alpha")
+                    ? absl::get<float>(attr_store.at("alpha"))
+                    : 1.0f;
+  float beta =
+      attr_store.count("beta") ? absl::get<float>(attr_store.at("beta")) : 0.0f;
+
+  CHECK(attr_store.count("padding"));
+  auto padding = absl::get<std::vector<int>>(attr_store.at("padding"));
+  CHECK(attr_store.count("stride"));
+  auto stride = absl::get<std::vector<int>>(attr_store.at("stride"));
+  auto dilation = attr_store.count("dilation")
+                      ? absl::get<std::vector<int>>(attr_store.at("dilation"))
+                      : std::vector<int>({1, 1});
+  std::string data_format =
+      attr_store.count("data_format")
+          ? absl::get<std::string>(attr_store.at("data_format"))
+          : "NCHW";
+  if (data_format == "AnyLayout") {
+    data_format = "NCHW";
+  }
+
+  int groups =
+      attr_store.count("groups") ? absl::get<int>(attr_store.at("groups")) : 1;
+
+  dnnl::memory::format_tag format =
+      data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
+
+  std::vector<Expr> input = inputs[0]->shape;
+  std::vector<Expr> filter = {};
+  std::transform(output_shapes[0].begin(),
+                 output_shapes[0].end(),
+                 std::back_inserter(filter),
+                 [](const int dim) { return ir::Expr(dim); });
+  std::vector<Expr> output = inputs[1]->shape;
+  // if format is nhwc
+  if (format == dnnl::memory::format_tag::nhwc) {
+    input = {input[0], input[3], input[1], input[2]};
+    filter = {filter[0], filter[3], filter[1], filter[2]};
+    output = {output[0], output[3], output[1], output[2]};
+  }
+
+  std::vector<ir::Expr> args = {
+      ir::Expr(static_cast<int>(format)), ir::Expr(alpha), ir::Expr(beta)};
+  args.insert(args.end(), input.begin(), input.end());
+  args.insert(args.end(), filter.begin(), filter.end());
+  args.push_back(ir::Expr(padding[0]));
+  args.push_back(ir::Expr(padding[1]));
+  args.push_back(ir::Expr(stride[0]));
+  args.push_back(ir::Expr(stride[1]));
+  args.push_back(ir::Expr(dilation[0]));
+  args.push_back(ir::Expr(dilation[1]));
+  args.push_back(ir::Expr(groups));
+  args.insert(args.end(), output.begin(), output.end());
+  return args;
+}
+
+std::vector<ir::Expr> CustomCallArgsForOneDNNPoolForward(
+    const framework::NodeAttr &attrs,
+    const std::vector<ir::Tensor> &inputs,
+    const std::vector<std::vector<int>> &output_shapes) {
+  CHECK_EQ(inputs.size(), 1UL);
+  CHECK_EQ(output_shapes.size(), 1UL);
+  const auto &attr_store = attrs.attr_store;
+  float alpha = attr_store.count("alpha")
+                    ? absl::get<float>(attr_store.at("alpha"))
+                    : 1.0f;
+  float beta =
+      attr_store.count("beta") ? absl::get<float>(attr_store.at("beta")) : 0.0f;
+
+  CHECK(attr_store.count("kernel_size"));
+  auto kernel = absl::get<std::vector<int>>(attr_store.at("kernel_size"));
+  CHECK(attr_store.count("padding_size"));
+  auto padding = absl::get<std::vector<int>>(attr_store.at("padding_size"));
+  CHECK(attr_store.count("stride_size"));
+  auto stride = absl::get<std::vector<int>>(attr_store.at("stride_size"));
+  CHECK(attr_store.count("pool_type"));
+  auto pool_type = absl::get<std::string>(attr_store.at("pool_type"));
+  CHECK(attr_store.count("data_format"));
+  std::string data_format =
+      absl::get<std::string>(attr_store.at("data_format"));
+
+  bool exclusive = attr_store.count("exclusive")
+                       ? absl::get<bool>(attrs.attr_store.at("exclusive"))
+                       : true;
+  dnnl::algorithm mode =
+      pool_type == "max"
+          ? dnnl::algorithm::pooling_max
+          : (exclusive ? dnnl::algorithm::pooling_avg_exclude_padding
+                       : dnnl::algorithm::pooling_avg_include_padding);
+  
+  dnnl::memory::format_tag format =
+      data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
+
+  std::vector<Expr> input = inputs[0]->shape;
+  std::vector<Expr> output;
+  std::transform(output_shapes[0].begin(),
+                 output_shapes[0].end(),
+                 std::back_inserter(output),
+                 [](const int dim) { return ir::Expr(dim); });
+  // if format is nhwc
+  if (format == dnnl::memory::format_tag::nhwc) {
+    input = {input[0], input[3], input[1], input[2]};
+    output = {output[0], output[3], output[1], output[2]};
+  }
+
+  std::vector<ir::Expr> args = {ir::Expr(static_cast<int>(mode)),
+                                ir::Expr(static_cast<int>(format)),
+                                ir::Expr(alpha),
+                                ir::Expr(beta)};
+  args.insert(args.end(), input.begin(), input.end());
+  args.push_back(ir::Expr(kernel[0]));
+  args.push_back(ir::Expr(kernel[1]));
+  args.push_back(ir::Expr(padding[0]));
+  args.push_back(ir::Expr(padding[1]));
+  args.push_back(ir::Expr(stride[0]));
+  args.push_back(ir::Expr(stride[1]));
+  args.insert(args.end(), output.begin(), output.end());
+  return args;
+}
+
+std::vector<ir::Expr> CustomCallArgsForOneDNNPoolBackward(
+    const framework::NodeAttr &attrs,
+    const std::vector<ir::Tensor> &inputs,
+    const std::vector<std::vector<int>> &output_shapes) {
+  CHECK_EQ(inputs.size(), 3UL);
+  CHECK_EQ(output_shapes.size(), 1UL);
+  const auto &attr_store = attrs.attr_store;
+  float alpha = attr_store.count("alpha")
+                    ? absl::get<float>(attr_store.at("alpha"))
+                    : 1.0f;
+  float beta =
+      attr_store.count("beta") ? absl::get<float>(attr_store.at("beta")) : 0.0f;
+
+  CHECK(attr_store.count("kernel_size"));
+  auto kernel = absl::get<std::vector<int>>(attr_store.at("kernel_size"));
+  CHECK(attr_store.count("padding_size"));
+  auto padding = absl::get<std::vector<int>>(attr_store.at("padding_size"));
+  CHECK(attr_store.count("stride_size"));
+  auto stride = absl::get<std::vector<int>>(attr_store.at("stride_size"));
+  CHECK(attr_store.count("pool_type"));
+  auto pool_type = absl::get<std::string>(attrs.attr_store.at("pool_type"));
+  CHECK(attr_store.count("data_format"));
+  std::string data_format =
+      absl::get<std::string>(attrs.attr_store.at("data_format"));
+
+  bool exclusive = attr_store.count("exclusive")
+                       ? absl::get<bool>(attrs.attr_store.at("exclusive"))
+                       : true;
+  
+  dnnl::algorithm mode =
+      pool_type == "max"
+          ? dnnl::algorithm::pooling_max
+          : (exclusive ? dnnl::algorithm::pooling_avg_exclude_padding
+                       : dnnl::algorithm::pooling_avg_include_padding);
+  
+
+  dnnl::memory::format_tag format =
+      data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
+
+  std::vector<Expr> input = inputs[0]->shape;   // 'x'
+  std::vector<Expr> output = inputs[1]->shape;  // 'y'
+  // if format is nhwc
+  if (format == dnnl::memory::format_tag::nhwc) {
+    input = {input[0], input[3], input[1], input[2]};
+    output = {output[0], output[3], output[1], output[2]};
+  }
+
+  std::vector<ir::Expr> args = {ir::Expr(static_cast<int>(mode)),
+                                ir::Expr(static_cast<int>(format)),
+                                ir::Expr(alpha),
+                                ir::Expr(beta)};
+  args.insert(args.end(), input.begin(), input.end());
+  args.push_back(ir::Expr(kernel[0]));
+  args.push_back(ir::Expr(kernel[1]));
+  args.push_back(ir::Expr(padding[0]));
+  args.push_back(ir::Expr(padding[1]));
+  args.push_back(ir::Expr(stride[0]));
+  args.push_back(ir::Expr(stride[1]));
+  args.insert(args.end(), output.begin(), output.end());
+
+  return args;
+}
 #endif
 
 std::vector<ir::Expr> CustomCallArgsForAssertTrue(
@@ -1127,11 +1446,35 @@ bool RegisteryCustomCallArgsFunc() {
 
 std::cout<<"before register onednn sycl target"<<std::endl;
 //#ifdef CINN_WITH_ONEDNN
-  
-  CustomCallArgsFuncRegistry::Global().Register("cinn_call_onednn",
+
+//TODO fix target 
+CustomCallArgsFuncRegistry::Global().Register("cinn_call_onednn_matmul",
                                                 common::DefaultNVGPUTarget(),
                                                 CustomCallArgsForOneDNN);
-  std::cout<<"register onednn sycl target"<<std::endl;
+CustomCallArgsFuncRegistry::Global().Register("cinn_call_onednn_conv2d",
+                                                common::DefaultNVGPUTarget(),
+                                                CustomCallArgsForOneDNN);
+CustomCallArgsFuncRegistry::Global().Register(
+      "cinn_call_onednn_conv2d_forward",
+      common::DefaultNVGPUTarget(),
+      CustomCallArgsForOneDNNConvForward);
+CustomCallArgsFuncRegistry::Global().Register(
+    "cinn_call_onednn_conv2d_backward_data",
+    common::DefaultNVGPUTarget(),
+    CustomCallArgsForOneDNNConvBackwardData);
+CustomCallArgsFuncRegistry::Global().Register(
+    "cinn_call_onednn_conv2d_backward_filter",
+    common::DefaultNVGPUTarget(),
+    CustomCallArgsForOneDNNConvBackwardFilter);
+CustomCallArgsFuncRegistry::Global().Register(
+    "cinn_call_onednn_pool2d_forward",
+    common::DefaultNVGPUTarget(),
+    CustomCallArgsForOneDNNPoolForward);
+CustomCallArgsFuncRegistry::Global().Register(
+    "cinn_call_onednn_pool2d_backward",
+    common::DefaultNVGPUTarget(),
+    CustomCallArgsForOneDNNPoolBackward);
+std::cout<<"register onednn sycl target"<<std::endl;
 //#endif
 
 #ifdef CINN_WITH_DNNL

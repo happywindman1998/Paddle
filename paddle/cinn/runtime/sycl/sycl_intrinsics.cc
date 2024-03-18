@@ -1,4 +1,4 @@
-#include "paddle/cinn/backends/cuda_util.h"
+//#include "paddle/cinn/backends/Sycl_util.h"
 #include "paddle/cinn/backends/extern_func_jit_register.h"
 #include "paddle/cinn/backends/function_prototype.h"
 #include "paddle/cinn/common/cas.h"
@@ -12,7 +12,7 @@ using cinn::backends::GlobalSymbolRegistry;
 using cinn::runtime::Sycl::SYCLBackendAPI;
 
 #include "paddle/cinn/runtime/sycl/onednn_util.h"
-using cinn::runtime::Sycl::cinn_call_onednn;
+using cinn::runtime::Sycl::cinn_call_onednn_matmul;
 
 CINN_REGISTER_HELPER(cinn_sycl_host_api) {
   REGISTER_EXTERN_FUNC_HELPER(cinn_call_sycl_kernel,
@@ -31,7 +31,9 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .End();
   GlobalSymbolRegistry::Global().RegisterFn("backend_api.sycl", reinterpret_cast<void*>(SYCLBackendAPI::Global()));
   
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn,
+#ifdef CINN_WITH_ONEDNN
+
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_matmul,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -51,7 +53,196 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<int>()     // b4
       .AddInputType<void *>()  // stream
       .End();
-  
+
+  using cinn::runtime::Sycl::cinn_call_onednn_conv2d_forward;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_conv2d_forward,
+                              cinn::common::DefaultHostTarget())
+      .SetRetType<void>()
+      .AddInputType<void *>()  // v_args
+      .AddInputType<int>()     // num_args
+      .AddInputType<int>()     // format
+      .AddInputType<float>()   // alpha
+      .AddInputType<float>()   // beta
+      .AddInputType<int>()     // in
+      .AddInputType<int>()     // ic
+      .AddInputType<int>()     // ih
+      .AddInputType<int>()     // iw
+      .AddInputType<int>()     // fn
+      .AddInputType<int>()     // fc
+      .AddInputType<int>()     // fh
+      .AddInputType<int>()     // fw
+      .AddInputType<int>()     // ph
+      .AddInputType<int>()     // pw
+      .AddInputType<int>()     // sh
+      .AddInputType<int>()     // sw
+      .AddInputType<int>()     // dh
+      .AddInputType<int>()     // dw
+      .AddInputType<int>()     // g
+      .AddInputType<int>()     // on
+      .AddInputType<int>()     // oc
+      .AddInputType<int>()     // oh
+      .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
+      .End();
+
+  using cinn::runtime::Sycl::cinn_call_onednn_conv2d_backward_data;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_conv2d_backward_data,
+                              cinn::common::DefaultHostTarget())
+      .SetRetType<void>()
+      .AddInputType<void *>()  // v_args
+      .AddInputType<int>()     // num_args
+      .AddInputType<int>()     // format
+      .AddInputType<float>()   // alpha
+      .AddInputType<float>()   // beta
+      .AddInputType<int>()     // in
+      .AddInputType<int>()     // ic
+      .AddInputType<int>()     // ih
+      .AddInputType<int>()     // iw
+      .AddInputType<int>()     // fn
+      .AddInputType<int>()     // fc
+      .AddInputType<int>()     // fh
+      .AddInputType<int>()     // fw
+      .AddInputType<int>()     // ph
+      .AddInputType<int>()     // pw
+      .AddInputType<int>()     // sh
+      .AddInputType<int>()     // sw
+      .AddInputType<int>()     // dh
+      .AddInputType<int>()     // dw
+      .AddInputType<int>()     // g
+      .AddInputType<int>()     // on
+      .AddInputType<int>()     // oc
+      .AddInputType<int>()     // oh
+      .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
+      .End();
+
+  using cinn::runtime::Sycl::cinn_call_onednn_conv2d_backward_filter;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_conv2d_backward_filter,
+                              cinn::common::DefaultHostTarget())
+      .SetRetType<void>()
+      .AddInputType<void *>()  // v_args
+      .AddInputType<int>()     // num_args
+      .AddInputType<int>()     // format
+      .AddInputType<float>()   // alpha
+      .AddInputType<float>()   // beta
+      .AddInputType<int>()     // in
+      .AddInputType<int>()     // ic
+      .AddInputType<int>()     // ih
+      .AddInputType<int>()     // iw
+      .AddInputType<int>()     // fn
+      .AddInputType<int>()     // fc
+      .AddInputType<int>()     // fh
+      .AddInputType<int>()     // fw
+      .AddInputType<int>()     // ph
+      .AddInputType<int>()     // pw
+      .AddInputType<int>()     // sh
+      .AddInputType<int>()     // sw
+      .AddInputType<int>()     // dh
+      .AddInputType<int>()     // dw
+      .AddInputType<int>()     // g
+      .AddInputType<int>()     // on
+      .AddInputType<int>()     // oc
+      .AddInputType<int>()     // oh
+      .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
+      .End();
+
+  using cinn::runtime::Sycl::cinn_call_onednn_pool2d_forward;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_pool2d_forward,
+                              cinn::common::DefaultHostTarget())
+      .SetRetType<void>()
+      .AddInputType<void *>()  // v_args
+      .AddInputType<int>()     // num_args
+      .AddInputType<int>()     // mode
+      .AddInputType<int>()     // format
+      .AddInputType<float>()   // alpha
+      .AddInputType<float>()   // beta
+      .AddInputType<int>()     // in
+      .AddInputType<int>()     // ic
+      .AddInputType<int>()     // ih
+      .AddInputType<int>()     // iw
+      .AddInputType<int>()     // kh
+      .AddInputType<int>()     // kw
+      .AddInputType<int>()     // ph
+      .AddInputType<int>()     // pw
+      .AddInputType<int>()     // sh
+      .AddInputType<int>()     // sw
+      .AddInputType<int>()     // on
+      .AddInputType<int>()     // oc
+      .AddInputType<int>()     // oh
+      .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
+      .End();
+
+  using cinn::runtime::Sycl::cinn_call_onednn_pool2d_backward;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_pool2d_backward,
+                              cinn::common::DefaultHostTarget())
+      .SetRetType<void>()
+      .AddInputType<void *>()  // v_args
+      .AddInputType<int>()     // num_args
+      .AddInputType<int>()     // mode
+      .AddInputType<int>()     // format
+      .AddInputType<float>()   // alpha
+      .AddInputType<float>()   // beta
+      .AddInputType<int>()     // in
+      .AddInputType<int>()     // ic
+      .AddInputType<int>()     // ih
+      .AddInputType<int>()     // iw
+      .AddInputType<int>()     // kh
+      .AddInputType<int>()     // kw
+      .AddInputType<int>()     // ph
+      .AddInputType<int>()     // pw
+      .AddInputType<int>()     // sh
+      .AddInputType<int>()     // sw
+      .AddInputType<int>()     // on
+      .AddInputType<int>()     // oc
+      .AddInputType<int>()     // oh
+      .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
+      .End();
+
+  using cinn::runtime::Sycl::cinn_call_onednn_softmax_forward;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_softmax_forward,
+                              cinn::common::DefaultHostTarget())
+      .SetRetType<void>()
+      .AddInputType<void *>()  // args
+      .AddInputType<int>()     // num_args
+      .AddInputType<int>()     // mode
+      .AddInputType<int>()     // format
+      .AddInputType<float>()   // alpha
+      .AddInputType<float>()   // beta
+      .AddInputType<int>()     // in
+      .AddInputType<int>()     // ic
+      .AddInputType<int>()     // ih
+      .AddInputType<int>()     // iw
+      .AddInputType<int>()     // on
+      .AddInputType<int>()     // oc
+      .AddInputType<int>()     // oh
+      .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
+      .End();
+
+  using cinn::runtime::Sycl::cinn_call_onednn_softmax_backward;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_softmax_backward,
+                              cinn::common::DefaultHostTarget())
+      .SetRetType<void>()
+      .AddInputType<void *>()  // args
+      .AddInputType<int>()     // num_args
+      .AddInputType<int>()     // mode
+      .AddInputType<int>()     // format
+      .AddInputType<float>()   // alpha
+      .AddInputType<float>()   // beta
+      .AddInputType<int>()     // in
+      .AddInputType<int>()     // ic
+      .AddInputType<int>()     // ih
+      .AddInputType<int>()     // iw
+      .AddInputType<int>()     // on
+      .AddInputType<int>()     // oc
+      .AddInputType<int>()     // oh
+      .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
+      .End();
+#endif
   return true;
 }
 

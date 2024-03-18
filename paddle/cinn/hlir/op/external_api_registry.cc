@@ -69,13 +69,13 @@ CINN_REGISTER_HELPER(op_external_api) {
   CINN_OP_REGISTER_EXTERNAL_API(cublas_matmul, default_nvgpu)
       .set_api_name("cinn_call_cublas");
   CINN_OP_REGISTER_EXTERNAL_API(matmul, default_sycl)
-      .set_api_name("cinn_call_onednn");
+      .set_api_name("cinn_call_onednn_matmul");
   CINN_OP_REGISTER_EXTERNAL_API(mul, default_sycl)
-      .set_api_name("cinn_call_onednn");
+      .set_api_name("cinn_call_onednn_matmul");
   CINN_OP_REGISTER_EXTERNAL_API(onednn_gemm, default_sycl)
-      .set_api_name("cinn_call_onednn");
+      .set_api_name("cinn_call_onednn_matmul");
   CINN_OP_REGISTER_EXTERNAL_API(onednn_matmul, default_sycl)
-      .set_api_name("cinn_call_onednn");
+      .set_api_name("cinn_call_onednn_matmul");
   CINN_OP_REGISTER_EXTERNAL_API(gaussian_random, default_nvgpu)
       .set_api_name("cinn_call_gaussian_random");
   CINN_OP_REGISTER_EXTERNAL_API(uniform_random, default_nvgpu)
@@ -119,5 +119,19 @@ CINN_REGISTER_HELPER(op_external_api) {
   CINN_OP_REGISTER_EXTERNAL_API(pool2d_grad, default_nvgpu)
       .set_api_name("cinn_call_cudnn_pool2d_backward");
 #endif
+
+#ifdef CINN_WITH_ONEDNN
+  CINN_OP_REGISTER_EXTERNAL_API(conv2d, default_sycl)
+      .set_trans_func([](const ::cinn::hlir::framework::Node* node) {
+        CHECK(node->attrs.attr_store.count("conv_type"));
+        std::string conv_type =
+            absl::get<std::string>(node->attrs.attr_store.at("conv_type"));
+        CHECK(conv_type == "forward" || conv_type == "backward_data" ||
+              conv_type == "backward_filter")
+            << "unknown conv_type=" << conv_type;
+        return "cinn_call_onednn_conv2d_" + conv_type;
+      });
+#endif
+
   return true;
 }

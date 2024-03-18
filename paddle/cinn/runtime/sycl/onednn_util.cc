@@ -58,6 +58,58 @@ private:
   dnnl::stream onednn_stream;
 };
 
+memory::data_type convert_to_onednn_dtype(void *v_args, int num_args) {
+  CHECK_GT(num_args, 0) << "the number of arguments must larger than zero";
+  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
+  auto type_code = args[0].operator cinn_buffer_t *()->type.code;
+  int bits = args[0].operator cinn_buffer_t *()->type.bits;
+  for (int i = 1; i < num_args; ++i) {
+    auto t = args[i].operator cinn_buffer_t *()->type.code;
+    int b = args[0].operator cinn_buffer_t *()->type.bits;
+    if (t != type_code || bits != b) {
+      LOG(FATAL) << "The types of all arguments need to be consistent.";
+    }
+  }
+  memory::data_type onednn_dtype;
+  bool is_float = type_code == cinn_type_float;
+  bool is_bfloat16 = type_code == cinn_type_bfloat;
+  if (is_float && bits == 16) {
+    onednn_dtype = memory::data_type::f16;
+  } else if (is_float && bits == 32) {
+    onednn_dtype = memory::data_type::f32;
+  } else if (is_bfloat16) {
+    onednn_dtype = memory::data_type::bf16;
+  } else if (is_float && bits == 64) {
+    onednn_dtype = memory::data_type::f64;
+  } else {
+    LOG(FATAL) << "unsupported onednn data type: " << static_cast<int>(type_code)
+               << ", bits = " << bits;
+  }
+  return onednn_dtype;
+}
+
+memory::data_type convert_to_onednn_dtype(cinn_buffer_t *input) {
+  CHECK(input) << "the pointer of input is null";
+  auto type_code = input->type.code;
+  int bits = input->type.bits;
+  memory::data_type onednn_dtype;
+  bool is_float = type_code == cinn_type_float;
+  bool is_bfloat16 = type_code == cinn_type_bfloat;
+  if (is_float && bits == 16) {
+    onednn_dtype = memory::data_type::f16;
+  } else if (is_float && bits == 32) {
+    onednn_dtype = memory::data_type::f32;
+  } else if (is_bfloat16) {
+    onednn_dtype = memory::data_type::bf16;
+  } else if (is_float && bits == 64) {
+    onednn_dtype = memory::data_type::f64;
+  } else {
+    LOG(FATAL) << "unsupported onednn data type: " << static_cast<int>(type_code)
+               << ", bits = " << bits;
+  }
+  return onednn_dtype;
+}
+
 void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
                           cinn_buffer_t *lhs,
                           cinn_buffer_t *rhs,
@@ -65,7 +117,7 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
                           cinn_buffer_t *output,
                           void* vqueue) {
   
-  std::cout<<"============= call onednn matmul ==============="<<std::endl;
+  std::cout<<"============= call gpu onednn matmul ==============="<<std::endl;
   VLOG(3) << "call cinn_gpu_onednn_matmul";
   dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
   dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
@@ -134,7 +186,7 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
   //onednn_stream.wait();
 }
 
-void cinn_call_onednn(void *v_args,
+void cinn_call_onednn_matmul(void *v_args,
                       int num_args,
                       bool trans_a,
                       bool trans_b,
@@ -150,10 +202,10 @@ void cinn_call_onednn(void *v_args,
                       int b3,
                       int b4,
                       void *vqueue) {
-  cinn::utils::RecordEvent record_run("cinn_call_onednn",
+  cinn::utils::RecordEvent record_run("cinn_call_onednn_matmul",
                                       cinn::utils::EventType::kInstruction);
 
-  std::cout<<"============= call onednn ==============="<<std::endl;
+  std::cout<<"============= call onednn matmul ==============="<<std::endl;
   CHECK_EQ(num_args, 3);
   
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
@@ -223,6 +275,321 @@ void cinn_call_onednn(void *v_args,
     
   //onednn_stream.wait();
 }
+
+#define GetAttrValue(attr_map, key_name, default_value)      \
+  int key_name = 0;                                          \
+  if (attr_map.count(#key_name) != 0) {                      \
+    key_name = attr_map.find(#key_name)->second;             \
+  } else if (default_value >= 0) {                           \
+    key_name = default_value;                                \
+  } else {                                                   \
+    LOG(FATAL) << #key_name << " is not exist in attr_map!"; \
+  }
+
+void cinn_gpu_onednn_conv2d(const absl::flat_hash_map<std::string, int> &attr,
+                           cinn_buffer_t *x,
+                           cinn_buffer_t *w,
+                           cinn_buffer_t *y,
+                           void* stream,
+                           common::Layout target) {
+  
+  std::cout<<"============= call onednn conv2d ==============="<<std::endl;
+
+  dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
+  dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+
+  // Get tensor data layout
+  memory::format_tag tensor_format;
+  if (target == common::Layout::kNCHW) {
+    tensor_format = memory::format_tag::nchw;
+  } else if (target == common::Layout::kNHWC) {
+    tensor_format = memory::format_tag::nhwc;
+  } else {
+    CINN_NOT_IMPLEMENTED
+  }
+
+  GetAttrValue(attr, input_n, -1);
+  GetAttrValue(attr, input_c, -1);
+  GetAttrValue(attr, input_h, -1);
+  GetAttrValue(attr, input_w, -1);
+  GetAttrValue(attr, weights_n, -1);
+  GetAttrValue(attr, weights_c, -1);
+  GetAttrValue(attr, weights_h, -1);
+  GetAttrValue(attr, weights_w, -1);
+  GetAttrValue(attr, pad_h, 0);
+  GetAttrValue(attr, pad_w, 0);
+  GetAttrValue(attr, stride_h, 1);
+  GetAttrValue(attr, stride_w, 1);
+  GetAttrValue(attr, dilation_h, 1);
+  GetAttrValue(attr, dilation_w, 1);
+  GetAttrValue(attr, groups, 1);
+  GetAttrValue(attr, output_n, -1);
+  GetAttrValue(attr, output_c, -1);
+  GetAttrValue(attr, output_h, -1);
+  GetAttrValue(attr, output_w, -1);
+
+  // Tensor dimensions.
+  const memory::dim N = input_n, // batch size
+          IC = input_c, // input channels
+          IH = input_h, // input height
+          IW = input_w, // input width
+          OC = output_c, // output channels
+          KH = weights_h, // weights height
+          KW = weights_w, // weights width
+          PH_L = pad_h, // height padding: left
+          PH_R = pad_h, // height padding: right
+          PW_L = pad_w, // width padding: left
+          PW_R = pad_w, // width padding: right
+          SH = stride_h, // height-wise stride
+          SW = stride_w, // width-wise stride
+          OH = (IH - KH + PH_L + PH_R) / SH + 1, // output height
+          OW = (IW - KW + PW_L + PW_R) / SW + 1; // output width
+
+  // Source (src), weights, bias, and destination (dst) tensors
+  // dimensions.
+  memory::dims src_dims = {N, IC, IH, IW};
+  memory::dims weights_dims = {OC, IC, KH, KW};
+  memory::dims bias_dims = {OC};
+  memory::dims dst_dims = {N, OC, OH, OW};
+
+  // Strides, padding dimensions.
+  memory::dims strides_dims = {SH, SW};
+  memory::dims padding_dims_l = {PH_L, PW_L};
+  memory::dims padding_dims_r = {PH_R, PW_R};
+
+  // TODO: Get data type
+  auto data_type = convert_to_onednn_dtype(x);
+
+  // Get input and output memory handle
+  void *_x = x->memory;
+  void *_w = w->memory;
+  void *_y = y->memory;
+
+  // Create memory objects for tensor data (src, weights, dst). In this
+  // example, NCHW layout is assumed for src and dst, and OIHW for weights.
+  auto conv_src_mem = dnnl::memory({src_dims, data_type, tag::nchw}, onednn_engine, _x);
+  auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
+  auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tag::nchw}, onednn_engine, _y);
+
+  // Create memory descriptors with format_tag::any for the primitive. This
+  // enables the convolution primitive to choose memory layouts for an
+  // optimized primitive implementation, and these layouts may differ from the
+  // ones provided by the user.
+  auto conv_src_md = dnnl::memory::desc(src_dims, data_type, tag::any);
+  auto conv_weights_md = dnnl::memory::desc(weights_dims, data_type, tag::any);
+  auto conv_dst_md = dnnl::memory::desc(dst_dims, data_type, tag::any);
+
+
+  // Create primitive post-ops (ReLU).
+  /*
+  const float alpha = 0.f;
+  const float beta = 0.f;
+  post_ops conv_ops;
+  conv_ops.append_eltwise(algorithm::eltwise_relu, alpha, beta);
+  primitive_attr conv_attr;
+  conv_attr.set_post_ops(conv_ops);
+  */
+
+  // Create primitive descriptor.
+  auto conv_pd = convolution_forward::primitive_desc(onednn_engine,
+          prop_kind::forward_training, algorithm::convolution_direct,
+          conv_src_md, conv_weights_md, conv_dst_md,
+          strides_dims, padding_dims_l, padding_dims_r);
+  
+  // Create the primitive.
+  auto conv_prim = convolution_forward(conv_pd);
+
+  // Primitive arguments.
+  std::unordered_map<int, memory> conv_args;
+  conv_args.insert({DNNL_ARG_SRC, conv_src_mem});
+  conv_args.insert({DNNL_ARG_WEIGHTS, conv_weights_mem});
+  //conv_args.insert({DNNL_ARG_BIAS, user_bias_mem});
+  conv_args.insert({DNNL_ARG_DST, conv_dst_mem});
+
+  // Primitive execution: convolution with ReLU.
+  conv_prim.execute(onednn_stream, conv_args);
+}
+
+void cinn_gpu_onednn_conv2d_backward_data(
+    const absl::flat_hash_map<std::string, int>& attr,
+    cinn_buffer_t* w,
+    cinn_buffer_t* dy,
+    cinn_buffer_t* dx,
+    void* stream) {}
+
+void cinn_gpu_onednn_conv2d_backward_filter(
+    const absl::flat_hash_map<std::string, int>& attr,
+    cinn_buffer_t* x,
+    cinn_buffer_t* dy,
+    cinn_buffer_t* dw,
+    void* stream) {}
+
+void cinn_gpu_onednn_pool2d(const std::vector<int>& attrs,
+                           const std::vector<std::string>& str_attrs,
+                           cinn_buffer_t* input,
+                           cinn_buffer_t* output,
+                           void* stream ) {}
+
+void cinn_gpu_onednn_softmax(const std::vector<int>& attrs,
+                            cinn_buffer_t* input,
+                            cinn_buffer_t* output,
+                            void* stream ) {}
+
+void cinn_call_onednn_conv2d_forward(void* v_args,
+                                    int num_args,
+                                    int format,
+                                    float alpha,
+                                    float beta,
+                                    int input_n,
+                                    int input_c,
+                                    int input_h,
+                                    int input_w,
+                                    int filter_n,
+                                    int filter_c,
+                                    int filter_h,
+                                    int filter_w,
+                                    int pad_h,
+                                    int pad_w,
+                                    int stride_h,
+                                    int stride_w,
+                                    int dilation_h,
+                                    int dilation_w,
+                                    int groups,
+                                    int output_n,
+                                    int output_c,
+                                    int output_h,
+                                    int output_w,
+                                    void* stream) {}
+
+void cinn_call_onednn_conv2d_backward_data(void* v_args,
+                                          int num_args,
+                                          int format,
+                                          float alpha,
+                                          float beta,
+                                          int input_n,
+                                          int input_c,
+                                          int input_h,
+                                          int input_w,
+                                          int filter_n,
+                                          int filter_c,
+                                          int filter_h,
+                                          int filter_w,
+                                          int pad_h,
+                                          int pad_w,
+                                          int stride_h,
+                                          int stride_w,
+                                          int dilation_h,
+                                          int dilation_w,
+                                          int groups,
+                                          int output_n,
+                                          int output_c,
+                                          int output_h,
+                                          int output_w,
+                                          void* stream) {}
+
+void cinn_call_onednn_conv2d_backward_filter(void* v_args,
+                                            int num_args,
+                                            int format,
+                                            float alpha,
+                                            float beta,
+                                            int input_n,
+                                            int input_c,
+                                            int input_h,
+                                            int input_w,
+                                            int filter_n,
+                                            int filter_c,
+                                            int filter_h,
+                                            int filter_w,
+                                            int pad_h,
+                                            int pad_w,
+                                            int stride_h,
+                                            int stride_w,
+                                            int dilation_h,
+                                            int dilation_w,
+                                            int groups,
+                                            int output_n,
+                                            int output_c,
+                                            int output_h,
+                                            int output_w,
+                                            void* stream) {}
+
+void cinn_call_onednn_pool2d_forward(void* v_args,
+                                    int num_args,
+                                    int mode,
+                                    int format,
+                                    float alpha,
+                                    float beta,
+                                    int input_n,
+                                    int input_c,
+                                    int input_h,
+                                    int input_w,
+                                    int kernel_h,
+                                    int kernel_w,
+                                    int pad_h,
+                                    int pad_w,
+                                    int stride_h,
+                                    int stride_w,
+                                    int output_n,
+                                    int output_c,
+                                    int output_h,
+                                    int output_w,
+                                    void* stream) {}
+
+void cinn_call_onednn_pool2d_backward(void* v_args,
+                                     int num_args,
+                                     int mode,
+                                     int format,
+                                     float alpha,
+                                     float beta,
+                                     int input_n,
+                                     int input_c,
+                                     int input_h,
+                                     int input_w,
+                                     int kernel_h,
+                                     int kernel_w,
+                                     int pad_h,
+                                     int pad_w,
+                                     int stride_h,
+                                     int stride_w,
+                                     int output_n,
+                                     int output_c,
+                                     int output_h,
+                                     int output_w,
+                                     void* stream) {}
+
+void cinn_call_onednn_softmax_forward(void* v_args,
+                                     int num_args,
+                                     int mode,
+                                     int format,
+                                     float alpha,
+                                     float beta,
+                                     int input_n,
+                                     int input_c,
+                                     int input_h,
+                                     int input_w,
+                                     int output_n,
+                                     int output_c,
+                                     int output_h,
+                                     int output_w,
+                                     void* stream) {}
+
+void cinn_call_onednn_softmax_backward(void* v_args,
+                                      int num_args,
+                                      int mode,
+                                      int format,
+                                      float alpha,
+                                      float beta,
+                                      int input_n,
+                                      int input_c,
+                                      int input_h,
+                                      int input_w,
+                                      int output_n,
+                                      int output_c,
+                                      int output_h,
+                                      int output_w,
+                                      void* stream) {}
+
+
 
 }
 }

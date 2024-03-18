@@ -191,8 +191,9 @@ void Instruction::Run(
 
 
 #elif defined(CINN_WITH_SYCL) && defined(CINN_WITH_ONEDNN)
+  auto& pod_args = args_cached_[0];
   if (function_name_ == "onednn_gemm") {
-    auto& pod_args = args_cached_[0];
+    
     VLOG(3) << "The pod_args size of onednn_gemm: " << pod_args.size();
     runtime::Sycl::cinn_gpu_onednn_matmul(attrs,
                                         pod_args[0],
@@ -201,7 +202,6 @@ void Instruction::Run(
                                         pod_args[3],
                                         stream);
   } else if (function_name_ == "onednn_matmul") {
-    auto& pod_args = args_cached_[0];
     VLOG(3) << "The pod_args size of onednn_matmul: " << pod_args.size();
     runtime::Sycl::cinn_gpu_onednn_matmul(attrs,
                                         pod_args[0],
@@ -210,7 +210,6 @@ void Instruction::Run(
                                         pod_args[2],
                                         stream);
   } else if (function_name_ == "mul") {
-    auto& pod_args = args_cached_[0];
     CHECK_EQ(pod_args.size(), 4);
     runtime::Sycl::cinn_gpu_onednn_matmul(attrs,
                                        pod_args[0],
@@ -218,6 +217,101 @@ void Instruction::Run(
                                        pod_args[2],
                                        nullptr,
                                        stream);
+  } else if ((function_name_ == "conv2d" || function_name_ == "depthwise_conv2d")) {
+    if (str_attrs[0] == "forward") {
+      if (str_attrs.size() > 1 && str_attrs[1] == "NHWC") {
+        absl::flat_hash_map<std::string, int> attrs_map = {
+            {"input_n", attrs[0]},     {"input_h", attrs[1]},
+            {"input_w", attrs[2]},     {"input_c", attrs[3]},
+            {"weights_n", attrs[4]},   {"weights_c", attrs[5]},
+            {"weights_h", attrs[6]},   {"weights_w", attrs[7]},
+            {"pad_h", attrs[8]},       {"pad_w", attrs[9]},
+            {"stride_h", attrs[10]},   {"stride_w", attrs[11]},
+            {"dilation_h", attrs[12]}, {"dilation_w", attrs[13]},
+            {"groups", attrs[14]},     {"output_n", attrs[15]},
+            {"output_h", attrs[16]},   {"output_w", attrs[17]},
+            {"output_c", attrs[18]},
+        };
+        runtime::Sycl::cinn_gpu_onednn_conv2d(attrs_map,
+                                             pod_args[0],
+                                             pod_args[1],
+                                             pod_args[2],
+                                             nullptr,
+                                             common::Layout::kNHWC);
+
+      } else {
+        absl::flat_hash_map<std::string, int> attrs_map = {
+            {"input_n", attrs[0]},     {"input_c", attrs[1]},
+            {"input_h", attrs[2]},     {"input_w", attrs[3]},
+            {"weights_n", attrs[4]},   {"weights_c", attrs[5]},
+            {"weights_h", attrs[6]},   {"weights_w", attrs[7]},
+            {"pad_h", attrs[8]},       {"pad_w", attrs[9]},
+            {"stride_h", attrs[10]},   {"stride_w", attrs[11]},
+            {"dilation_h", attrs[12]}, {"dilation_w", attrs[13]},
+            {"groups", attrs[14]},     {"output_n", attrs[15]},
+            {"output_c", attrs[16]},   {"output_h", attrs[17]},
+            {"output_w", attrs[18]},
+        };
+        runtime::Sycl::cinn_gpu_onednn_conv2d(attrs_map,
+                                             pod_args[0],
+                                             pod_args[1],
+                                             pod_args[2],
+                                             nullptr,
+                                             common::Layout::kNCHW);
+      }
+    } else if (str_attrs[0] == "backward_data") {
+      // w, dy, dx
+      absl::flat_hash_map<std::string, int> attrs_map = {
+          {"input_n", attrs[15]},    {"input_c", attrs[16]},
+          {"input_h", attrs[17]},    {"input_w", attrs[18]},
+          {"weights_n", attrs[0]},   {"weights_c", attrs[1]},
+          {"weights_h", attrs[2]},   {"weights_w", attrs[3]},
+          {"pad_h", attrs[8]},       {"pad_w", attrs[9]},
+          {"stride_h", attrs[10]},   {"stride_w", attrs[11]},
+          {"dilation_h", attrs[12]}, {"dilation_w", attrs[13]},
+          {"groups", attrs[14]},     {"output_n", attrs[4]},
+          {"output_c", attrs[5]},    {"output_h", attrs[6]},
+          {"output_w", attrs[7]},
+      };
+      // w, dy, dx
+      runtime::Sycl::cinn_gpu_onednn_conv2d_backward_data(
+          attrs_map,
+          pod_args[0],
+          pod_args[1],
+          pod_args[2],
+          nullptr);
+    } else {
+      // x, dy, w
+      absl::flat_hash_map<std::string, int> attrs_map = {
+          {"input_n", attrs[0]},     {"input_c", attrs[1]},
+          {"input_h", attrs[2]},     {"input_w", attrs[3]},
+          {"weights_n", attrs[15]},  {"weights_c", attrs[16]},
+          {"weights_h", attrs[17]},  {"weights_w", attrs[18]},
+          {"pad_h", attrs[8]},       {"pad_w", attrs[9]},
+          {"stride_h", attrs[10]},   {"stride_w", attrs[11]},
+          {"dilation_h", attrs[12]}, {"dilation_w", attrs[13]},
+          {"groups", attrs[14]},     {"output_n", attrs[4]},
+          {"output_c", attrs[5]},    {"output_h", attrs[6]},
+          {"output_w", attrs[7]},
+      };
+      // x, dy, w
+      runtime::Sycl::cinn_gpu_onednn_conv2d_backward_filter(
+          attrs_map,
+          pod_args[0],
+          pod_args[1],
+          pod_args[2],
+          nullptr);
+    }
+  } else if (function_name_ == "pool2d") {
+    runtime::Sycl::cinn_gpu_onednn_pool2d(attrs,
+                                         str_attrs,
+                                         pod_args[0],
+                                         pod_args[1],
+                                         nullptr);
+  } else if (function_name_ == "softmax") {
+    CHECK_EQ(pod_args.size(), 3);
+    runtime::Sycl::cinn_gpu_onednn_softmax(
+        attrs, pod_args[0], pod_args[1], nullptr);
   } else {
     VLOG(3) << "Runing extern function " << function_name_;
     for (int idx = 0; idx < fn_ptrs_.size(); ++idx) {

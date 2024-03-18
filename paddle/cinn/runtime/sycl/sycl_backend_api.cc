@@ -99,8 +99,10 @@ std::variant<int, std::array<int, 3>> SYCLBackendAPI::get_device_property(Device
   std::variant<int, std::array<int, 3>> rv;
   switch (device_property) {
     case DeviceProperty::MaxBlockDims: {
-      sycl::id<3> max_work_item_sizes = this->devices[index].get_info<sycl::info::device::max_work_item_sizes<3>>();
-      rv = std::array<int, 3>{max_work_item_sizes[2], max_work_item_sizes[1], max_work_item_sizes[0]};
+      // TODO fix it
+      //sycl::id<3> max_work_item_sizes = this->devices[index].get_info<sycl::info::device::max_work_item_sizes<3>>();
+      //rv = std::array<int, 3>{max_work_item_sizes[2], max_work_item_sizes[1], max_work_item_sizes[0]};
+      rv = std::array<int, 3>{1024, 1024 , 1024};
       break;
     }
     case DeviceProperty::MaxGridDims: {
