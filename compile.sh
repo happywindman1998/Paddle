@@ -1,7 +1,7 @@
 export CC=gcc
 export CXX=g++
 
-export DPCPP_ROOT=/CINN-SYCL/llvm-sycl-nightly-20230201
+export DPCPP_ROOT=/CINN-SYCL/llvm-sycl-nightly-20220501
 export ONEDNN_ROOT=/CINN-SYCL/oneDNN
 
 mkdir build-docker
