@@ -438,7 +438,10 @@ void cinn_gpu_onednn_softmax(const std::vector<int>& attrs,
                             cinn_buffer_t* output,
                             void* stream ) {}
 
-void cinn_call_onednn_conv2d_forward(void* v_args,
+
+
+
+void cinn_call_onednn_conv2d_common(void* v_args,
                                     int num_args,
                                     int format,
                                     float alpha,
@@ -464,10 +467,10 @@ void cinn_call_onednn_conv2d_forward(void* v_args,
                                     int output_w,
                                     void* stream) {
 
-  cinn::utils::RecordEvent record_run("cinn_call_onednn_conv2d_forward",
+  cinn::utils::RecordEvent record_run("cinn_call_onednn_conv2d_common",
                                       cinn::utils::EventType::kInstruction);
   
-  std::cout<<"============= cinn call onednn conv2d forward ==============="<<std::endl;
+  std::cout<<"============= cinn call onednn conv2d common ==============="<<std::endl;
 
   dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
   dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
@@ -568,6 +571,59 @@ void cinn_call_onednn_conv2d_forward(void* v_args,
 
 }
 
+void cinn_call_onednn_conv2d_forward(void* v_args,
+                                    int num_args,
+                                    int format,
+                                    float alpha,
+                                    float beta,
+                                    int input_n,
+                                    int input_c,
+                                    int input_h,
+                                    int input_w,
+                                    int filter_n,
+                                    int filter_c,
+                                    int filter_h,
+                                    int filter_w,
+                                    int pad_h,
+                                    int pad_w,
+                                    int stride_h,
+                                    int stride_w,
+                                    int dilation_h,
+                                    int dilation_w,
+                                    int groups,
+                                    int output_n,
+                                    int output_c,
+                                    int output_h,
+                                    int output_w,
+                                    void* stream) {
+  
+  cinn_call_onednn_conv2d_common(v_args,
+                                num_args,
+                                format,
+                                alpha,
+                                beta,
+                                input_n,
+                                input_c,
+                                input_h,
+                                input_w,
+                                filter_n,
+                                filter_c,
+                                filter_h,
+                                filter_w,
+                                pad_h,
+                                pad_w,
+                                stride_h,
+                                stride_w,
+                                dilation_h,
+                                dilation_w,
+                                groups,
+                                output_n,
+                                output_c,
+                                output_h,
+                                output_w,
+                                stream);
+}
+
 void cinn_call_onednn_conv2d_backward_data(void* v_args,
                                           int num_args,
                                           int format,
@@ -592,7 +648,9 @@ void cinn_call_onednn_conv2d_backward_data(void* v_args,
                                           int output_c,
                                           int output_h,
                                           int output_w,
-                                          void* stream) {}
+                                          void* stream) {
+  // TODO reuse onednn_common(...)
+}
 
 void cinn_call_onednn_conv2d_backward_filter(void* v_args,
                                             int num_args,
@@ -618,7 +676,132 @@ void cinn_call_onednn_conv2d_backward_filter(void* v_args,
                                             int output_c,
                                             int output_h,
                                             int output_w,
-                                            void* stream) {}
+                                            void* stream) {
+
+}
+
+void cinn_call_onednn_pool2d_common(void* v_args,
+                                    int num_args,
+                                    int mode,
+                                    int format,
+                                    float alpha,
+                                    float beta,
+                                    int input_n,
+                                    int input_c,
+                                    int input_h,
+                                    int input_w,
+                                    int kernel_h,
+                                    int kernel_w,
+                                    int pad_h,
+                                    int pad_w,
+                                    int stride_h,
+                                    int stride_w,
+                                    int output_n,
+                                    int output_c,
+                                    int output_h,
+                                    int output_w,
+                                    void* stream) {
+  
+  
+  cinn::utils::RecordEvent record_run("cinn_call_onednn_pool2d_common",
+                                      cinn::utils::EventType::kInstruction);
+  
+  std::cout<<"============= cinn call onednn pool2d common ==============="<<std::endl;
+
+  dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
+  dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+
+  // Get pool mode
+  dnnl::algorithm pool_mode = static_cast<dnnl::algorithm>(mode);
+
+  // Get tensor data layout
+  memory::format_tag tensor_format;
+  if (format == static_cast<int>(memory::format_tag::nchw)) {
+    tensor_format = memory::format_tag::nchw;
+  } else if (format == static_cast<int>(memory::format_tag::nhwc)) {
+    tensor_format = memory::format_tag::nhwc;
+  } else {
+    //tensor_format = memory::format_tag::nchw;
+    //std::cout<<"common::layout is: "<<format<<std::endl;
+    CINN_NOT_IMPLEMENTED
+  }
+
+  // TODO: Get data type
+  auto data_type = convert_to_onednn_dtype(v_args, num_args);
+
+  // Tensor dimensions.
+  const memory::dim N = input_n, // batch size
+          IC = input_c, // input channels
+          IH = input_h, // input height
+          IW = input_w, // input width
+          KH = kernel_h, // weights height
+          KW = kernel_w, // weights width
+          PH_L = pad_h, // height padding: left
+          PH_R = pad_h, // height padding: right
+          PW_L = pad_w, // width padding: left
+          PW_R = pad_w, // width padding: right
+          SH = stride_h, // height-wise stride
+          SW = stride_w, // width-wise stride
+          DH = 1, // height-wise dilation
+          DW = 1, // width-wise dilation
+          OH = (IH - ((KH - 1) * DH + KH) + PH_L + PH_R) / SH + 1, // output height
+          OW = (IW - ((KW - 1) * DW + KW) + PW_L + PW_R) / SW + 1; // output width
+    
+  // Source (src) and destination (dst) tensors dimensions.
+  memory::dims src_dims = {N, IC, IH, IW};
+  memory::dims dst_dims = {N, IC, OH, OW};
+
+  // Kernel dimensions.
+  memory::dims kernel_dims = {KH, KW};
+
+  // Strides, padding dimensions.
+  memory::dims strides_dims = {SH, SW};
+  memory::dims padding_dims_l = {PH_L, PW_L};
+  memory::dims padding_dims_r = {PH_R, PW_R};
+  memory::dims dilation = {DH, DW};
+
+  // Get input and output memory handle
+  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
+  void *_x = args[0].operator cinn_buffer_t *()->memory;
+  void *_y = args[1].operator cinn_buffer_t *()->memory;
+
+  // Create memory objects for tensor data (src, weights, dst). In this
+  // example, NCHW layout is assumed for src and dst, and OIHW for weights.
+  auto src_mem = dnnl::memory({src_dims, data_type, tag::nchw}, onednn_engine, _x);
+  auto dst_mem = dnnl::memory({dst_dims, data_type, tag::nchw}, onednn_engine, _y);
+
+  // Create memory descriptors with format_tag::any for the primitive. This
+  // enables the convolution primitive to choose memory layouts for an
+  // optimized primitive implementation, and these layouts may differ from the
+  // ones provided by the user.
+  auto src_md = dnnl::memory::desc(src_dims, data_type, tag::any);
+  auto dst_md = dnnl::memory::desc(dst_dims, data_type, tag::any);
+  
+  // Create primitive descriptor.
+  auto pooling_pd = pooling_forward::primitive_desc(onednn_engine,
+          prop_kind::forward_training, pool_mode, src_md, dst_md,
+          strides_dims, kernel_dims, dilation, padding_dims_l,
+          padding_dims_r);
+  
+  // Create the primitive.
+  auto pooling_prim = pooling_forward(pooling_pd);
+
+  // Create workspace memory objects using memory descriptor created by the
+  // primitive descriptor.
+  // NOTE: Here, the workspace is required to save the indices where maximum
+  // was found, and is used in backward pooling to perform upsampling.
+  auto workspace_mem = dnnl::memory(pooling_pd.workspace_desc(), onednn_engine);
+  
+  // Primitive arguments. Set up in-place execution by assigning src as DST.
+  std::unordered_map<int, memory> pooling_args;
+  pooling_args.insert({DNNL_ARG_SRC, src_mem});
+  pooling_args.insert({DNNL_ARG_DST, dst_mem});
+  pooling_args.insert({DNNL_ARG_WORKSPACE, workspace_mem});
+
+  // Primitive execution: pooling.
+  pooling_prim.execute(onednn_stream, pooling_args);
+
+}
 
 void cinn_call_onednn_pool2d_forward(void* v_args,
                                     int num_args,
@@ -640,7 +823,29 @@ void cinn_call_onednn_pool2d_forward(void* v_args,
                                     int output_c,
                                     int output_h,
                                     int output_w,
-                                    void* stream) {}
+                                    void* stream) {
+  cinn_call_onednn_pool2d_common(v_args,
+                                num_args,
+                                mode,
+                                format,
+                                alpha,
+                                beta,
+                                input_n,
+                                input_c,
+                                input_h,
+                                input_w,
+                                kernel_h,
+                                kernel_w,
+                                pad_h,
+                                pad_w,
+                                stride_h,
+                                stride_w,
+                                output_n,
+                                output_c,
+                                output_h,
+                                output_w,
+                                stream);
+}
 
 void cinn_call_onednn_pool2d_backward(void* v_args,
                                      int num_args,
