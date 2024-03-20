@@ -501,6 +501,8 @@ void cinn_call_onednn_conv2d_common(void* v_args,
           PW_R = pad_w, // width padding: right
           SH = stride_h, // height-wise stride
           SW = stride_w, // width-wise stride
+          //DH = dilation_h,
+          //DW = dilation_w,
           OH = output_h, // output height
           OW = output_w; // output width
 
@@ -515,6 +517,7 @@ void cinn_call_onednn_conv2d_common(void* v_args,
   memory::dims strides_dims = {SH, SW};
   memory::dims padding_dims_l = {PH_L, PW_L};
   memory::dims padding_dims_r = {PH_R, PW_R};
+  //memory::dims dilation_dims = {DH, DW};
 
   // TODO: Get data type
   auto data_type = convert_to_onednn_dtype(v_args, num_args);
@@ -527,17 +530,17 @@ void cinn_call_onednn_conv2d_common(void* v_args,
 
   // Create memory objects for tensor data (src, weights, dst). In this
   // example, NCHW layout is assumed for src and dst, and OIHW for weights.
-  auto conv_src_mem = dnnl::memory({src_dims, data_type, tag::nchw}, onednn_engine, _x);
+  auto conv_src_mem = dnnl::memory({src_dims, data_type, tensor_format}, onednn_engine, _x);
   auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
-  auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tag::nchw}, onednn_engine, _y);
+  auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tensor_format}, onednn_engine, _y);
 
   // Create memory descriptors with format_tag::any for the primitive. This
   // enables the convolution primitive to choose memory layouts for an
   // optimized primitive implementation, and these layouts may differ from the
   // ones provided by the user.
-  auto conv_src_md = dnnl::memory::desc(src_dims, data_type, tag::any);
-  auto conv_weights_md = dnnl::memory::desc(weights_dims, data_type, tag::any);
-  auto conv_dst_md = dnnl::memory::desc(dst_dims, data_type, tag::any);
+  auto conv_src_md = dnnl::memory::desc(src_dims, data_type, tensor_format);
+  auto conv_weights_md = dnnl::memory::desc(weights_dims, data_type, tensor_format);
+  auto conv_dst_md = dnnl::memory::desc(dst_dims, data_type, tensor_format);
 
 
   // Create primitive post-ops (ReLU).
@@ -554,7 +557,9 @@ void cinn_call_onednn_conv2d_common(void* v_args,
   auto conv_pd = convolution_forward::primitive_desc(onednn_engine,
           prop_kind::forward_inference, algorithm::convolution_direct,
           conv_src_md, conv_weights_md, conv_dst_md,
-          strides_dims, padding_dims_l, padding_dims_r);
+          strides_dims, 
+          //dilation_dims,
+          padding_dims_l, padding_dims_r);
   
   // Create the primitive.
   auto conv_prim = convolution_forward(conv_pd);
