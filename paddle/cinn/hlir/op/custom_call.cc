@@ -1063,6 +1063,8 @@ std::vector<ir::Expr> CustomCallArgsForOneDNNPoolForward(
   dnnl::memory::format_tag format =
       data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
 
+  std::cout<<"data format is: "<<data_format<<" pool type is: "<<pool_type<<std::endl;
+
   std::vector<Expr> input = inputs[0]->shape;
   std::vector<Expr> output;
   std::transform(output_shapes[0].begin(),
@@ -1124,7 +1126,6 @@ std::vector<ir::Expr> CustomCallArgsForOneDNNPoolBackward(
           ? dnnl::algorithm::pooling_max
           : (exclusive ? dnnl::algorithm::pooling_avg_exclude_padding
                        : dnnl::algorithm::pooling_avg_include_padding);
-  
 
   dnnl::memory::format_tag format =
       data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;

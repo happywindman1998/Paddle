@@ -395,7 +395,7 @@ void cinn_gpu_onednn_conv2d(const absl::flat_hash_map<std::string, int> &attr,
 
   // Create primitive descriptor.
   auto conv_pd = convolution_forward::primitive_desc(onednn_engine,
-          prop_kind::forward_training, algorithm::convolution_direct,
+          prop_kind::forward_inference, algorithm::convolution_direct,
           conv_src_md, conv_weights_md, conv_dst_md,
           strides_dims, padding_dims_l, padding_dims_r);
   
@@ -501,8 +501,8 @@ void cinn_call_onednn_conv2d_common(void* v_args,
           PW_R = pad_w, // width padding: right
           SH = stride_h, // height-wise stride
           SW = stride_w, // width-wise stride
-          OH = (IH - KH + PH_L + PH_R) / SH + 1, // output height
-          OW = (IW - KW + PW_L + PW_R) / SW + 1; // output width
+          OH = output_h, // output height
+          OW = output_w; // output width
 
   // Source (src), weights, bias, and destination (dst) tensors
   // dimensions.
@@ -552,7 +552,7 @@ void cinn_call_onednn_conv2d_common(void* v_args,
 
   // Create primitive descriptor.
   auto conv_pd = convolution_forward::primitive_desc(onednn_engine,
-          prop_kind::forward_training, algorithm::convolution_direct,
+          prop_kind::forward_inference, algorithm::convolution_direct,
           conv_src_md, conv_weights_md, conv_dst_md,
           strides_dims, padding_dims_l, padding_dims_r);
   
@@ -712,7 +712,18 @@ void cinn_call_onednn_pool2d_common(void* v_args,
   dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
 
   // Get pool mode
-  dnnl::algorithm pool_mode = static_cast<dnnl::algorithm>(mode);
+  dnnl::algorithm pool_mode;
+  if (mode == static_cast<int>(dnnl::algorithm::pooling_max)) {
+    pool_mode = dnnl::algorithm::pooling_max;
+  } else if (mode == static_cast<int>(dnnl::algorithm::pooling_avg_exclude_padding)) {
+    pool_mode = dnnl::algorithm::pooling_avg_exclude_padding;
+  } else if (mode == static_cast<int>(dnnl::algorithm::pooling_avg_include_padding)) {
+    pool_mode = dnnl::algorithm::pooling_avg_include_padding;
+  } else {
+    pool_mode = dnnl::algorithm::pooling_max;
+    //CINN_NOT_IMPLEMENTED
+  }
+  std::cout<<"pooling is: "<<mode<<" pool mode is: "<<static_cast<int>(pool_mode)<<std::endl;
 
   // Get tensor data layout
   memory::format_tag tensor_format;
@@ -721,10 +732,10 @@ void cinn_call_onednn_pool2d_common(void* v_args,
   } else if (format == static_cast<int>(memory::format_tag::nhwc)) {
     tensor_format = memory::format_tag::nhwc;
   } else {
-    //tensor_format = memory::format_tag::nchw;
-    //std::cout<<"common::layout is: "<<format<<std::endl;
-    CINN_NOT_IMPLEMENTED
+    tensor_format = memory::format_tag::nchw; 
+    //CINN_NOT_IMPLEMENTED
   }
+  std::cout<<"common::layout is: "<<format<<" tensor format: "<<static_cast<int>(tensor_format)<<std::endl;
 
   // TODO: Get data type
   auto data_type = convert_to_onednn_dtype(v_args, num_args);
@@ -744,8 +755,8 @@ void cinn_call_onednn_pool2d_common(void* v_args,
           SW = stride_w, // width-wise stride
           DH = 1, // height-wise dilation
           DW = 1, // width-wise dilation
-          OH = (IH - ((KH - 1) * DH + KH) + PH_L + PH_R) / SH + 1, // output height
-          OW = (IW - ((KW - 1) * DW + KW) + PW_L + PW_R) / SW + 1; // output width
+          OH = output_h, // output height
+          OW = output_w; // output width
     
   // Source (src) and destination (dst) tensors dimensions.
   memory::dims src_dims = {N, IC, IH, IW};
@@ -765,24 +776,23 @@ void cinn_call_onednn_pool2d_common(void* v_args,
   void *_x = args[0].operator cinn_buffer_t *()->memory;
   void *_y = args[1].operator cinn_buffer_t *()->memory;
 
+
+  // Create memory descriptors and memory objects for src and dst.
+  auto src_md = dnnl::memory::desc(src_dims, data_type, tensor_format);
+  auto dst_md = dnnl::memory::desc(dst_dims, data_type, tensor_format);
+
   // Create memory objects for tensor data (src, weights, dst). In this
   // example, NCHW layout is assumed for src and dst, and OIHW for weights.
-  auto src_mem = dnnl::memory({src_dims, data_type, tag::nchw}, onednn_engine, _x);
-  auto dst_mem = dnnl::memory({dst_dims, data_type, tag::nchw}, onednn_engine, _y);
+  auto src_mem = dnnl::memory(src_md, onednn_engine, _x);
+  auto dst_mem = dnnl::memory(dst_md, onednn_engine, _y);
 
-  // Create memory descriptors with format_tag::any for the primitive. This
-  // enables the convolution primitive to choose memory layouts for an
-  // optimized primitive implementation, and these layouts may differ from the
-  // ones provided by the user.
-  auto src_md = dnnl::memory::desc(src_dims, data_type, tag::any);
-  auto dst_md = dnnl::memory::desc(dst_dims, data_type, tag::any);
-  
+ 
   // Create primitive descriptor.
   auto pooling_pd = pooling_forward::primitive_desc(onednn_engine,
-          prop_kind::forward_training, pool_mode, src_md, dst_md,
+          prop_kind::forward_inference, pool_mode, src_md, dst_md,
           strides_dims, kernel_dims, dilation, padding_dims_l,
           padding_dims_r);
-  
+
   // Create the primitive.
   auto pooling_prim = pooling_forward(pooling_pd);
 
@@ -869,6 +879,96 @@ void cinn_call_onednn_pool2d_backward(void* v_args,
                                      int output_w,
                                      void* stream) {}
 
+void cinn_call_onednn_softmax_common(void* v_args,
+                                     int num_args,
+                                     int mode,
+                                     int format,
+                                     float alpha,
+                                     float beta,
+                                     int input_n,
+                                     int input_c,
+                                     int input_h,
+                                     int input_w,
+                                     int output_n,
+                                     int output_c,
+                                     int output_h,
+                                     int output_w,
+                                     void* stream) {
+
+  cinn::utils::RecordEvent record_run("cinn_call_onednn_softmax_common",
+                                      cinn::utils::EventType::kInstruction);
+  
+  std::cout<<"============= cinn call onednn softmax common ==============="<<std::endl;
+
+  dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
+  dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+
+  // Get softmax mode
+  dnnl::algorithm softmax_mode;
+  static_cast<dnnl::algorithm>(mode);
+  if (mode == static_cast<int>(dnnl::algorithm::softmax_accurate)) {
+    softmax_mode = dnnl::algorithm::softmax_accurate;
+  } else if (mode == static_cast<int>(dnnl::algorithm::softmax_log)) {
+    softmax_mode = dnnl::algorithm::softmax_log;
+  }  else {
+    CINN_NOT_IMPLEMENTED
+  }
+
+  // Get tensor data layout
+  memory::format_tag tensor_format;
+  if (format == static_cast<int>(memory::format_tag::nchw)) {
+    tensor_format = memory::format_tag::nc;
+  } else if (format == static_cast<int>(memory::format_tag::nhwc)) {
+    tensor_format = memory::format_tag::nhwc;
+  } else {
+    tensor_format = memory::format_tag::nc;
+    //std::cout<<"common::layout is: "<<format<<std::endl;
+    CINN_NOT_IMPLEMENTED
+  }
+
+  // Get input and output memory handle
+  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
+  void *_x = args[0].operator cinn_buffer_t *()->memory;
+  void *_y = args[1].operator cinn_buffer_t *()->memory;
+
+  // TODO: Get data type
+  auto data_type = convert_to_onednn_dtype(v_args, num_args);
+
+  // Tensor dimensions.
+  const memory::dim N = input_n, // batch size
+            IC = input_c; // channels
+
+  // Source (src) and destination (dst) tensors dimensions.
+  memory::dims src_dims = {N, IC};
+
+  // Create src memory descriptor and memory object.
+  auto src_md = memory::desc(src_dims, data_type, tensor_format);
+  auto dst_md = memory::desc(src_dims, data_type, tensor_format);
+  auto src_mem = memory(src_md, onednn_engine, _x);
+  auto dst_mem = memory(dst_md, onednn_engine, _y);
+
+  // Softmax axis.
+  const int axis = 1;
+
+  // Create primitive descriptor.
+  auto softmax_pd = softmax_forward::primitive_desc(onednn_engine,
+          prop_kind::forward_inference, softmax_mode, src_md,
+          dst_md, axis);
+
+  // Create the primitive.
+  auto softmax_prim = softmax_forward(softmax_pd);
+
+  // Primitive arguments. Set up in-place execution by assigning src as DST.
+  std::unordered_map<int, memory> softmax_args;
+  softmax_args.insert({DNNL_ARG_SRC, src_mem});
+  softmax_args.insert({DNNL_ARG_DST, src_mem});
+
+  // Primitive execution.
+  softmax_prim.execute(onednn_stream, softmax_args);
+
+
+}
+
 void cinn_call_onednn_softmax_forward(void* v_args,
                                      int num_args,
                                      int mode,
@@ -883,7 +983,25 @@ void cinn_call_onednn_softmax_forward(void* v_args,
                                      int output_c,
                                      int output_h,
                                      int output_w,
-                                     void* stream) {}
+                                     void* stream) {
+
+  cinn_call_onednn_softmax_common(v_args,
+                                  num_args,
+                                  mode,
+                                  format,
+                                  alpha,
+                                  beta,
+                                  input_n,
+                                  input_c,
+                                  input_h,
+                                  input_w,
+                                  output_n,
+                                  output_c,
+                                  output_h,
+                                  output_w,
+                                  stream);
+
+}
 
 void cinn_call_onednn_softmax_backward(void* v_args,
                                       int num_args,
@@ -902,7 +1020,6 @@ void cinn_call_onednn_softmax_backward(void* v_args,
                                       void* stream) {}
 
 
-
-}
-}
-}
+} // namespace Sycl
+} // namespace runtime
+} // namespace cinn
