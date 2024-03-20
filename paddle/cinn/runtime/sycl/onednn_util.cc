@@ -753,8 +753,8 @@ void cinn_call_onednn_pool2d_common(void* v_args,
           PW_R = pad_w, // width padding: right
           SH = stride_h, // height-wise stride
           SW = stride_w, // width-wise stride
-          DH = 1, // height-wise dilation
-          DW = 1, // width-wise dilation
+          DH = 0, // height-wise dilation
+          DW = 0, // width-wise dilation
           OH = output_h, // output height
           OW = output_w; // output width
     
