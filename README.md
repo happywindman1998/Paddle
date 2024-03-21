@@ -6,17 +6,32 @@
 --------------------------------------------------------------------------------
 ## Paddle-CINN-oneDNN的搭建过程
 
+### Step 0. docker镜像构建
+- 构建docker的必要性：
+1. Paddle目前只能用GCC8.2编译，其他高版本或者低版本的GCC都编译不通过。
+2. 其次，不同加速器依赖的驱动与运行时库都不同。为不同的加速器构建不同的镜像，方便以后使用
+- 构建Paddle的编译环境需要：
+1. 操作系统最好是ubuntu18.04,与paddle官方给出的cuda构建环境保持一致，出错概论可能会小一些
+2. GCC8.2
+3. 加速器的驱动与运行时环境
+4. python3.8 以上
+
+- 将intel-llvm，oneTBB，oneDNN, paddle，四个项目源文件放到同一个目录下，并在此目录上启动docker。
+`docker run --gpus=all --network=host --name cinn-sycl-v2 --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v $PWD:/CINN-SYCL cinn:v2 /bin/bash`
+- <font color=#FF000 > 注意，以下编译步骤都需要在Docker容器中进行。编译的次序为：intel-llvm -> oneTBB -> oneDNN -> paddle </font>
+
 ### Step 1. Build Intel SYCL LLVM
 - ~~当前选择的intel-llvm版本为20220501，选择依据是为了兼容我们使用的oneDNN版本~~
 - 选用llvm-sycl 20220501的版本是为了兼容DCU，更高版的llvm在dtk-23.04.1上执行asinh，和atanh会有精度问题
 
 ### Step 2. Build oneDNN
 - 当前选择的oneDNN版本是v3.2，选择依据是这个版本具有MIOpen的实现
-- oneDNN依赖于oneTBB，下载与编译oneTBB
+- oneDNN依赖于oneTBB，下载与编译oneTBB，编译命令见官方文档。
 - oneDNN的编译命令为:
 
 ```
-source /CINN-SYCL/llvm-sycl-nightly-20230201/env.sh
+# 添加llvm-sycl的bin与lib环境变量
+source /CINN-SYCL/llvm-sycl-nightly-20220501/env.sh
 
 export CC=clang
 export CXX=clang++
@@ -32,14 +47,14 @@ ninja -j 16
 - 其中，DNNL_CPU_RUNTIME或许可以设为DPCPP（未尝式），但是一定不能设为None，因为Paddle中有些算子需要调到用cpu
 
 ### Step 3. Build Paddle
-当前选择的Paddle版本为2.6，是最新的发版
-编译命令为：
+当前选择的Paddle版本为2.6，是最新的发版。
+下载源文件并编译，编译命令为：
 
 ```
 export CC=gcc
 export CXX=g++
 
-export DPCPP_ROOT=/CINN-SYCL/llvm-sycl-nightly-20230201
+export DPCPP_ROOT=/CINN-SYCL/llvm-sycl-nightly-20220501
 export ONEDNN_ROOT=/CINN-SYCL/oneDNN
 
 mkdir build-docker
@@ -49,6 +64,19 @@ cmake -DCINN_ONLY=ON -DWITH_CINN=ON -DWITH_GPU=OFF -DCINN_WITH_SYCL=ON  -DCINN_W
 ninja -j 16
 
 ```
+-----------------------------------------------------------------------------------
+## CINN-oneDNN的测试
+1. 安装cinn的whl包：
+`pip3 install -U build-docker/python/dist/cinn-0.0.0-py3-none-any.whl`
+
+2. GEMM单算子测试
+`python3 simple_onednn_test.py`
+
+3. ResNet18模型测试
+  - 下载ResNet18的paddle模型，`wget https://paddle-inference-dist.bj.bcebos.com/CINN/ResNet18.tar.gz`
+  - 解压文件，`tar -zxvf ResNet18.tar.gz`
+  - 导入环境变量，`export FLAGS_cinn_infer_model_version=1.0`
+  - 测试，`cd test/cinn && python3 test_onednn_resnet18.py Resnet_model_dir ON`
 
 -----------------------------------------------------------------------------------
 
