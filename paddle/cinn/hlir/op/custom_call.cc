@@ -1063,8 +1063,6 @@ std::vector<ir::Expr> CustomCallArgsForOneDNNPoolForward(
   dnnl::memory::format_tag format =
       data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
 
-  std::cout<<"data format is: "<<data_format<<" pool type is: "<<pool_type<<std::endl;
-
   std::vector<Expr> input = inputs[0]->shape;
   std::vector<Expr> output;
   std::transform(output_shapes[0].begin(),
@@ -1457,23 +1455,23 @@ CustomCallArgsFuncRegistry::Global().Register("cinn_call_onednn_matmul",
 //                                                CustomCallArgsForOneDNN);
 CustomCallArgsFuncRegistry::Global().Register(
       "cinn_call_onednn_conv2d_forward",
-      common::DefaultNVGPUTarget(),
+      common::SYCLTarget(),
       CustomCallArgsForOneDNNConvForward);
 CustomCallArgsFuncRegistry::Global().Register(
     "cinn_call_onednn_conv2d_backward_data",
-    common::DefaultNVGPUTarget(),
+    common::SYCLTarget(),
     CustomCallArgsForOneDNNConvBackwardData);
 CustomCallArgsFuncRegistry::Global().Register(
     "cinn_call_onednn_conv2d_backward_filter",
-    common::DefaultNVGPUTarget(),
+    common::SYCLTarget(),
     CustomCallArgsForOneDNNConvBackwardFilter);
 CustomCallArgsFuncRegistry::Global().Register(
     "cinn_call_onednn_pool2d_forward",
-    common::DefaultNVGPUTarget(),
+    common::SYCLTarget(),
     CustomCallArgsForOneDNNPoolForward);
 CustomCallArgsFuncRegistry::Global().Register(
     "cinn_call_onednn_pool2d_backward",
-    common::DefaultNVGPUTarget(),
+    common::SYCLTarget(),
     CustomCallArgsForOneDNNPoolBackward);
 std::cout<<"register onednn sycl target"<<std::endl;
 //#endif
