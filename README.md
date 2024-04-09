@@ -26,7 +26,10 @@
 
 ### Step 2. Build oneDNN
 - 当前选择的oneDNN版本是v3.2，选择依据是这个版本具有MIOpen的实现
-- oneDNN依赖于oneTBB，下载与编译oneTBB，编译命令见官方文档。
+- oneDNN依赖于oneTBB，下载与编译oneTBB，编译命令：
+    - mkdir build & cd build
+    - cmake .. & make -j 8
+    - make install
 - oneDNN的编译命令为:
 
 ```

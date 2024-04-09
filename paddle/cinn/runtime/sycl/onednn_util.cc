@@ -222,11 +222,12 @@ void cinn_call_onednn_matmul(void *v_args,
   void *B = args[1].operator cinn_buffer_t *()->memory;
   void *C = args[2].operator cinn_buffer_t *()->memory;
 
-  int m = trans_o ? (trans_a ? a4 : a3) : (trans_b ? b3 : b4);
-  int n = trans_o ? (trans_b ? b3 : b4) : (trans_a ? a4 : a3);
+  int m = trans_o ? (trans_b ? b3 : b4) : (trans_a ? a4 : a3);
+  int n = trans_o ? (trans_a ? a4 : a3) : (trans_b ? b3 : b4);
   int k = trans_a ? a3 : a4;
 
   VLOG(3) << "m: " << m << ", n: " << n << ", k: " << k;
+  std::cout<< "m: " << m << ", n: " << n << ", k: " << k <<std::endl;
 
   memory::data_type onednn_dtype;
   auto type_code = args[0].operator cinn_buffer_t *()->type.code;
@@ -246,13 +247,17 @@ void cinn_call_onednn_matmul(void *v_args,
                << static_cast<int>(type_code) << ", bytes = " << bytes;
   }
 
+  auto a_onednn_tag = trans_a ? tag::ba : tag::ab;
+  auto b_onednn_tag = trans_b ? tag::ba : tag::ab;
+  auto o_onednn_tag = trans_o ? tag::ba : tag::ab;
+
   memory::dims a_dims = {m, k};
   memory::dims b_dims = {k, n};
   memory::dims c_dims = {m, n};
 
-  auto a_md = memory::desc(a_dims, onednn_dtype, tag::ab);
-  auto b_md = memory::desc(b_dims, onednn_dtype, tag::ab);
-  auto c_md = memory::desc(c_dims, onednn_dtype, tag::ab);
+  auto a_md = memory::desc(a_dims, onednn_dtype, a_onednn_tag);
+  auto b_md = memory::desc(b_dims, onednn_dtype, b_onednn_tag);
+  auto c_md = memory::desc(c_dims, onednn_dtype, o_onednn_tag);
   
   auto a_mem = dnnl::memory(a_md, onednn_engine, A);
   auto b_mem = dnnl::memory(b_md, onednn_engine, B);
