@@ -18,13 +18,13 @@ Target::Arch SYCLBackendAPI::Init(Target::Arch arch) {
                     sycl::device::get_devices(sycl::info::device_type::gpu)[0].get_backend());
       break;
     case Target::Arch::NVGPU:
-      backend = sycl::backend::ext_oneapi_cuda;
+      backend = sycl::backend::cuda;
       break;
     case Target::Arch::AMDGPU:
-      backend = sycl::backend::ext_oneapi_hip;
+      backend = sycl::backend::rocm;
       break;
     case Target::Arch::IntelGPU:
-      backend = sycl::backend::ext_oneapi_level_zero;
+      backend = sycl::backend::level_zero;
       break;
     default:
       LOG(FATAL) << "SYCL Not supported arch:" << arch;
@@ -42,13 +42,13 @@ Target::Arch SYCLBackendAPI::Init(Target::Arch arch) {
   this->queues.resize(this->devices.size());
   // sycl::backend -> Target::Arch
   switch (backend) {
-    case sycl::backend::ext_oneapi_cuda:
+    case sycl::backend::cuda:
       this->arch = Target::Arch::NVGPU;
       break;
-    case sycl::backend::ext_oneapi_hip:
+    case sycl::backend::rocm:
       this->arch = Target::Arch::AMDGPU;
       break;
-    case sycl::backend::ext_oneapi_level_zero:
+    case sycl::backend::level_zero:
       this->arch = Target::Arch::IntelGPU;
       break;
     default:
@@ -220,7 +220,7 @@ std::string SYCLBackendAPI::GetGpuVersion() {
   sycl::device device = this->devices[now_device_id];
   sycl::backend backend = device.get_backend();
   switch (backend) {
-    case sycl::backend::ext_oneapi_cuda: {
+    case sycl::backend::cuda: {
       std::string gpu_version = "sm_";
       std::string version_with_point =
           device.get_info<sycl::info::device::backend_version>();
@@ -232,13 +232,13 @@ std::string SYCLBackendAPI::GetGpuVersion() {
       }
       return gpu_version;
     }
-    case sycl::backend::ext_oneapi_hip: {
+    case sycl::backend::rocm: {
       std::string gpu_version = device.get_info<sycl::info::device::version>();
       size_t pos = gpu_version.find(":");
       if (pos != std::string::npos) gpu_version = gpu_version.substr(0, pos);
       return gpu_version;
     }
-    case sycl::backend::ext_oneapi_level_zero:
+    case sycl::backend::level_zero:
       return "";
     default:
       LOG(ERROR) << "unknown sycl backend!";

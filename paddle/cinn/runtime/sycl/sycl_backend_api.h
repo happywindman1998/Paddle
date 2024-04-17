@@ -13,7 +13,7 @@
 // limitations under the License.
 #pragma once
 
-#include <sycl/sycl.hpp>
+#include <CL/sycl.hpp>
 #include "paddle/cinn/runtime/backend_api.h"
 #include <vector>
 #include "paddle/cinn/common/target.h"
