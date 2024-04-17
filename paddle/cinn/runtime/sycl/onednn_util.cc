@@ -19,7 +19,7 @@
 #include "paddle/cinn/runtime/sycl/sycl_backend_api.h"
 using cinn::runtime::Sycl::SYCLBackendAPI;
 
-#include "dnnl.hpp"
+#include "oneapi/dnnl/dnnl.hpp"
 #include "dnnl_sycl.hpp"
 
 using namespace dnnl;
@@ -79,8 +79,8 @@ memory::data_type convert_to_onednn_dtype(void *v_args, int num_args) {
     onednn_dtype = memory::data_type::f32;
   } else if (is_bfloat16) {
     onednn_dtype = memory::data_type::bf16;
-  } else if (is_float && bits == 64) {
-    onednn_dtype = memory::data_type::f64;
+  // } else if (is_float && bits == 64) {
+  //   onednn_dtype = memory::data_type::f64;
   } else {
     LOG(FATAL) << "unsupported onednn data type: " << static_cast<int>(type_code)
                << ", bits = " << bits;
@@ -101,8 +101,8 @@ memory::data_type convert_to_onednn_dtype(cinn_buffer_t *input) {
     onednn_dtype = memory::data_type::f32;
   } else if (is_bfloat16) {
     onednn_dtype = memory::data_type::bf16;
-  } else if (is_float && bits == 64) {
-    onednn_dtype = memory::data_type::f64;
+  // } else if (is_float && bits == 64) {
+  //   onednn_dtype = memory::data_type::f64;
   } else {
     LOG(FATAL) << "unsupported onednn data type: " << static_cast<int>(type_code)
                << ", bits = " << bits;
@@ -144,8 +144,8 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
     onednn_dtype = memory::data_type::f16;
   } else if (is_float && bytes == sizeof(float)) {
     onednn_dtype = memory::data_type::f32;
-  } else if (is_float && bytes == sizeof(double)) {
-    onednn_dtype = memory::data_type::f64;
+  // } else if (is_float && bytes == sizeof(double)) {
+  //   onednn_dtype = memory::data_type::f64;
   } else if (is_bfloat16) {
     onednn_dtype = memory::data_type::bf16;
   } else {
@@ -238,8 +238,8 @@ void cinn_call_onednn_matmul(void *v_args,
     onednn_dtype = memory::data_type::f16;
   } else if (is_float && bytes == sizeof(float)) {
     onednn_dtype = memory::data_type::f32;
-  } else if (is_float && bytes == sizeof(double)) {
-    onednn_dtype = memory::data_type::f64;
+  // } else if (is_float && bytes == sizeof(double)) {
+  //   onednn_dtype = memory::data_type::f64;
   } else if (is_bfloat16) {
     onednn_dtype = memory::data_type::bf16;
   } else {
