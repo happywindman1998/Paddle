@@ -43,18 +43,20 @@ if(IS_DIRECTORY ${CINN_WITH_ONEDNN})
     set(ONEDNN_ROOT ${CINN_WITH_ONEDNN})
 else()
     set(ONEDNN_ROOT $ENV{ONEDNN_ROOT})
+    message(STATUS "Enable ONEDNN_ROOT")
 endif()
 
 # find libdnnl.so
-find_library(ONEDNN_LIB NAMES dnnl PATHS "${ONEDNN_ROOT}/build/src")
+find_library(ONEDNN_LIB NAMES dnnl PATHS "${ONEDNN_ROOT}/lib")
 find_package_handle_standard_args(ONEDNN
     FOUND_VAR     ONEDNN_FOUND
     REQUIRED_VARS ONEDNN_LIB
 )
 if(NOT ONEDNN_FOUND)
+    message(FATAL_ERROR "ONEDNN library not found. Please make sure ONEDNN is installed and its path is correctly set.")
     return()
 endif()
 message(STATUS "Enable ONEDNN: " ${ONEDNN_ROOT})
 include_directories("${ONEDNN_ROOT}/include")
-include_directories("${ONEDNN_ROOT}/build/include")
+# include_directories("${ONEDNN_ROOT}/build/include")
 link_libraries(${ONEDNN_LIB})

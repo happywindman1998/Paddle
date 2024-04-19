@@ -1,5 +1,5 @@
-export CC=gcc
-export CXX=g++
+export CC=gcc-8
+export CXX=g++-8
 
 export DPCPP_ROOT=/CINN-SYCL/llvm-sycl-nightly-20220501
 export ONEDNN_ROOT=/CINN-SYCL/oneDNN

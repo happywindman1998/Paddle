@@ -24,7 +24,10 @@ namespace runtime {
 namespace Sycl {
 
 inline const char* SYCLGetErrorString(std::error_code error_code) {
-  sycl::errc error_code_value = static_cast<sycl::errc>(error_code.value());
+  unsigned int err_code_int = (unsigned int)error_code.value();
+  // std::cout<<"error_code value is : "<<err_code<<std::endl;
+  // sycl::errc error_code_value = static_cast<sycl::errc>(err_code);
+  sycl::errc error_code_value = static_cast<sycl::errc>(err_code_int);
   switch(error_code_value){
     case sycl::errc::success:
       return "SUCCESS";

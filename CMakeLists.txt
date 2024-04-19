@@ -32,7 +32,7 @@ include(system)
 
 # Note(zhouwei): Ninja Generator will set CMAKE_BUILD_TYPE to Debug
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE
+  set(CMAKE_BUILD_TYPEON
       "Release"
       CACHE
         STRING

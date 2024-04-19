@@ -169,8 +169,10 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
   auto a_mem = dnnl::memory(a_md, onednn_engine, A);
   auto b_mem = dnnl::memory(b_md, onednn_engine, B);
   auto c_mem = dnnl::memory(c_md, onednn_engine, C);
+
+  auto matmul_d = matmul::desc(a_md,b_md,c_md);
   // Create primitive descriptor.
-  auto matmul_pd = matmul::primitive_desc(onednn_engine, a_md, b_md, c_md);
+  auto matmul_pd = matmul::primitive_desc(matmul_d, onednn_engine);
 
   // Create the primitive.
   auto matmul_prim = matmul(matmul_pd);
@@ -263,8 +265,11 @@ void cinn_call_onednn_matmul(void *v_args,
   auto b_mem = dnnl::memory(b_md, onednn_engine, B);
   auto c_mem = dnnl::memory(c_md, onednn_engine, C);
 
+  auto matmul_d = matmul::desc(a_md,b_md,c_md);
   // Create primitive descriptor.
-  auto matmul_pd = matmul::primitive_desc(onednn_engine, a_md, b_md, c_md);
+  auto matmul_pd = matmul::primitive_desc(matmul_d, onednn_engine);
+  // // Create primitive descriptor.
+  // auto matmul_pd = matmul::primitive_desc(onednn_engine, a_md, b_md, c_md);
 
   // Create the primitive.
   auto matmul_prim = matmul(matmul_pd);
@@ -398,11 +403,16 @@ void cinn_gpu_onednn_conv2d(const absl::flat_hash_map<std::string, int> &attr,
   conv_attr.set_post_ops(conv_ops);
   */
 
+  auto conv_d = convolution_forward::desc(prop_kind::forward_inference, algorithm::convolution_direct,
+                                          conv_src_md,conv_weights_md,conv_dst_md,
+                                          strides_dims,padding_dims_l,padding_dims_r);
   // Create primitive descriptor.
-  auto conv_pd = convolution_forward::primitive_desc(onednn_engine,
-          prop_kind::forward_inference, algorithm::convolution_direct,
-          conv_src_md, conv_weights_md, conv_dst_md,
-          strides_dims, padding_dims_l, padding_dims_r);
+  auto conv_pd = convolution_forward::primitive_desc(conv_d,onednn_engine);                                          
+  // Create primitive descriptor.
+  // auto conv_pd = convolution_forward::primitive_desc(onednn_engine,
+  //         prop_kind::forward_inference, algorithm::convolution_direct,
+  //         conv_src_md, conv_weights_md, conv_dst_md,
+  //         strides_dims, padding_dims_l, padding_dims_r);
   
   // Create the primitive.
   auto conv_prim = convolution_forward(conv_pd);
@@ -557,14 +567,18 @@ void cinn_call_onednn_conv2d_common(void* v_args,
   primitive_attr conv_attr;
   conv_attr.set_post_ops(conv_ops);
   */
-
+  auto conv_d = convolution_forward::desc(prop_kind::forward_inference, algorithm::convolution_direct,
+                                          conv_src_md,conv_weights_md,conv_dst_md,
+                                          strides_dims,padding_dims_l,padding_dims_r);
   // Create primitive descriptor.
-  auto conv_pd = convolution_forward::primitive_desc(onednn_engine,
-          prop_kind::forward_inference, algorithm::convolution_direct,
-          conv_src_md, conv_weights_md, conv_dst_md,
-          strides_dims, 
-          //dilation_dims,
-          padding_dims_l, padding_dims_r);
+  auto conv_pd = convolution_forward::primitive_desc(conv_d,onednn_engine);   
+  // Create primitive descriptor.
+  // auto conv_pd = convolution_forward::primitive_desc(onednn_engine,
+  //         prop_kind::forward_inference, algorithm::convolution_direct,
+  //         conv_src_md, conv_weights_md, conv_dst_md,
+  //         strides_dims, 
+  //         //dilation_dims,
+  //         padding_dims_l, padding_dims_r);
   
   // Create the primitive.
   auto conv_prim = convolution_forward(conv_pd);
@@ -796,12 +810,11 @@ void cinn_call_onednn_pool2d_common(void* v_args,
   auto src_mem = dnnl::memory(src_md, onednn_engine, _x);
   auto dst_mem = dnnl::memory(dst_md, onednn_engine, _y);
 
+  auto pooling_d = pooling_forward::desc(prop_kind::forward_inference, pool_mode, src_md, dst_md,
+          strides_dims, kernel_dims, padding_dims_l,padding_dims_r);
  
   // Create primitive descriptor.
-  auto pooling_pd = pooling_forward::primitive_desc(onednn_engine,
-          prop_kind::forward_inference, pool_mode, src_md, dst_md,
-          strides_dims, kernel_dims, dilation, padding_dims_l,
-          padding_dims_r);
+  auto pooling_pd = pooling_forward::primitive_desc(pooling_d,onednn_engine);
 
   // Create the primitive.
   auto pooling_prim = pooling_forward(pooling_pd);
@@ -960,10 +973,12 @@ void cinn_call_onednn_softmax_common(void* v_args,
   // Softmax axis.
   const int axis = 1;
 
+  auto softmax_d = softmax_forward::desc(prop_kind::forward_inference, src_md, axis);
+  auto softmax_pd = softmax_forward::primitive_desc(softmax_d, onednn_engine);
   // Create primitive descriptor.
-  auto softmax_pd = softmax_forward::primitive_desc(onednn_engine,
-          prop_kind::forward_inference, softmax_mode, src_md,
-          dst_md, axis);
+  // auto softmax_pd = softmax_forward::primitive_desc(onednn_engine,
+  //         prop_kind::forward_inference, softmax_mode, src_md,
+  //         dst_md, axis);
 
   // Create the primitive.
   auto softmax_prim = softmax_forward(softmax_pd);
