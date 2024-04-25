@@ -1,6 +1,7 @@
 import numpy as np
 from numpy import testing
-from cinn import frontend,common
+from cinn import frontend
+from cinn import common
 from cinn.common import SYCLTarget
 
 
@@ -42,8 +43,8 @@ def build_run(target:common.Target):
     #    print(outs_and_grads[0][i])
 
 
-SYCL_target = common.SYCLTarget(arch=common.Target.Arch.CambriconMLU)
-# SYCL_target = common.SYCLTarget(arch=common.Target.Arch.AMDGPU)
+SYCL_target = common.SYCLTarget()
+#SYCL_target = common.SYCLTarget(arch=common.Target.Arch.AMDGPU)
 build_run(SYCL_target)
 
 

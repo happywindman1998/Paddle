@@ -637,7 +637,7 @@ void PaddleModelToProgram::TransposeVar(const std::string& name) {
           << "The y data's shape size of op [mul] is not equal to 2! Please "
              "check.";
       TransposeData(data, tensor->shape().data()[0], tensor->shape().data()[1]);
-    } else if (target_.arch_is_gpu()){
+    } else if (target_.arch_is_gpu() || target_.arch_is_xpu()){
       using cinn::runtime::BackendAPI;
       using cinn::runtime::IsCompiledWithCUDNN;
       using cinn::runtime::IsCompiledWithOneDNN;

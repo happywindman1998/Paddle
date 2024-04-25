@@ -50,6 +50,10 @@ ScheduleParam::ScheduleParam(common::Target::Arch arch) {
       param_data = CreateCudaParams();
       break;
     }
+    case common::Target::Arch::CambriconMLU: {
+      param_data = CreateCudaParams();
+      break;
+    }
     default: {
       LOG(FATAL)
           << "Schedule params must be initialized with target x86 or nvgpu.";
