@@ -162,13 +162,17 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
   memory::dims b_dims = {K, N};
   memory::dims c_dims = {M, N};
 
+  sycl::buffer<float, 2> buffer_a(static_cast<float*>(A), sycl::range<2>(M, K));
+  sycl::buffer<float, 2> buffer_b(static_cast<float*>(B), sycl::range<2>(K, N));
+  sycl::buffer<float, 2> buffer_c(static_cast<float*>(C), sycl::range<2>(M, N));  
+
   auto a_md = memory::desc(a_dims, onednn_dtype, tag::ab);
   auto b_md = memory::desc(b_dims, onednn_dtype, tag::ab);
   auto c_md = memory::desc(c_dims, onednn_dtype, tag::ab);
   
-  auto a_mem = dnnl::memory(a_md, onednn_engine, A);
-  auto b_mem = dnnl::memory(b_md, onednn_engine, B);
-  auto c_mem = dnnl::memory(c_md, onednn_engine, C);
+  auto a_mem = dnnl::sycl_interop::make_memory(a_md, onednn_engine, buffer_a);
+  auto b_mem = dnnl::sycl_interop::make_memory(b_md, onednn_engine, buffer_b);
+  auto c_mem = dnnl::sycl_interop::make_memory(c_md, onednn_engine, buffer_c);
 
   auto matmul_d = matmul::desc(a_md,b_md,c_md);
   // Create primitive descriptor.
@@ -179,9 +183,9 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
 
   // Primitive arguments.
   std::unordered_map<int, memory> matmul_args;
-  matmul_args.insert({DNNL_ARG_SRC, a_mem});
-  matmul_args.insert({DNNL_ARG_WEIGHTS, b_mem});
-  matmul_args.insert({DNNL_ARG_DST, c_mem});
+  matmul_args.insert(std::make_pair(DNNL_ARG_SRC, a_mem));
+  matmul_args.insert(std::make_pair(DNNL_ARG_WEIGHTS, b_mem));
+  matmul_args.insert(std::make_pair(DNNL_ARG_DST, c_mem));
 
   // Execution.
   matmul_prim.execute(onednn_stream, matmul_args);
@@ -261,9 +265,17 @@ void cinn_call_onednn_matmul(void *v_args,
   auto b_md = memory::desc(b_dims, onednn_dtype, b_onednn_tag);
   auto c_md = memory::desc(c_dims, onednn_dtype, o_onednn_tag);
   
-  auto a_mem = dnnl::memory(a_md, onednn_engine, A);
-  auto b_mem = dnnl::memory(b_md, onednn_engine, B);
-  auto c_mem = dnnl::memory(c_md, onednn_engine, C);
+  // auto a_mem = dnnl::memory(a_md, onednn_engine, A);
+  // auto b_mem = dnnl::memory(b_md, onednn_engine, B);
+  // auto c_mem = dnnl::memory(c_md, onednn_engine, C);
+// Create SYCL buffers
+  sycl::buffer<float, 2> buffer_a(static_cast<float*>(A), sycl::range<2>(m, k));
+  sycl::buffer<float, 2> buffer_b(static_cast<float*>(B), sycl::range<2>(k, n));
+  sycl::buffer<float, 2> buffer_c(static_cast<float*>(C), sycl::range<2>(m, n));  
+
+  auto a_mem = dnnl::sycl_interop::make_memory(a_md, onednn_engine, buffer_a);
+  auto b_mem = dnnl::sycl_interop::make_memory(b_md, onednn_engine, buffer_b);
+  auto c_mem = dnnl::sycl_interop::make_memory(c_md, onednn_engine, buffer_c);  
 
   auto matmul_d = matmul::desc(a_md,b_md,c_md);
   // Create primitive descriptor.
@@ -276,9 +288,9 @@ void cinn_call_onednn_matmul(void *v_args,
 
   // Primitive arguments.
   std::unordered_map<int, memory> matmul_args;
-  matmul_args.insert({DNNL_ARG_SRC, a_mem});
-  matmul_args.insert({DNNL_ARG_WEIGHTS, b_mem});
-  matmul_args.insert({DNNL_ARG_DST, c_mem});
+  matmul_args.insert(std::make_pair(DNNL_ARG_SRC, a_mem));
+  matmul_args.insert(std::make_pair(DNNL_ARG_WEIGHTS, b_mem));
+  matmul_args.insert(std::make_pair(DNNL_ARG_DST, c_mem));
 
   // Execution.
   matmul_prim.execute(onednn_stream, matmul_args);
@@ -360,10 +372,13 @@ void cinn_gpu_onednn_conv2d(const absl::flat_hash_map<std::string, int> &attr,
 
   // Source (src), weights, bias, and destination (dst) tensors
   // dimensions.
-  memory::dims src_dims = {N, IC, IH, IW};
-  memory::dims weights_dims = {OC, IC, KH, KW};
+  // memory::dims src_dims = {N, IC, IH, IW};
+  // memory::dims weights_dims = {OC, IC, KH, KW};
+  memory::dims src_dims = {N*IC, IH*IW};
+  memory::dims weights_dims = {OC*IC, KH*KW};  
   memory::dims bias_dims = {OC};
-  memory::dims dst_dims = {N, OC, OH, OW};
+  // memory::dims dst_dims = {N, OC, OH, OW};
+  memory::dims dst_dims = {N*OC, OH*OW};
 
   // Strides, padding dimensions.
   memory::dims strides_dims = {SH, SW};
@@ -378,11 +393,19 @@ void cinn_gpu_onednn_conv2d(const absl::flat_hash_map<std::string, int> &attr,
   void *_w = w->memory;
   void *_y = y->memory;
 
+  sycl::buffer<float, 2> buffer_src_dims(static_cast<float*>(_x), sycl::range<2>(N*IC, IH*IW));
+  sycl::buffer<float, 2> buffer_weight_dims(static_cast<float*>(_w), sycl::range<2>(OC*IC, KH*KW));
+  sycl::buffer<float, 2> buffer_dst_dims(static_cast<float*>(_y), sycl::range<2>(N*OC, OH*OW));  
+
   // Create memory objects for tensor data (src, weights, dst). In this
   // example, NCHW layout is assumed for src and dst, and OIHW for weights.
-  auto conv_src_mem = dnnl::memory({src_dims, data_type, tag::nchw}, onednn_engine, _x);
-  auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
-  auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tag::nchw}, onednn_engine, _y);
+  // auto conv_src_mem = dnnl::memory({src_dims, data_type, tag::nchw}, onednn_engine, _x);
+  // auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
+  // auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tag::nchw}, onednn_engine, _y);
+
+  auto conv_src_mem = dnnl::sycl_interop::make_memory({src_dims, data_type, tag::nchw}, onednn_engine, buffer_src_dims);
+  auto conv_weights_mem = dnnl::sycl_interop::make_memory({weights_dims, data_type, tag::oihw}, onednn_engine, buffer_weight_dims);
+  auto conv_dst_mem = dnnl::sycl_interop::make_memory({dst_dims, data_type, tag::nchw}, onednn_engine, buffer_dst_dims);
 
   // Create memory descriptors with format_tag::any for the primitive. This
   // enables the convolution primitive to choose memory layouts for an
@@ -419,10 +442,10 @@ void cinn_gpu_onednn_conv2d(const absl::flat_hash_map<std::string, int> &attr,
 
   // Primitive arguments.
   std::unordered_map<int, memory> conv_args;
-  conv_args.insert({DNNL_ARG_SRC, conv_src_mem});
-  conv_args.insert({DNNL_ARG_WEIGHTS, conv_weights_mem});
+  conv_args.insert(std::make_pair(DNNL_ARG_SRC, conv_src_mem));
+  conv_args.insert(std::make_pair(DNNL_ARG_WEIGHTS, conv_weights_mem));
   //conv_args.insert({DNNL_ARG_BIAS, user_bias_mem});
-  conv_args.insert({DNNL_ARG_DST, conv_dst_mem});
+  conv_args.insert(std::make_pair(DNNL_ARG_DST, conv_dst_mem));
 
   // Primitive execution: convolution with ReLU.
   conv_prim.execute(onednn_stream, conv_args);
@@ -523,10 +546,13 @@ void cinn_call_onednn_conv2d_common(void* v_args,
 
   // Source (src), weights, bias, and destination (dst) tensors
   // dimensions.
-  memory::dims src_dims = {N, IC, IH, IW};
-  memory::dims weights_dims = {OC, IC, KH, KW};
+  // memory::dims src_dims = {N, IC, IH, IW};
+  // memory::dims weights_dims = {OC, IC, KH, KW};
+  memory::dims src_dims = {N*IC, IH*IW};
+  memory::dims weights_dims = {OC*IC, KH*KW};  
   memory::dims bias_dims = {OC};
-  memory::dims dst_dims = {N, OC, OH, OW};
+  // memory::dims dst_dims = {N, OC, OH, OW};
+  memory::dims dst_dims = {N*OC, OH*OW};
 
   // Strides, padding dimensions.
   memory::dims strides_dims = {SH, SW};
@@ -543,11 +569,19 @@ void cinn_call_onednn_conv2d_common(void* v_args,
   void *_w = args[1].operator cinn_buffer_t *()->memory;
   void *_y = args[2].operator cinn_buffer_t *()->memory;
 
+  sycl::buffer<float, 2> buffer_src_dims(static_cast<float*>(_x), sycl::range<2>(N*IC, IH*IW));
+  sycl::buffer<float, 2> buffer_weight_dims(static_cast<float*>(_w), sycl::range<2>(OC*IC, KH*KW));
+  sycl::buffer<float, 2> buffer_dst_dims(static_cast<float*>(_y), sycl::range<2>(N*OC, OH*OW));  
+
   // Create memory objects for tensor data (src, weights, dst). In this
   // example, NCHW layout is assumed for src and dst, and OIHW for weights.
-  auto conv_src_mem = dnnl::memory({src_dims, data_type, tensor_format}, onednn_engine, _x);
-  auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
-  auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tensor_format}, onednn_engine, _y);
+  // auto conv_src_mem = dnnl::memory({src_dims, data_type, tensor_format}, onednn_engine, _x);
+  // auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
+  // auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tensor_format}, onednn_engine, _y);
+
+  auto conv_src_mem = dnnl::sycl_interop::make_memory({src_dims, data_type, tensor_format}, onednn_engine, buffer_src_dims);
+  auto conv_weights_mem = dnnl::sycl_interop::make_memory({weights_dims, data_type, tag::oihw}, onednn_engine, buffer_weight_dims);
+  auto conv_dst_mem = dnnl::sycl_interop::make_memory({dst_dims, data_type, tensor_format}, onednn_engine, buffer_dst_dims);  
 
   // Create memory descriptors with format_tag::any for the primitive. This
   // enables the convolution primitive to choose memory layouts for an
@@ -585,10 +619,10 @@ void cinn_call_onednn_conv2d_common(void* v_args,
 
   // Primitive arguments.
   std::unordered_map<int, memory> conv_args;
-  conv_args.insert({DNNL_ARG_SRC, conv_src_mem});
-  conv_args.insert({DNNL_ARG_WEIGHTS, conv_weights_mem});
+  conv_args.insert(std::make_pair(DNNL_ARG_SRC, conv_src_mem));
+  conv_args.insert(std::make_pair(DNNL_ARG_WEIGHTS, conv_weights_mem));
   //conv_args.insert({DNNL_ARG_BIAS, user_bias_mem});
-  conv_args.insert({DNNL_ARG_DST, conv_dst_mem});
+  conv_args.insert(std::make_pair(DNNL_ARG_DST, conv_dst_mem));
 
   // Primitive execution: convolution with ReLU.
   conv_prim.execute(onednn_stream, conv_args);
@@ -783,8 +817,10 @@ void cinn_call_onednn_pool2d_common(void* v_args,
           OW = output_w; // output width
     
   // Source (src) and destination (dst) tensors dimensions.
-  memory::dims src_dims = {N, IC, IH, IW};
-  memory::dims dst_dims = {N, IC, OH, OW};
+  // memory::dims src_dims = {N, IC, IH, IW};
+  // memory::dims dst_dims = {N, IC, OH, OW};
+  memory::dims src_dims = {N*IC, IH*IW};
+  memory::dims dst_dims = {N*IC, OH*OW};  
 
   // Kernel dimensions.
   memory::dims kernel_dims = {KH, KW};
@@ -805,10 +841,16 @@ void cinn_call_onednn_pool2d_common(void* v_args,
   auto src_md = dnnl::memory::desc(src_dims, data_type, tensor_format);
   auto dst_md = dnnl::memory::desc(dst_dims, data_type, tensor_format);
 
+  sycl::buffer<float, 2> buffer_src(static_cast<float*>(_x), sycl::range<2>(N*IC, IH*IW));
+  sycl::buffer<float, 2> buffer_dst(static_cast<float*>(_y), sycl::range<2>(N*IC, OH*OW));    
+
   // Create memory objects for tensor data (src, weights, dst). In this
   // example, NCHW layout is assumed for src and dst, and OIHW for weights.
-  auto src_mem = dnnl::memory(src_md, onednn_engine, _x);
-  auto dst_mem = dnnl::memory(dst_md, onednn_engine, _y);
+  // auto src_mem = dnnl::memory(src_md, onednn_engine, _x);
+  // auto dst_mem = dnnl::memory(dst_md, onednn_engine, _y);
+
+  auto src_mem = dnnl::sycl_interop::make_memory(src_md, onednn_engine, buffer_src);
+  auto dst_mem = dnnl::sycl_interop::make_memory(dst_md, onednn_engine, buffer_dst);
 
   auto pooling_d = pooling_forward::desc(prop_kind::forward_inference, pool_mode, src_md, dst_md,
           strides_dims, kernel_dims, padding_dims_l,padding_dims_r);
@@ -819,6 +861,7 @@ void cinn_call_onednn_pool2d_common(void* v_args,
   // Create the primitive.
   auto pooling_prim = pooling_forward(pooling_pd);
 
+  // sycl::buffer<float, 4> buffer_dst(static_cast<float*>(_y), sycl::range<4>(N, IC, OH, OW));
   // Create workspace memory objects using memory descriptor created by the
   // primitive descriptor.
   // NOTE: Here, the workspace is required to save the indices where maximum
@@ -827,9 +870,9 @@ void cinn_call_onednn_pool2d_common(void* v_args,
   
   // Primitive arguments. Set up in-place execution by assigning src as DST.
   std::unordered_map<int, memory> pooling_args;
-  pooling_args.insert({DNNL_ARG_SRC, src_mem});
-  pooling_args.insert({DNNL_ARG_DST, dst_mem});
-  pooling_args.insert({DNNL_ARG_WORKSPACE, workspace_mem});
+  pooling_args.insert(std::make_pair(DNNL_ARG_SRC, src_mem));
+  pooling_args.insert(std::make_pair(DNNL_ARG_DST, dst_mem));
+  pooling_args.insert(std::make_pair(DNNL_ARG_WORKSPACE, workspace_mem));
 
   // Primitive execution: pooling.
   pooling_prim.execute(onednn_stream, pooling_args);
@@ -985,8 +1028,8 @@ void cinn_call_onednn_softmax_common(void* v_args,
 
   // Primitive arguments. Set up in-place execution by assigning src as DST.
   std::unordered_map<int, memory> softmax_args;
-  softmax_args.insert({DNNL_ARG_SRC, src_mem});
-  softmax_args.insert({DNNL_ARG_DST, src_mem});
+  softmax_args.insert(std::make_pair(DNNL_ARG_SRC, src_mem));
+  softmax_args.insert(std::make_pair(DNNL_ARG_DST, src_mem));
 
   // Primitive execution.
   softmax_prim.execute(onednn_stream, softmax_args);
