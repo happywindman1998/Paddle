@@ -16,6 +16,7 @@
 #include <CL/sycl.hpp>
 #include "paddle/cinn/runtime/backend_api.h"
 #include <vector>
+#include <glog/logging.h>
 #include "paddle/cinn/common/target.h"
 using cinn::common::Target;
 
@@ -64,6 +65,7 @@ inline const char* SYCLGetErrorString(std::error_code error_code) {
   }
 }
 
+
 /*!
  * \brief Protected SYCL call
  * \param func Expression to call.
@@ -73,7 +75,7 @@ inline const char* SYCLGetErrorString(std::error_code error_code) {
     try{                                                                      \
       func;                                                                   \
     }catch(const sycl::exception &e){                                         \
-      CHECK(e.code() == sycl::errc::success) << "SYCL Error, code=" << ": " << SYCLGetErrorString(e.code()) <<", message:"<< e.what();;\
+      LOG(FATAL)<<"SYCL error, code = "<<SYCLGetErrorString(e.code()) <<", message:"<< e.what();\
     }                                                                         \
   }
 

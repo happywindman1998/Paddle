@@ -24,6 +24,9 @@ void SYCLWorkspace::Init(const Target::Arch arch, const std::string& platform_na
     case Target::Arch::IntelGPU:
       platform_key = "Level-Zero";
       break;
+    case Target::Arch::CambriconMLU:
+      platform_key = "CNRT";
+      break;
     default:
       LOG(FATAL) << "SYCL Not supported arch!";
   }
