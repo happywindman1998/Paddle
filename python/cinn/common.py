@@ -21,6 +21,7 @@ from .core_api.common import (  # noqa: F401
     DefaultNVGPUTarget,
     SYCLTarget,
     DefaultROCMTarget,
+    DefaultCNRTTarget,
     DefaultTarget,
     Float,
     Float16,

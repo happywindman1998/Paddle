@@ -222,14 +222,14 @@ void BindFrontend(pybind11::module *m) {
               CHECK_EQ(input_data[i].size(), in_tensor->shape().numel())
                   << "The size of tensor [" << tensor_inputs[i]->id
                   << "] is different with the input data's size! Please check.";
-              if (target.arch_is_gpu()) {
+              if (target.arch_is_gpu() || target.arch_is_xpu()) {
                 using cinn::runtime::BackendAPI;
                 BackendAPI::get_backend(target)->memcpy(
                     data,
                     input_data[i].data(),
                     in_tensor->shape().numel() * dtype.bytes(),
                     BackendAPI::MemcpyType::HostToDevice);
-              } else if (target.arch == Target::Arch::X86) {
+              }else if (target.arch == Target::Arch::X86) {
                 memcpy(data,
                        input_data[i].data(),
                        in_tensor->shape().numel() *
@@ -314,7 +314,7 @@ void BindFrontend(pybind11::module *m) {
               CHECK_EQ(input_data[i].size(), in_tensor->shape().numel())
                   << "The size of tensor [" << tensor_inputs[i]->id
                   << "] is different with the input data's size! Please check.";
-              if (target.arch_is_gpu()) {
+              if (target.arch_is_gpu() || target.arch_is_xpu()) {
                 using cinn::runtime::BackendAPI;
                 BackendAPI::get_backend(target)->memcpy(
                     reinterpret_cast<void *>(data),
@@ -362,7 +362,7 @@ void BindFrontend(pybind11::module *m) {
               CHECK_EQ(input_data[i].size(), in_tensor->shape().numel())
                   << "The size of tensor [" << tensor_inputs[i]->id
                   << "] is different with the input data's size! Please check.";
-              if (target.arch_is_gpu()) {
+              if (target.arch_is_gpu() || target.arch_is_xpu()) {
                 using cinn::runtime::BackendAPI;
                 BackendAPI::get_backend(target)->memcpy(
                     reinterpret_cast<void *>(data),

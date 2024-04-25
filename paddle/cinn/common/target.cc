@@ -67,7 +67,7 @@ bool Target::arch_is_gpu() const {
   return (arch == Arch::NVGPU || arch == Arch::AMDGPU || arch ==Arch::IntelGPU);
 }
 bool Target::arch_is_xpu() const {
-  return (arch == Arch::CambrianMLU);
+  return (arch == Arch::CambriconMLU);
 }
 
 int Target::runtime_arch() const {
@@ -214,8 +214,8 @@ std::ostream &operator<<(std::ostream &os, Target::Arch arch) {
     case Target::Arch::HygonDCU:
       os << "HygonDCU";
       break;
-    case Target::Arch::CambrianMLU:
-      os << "CambrianMLU";
+    case Target::Arch::CambriconMLU:
+      os << "CambriconMLU";
       break;
   }
   return os;
@@ -272,6 +272,12 @@ const Target &SYCLTarget(Target::Arch arch) {
 const Target& DefaultROCMTarget(){
   static Target target(
       Target::OS::Linux, Target::Arch::AMDGPU, Target::Language::hip, Target::Bit::k64, {}, {});
+  return target;
+}
+
+const Target& DefaultCNRTTarget(){
+  static Target target(
+      Target::OS::Linux, Target::Arch::CambriconMLU, Target::Language::bangc, Target::Bit::k64, {}, {});
   return target;
 }
 

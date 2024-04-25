@@ -63,6 +63,7 @@ void BindTarget(py::module *m) {
   m->def("DefaultHostTarget", &common::DefaultHostTarget)
       .def("DefaultNVGPUTarget", &common::DefaultNVGPUTarget)
       .def("DefaultROCMTarget", &common::DefaultROCMTarget)
+      .def("DefaultCNRTTarget", &common::DefaultCNRTTarget)
       .def("DefaultTarget", &common::DefaultTarget);
 
   m->def("get_target", &cinn::runtime::CurrentTarget::GetCurrentTarget);
@@ -81,6 +82,7 @@ void BindTarget(py::module *m) {
       .value("ARM", Target::Arch::ARM)
       .value("NVGPU", Target::Arch::NVGPU)
       .value("AMDGPU", Target::Arch::AMDGPU)
+      .value("CambriconMLU", Target::Arch::CambriconMLU)
       .value("IntelGPU", Target::Arch::IntelGPU);
   
   m->def("SYCLTarget", &common::SYCLTarget, py::arg("arch")=Target::Arch::Unk);

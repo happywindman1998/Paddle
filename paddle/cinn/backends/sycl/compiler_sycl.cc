@@ -88,6 +88,10 @@ void Compiler::SetDeviceArchOptions(const Target::Arch gpu_type){
   case Target::Arch::IntelGPU:
     device_arch_options="-fsycl";
     break;
+  case Target::Arch::CambriconMLU:
+    device_arch_options="-fsycl";
+    device_arch_options+= " -fsycl-targets=mlisa-cambricon-bang";
+    break;
   default:
     LOG(ERROR) << "valid gpu value in target! possible options: intel/amd/nvidia.";
   }

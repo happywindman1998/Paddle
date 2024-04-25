@@ -48,7 +48,7 @@ struct Target {
     AMDGPU,
     IntelGPU,
     HygonDCU,
-    CambrianMLU,
+    CambriconMLU,
   };
 
   enum class Language : int {
@@ -138,6 +138,8 @@ const Target& DefaultNVGPUTarget();
 const Target& SYCLTarget(Target::Arch arch=Target::Arch::Unk);
 
 const Target& DefaultROCMTarget();
+
+const Target& DefaultCNRTTarget();
 
 const Target& DefaultTarget();
 
