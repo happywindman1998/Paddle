@@ -55,8 +55,9 @@ class Compiler {
 
   std::string compiler_path = SYCL_CXX_COMPILER;
   std::string prefix_dir = "./source";
+  // TODO: -O2 or higher will fail to compile for log and pow op
   std::string cxx_compile_options =
-      "-std=c++17 -fPIC -shared -ldl -fbracket-depth=1030";  // set 1030 for
+      "-std=c++17 -fPIC -O1 -shared -ldl -fbracket-depth=1030";  // set 1030 for
                                                                  // constant op,
                                                                  // default max
                                                                  // bracket-depth

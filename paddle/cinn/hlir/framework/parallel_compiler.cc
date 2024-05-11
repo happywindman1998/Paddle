@@ -317,25 +317,29 @@ void ParallelCompiler::Task::CodegenAndJit() {
     auto host_module = std::get<0>(splited_module);
     auto device_module = std::get<1>(splited_module);
     backends::CodeGenSYCL_Dev codegen(context->target);
-    std::string source_code = codegen.Compile(device_module);
-    CHECK(!source_code.empty())
-        << "Compile SYCL code failed from device module:\n"
-        << device_module;
-    VLOG(4) << "[SYCL]:\n" << source_code;
-    cinn::backends::SourceCodePrint::GetInstance()->write(source_code);
-    using runtime::sycl::SYCLModule;
-    backends::syclrtc::Compiler compiler;
-    std::string share_library = compiler(source_code, context->target.arch);
-    CHECK(!share_library.empty())
-        << "Compile SYCL code failed from source code" << source_code;
-    sycl_module = std::make_unique<SYCLModule>(
-        source_code, share_library, SYCLModule::Kind::so);
-    // register kernel
     backends::RuntimeSymbols symbols;
-    for (auto& fn : device_module.functions()) {
-      auto cufunc = sycl_module->GetFunction(fn->name);
-      CHECK(cufunc);
-      symbols.RegisterVar(fn->name + "_ptr_", reinterpret_cast<void*>(cufunc));
+    if (device_module.functions().empty()) {
+      VLOG(3) << "No device code found in the module, skip codegen and jit.";
+    } else {
+      std::string source_code = codegen.Compile(device_module);
+      CHECK(!source_code.empty())
+          << "Compile SYCL code failed from device module:\n"
+          << device_module;
+      VLOG(4) << "[SYCL]:\n" << source_code;
+      cinn::backends::SourceCodePrint::GetInstance()->write(source_code);
+      using runtime::sycl::SYCLModule;
+      backends::syclrtc::Compiler compiler;
+      std::string share_library = compiler(source_code, context->target.arch);
+      CHECK(!share_library.empty())
+          << "Compile SYCL code failed from source code" << source_code;
+      sycl_module = std::make_unique<SYCLModule>(
+          source_code, share_library, SYCLModule::Kind::so);
+      // register kernel
+      for (auto& fn : device_module.functions()) {
+        auto syclfunc = sycl_module->GetFunction(fn->name);
+        CHECK(syclfunc);
+        symbols.RegisterVar(fn->name + "_ptr_", reinterpret_cast<void*>(syclfunc));
+      }
     }
     engine = backends::ExecutionEngine::Create(backends::ExecutionOptions(),
                                                std::move(symbols));

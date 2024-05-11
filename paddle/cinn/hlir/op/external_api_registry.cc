@@ -118,6 +118,10 @@ CINN_REGISTER_HELPER(op_external_api) {
       .set_api_name("cinn_call_cnnl_uniform_random");
   CINN_OP_REGISTER_EXTERNAL_API(randint, sycl_mlu)
       .set_api_name("cinn_call_cnnl_randint");
+  CINN_OP_REGISTER_EXTERNAL_API(cholesky, sycl_mlu)
+      .set_api_name("cinn_call_cnnl_cholesky");
+  CINN_OP_REGISTER_EXTERNAL_API(triangular_solve, sycl_mlu)
+      .set_api_name("cinn_call_cnnl_triangular_solve");
   CINN_OP_REGISTER_EXTERNAL_API(matmul, sycl_mlu)
       .set_api_name("cinn_call_cnnl_matmul");
   CINN_OP_REGISTER_EXTERNAL_API(mul, sycl_mlu)

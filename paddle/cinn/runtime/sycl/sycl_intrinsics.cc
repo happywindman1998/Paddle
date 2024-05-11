@@ -447,6 +447,16 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<int>()     // block_z
       .End();
 
+  using cinn::runtime::sycl::cinn_call_sycl_memset;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_sycl_memset,
+                              cinn::common::DefaultHostTarget())
+      .SetRetType<void>()
+      .AddInputType<void *>()  // v_args
+      .AddInputType<int>()     // num_args
+      .AddInputType<int>()     // value
+      .AddInputType<size_t>()  // count
+      .End();
+
   using cinn::runtime::sycl::cinn_call_sycl_memcpy;
   REGISTER_EXTERN_FUNC_HELPER(cinn_call_sycl_memcpy,
                               cinn::common::DefaultHostTarget())
@@ -486,6 +496,32 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<void *>()  // v_args
       .AddInputType<int>()     // num_args
       .AddInputType<int>()     // seed
+      .End();
+
+  using cinn::runtime::sycl::cinn_call_cnnl_cholesky;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_cholesky,
+                              cinn::common::DefaultHostTarget())
+      .SetRetType<void>()
+      .AddInputType<void *>()  // v_args
+      .AddInputType<int>()     // num_args
+      .AddInputType<int>()     // batch_size
+      .AddInputType<int>()     // m
+      .AddInputType<bool>()    // upper
+      .End();
+
+  using cinn::runtime::sycl::cinn_call_cnnl_triangular_solve;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_triangular_solve,
+                              cinn::common::DefaultHostTarget())
+      .SetRetType<void>()
+      .AddInputType<void *>()  // v_args
+      .AddInputType<int>()     // num_args
+      .AddInputType<int>()     // batch_size
+      .AddInputType<int>()     // m
+      .AddInputType<int>()     // k
+      .AddInputType<bool>()    // left_side
+      .AddInputType<bool>()    // upper
+      .AddInputType<bool>()    // transpose_a
+      .AddInputType<bool>()    // unit_diagonal
       .End();
 
   using cinn::runtime::sycl::cinn_call_cnnl_matmul;

@@ -53,8 +53,9 @@ void cinn_call_sycl_kernel(void* kernel_fn,
     cinn_pod_value_t* args = static_cast<cinn_pod_value_t*>(v_args);
     for (int idx = 0; idx < num_args; ++idx) {
       if (args[idx].type_code() == ::cinn_type_code<cinn_buffer_t*>()) {
-        kernel_args.emplace_back(
-            &(static_cast<cinn_buffer_t*>(args[idx]))->memory);
+        auto &addr = args[idx].operator cinn_buffer_t *()->memory;
+        VLOG(4) << "cinn_call_sycl_kernel: arg[" << idx << "]=" << (void *)addr;
+        kernel_args.emplace_back(&addr);
       } else {
         kernel_args.emplace_back((args[idx].data_addr()));
       }
@@ -75,10 +76,28 @@ void cinn_call_sycl_kernel(void* kernel_fn,
     ::sycl::queue* Queue = SYCLBackendAPI::Global()->get_now_queue();
     ::sycl::range<3> Grid(grid_z, grid_y, grid_x);
     ::sycl::range<3> Block(block_z, block_y, block_x);
-    // need malloc_shared
-    // LOG(INFO) << "kernel args :" << (float* )(*(void **)(kernel_args[0]))[0]
     kernel_func(*Queue, Grid, Block, kernel_args.data());
+    Queue->wait_and_throw();
   }
+}
+
+void cinn_call_sycl_memset(
+    void *v_args, int num_args, int value, size_t count) {
+  PADDLE_ENFORCE_EQ(num_args,
+                    1,
+                    phi::errors::PreconditionNotMet(
+                        "The cinn_call_sycl_memset only accept a output."));
+  VLOG(4) << "call cinn_call_sycl_memset with value=" << value
+          << ", count=" << count;
+
+  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
+  void *output = args[0].operator cinn_buffer_t *()->memory;
+
+  VLOG(4) << "cinn_call_sycl_memset: output=" << output;
+
+  auto Queue = SYCLBackendAPI::Global()->get_now_queue();
+
+  SYCL_CALL(Queue->memset(output, value, count));
 }
 
 void cinn_call_sycl_memcpy(void *v_args,
@@ -94,6 +113,13 @@ void cinn_call_sycl_memcpy(void *v_args,
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
   void *input = args[0].operator cinn_buffer_t *()->memory;
   void *output = args[1].operator cinn_buffer_t *()->memory;
+
+  if (input == output) {
+    VLOG(4) << "Skip memcpy as input and output are the same.";
+    return;
+  }
+
+  VLOG(4) << "cinn_call_sycl_memcpy: input=" << input << ", output=" << output;
 
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
 
@@ -367,6 +393,25 @@ void cinn_call_cnnl_randint(void *v_args, int num_args, int seed) {
   CNRT_CALL(cnrtQueueDestroy(queue));
 }
 
+void cinn_call_cnnl_cholesky(void *v_args,
+                              int num_args,
+                              int batch_size,
+                              int m,
+                              bool upper) {
+  CINN_RUNTIME_NOT_IMPLEMENTED
+}
+
+void cinn_call_cnnl_triangular_solve(void *v_args,
+                                      int num_args,
+                                      int batch_size,
+                                      int m,
+                                      int k,
+                                      bool left_side,
+                                      bool upper,
+                                      bool transpose_a,
+                                      bool unit_diagonal) {
+  CINN_RUNTIME_NOT_IMPLEMENTED
+}
 void cinn_call_cnnl_matmul(void *v_args,
                           int num_args,
                           bool trans_a,

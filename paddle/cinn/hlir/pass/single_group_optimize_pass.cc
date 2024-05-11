@@ -124,9 +124,13 @@ void NodeToMemsetCustomCallImpl(Node* node,
       node->attrs.attr_store["custom_call"] =
           std::string("cinn_call_hip_memset");
       break;
+    case Target::Language::sycl:
+      node->attrs.attr_store["custom_call"] =
+          std::string("cinn_call_sycl_memset");
+      break;
     default:
       PADDLE_THROW(
-          phi::errors::Fatal("%s not support custom call memcpy!", language));
+          phi::errors::Fatal("%s not support custom call memset!", language));
   }
 }
 
@@ -148,7 +152,7 @@ void NodeToMemcpyCustomCallImpl(Node* node,
       break;
     default:
       PADDLE_THROW(
-          phi::errors::Fatal("%s not support custom call memset!", language));
+          phi::errors::Fatal("%s not support custom call memcpy!", language));
   }
 }
 

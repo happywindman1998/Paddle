@@ -1468,6 +1468,10 @@ bool RegisterCustomCallArgsFunc() {
 #ifdef CINN_WITH_SYCL
 
   CustomCallArgsFuncRegistry::Global().Register(
+      "cinn_call_sycl_memset",
+      cinn::common::SYCLTarget(),
+      CustomCallArgsForMemset);
+  CustomCallArgsFuncRegistry::Global().Register(
       "cinn_call_sycl_memcpy",
       cinn::common::SYCLTarget(),
       CustomCallArgsForMemcpy);
@@ -1485,6 +1489,14 @@ bool RegisterCustomCallArgsFunc() {
       "cinn_call_cnnl_randint",
       cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
       CustomCallArgsForRandInt);
+  CustomCallArgsFuncRegistry::Global().Register(
+      "cinn_call_cnnl_cholesky",
+      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
+      CustomCallArgsForCholesky);
+  CustomCallArgsFuncRegistry::Global().Register(
+      "cinn_call_cnnl_triangular_solve",
+      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
+      CustomCallArgsForTriangularSolve);
   CustomCallArgsFuncRegistry::Global().Register(
       "cinn_call_cnnl_matmul",
       cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),

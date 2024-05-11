@@ -45,6 +45,11 @@ void cinn_call_sycl_kernel(void* kernel_fn,
                            int block_y,
                            int block_z);
 
+void cinn_call_sycl_memset(void* v_args,
+                           int num_args,
+                           int value,
+                           size_t count);
+
 void cinn_call_sycl_memcpy(void *v_args,
                            int num_args,
                            size_t count);
@@ -85,6 +90,22 @@ void cinn_call_cnnl_uniform_random(void* v_args,
 void cinn_call_cnnl_randint(void* v_args,
                        int num_args,
                        int seed);
+
+void cinn_call_cnnl_cholesky(void* v_args,
+                              int num_args,
+                              int batch_size,
+                              int m,
+                              bool upper);
+
+void cinn_call_cnnl_triangular_solve(void* v_args,
+                                      int num_args,
+                                      int batch_size,
+                                      int m,
+                                      int k,
+                                      bool left_side,
+                                      bool upper,
+                                      bool transpose_a,
+                                      bool unit_diagonal);
 
 void cinn_call_cnnl_matmul(void* v_args,
                       int num_args,

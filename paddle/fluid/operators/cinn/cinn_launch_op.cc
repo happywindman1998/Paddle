@@ -41,6 +41,11 @@ const ::cinn::common::Target& PlaceToCinnTarget(const platform::Place& place) {
     return ::cinn::common::DefaultGPUTarget();
   }
 
+#if defined(CINN_WITH_SYCL) && defined(PADDLE_WITH_CUSTOM_DEVICE)
+  if (platform::is_custom_place(place))
+    return ::cinn::common::SYCLTarget();
+#endif
+
   PADDLE_THROW(platform::errors::InvalidArgument(
       "CINN is not supported on current place:%s", place));
   return ::cinn::common::UnkTarget();
