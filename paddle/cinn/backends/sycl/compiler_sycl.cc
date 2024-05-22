@@ -101,7 +101,7 @@ void Compiler::SetDeviceArchOptions(const Target::Arch gpu_type) {
       device_arch_options = "-fsycl";
       break;
     case Target::Arch::CambriconMLU:
-      device_arch_options = "-fsycl -fsycl-targets=mlisa-cambricon-bang -fsycl-libspirv-path=/workspace/llvm-mlu/libclc/build/lib/clc/builtins.opt.libspirv-mlisa--.bc";
+      device_arch_options = "-fsycl -fsycl-targets=mlisa-cambricon-bang";
       break;
     default:
       PADDLE_THROW(::common::errors::Fatal(
