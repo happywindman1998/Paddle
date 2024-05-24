@@ -9,6 +9,8 @@ include(FindPackageHandleStandardArgs)
 # set DPCPP_ROOT
 if(IS_DIRECTORY ${CINN_WITH_SYCL})
   set(DPCPP_ROOT ${CINN_WITH_SYCL})
+elseif(DEFINED ENV{DPCPP_ROOT})
+  set(DPCPP_ROOT $ENV{DPCPP_ROOT})
 else()
   execute_process(
     COMMAND which sycl-ls
@@ -24,11 +26,12 @@ else()
     )
   endif()
 endif()
+message(STATUS "Enable SYCL: " ${DPCPP_ROOT})
 # find libsycl.so
 find_library(
   DPCPP_LIB
   NAMES sycl
-  PATHS "${DPCPP_ROOT}/lib")
+  PATHS "${DPCPP_ROOT}/build/lib")
 find_package_handle_standard_args(
   DPCPP
   FOUND_VAR DPCPP_FOUND

@@ -12,6 +12,32 @@ English | [简体中文](./README_cn.md) | [日本語](./README_ja.md)
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](LICENSE)
 [![Twitter](https://img.shields.io/badge/Twitter-1ca0f1.svg?logo=twitter&logoColor=white)](https://twitter.com/PaddlePaddle)
 
+
+当前选择的Paddle版本为2.6，是最新的发版。
+下载源文件并编译，编译命令为：
+
+```
+export CC=gcc-8
+export CXX=g++-8
+
+export DPCPP_ROOT=/home/wzy/repos/llvm-mlu/
+export ONEDNN_ROOT=/home/wzy/oneDNN-mlu/
+
+export DPCPP_ROOT=/home/wzy/repos/llvm-mlu/
+export CINN_WITH_SYCL=/home/wzy/repos/llvm-mlu
+export ONEDNN_ROOT=/home/wzy/oneDNN-mlu/
+
+mkdir build-docker
+cd build-docker
+cmake -DCMAKE_BUILD_TYPE=Debug -DCINN_ONLY=ON -DWITH_CINN=ON -DWITH_GPU=OFF -DCINN_WITH_SYCL=ON -DWITH_DISTRIBUTE=OFF -DCINN_WITH_ONEDNN=OFF -DWITH_TESTING=OFF \
+      -DWITH_MKL=OFF -DPYTHON_EXECUTABLE=python3.8 -DPY_VERSION=3.8 -G Ninja ..
+
+cmake .. -DWITH_CINN=ON -DCINN_WITH_SYCL=ON -DCINN_WITH_CNNL=ON -DWITH_CUSTOM_DEVICE=ON -DWITH_GPU=OFF -DPYTHON_EXECUTABLE=/home/wzy/build-python3-8-17/bin/python3.8 -DPY_VERSION=3.8 -DWITH_TESTING=OFF -DWITH_DISTRIBUTE=OFF -DCMAKE_BUILD_TYPE=Release -G Ninja
+
+ninja -j 16
+
+```
+
 Welcome to the PaddlePaddle GitHub.
 
 PaddlePaddle, as the first independent R&D deep learning platform in China, has been officially open-sourced to professional communities since 2016. It is an industrial platform with advanced technologies and rich features that cover core deep learning frameworks, basic model libraries, end-to-end development kits, tools & components as well as service platforms.

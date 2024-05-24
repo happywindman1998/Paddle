@@ -48,7 +48,9 @@ from tests_utils import (
     supports_no_need_buffer,
 )
 
-file_loader = FileSystemLoader(Path(__file__).parent / "templates")
+# file_loader = FileSystemLoader(Path(__file__).parent / "templates")
+template_dir = str(Path(__file__).parent / "templates")  # 将PosixPath对象转换为字符串
+file_loader = FileSystemLoader([template_dir])  # 用字符串列表初始化FileSystemLoader
 env = Environment(
     loader=file_loader,
     keep_trailing_newline=True,
