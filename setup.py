@@ -1134,6 +1134,7 @@ def get_package_data_and_package_dir():
             )
         package_data['paddle.libs'] += ['libcinnapi.so']
         package_data['paddle.libs'] += ['cinn_cuda_runtime_source.cuh']
+        package_data['paddle.libs'] += ['cinn_sycl_runtime_source.h']
 
         cinn_fp16_file = (
             env_dict.get("CINN_INCLUDE_DIR")
@@ -1483,6 +1484,11 @@ def get_setup_parameters():
         'paddle.utils',
         'paddle.utils.gast',
         'paddle.utils.cpp_extension',
+        'paddle.cinn',
+        'paddle.cinn.auto_schedule',
+        'paddle.cinn.compiler',
+        'paddle.cinn.ir',
+        'paddle.cinn.runtime',
         'paddle.dataset',
         'paddle.reader',
         'paddle.distributed',
