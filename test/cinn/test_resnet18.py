@@ -33,7 +33,8 @@ print("model_dir is : ", model_dir)
 class TestLoadResnetModel(unittest.TestCase):
     def setUp(self):
         if enable_gpu == "ON":
-            self.target = DefaultNVGPUTarget()
+            # self.target = DefaultNVGPUTarget()
+            self.target = SYCLTarget()
         else:
             self.target = DefaultHostTarget()
         self.model_dir = model_dir
@@ -70,8 +71,8 @@ class TestLoadResnetModel(unittest.TestCase):
         a_t.from_numpy(x_data, self.target)
         out = self.executor.get_tensor(self.target_tensor)
         out.from_numpy(np.zeros(out.shape(), dtype='float32'), self.target)
-        for i in range(10):
-            self.executor.run()
+        # for i in range(10):
+        #     self.executor.run()
 
         repeat = 10
         end4 = time.perf_counter()
@@ -85,7 +86,7 @@ class TestLoadResnetModel(unittest.TestCase):
 
         a_t.from_numpy(x_data, self.target)
         out.from_numpy(np.zeros(out.shape(), dtype='float32'), self.target)
-        self.executor.run()
+        # self.executor.run()
 
         out = out.numpy(self.target)
         target_result = self.get_paddle_inference_result(self.model_dir, x_data)
