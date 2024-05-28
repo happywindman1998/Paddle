@@ -156,8 +156,8 @@ void* SYCLBackendAPI::malloc(size_t numBytes) {
   void* dev_mem = nullptr;
   SYCL_CALL(dev_mem = sycl::malloc_device(
       numBytes, this->devices[now_device_id], *this->contexts[now_device_id]));
-  dev_mem = sycl::malloc_device(
-      numBytes, this->devices[now_device_id], *this->contexts[now_device_id]);
+  // dev_mem = sycl::malloc_device(
+  //     numBytes, this->devices[now_device_id], *this->contexts[now_device_id]);
   if (dev_mem == nullptr)
     LOG(ERROR) << "allocate sycl device memory failure!" << std::endl;
   return dev_mem;
@@ -166,14 +166,14 @@ void* SYCLBackendAPI::malloc(size_t numBytes) {
 void SYCLBackendAPI::free(void* data) {
   VLOG(3) << "sycl free";
   SYCL_CALL(sycl::free(data, *this->contexts[now_device_id]));
-  sycl::free(data, *this->contexts[now_device_id]);
+  // sycl::free(data, *this->contexts[now_device_id]);
 }
 
 void SYCLBackendAPI::memset(void* data, int value, size_t numBytes) {
   VLOG(3) << "sycl memset";
   SYCL_CALL(
       this->queues[now_device_id][0]->memset(data, value, numBytes).wait());
-    this->queues[now_device_id][0]->memset(data, value, numBytes).wait();
+    // this->queues[now_device_id][0]->memset(data, value, numBytes).wait();
 }
 
 void SYCLBackendAPI::memcpy(void* dest,

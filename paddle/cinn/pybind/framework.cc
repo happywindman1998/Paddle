@@ -162,7 +162,7 @@ void BindFramework(pybind11::module *m) {
               std::memcpy(array_data,
                           self->data<void>(),
                           self->shape().numel() * self->type().bytes());
-            } else if (target.arch_is_gpu()) {
+            } else if (target.arch_is_gpu() || target.arch_is_xpu()) {
               using cinn::runtime::BackendAPI;
               BackendAPI::get_backend(target)->memcpy(
                   array_data,

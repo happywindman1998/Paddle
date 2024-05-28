@@ -14,6 +14,7 @@
 #include "paddle/cinn/runtime/flags.h"
 #include "paddle/cinn/utils/profiler.h"
 #include "paddle/cinn/utils/timer.h"
+// #include "third_party/mkldnn/examples/example_utils.hpp"
 
 #include <sycl/sycl.hpp>
 #include "paddle/cinn/runtime/sycl/sycl_backend_api.h"
@@ -42,16 +43,19 @@ public:
 
   dnnl::engine GetOneDNNEngine() { return onednn_engine; }
   dnnl::stream GetOneDNNStream() { return onednn_stream; }
-
+  
 private:
   OneDNNHandle() {
     // Create execution dnnl::engine.
     sycl::context *sycl_context = SYCLBackendAPI::Global()->get_default_context();
     sycl::device sycl_device = SYCLBackendAPI::Global()->get_default_device();
-    sycl::queue *sycl_queue = SYCLBackendAPI::Global()->get_now_queue();
+    //sycl_queue_ = SYCLBackendAPI::Global()->get_now_queue();
     
-    onednn_engine = sycl_interop::make_engine(sycl_device, *sycl_context);
-    onednn_stream = sycl_interop::make_stream(onednn_engine, *sycl_queue);
+    // onednn_engine = sycl_interop::make_engine(sycl_device, *sycl_context);
+    // onednn_engine = sycl_interop::make_engine(sycl_device, *sycl_context);
+    onednn_engine = dnnl::engine(dnnl::engine::kind::gpu,0);
+    onednn_stream = dnnl::stream(onednn_engine);
+    // onednn_stream = sycl_interop::make_stream(onednn_engine, *sycl_queue);
   }
 
   dnnl::engine onednn_engine;
@@ -162,17 +166,21 @@ void cinn_gpu_onednn_matmul(const std::vector<int> &attrs,
   memory::dims b_dims = {K, N};
   memory::dims c_dims = {M, N};
 
-  sycl::buffer<float, 2> buffer_a(static_cast<float*>(A), sycl::range<2>(M, K));
-  sycl::buffer<float, 2> buffer_b(static_cast<float*>(B), sycl::range<2>(K, N));
-  sycl::buffer<float, 2> buffer_c(static_cast<float*>(C), sycl::range<2>(M, N));  
+  // sycl::buffer<float, 2> buffer_a(static_cast<float*>(A), sycl::range<2>(M, K));
+  // sycl::buffer<float, 2> buffer_b(static_cast<float*>(B), sycl::range<2>(K, N));
+  // sycl::buffer<float, 2> buffer_c(static_cast<float*>(C), sycl::range<2>(M, N));  
 
   auto a_md = memory::desc(a_dims, onednn_dtype, tag::ab);
   auto b_md = memory::desc(b_dims, onednn_dtype, tag::ab);
   auto c_md = memory::desc(c_dims, onednn_dtype, tag::ab);
   
-  auto a_mem = dnnl::sycl_interop::make_memory(a_md, onednn_engine, buffer_a);
-  auto b_mem = dnnl::sycl_interop::make_memory(b_md, onednn_engine, buffer_b);
-  auto c_mem = dnnl::sycl_interop::make_memory(c_md, onednn_engine, buffer_c);
+  // auto a_mem = dnnl::sycl_interop::make_memory(a_md, onednn_engine, buffer_a);
+  // auto b_mem = dnnl::sycl_interop::make_memory(b_md, onednn_engine, buffer_b);
+  // auto c_mem = dnnl::sycl_interop::make_memory(c_md, onednn_engine, buffer_c);
+  auto a_mem = dnnl::memory(a_md, onednn_engine, A);
+  auto b_mem = dnnl::memory(b_md, onednn_engine, B);
+  auto c_mem = dnnl::memory(c_md, onednn_engine, C);
+
 
   auto matmul_d = matmul::desc(a_md,b_md,c_md);
   // Create primitive descriptor.
@@ -216,6 +224,8 @@ void cinn_call_onednn_matmul(void *v_args,
   
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
 
+  sycl::queue* now_queue = SYCLBackendAPI::Global()->get_now_queue();
+  now_queue->wait();
   dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
   dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
 
@@ -259,25 +269,37 @@ void cinn_call_onednn_matmul(void *v_args,
 
   memory::dims a_dims = {m, k};
   memory::dims b_dims = {k, n};
+  // memory::dims bias_dims = {1, n};
   memory::dims c_dims = {m, n};
+
+  // std::vector<float> bias_data(std::accumulate(bias_dims.begin(), bias_dims.end(), (dnnl::memory::dim)1,
+  //           std::multiplies<dnnl::memory::dim>()));
+  // std::fill(bias_data.begin(), bias_data.end(), 0.0f);
 
   auto a_md = memory::desc(a_dims, onednn_dtype, a_onednn_tag);
   auto b_md = memory::desc(b_dims, onednn_dtype, b_onednn_tag);
+  // auto bias_md = memory::desc(bias_dims, onednn_dtype, b_onednn_tag);
   auto c_md = memory::desc(c_dims, onednn_dtype, o_onednn_tag);
   
-  // auto a_mem = dnnl::memory(a_md, onednn_engine, A);
-  // auto b_mem = dnnl::memory(b_md, onednn_engine, B);
-  // auto c_mem = dnnl::memory(c_md, onednn_engine, C);
+  auto a_mem = dnnl::memory(a_md, onednn_engine, A);
+  auto b_mem = dnnl::memory(b_md, onednn_engine, B);
+  auto c_mem = dnnl::memory(c_md, onednn_engine, C);
 // Create SYCL buffers
-  sycl::buffer<float, 2> buffer_a(static_cast<float*>(A), sycl::range<2>(m, k));
-  sycl::buffer<float, 2> buffer_b(static_cast<float*>(B), sycl::range<2>(k, n));
-  sycl::buffer<float, 2> buffer_c(static_cast<float*>(C), sycl::range<2>(m, n));  
+  // sycl::buffer<float, 2> buffer_a(static_cast<float*>(A), sycl::range<2>(m, k));
+  // sycl::buffer<float, 2> buffer_b(static_cast<float*>(B), sycl::range<2>(k, n));
+  // sycl::buffer<float, 2> buffer_bias(static_cast<float*>(bias_data.data()), sycl::range<2>(1, n));
+  // sycl::buffer<float, 2> buffer_c(static_cast<float*>(C), sycl::range<2>(m, n));  
 
-  auto a_mem = dnnl::sycl_interop::make_memory(a_md, onednn_engine, buffer_a);
-  auto b_mem = dnnl::sycl_interop::make_memory(b_md, onednn_engine, buffer_b);
-  auto c_mem = dnnl::sycl_interop::make_memory(c_md, onednn_engine, buffer_c);  
+  // auto a_mem = dnnl::sycl_interop::make_memory(a_md, onednn_engine, buffer_a);
+  // auto a_mem = dnnl::sycl_interop::make_memory(a_md, onednn_engine, dnnl::sycl_interop::memory_kind::usm, A);
+  // auto b_mem = dnnl::sycl_interop::make_memory(b_md, onednn_engine, buffer_b);
+  // auto b_mem = dnnl::sycl_interop::make_memory(b_md, onednn_engine, dnnl::sycl_interop::memory_kind::usm, B);
+  // auto bias_mem = dnnl::sycl_interop::make_memory(bias_md, onednn_engine, buffer_bias);
+  // auto c_mem = dnnl::sycl_interop::make_memory(c_md, onednn_engine, buffer_c);  
+  // auto c_mem = dnnl::sycl_interop::make_memory(c_md, onednn_engine, dnnl::sycl_interop::memory_kind::usm, C);  
 
   auto matmul_d = matmul::desc(a_md,b_md,c_md);
+  // auto matmul_d = matmul::desc(a_md,b_md,bias_md,c_md);
   // Create primitive descriptor.
   auto matmul_pd = matmul::primitive_desc(matmul_d, onednn_engine);
   // // Create primitive descriptor.
@@ -290,6 +312,7 @@ void cinn_call_onednn_matmul(void *v_args,
   std::unordered_map<int, memory> matmul_args;
   matmul_args.insert(std::make_pair(DNNL_ARG_SRC, a_mem));
   matmul_args.insert(std::make_pair(DNNL_ARG_WEIGHTS, b_mem));
+  // matmul_args.insert(std::make_pair(DNNL_ARG_BIAS, bias_mem));
   matmul_args.insert(std::make_pair(DNNL_ARG_DST, c_mem));
 
   // Execution.
@@ -326,8 +349,10 @@ void cinn_gpu_onednn_conv2d(const absl::flat_hash_map<std::string, int> &attr,
   // Get tensor data layout
   memory::format_tag tensor_format;
   if (target == common::Layout::kNCHW) {
+    std::cout<<"call gpu onednn conv2d target format is NCHW"<<std::endl;
     tensor_format = memory::format_tag::nchw;
   } else if (target == common::Layout::kNHWC) {
+    std::cout<<"call gpu onednn conv2d target format is NHWC"<<std::endl;
     tensor_format = memory::format_tag::nhwc;
   } else {
     CINN_NOT_IMPLEMENTED
@@ -374,11 +399,11 @@ void cinn_gpu_onednn_conv2d(const absl::flat_hash_map<std::string, int> &attr,
   // dimensions.
   // memory::dims src_dims = {N, IC, IH, IW};
   // memory::dims weights_dims = {OC, IC, KH, KW};
-  memory::dims src_dims = {N*IC, IH*IW};
-  memory::dims weights_dims = {OC*IC, KH*KW};  
+  memory::dims src_dims = {N,IC,IH*IW};
+  memory::dims weights_dims = {OC,IC, KH,KW};  
   memory::dims bias_dims = {OC};
   // memory::dims dst_dims = {N, OC, OH, OW};
-  memory::dims dst_dims = {N*OC, OH*OW};
+  memory::dims dst_dims = {N,OC, OH,OW};
 
   // Strides, padding dimensions.
   memory::dims strides_dims = {SH, SW};
@@ -393,19 +418,22 @@ void cinn_gpu_onednn_conv2d(const absl::flat_hash_map<std::string, int> &attr,
   void *_w = w->memory;
   void *_y = y->memory;
 
-  sycl::buffer<float, 2> buffer_src_dims(static_cast<float*>(_x), sycl::range<2>(N*IC, IH*IW));
-  sycl::buffer<float, 2> buffer_weight_dims(static_cast<float*>(_w), sycl::range<2>(OC*IC, KH*KW));
-  sycl::buffer<float, 2> buffer_dst_dims(static_cast<float*>(_y), sycl::range<2>(N*OC, OH*OW));  
+  // sycl::buffer<float, 2> buffer_src_dims(static_cast<float*>(_x), sycl::range<2>(N*IC, IH*IW));
+  // sycl::buffer<float, 2> buffer_weight_dims(static_cast<float*>(_w), sycl::range<2>(OC*IC, KH*KW));
+  // sycl::buffer<float, 2> buffer_dst_dims(static_cast<float*>(_y), sycl::range<2>(N*OC, OH*OW));  
 
   // Create memory objects for tensor data (src, weights, dst). In this
   // example, NCHW layout is assumed for src and dst, and OIHW for weights.
-  // auto conv_src_mem = dnnl::memory({src_dims, data_type, tag::nchw}, onednn_engine, _x);
-  // auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
-  // auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tag::nchw}, onednn_engine, _y);
 
-  auto conv_src_mem = dnnl::sycl_interop::make_memory({src_dims, data_type, tag::nchw}, onednn_engine, buffer_src_dims);
-  auto conv_weights_mem = dnnl::sycl_interop::make_memory({weights_dims, data_type, tag::oihw}, onednn_engine, buffer_weight_dims);
-  auto conv_dst_mem = dnnl::sycl_interop::make_memory({dst_dims, data_type, tag::nchw}, onednn_engine, buffer_dst_dims);
+  // auto conv_src_mem = dnnl::sycl_interop::make_memory({src_dims, data_type, tag::nchw}, onednn_engine, buffer_src_dims);
+  // auto conv_weights_mem = dnnl::sycl_interop::make_memory({weights_dims, data_type, tag::oihw}, onednn_engine, buffer_weight_dims);
+  // auto conv_dst_mem = dnnl::sycl_interop::make_memory({dst_dims, data_type, tag::nchw}, onednn_engine, buffer_dst_dims);
+
+  auto conv_src_mem = dnnl::memory({src_dims, data_type, tag::nchw}, onednn_engine, _x);
+  auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
+  auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tag::nchw}, onednn_engine, _y);
+
+
 
   // Create memory descriptors with format_tag::any for the primitive. This
   // enables the convolution primitive to choose memory layouts for an
@@ -516,8 +544,10 @@ void cinn_call_onednn_conv2d_common(void* v_args,
   // Get tensor data layout
   memory::format_tag tensor_format;
   if (format == static_cast<int>(memory::format_tag::nchw)) {
+    std::cout<<"cinn call onednn conv2d common target format is NCHW"<<std::endl;
     tensor_format = memory::format_tag::nchw;
   } else if (format == static_cast<int>(memory::format_tag::nhwc)) {
+    std::cout<<"cinn call onednn conv2d common target format is NHWC"<<std::endl;    
     tensor_format = memory::format_tag::nhwc;
   } else {
     //tensor_format = memory::format_tag::nchw;
@@ -546,13 +576,13 @@ void cinn_call_onednn_conv2d_common(void* v_args,
 
   // Source (src), weights, bias, and destination (dst) tensors
   // dimensions.
-  // memory::dims src_dims = {N, IC, IH, IW};
-  // memory::dims weights_dims = {OC, IC, KH, KW};
-  memory::dims src_dims = {N*IC, IH*IW};
-  memory::dims weights_dims = {OC*IC, KH*KW};  
+  memory::dims src_dims = {N, IC, IH, IW};
+  memory::dims weights_dims = {OC, IC, KH, KW};
+  // memory::dims src_dims = {N*IC, IH*IW};
+  // memory::dims weights_dims = {OC*IC, KH*KW};  
   memory::dims bias_dims = {OC};
-  // memory::dims dst_dims = {N, OC, OH, OW};
-  memory::dims dst_dims = {N*OC, OH*OW};
+  memory::dims dst_dims = {N, OC, OH, OW};
+  // memory::dims dst_dims = {N*OC, OH*OW};
 
   // Strides, padding dimensions.
   memory::dims strides_dims = {SH, SW};
@@ -569,19 +599,20 @@ void cinn_call_onednn_conv2d_common(void* v_args,
   void *_w = args[1].operator cinn_buffer_t *()->memory;
   void *_y = args[2].operator cinn_buffer_t *()->memory;
 
-  sycl::buffer<float, 2> buffer_src_dims(static_cast<float*>(_x), sycl::range<2>(N*IC, IH*IW));
-  sycl::buffer<float, 2> buffer_weight_dims(static_cast<float*>(_w), sycl::range<2>(OC*IC, KH*KW));
-  sycl::buffer<float, 2> buffer_dst_dims(static_cast<float*>(_y), sycl::range<2>(N*OC, OH*OW));  
+  // sycl::buffer<float, 2> buffer_src_dims(static_cast<float*>(_x), sycl::range<2>(N*IC, IH*IW));
+  // sycl::buffer<float, 2> buffer_weight_dims(static_cast<float*>(_w), sycl::range<2>(OC*IC, KH*KW));
+  // sycl::buffer<float, 2> buffer_dst_dims(static_cast<float*>(_y), sycl::range<2>(N*OC, OH*OW));  
 
   // Create memory objects for tensor data (src, weights, dst). In this
   // example, NCHW layout is assumed for src and dst, and OIHW for weights.
-  // auto conv_src_mem = dnnl::memory({src_dims, data_type, tensor_format}, onednn_engine, _x);
-  // auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
-  // auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tensor_format}, onednn_engine, _y);
 
-  auto conv_src_mem = dnnl::sycl_interop::make_memory({src_dims, data_type, tensor_format}, onednn_engine, buffer_src_dims);
-  auto conv_weights_mem = dnnl::sycl_interop::make_memory({weights_dims, data_type, tag::oihw}, onednn_engine, buffer_weight_dims);
-  auto conv_dst_mem = dnnl::sycl_interop::make_memory({dst_dims, data_type, tensor_format}, onednn_engine, buffer_dst_dims);  
+  // auto conv_src_mem = dnnl::sycl_interop::make_memory({src_dims, data_type, tensor_format}, onednn_engine, buffer_src_dims);
+  // auto conv_weights_mem = dnnl::sycl_interop::make_memory({weights_dims, data_type, tag::oihw}, onednn_engine, buffer_weight_dims);
+  // auto conv_dst_mem = dnnl::sycl_interop::make_memory({dst_dims, data_type, tensor_format}, onednn_engine, buffer_dst_dims);  
+  auto conv_src_mem = dnnl::memory({src_dims, data_type, tensor_format}, onednn_engine, _x);
+  auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
+  auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tensor_format}, onednn_engine, _y);
+
 
   // Create memory descriptors with format_tag::any for the primitive. This
   // enables the convolution primitive to choose memory layouts for an
@@ -786,9 +817,11 @@ void cinn_call_onednn_pool2d_common(void* v_args,
   // Get tensor data layout
   memory::format_tag tensor_format;
   if (format == static_cast<int>(memory::format_tag::nchw)) {
+    std::cout<<"call gpu onednn pool2d target format is NCHW"<<std::endl;
     tensor_format = memory::format_tag::nchw;
   } else if (format == static_cast<int>(memory::format_tag::nhwc)) {
     tensor_format = memory::format_tag::nhwc;
+    std::cout<<"call gpu onednn pool2d target format is NHWC"<<std::endl;    
   } else {
     tensor_format = memory::format_tag::nchw; 
     //CINN_NOT_IMPLEMENTED
@@ -817,10 +850,10 @@ void cinn_call_onednn_pool2d_common(void* v_args,
           OW = output_w; // output width
     
   // Source (src) and destination (dst) tensors dimensions.
-  // memory::dims src_dims = {N, IC, IH, IW};
-  // memory::dims dst_dims = {N, IC, OH, OW};
-  memory::dims src_dims = {N*IC, IH*IW};
-  memory::dims dst_dims = {N*IC, OH*OW};  
+  memory::dims src_dims = {N, IC, IH, IW};
+  memory::dims dst_dims = {N, IC, OH, OW};
+  // memory::dims src_dims = {N*IC, IH*IW};
+  // memory::dims dst_dims = {N*IC, OH*OW};  
 
   // Kernel dimensions.
   memory::dims kernel_dims = {KH, KW};
@@ -841,16 +874,16 @@ void cinn_call_onednn_pool2d_common(void* v_args,
   auto src_md = dnnl::memory::desc(src_dims, data_type, tensor_format);
   auto dst_md = dnnl::memory::desc(dst_dims, data_type, tensor_format);
 
-  sycl::buffer<float, 2> buffer_src(static_cast<float*>(_x), sycl::range<2>(N*IC, IH*IW));
-  sycl::buffer<float, 2> buffer_dst(static_cast<float*>(_y), sycl::range<2>(N*IC, OH*OW));    
+  // sycl::buffer<float, 2> buffer_src(static_cast<float*>(_x), sycl::range<2>(N*IC, IH*IW));
+  // sycl::buffer<float, 2> buffer_dst(static_cast<float*>(_y), sycl::range<2>(N*IC, OH*OW));    
 
   // Create memory objects for tensor data (src, weights, dst). In this
   // example, NCHW layout is assumed for src and dst, and OIHW for weights.
-  // auto src_mem = dnnl::memory(src_md, onednn_engine, _x);
-  // auto dst_mem = dnnl::memory(dst_md, onednn_engine, _y);
+  auto src_mem = dnnl::memory(src_md, onednn_engine, _x);
+  auto dst_mem = dnnl::memory(dst_md, onednn_engine, _y);
 
-  auto src_mem = dnnl::sycl_interop::make_memory(src_md, onednn_engine, buffer_src);
-  auto dst_mem = dnnl::sycl_interop::make_memory(dst_md, onednn_engine, buffer_dst);
+  // auto src_mem = dnnl::sycl_interop::make_memory(src_md, onednn_engine, buffer_src);
+  // auto dst_mem = dnnl::sycl_interop::make_memory(dst_md, onednn_engine, buffer_dst);
 
   auto pooling_d = pooling_forward::desc(prop_kind::forward_inference, pool_mode, src_md, dst_md,
           strides_dims, kernel_dims, padding_dims_l,padding_dims_r);
