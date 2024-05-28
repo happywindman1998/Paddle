@@ -95,7 +95,7 @@ void TensorFromStream(std::istream &is,
     }
     // tensor->set_persistable(true);
     is.read(static_cast<char *>(buf), size);
-  } else if (target.arch_is_gpu()){
+  } else if (target.arch_is_gpu() || target.arch_is_xpu()){
     using cinn::runtime::BackendAPI;
     if (desc.data_type() != Type::VarType_Type_FP32)
       LOG(FATAL) << "[CUDA] The type is not fp32!!";
