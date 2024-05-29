@@ -31,7 +31,7 @@ message(STATUS "Enable SYCL: " ${DPCPP_ROOT})
 find_library(
   DPCPP_LIB
   NAMES sycl
-  PATHS "${DPCPP_ROOT}/build/lib")
+  PATHS "${DPCPP_ROOT}/lib")
 find_package_handle_standard_args(
   DPCPP
   FOUND_VAR DPCPP_FOUND

@@ -23,7 +23,7 @@ export CXX=g++-8
 export DPCPP_ROOT=/home/wzy/repos/llvm-mlu/
 export ONEDNN_ROOT=/home/wzy/oneDNN-mlu/
 
-export DPCPP_ROOT=/home/wzy/repos/llvm-mlu/
+export DPCPP_ROOT=/home/wzy/repos/zkjh-llvm-mlu/build
 export CINN_WITH_SYCL=/home/wzy/repos/llvm-mlu
 export ONEDNN_ROOT=/home/wzy/oneDNN-mlu/
 
@@ -32,7 +32,7 @@ cd build-docker
 cmake -DCMAKE_BUILD_TYPE=Debug -DCINN_ONLY=ON -DWITH_CINN=ON -DWITH_GPU=OFF -DCINN_WITH_SYCL=ON -DWITH_DISTRIBUTE=OFF -DCINN_WITH_ONEDNN=OFF -DWITH_TESTING=OFF \
       -DWITH_MKL=OFF -DPYTHON_EXECUTABLE=python3.8 -DPY_VERSION=3.8 -G Ninja ..
 
-cmake .. -DWITH_CINN=ON -DCINN_WITH_SYCL=ON -DCINN_WITH_CNNL=ON -DWITH_CUSTOM_DEVICE=ON -DWITH_GPU=OFF -DPYTHON_EXECUTABLE=/home/wzy/build-python3-8-17/bin/python3.8 -DPY_VERSION=3.8 -DWITH_TESTING=OFF -DWITH_DISTRIBUTE=OFF -DCMAKE_BUILD_TYPE=Release -G Ninja
+cmake .. -DWITH_CINN=ON -DCINN_WITH_SYCL=ON -DCINN_WITH_CNNL=ON -DWITH_CUSTOM_DEVICE=ON -DWITH_GPU=OFF -DPYTHON_EXECUTABLE=/home/wzy/build-python3-10-14/bin/python3.10 -DPY_VERSION=3.10 -DWITH_TESTING=OFF -DWITH_DISTRIBUTE=OFF -DCMAKE_BUILD_TYPE=Release -G Ninja
 
 ninja -j 16
 

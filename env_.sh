@@ -8,7 +8,7 @@ export LIBRARY_PATH="${NEUWARE_HOME}/lib64:${LIBRARY_PATH}"
 
 # llvm clang & sycl env
 # export LLVM_PATH=/home/pangyunfei/llvm_install/debug
-export LLVM_PATH=/home/wzy/repos/llvm-mlu/build
+export LLVM_PATH=/home/wzy/repos/zkjh-llvm-mlu/build
 
 export PATH=$LLVM_PATH/bin:$PATH
 export CPLUS_INCLUDE_PATH=$LLVM_PATH/include:$CPLUS_INCLUDE_PATH
