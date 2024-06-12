@@ -418,10 +418,12 @@ class Vectorizer : public IRMutator<Expr *> {
     MutateMulDivOperator(op, expr);
   }
   void Visit(const Div *op, Expr *expr) override {
-    MutateMulDivOperator(op, expr);
+    VLOG(4) << "Before vectorize div: " << *expr;
+    BinaryOperatorVec(op, expr);
+    VLOG(4) << "After vectorize div: " << *expr;
   }
   void Visit(const Mod *op, Expr *expr) override {
-    MutateMulDivOperator(op, expr);
+    BinaryOperatorVec(op, expr);
   }
   void Visit(const Min *op, Expr *expr) override {
     BinaryOperatorVec(op, expr);
@@ -538,6 +540,8 @@ class Vectorizer : public IRMutator<Expr *> {
         is_changed = true;
       }
     }
+    VLOG(4) << "Vectorizer Call: " << op->name << " is_changed: " << is_changed
+            << " lanes: " << lanes;
     if (!is_changed) return;
 
     for (int i = 0; i < read_args.size(); i++) {
@@ -839,6 +843,10 @@ struct VectorizeLoops_ : public IRMutator<Expr *> {
             body_stmts.end(), unroll_body.begin(), unroll_body.end());
         body_stmts.insert(
             body_stmts.end(), store_exprs.begin(), store_exprs.end());
+      } else if (target.arch_is_mlu()) {
+        // TODO: add vectorizer for MLU
+        Vectorizer(new_forloop->loop_var, extent, var_intervals)
+            .Visit(&new_forloop->body);
       } else {
         Vectorizer(new_forloop->loop_var, extent, var_intervals)
             .Visit(&new_forloop->body);

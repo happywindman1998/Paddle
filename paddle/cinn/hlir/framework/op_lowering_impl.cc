@@ -294,7 +294,7 @@ std::vector<ir::LoweredFunc> OpLowererImpl::PostProcess(
 
   auto func_body = ir_sch->GetModule().GetExprs().at(0);
 #ifdef CINN_WITH_GPU
-  if (target_.arch_is_gpu() && apply_pass) {
+  if ((target_.arch_is_gpu() || target_.arch_is_mlu()) && apply_pass) {
     optim::OptimizeExprGPU(&(func_body));
   }
 #endif
@@ -649,7 +649,7 @@ ir::Expr OpLowererImpl::DoGroupSchedule(
   if (!tensor_map.count(tensor_name)) {
     is_tensor_block = false;
   }
-  if (FLAGS_cinn_use_cuda_vectorize && is_tensor_block &&
+  if (target_.arch_is_gpu() && FLAGS_cinn_use_cuda_vectorize && is_tensor_block &&
       (group->op_pattern_kind == framework::kElementWise ||
        group->op_pattern_kind == framework::kInjective ||
        group->op_pattern_kind == framework::kBroadcast)) {
@@ -679,6 +679,25 @@ ir::Expr OpLowererImpl::DoGroupSchedule(
         splited[1].As<ir::For>()->set_serial();
         ir_sch.Vectorize(splited[1], vector_width);
       }
+      VLOG(4) << "After vectorize, ir is: \n"
+              << ir_sch.GetModule().GetExprs().at(0);
+    }
+  } else if (target_.arch_is_mlu() && FLAGS_cinn_use_cuda_vectorize && is_tensor_block &&
+      (group->op_pattern_kind == framework::kElementWise ||
+       group->op_pattern_kind == framework::kInjective ||
+       group->op_pattern_kind == framework::kBroadcast)) {
+    auto loops = ir_sch.GetLoops(block);
+    VLOG(4) << "Op Pattern : " << loops.size();
+    if (loops.size() >= 1) {
+      VLOG(4) << "Before vectorize, ir is: \n"
+              << ir_sch.GetModule().GetExprs().at(0);
+      auto loop_inner = loops.back();
+      auto psize = ir::GetLoopExtent(loop_inner);
+      auto vector_width = std::min(psize, 1024);
+      // get dtype of vectorized var
+      auto dtype = this->type_dict_.at(tensor_name);
+      VLOG(4) << tensor_name << " dtype " << dtype;
+      ir_sch.Vectorize(loop_inner, vector_width);
       VLOG(4) << "After vectorize, ir is: \n"
               << ir_sch.GetModule().GetExprs().at(0);
     }

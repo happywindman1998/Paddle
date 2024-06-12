@@ -174,7 +174,7 @@ void CodeGenSYCL_Dev::Visit(const ir::Alloc *op) {
 }
 
 void CodeGenSYCL_Dev::Visit(const ir::Min *op) {
-  str_ += "sycl::min(";
+  str_ += "cinn_sycl_min(";
   IrPrinter::Visit(op->a());
   str_ += ", ";
   IrPrinter::Visit(op->b());
@@ -182,7 +182,7 @@ void CodeGenSYCL_Dev::Visit(const ir::Min *op) {
 }
 
 void CodeGenSYCL_Dev::Visit(const ir::Max *op) {
-  str_ += "sycl::max(";
+  str_ += "cinn_sycl_max(";
   IrPrinter::Visit(op->a());
   str_ += ", ";
   IrPrinter::Visit(op->b());
@@ -336,6 +336,8 @@ void CodeGenSYCL_Dev::PrintTempBufferCreation(const ir::Buffer &buffer) {
 
 void CodeGenSYCL_Dev::Visit(const ir::Call *op) {
   VLOG(3) << "CodeGenSYCL visiting call op: " << op->name;
+  VLOG(3) << "op->read_args.size(): " << op->read_args.size();
+  VLOG(3) << "op->write_args.size(): " << op->write_args.size();
   if (op->name == "__syncthreads") {
     str_ += "sycl::group_barrier(item.get_group())";
     return;
@@ -461,24 +463,113 @@ bool CodeGenSYCL_Dev::PrintBuiltinVectorAccess(const ir::LoadStoreAddrMnger *op,
 }
 
 void CodeGenSYCL_Dev::Visit(const ir::Load *op) {
-  // overload this visit function to especially deal with the case when it
-  // accesses element at a cuda built-in vector, others still resolve to
-  // CodeGenC
-  if (!PrintBuiltinVectorAccess(op, op->index(), false)) {
-    CodeGenC::Visit(op);
+  ir::Expr offset = [&] {
+    if (load_to_offset_.count(op) == 0) {
+      load_to_offset_[op] = op->index();
+    }
+    return load_to_offset_.at(op);
+  }();
+
+  Expr dense_strided_ramp = detail::StridedRampBase(offset, 1);
+  if (dense_strided_ramp.defined()) {  // Loading a continuous Ramp address.
+    CHECK(op->type().is_vector());
+    PrintStackVecType(op->type().ElementOf(), offset.type().lanes());
+    str_ += "::Load(";
+    str_ += op->tensor.As<ir::_Tensor_>()->name;
+    str_ += ", ";
+    IrPrinter::Visit(dense_strided_ramp);
+    str_ += ")";
+  } else if (offset.type().is_vector()) {
+    // gather
+    CHECK(op->type().is_vector());
+    PrintStackVecType(op->type().ElementOf(), offset.type().lanes());
+    str_ += "::Load(";
+    str_ += op->tensor.As<ir::_Tensor_>()->name;
+    str_ += ", ";
+    IrPrinter::Visit(offset);
+    str_ += ")";
+  } else if (op->is_addr_tensor()) {
+    auto *tensor = op->tensor.As<ir::_Tensor_>();
+    str_ += tensor->name;
+    str_ += "[";
+    IrPrinter::Visit(offset);
+    str_ += "]";
+  } else {
+    IrPrinter::Visit(op);
   }
 }
 
 void CodeGenSYCL_Dev::Visit(const ir::Store *op) {
-  // overload this visit function to especially deal with the case when it
-  // accesses element at a cuda built-in vector, others still resolve to
-  // CodeGenC
-  if (PrintBuiltinVectorAccess(op, op->index(), true)) {
-    str_ += " = ";
-    IrPrinter::Visit(op->value);
+  VLOG(3) << "CodeGenSYCL visiting store op: " << op->name();
+  CHECK(op->is_addr_tensor());
+  ir::Expr offset = [&] {
+    if (store_to_offset_.count(op) == 0) {
+      store_to_offset_[op] = op->index();
+    }
+    return store_to_offset_.at(op);
+  }();
+  auto *tensor = op->tensor.As<ir::_Tensor_>();
+  CHECK(tensor);
+  str_ += "cinn_sycl_store(";
+  str_ += tensor->name;
+  str_ += ", ";
+  IrPrinter::Visit(offset);
+  str_ += ", ";
+  IrPrinter::Visit(op->value);
+  str_ += ")";
+}
+
+void CodeGenSYCL_Dev::Visit(const ir::Div *op) {
+  Expr a = op->a();
+  Expr b = op->b();
+  const ir::Ramp *a_ramp = a.template As<ir::Ramp>();
+  const ir::Broadcast *b_broadcast = b.template As<ir::Broadcast>();
+  if (a_ramp && b_broadcast) {
+    // a is ramp, b is broadcast
+    str_ += "IndexVec<";
+    str_ += std::to_string(a_ramp->lanes);
+    str_ += ">::Ramp(";
+    IrPrinter::Visit(a_ramp->base);
+    str_ += ", ";
+    IrPrinter::Visit(a_ramp->stride);
+    str_ += ", ";
+    IrPrinter::Visit(b_broadcast->value);
+    str_ += ")";
   } else {
-    CodeGenC::Visit(op);
+    IrPrinter::Visit(op);
   }
+}
+
+void CodeGenSYCL_Dev::Visit(const ir::Ramp *op) {
+  str_ += "IndexVec<";
+  str_ += std::to_string(op->lanes);
+  str_ += ">::Ramp(";
+  IrPrinter::Visit(op->base);
+  str_ += ", ";
+  IrPrinter::Visit(op->stride);
+  str_ += ")";
+}
+
+void CodeGenSYCL_Dev::Visit(const ir::Broadcast *op) {
+  IrPrinter::Visit(op->value);
+}
+
+void CodeGenSYCL_Dev::Visit(const ir::Select *op) {
+  str_ += "cinn_sycl_select(";
+  IrPrinter::Visit(op->condition);
+  str_ += ", ";
+  IrPrinter::Visit(op->true_value);
+  str_ += ", ";
+  IrPrinter::Visit(op->false_value);
+  str_ += ")";
+}
+
+void CodeGenSYCL_Dev::PrintStackVecType(Type type, int lanes) {
+  str_ += "DataVec<";
+  str_ += GetTypeRepr(type);
+  str_ += ", ";
+  str_ += std::to_string(lanes);
+  str_ += ">";
 }
 
 std::string CodeGenSYCL_Dev::GenerateKernelName(const ir::_LoweredFunc_ *op) {

@@ -71,11 +71,16 @@ class CodeGenSYCL_Dev : public CodeGenC {
   void Visit(const ir::Load* op) override;
   void Visit(const ir::Store* op) override;
   void Visit(const ir::Let* op) override;
+  void Visit(const ir::Div* op) override;
+  void Visit(const ir::Ramp *op) override;
+  void Visit(const ir::Broadcast *op) override;
+  void Visit(const ir::Select *op) override;
 
   // Print element access at a cuda built-in vector on a load/store node
   bool PrintBuiltinVectorAccess(const ir::LoadStoreAddrMnger* op,
                                 ir::Expr index,
                                 bool is_store);
+  void PrintStackVecType(Type type, int lanes);
 
   void PrintBuiltinCodes();
 
