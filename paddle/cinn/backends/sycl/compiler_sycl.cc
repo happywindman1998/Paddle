@@ -71,7 +71,9 @@ std::string Compiler::CompileToSo(const std::string& source_code,
     command += " -I " + header;
   }
   SetDeviceArchOptions(gpu_type);
+  std::string no_warning_options = "-Wno-deprecated-declarations -Wno-linker-warnings";
   command += " " + device_arch_options + " " + cxx_compile_options + " " +
+             no_warning_options + " " +
              source_file_path + " -o " + shared_lib_path;
   // compile
   VLOG(2) << "compile command: " << command;

@@ -18,15 +18,23 @@
 
 #include "paddle/cinn/runtime/flags.h"
 #include "paddle/cinn/runtime/sycl/sycl_backend_api.h"
+using cinn::runtime::sycl::SYCLBackendAPI;
 #include "paddle/cinn/runtime/sycl/sycl_util.h"
 #include "paddle/cinn/runtime/cinn_runtime.h"
 #include "paddle/cinn/utils/profiler.h"
 #include "paddle/common/enforce.h"
-#ifdef CINN_WITH_CNNL
-#include <CL/sycl/backend/cnrt.hpp>
-#include <cn_api.h>
-#include <cnnl.h>
+
+#ifdef CINN_WITH_ONDNN
+#include "oneapi/dnnl/dnnl.hpp"
+#include "oneapi/dnnl/dnnl_sycl.hpp"
+// #include "dnnl.hpp"
+// #include "dnnl_sycl.hpp"
 #endif
+
+using namespace dnnl;
+
+using tag = memory::format_tag;
+using dt = memory::data_type;
 
 namespace cinn {
 namespace runtime {
@@ -126,28 +134,90 @@ void cinn_call_sycl_memcpy(void *v_args,
   Queue->memcpy(output, input, count);
 }
 
-#ifdef CINN_WITH_CNNL
+// #ifdef CINN_WITH_CNNL
+#ifdef CINN_WITH_ONEDNN
 
-class CnnlHandle {
+class OneDNNHandle {
 public:
-  CnnlHandle(const CnnlHandle &) = delete;
-  CnnlHandle &operator=(const CnnlHandle &) = delete;
-  ~CnnlHandle() {
-    CNNL_CALL(cnnlDestroy(handle));
-  }
-  static CnnlHandle &GetInstance() {
-    static CnnlHandle instance;
+  OneDNNHandle(const OneDNNHandle &) = delete;
+  OneDNNHandle &operator=(const OneDNNHandle &) = delete;
+  static OneDNNHandle &GetInstance() {
+    static OneDNNHandle instance;
     return instance;
   }
-  cnnlHandle_t &GetCnnlHandle() { return handle; }
 
- private:
-  CnnlHandle() {
-    CNNL_CALL(cnnlCreate(&handle));
+  dnnl::engine GetOneDNNEngine() { return onednn_engine; }
+  dnnl::stream GetOneDNNStream() { return onednn_stream; }
+
+private:
+  OneDNNHandle() {
+    // Create execution dnnl::engine.
+    ::sycl::context *sycl_context = SYCLBackendAPI::Global()->get_default_context();
+    ::sycl::device sycl_device = SYCLBackendAPI::Global()->get_default_device();
+    ::sycl::queue *sycl_queue = SYCLBackendAPI::Global()->get_now_queue();
+    
+    onednn_engine = sycl_interop::make_engine(sycl_device, *sycl_context);
+    onednn_stream = sycl_interop::make_stream(onednn_engine, *sycl_queue);
   }
-  cnnlHandle_t handle;
+
+  dnnl::engine onednn_engine;
+  dnnl::stream onednn_stream;
 };
 
+memory::data_type convert_to_onednn_dtype(void *v_args, int num_args) {
+  CHECK_GT(num_args, 0) << "the number of arguments must larger than zero";
+  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
+  auto type_code = args[0].operator cinn_buffer_t *()->type.code;
+  int bits = args[0].operator cinn_buffer_t *()->type.bits;
+  for (int i = 1; i < num_args; ++i) {
+    auto t = args[i].operator cinn_buffer_t *()->type.code;
+    int b = args[0].operator cinn_buffer_t *()->type.bits;
+    if (t != type_code || bits != b) {
+      LOG(FATAL) << "The types of all arguments need to be consistent.";
+    }
+  }
+  memory::data_type onednn_dtype;
+  bool is_float = type_code == cinn_type_float;
+  bool is_bfloat16 = type_code == cinn_type_bfloat;
+  if (is_float && bits == 16) {
+    onednn_dtype = memory::data_type::f16;
+  } else if (is_float && bits == 32) {
+    onednn_dtype = memory::data_type::f32;
+  } else if (is_bfloat16) {
+    onednn_dtype = memory::data_type::bf16;
+  } else if (is_float && bits == 64) {
+    onednn_dtype = memory::data_type::f64;
+  } else {
+    LOG(FATAL) << "unsupported onednn data type: " << static_cast<int>(type_code)
+               << ", bits = " << bits;
+  }
+  return onednn_dtype;
+}
+
+memory::data_type convert_to_onednn_dtype(cinn_buffer_t *input) {
+  CHECK(input) << "the pointer of input is null";
+  auto type_code = input->type.code;
+  int bits = input->type.bits;
+  memory::data_type onednn_dtype;
+  bool is_float = type_code == cinn_type_float;
+  bool is_bfloat16 = type_code == cinn_type_bfloat;
+  if (is_float && bits == 16) {
+    onednn_dtype = memory::data_type::f16;
+  } else if (is_float && bits == 32) {
+    onednn_dtype = memory::data_type::f32;
+  } else if (is_bfloat16) {
+    onednn_dtype = memory::data_type::bf16;
+  } else if (is_float && bits == 64) {
+    onednn_dtype = memory::data_type::f64;
+  } else {
+    LOG(FATAL) << "unsupported onednn data type: " << static_cast<int>(type_code)
+               << ", bits = " << bits;
+  }
+  return onednn_dtype;
+}
+
+
+/*
 class CnnlRandGenerator {
  public:
   CnnlRandGenerator() {
@@ -285,8 +355,11 @@ class CnnlRandGeneratorFactory {
   }
 };
 
-void cinn_call_cnnl_gaussian_random(
-    void *v_args, int num_args, float mean, float std, int seed) {
+*/
+
+void cinn_call_onednn_gaussian_random(
+    void *v_args, int num_args, float mean, float std, int seed, void* stream) {
+  /*
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
   cinn_buffer_t *output = args[0].operator cinn_buffer_t *();
   cinn_type_t dtype = output->type;
@@ -308,7 +381,7 @@ void cinn_call_cnnl_gaussian_random(
           .SetSeed(seed)
           .GetGenerator();
 
-  VLOG(4) << "cinn_call_cnnl_gaussian_random: output_size=" << numel
+  VLOG(4) << "cinn_call_onednn_gaussian_random: output_size=" << numel
           << ", mean=" << mean << ", std=" << std << ", seed=" << seed;
 
   if (dtype == cinn_float32_t()) {
@@ -320,88 +393,93 @@ void cinn_call_cnnl_gaussian_random(
         "gaussian_random_sycl only support float32! Please check."));
   }
   CNRT_CALL(cnrtQueueDestroy(queue));
+  */
+ CINN_RUNTIME_NOT_IMPLEMENTED
 }
 
-void cinn_call_cnnl_uniform_random(
-    void *v_args, int num_args, float min, float max, int seed) {
-  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
-  cinn_buffer_t *output = args[0].operator cinn_buffer_t *();
-  cinn_type_t dtype = output->type;
-  size_t numel = output->num_elements();
+void cinn_call_onednn_uniform_random(
+    void *v_args, int num_args, float min, float max, int seed, void* stream) {
+  // cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
+  // cinn_buffer_t *output = args[0].operator cinn_buffer_t *();
+  // cinn_type_t dtype = output->type;
+  // size_t numel = output->num_elements();
 
-  auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
-  CNRT_CALL(cnrtSetDevice(device));
-  cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
+  // auto Queue = SYCLBackendAPI::Global()->get_now_queue();
+  // CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  // CNRT_CALL(cnrtSetDevice(device));
+  // cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
 
-  cnrtQueue_t queue;
-  CNRT_CALL(cnrtQueueCreate(&queue));
-  CNNL_CALL(cnnlSetQueue(handle, queue));
+  // cnrtQueue_t queue;
+  // CNRT_CALL(cnrtQueueCreate(&queue));
+  // CNNL_CALL(cnnlSetQueue(handle, queue));
 
-  cnnlRandGenerator_t generator =
-      CnnlRandGeneratorFactory::Get(
-          CnnlRandGeneratorFactory::CnnlRandGeneratorType::GENERATOR_UNIFORM)
-          .SetSeed(seed)
-          .GetGenerator();
+  // cnnlRandGenerator_t generator =
+  //     CnnlRandGeneratorFactory::Get(
+  //         CnnlRandGeneratorFactory::CnnlRandGeneratorType::GENERATOR_UNIFORM)
+  //         .SetSeed(seed)
+  //         .GetGenerator();
 
-  VLOG(4) << "cinn_call_cnnl_uniform_random: output_size=" << numel
-          << ", min=" << min << ", max=" << max << ", seed=" << seed;
+  // VLOG(4) << "cinn_call_onednn_uniform_random: output_size=" << numel
+  //         << ", min=" << min << ", max=" << max << ", seed=" << seed;
 
-  if (dtype == cinn_float32_t()) {
-    float *ptr = reinterpret_cast<float *>(output->memory);
-    CNNL_CALL(cnnlRandGenerateUniform(handle, generator, CNNL_DTYPE_FLOAT, NULL, numel, 0.0f, 1.0f, ptr));
-    CNRT_CALL(cnrtQueueSync(queue));
-  } else {
-    PADDLE_THROW(phi::errors::InvalidArgument(
-        "uniform_random_sycl only support float32! Please check."));
-  }
-  CNRT_CALL(cnrtQueueDestroy(queue));
-}
-
-void cinn_call_cnnl_randint(void *v_args, int num_args, int seed) {
-  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
-  cinn_buffer_t *output = args[0].operator cinn_buffer_t *();
-  cinn_type_t dtype = output->type;
-  size_t numel = output->num_elements();
-
-  auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
-  CNRT_CALL(cnrtSetDevice(device));
-  cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
-
-  cnrtQueue_t queue;
-  CNRT_CALL(cnrtQueueCreate(&queue));
-  CNNL_CALL(cnnlSetQueue(handle, queue));
-
-  VLOG(4) << "cinn_call_cnnl_randint: output_size=" << numel << ", seed=" << seed;
-
-  cnnlRandGenerator_t generator =
-      CnnlRandGeneratorFactory::Get(
-          CnnlRandGeneratorFactory::CnnlRandGeneratorType::GENERATOR_RANDINT)
-          .SetSeed(seed)
-          .GetGenerator();
-
-  if (dtype == cinn_int32_t()) {
-    unsigned int *ptr = reinterpret_cast<unsigned int *>(output->memory);
-    // TODO: fix range
-    CNNL_CALL(cnnlRandGenerateDescreteUniform(handle, generator, CNNL_DTYPE_INT32, NULL, numel, 0, 1 << 23, ptr));
-    CNRT_CALL(cnrtQueueSync(queue));
-  } else {
-    PADDLE_THROW(phi::errors::InvalidArgument(
-        "randint only support int32! Please check."));
-  }
-  CNRT_CALL(cnrtQueueDestroy(queue));
-}
-
-void cinn_call_cnnl_cholesky(void *v_args,
-                              int num_args,
-                              int batch_size,
-                              int m,
-                              bool upper) {
+  // if (dtype == cinn_float32_t()) {
+  //   float *ptr = reinterpret_cast<float *>(output->memory);
+  //   CNNL_CALL(cnnlRandGenerateUniform(handle, generator, CNNL_DTYPE_FLOAT, NULL, numel, 0.0f, 1.0f, ptr));
+  //   CNRT_CALL(cnrtQueueSync(queue));
+  // } else {
+  //   PADDLE_THROW(phi::errors::InvalidArgument(
+  //       "uniform_random_sycl only support float32! Please check."));
+  // }
+  // CNRT_CALL(cnrtQueueDestroy(queue));
   CINN_RUNTIME_NOT_IMPLEMENTED
 }
 
-void cinn_call_cnnl_triangular_solve(void *v_args,
+void cinn_call_onednn_randint(void *v_args, int num_args, int seed, void* stream) {
+  // cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
+  // cinn_buffer_t *output = args[0].operator cinn_buffer_t *();
+  // cinn_type_t dtype = output->type;
+  // size_t numel = output->num_elements();
+
+  // auto Queue = SYCLBackendAPI::Global()->get_now_queue();
+  // CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  // CNRT_CALL(cnrtSetDevice(device));
+  // cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
+
+  // cnrtQueue_t queue;
+  // CNRT_CALL(cnrtQueueCreate(&queue));
+  // CNNL_CALL(cnnlSetQueue(handle, queue));
+
+  // VLOG(4) << "cinn_call_onednn_randint: output_size=" << numel << ", seed=" << seed;
+
+  // cnnlRandGenerator_t generator =
+  //     CnnlRandGeneratorFactory::Get(
+  //         CnnlRandGeneratorFactory::CnnlRandGeneratorType::GENERATOR_RANDINT)
+  //         .SetSeed(seed)
+  //         .GetGenerator();
+
+  // if (dtype == cinn_int32_t()) {
+  //   unsigned int *ptr = reinterpret_cast<unsigned int *>(output->memory);
+  //   // TODO: fix range
+  //   CNNL_CALL(cnnlRandGenerateDescreteUniform(handle, generator, CNNL_DTYPE_INT32, NULL, numel, 0, 1 << 23, ptr));
+  //   CNRT_CALL(cnrtQueueSync(queue));
+  // } else {
+  //   PADDLE_THROW(phi::errors::InvalidArgument(
+  //       "randint only support int32! Please check."));
+  // }
+  // CNRT_CALL(cnrtQueueDestroy(queue));
+  CINN_RUNTIME_NOT_IMPLEMENTED
+}
+
+void cinn_call_onednn_cholesky(void *v_args,
+                              int num_args,
+                              int batch_size,
+                              int m,
+                              bool upper,
+                              void* stream) {
+  CINN_RUNTIME_NOT_IMPLEMENTED
+}
+
+void cinn_call_onednn_triangular_solve(void *v_args,
                                       int num_args,
                                       int batch_size,
                                       int m,
@@ -409,10 +487,11 @@ void cinn_call_cnnl_triangular_solve(void *v_args,
                                       bool left_side,
                                       bool upper,
                                       bool transpose_a,
-                                      bool unit_diagonal) {
+                                      bool unit_diagonal,
+                                      void* stream) {
   CINN_RUNTIME_NOT_IMPLEMENTED
 }
-void cinn_call_cnnl_matmul(void *v_args,
+void cinn_call_onednn_matmul(void *v_args,
                           int num_args,
                           bool trans_a,
                           bool trans_b,
@@ -426,22 +505,21 @@ void cinn_call_cnnl_matmul(void *v_args,
                           int b1,
                           int b2,
                           int b3,
-                          int b4) {
-  cinn::utils::RecordEvent record_run("cinn_call_cnnl_matmul",
+                          int b4,
+                          void *stream) {
+  std::cout<<"============= cinn call onednn matmul ==============="<<std::endl; 
+  cinn::utils::RecordEvent record_run("cinn_call_onednn_matmul",
                                       cinn::utils::EventType::kInstruction);
   PADDLE_ENFORCE_EQ(
       num_args,
       3,
       phi::errors::InvalidArgument(
           "Expected number of arguments is 3, but received %d.", num_args));
-  cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
-  auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
-  CNRT_CALL(cnrtSetDevice(device));
-  cnrtQueue_t queue;
-  CNRT_CALL(cnrtQueueCreate(&queue));
-  CNNL_CALL(cnnlSetQueue(handle, queue));
+
+  dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
+  dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+
   VLOG(3) << "a1 ~ a4: " << a1 << " " << a2 << " " << a3 << " " << a4;
   VLOG(3) << "b1 ~ b4: " << b1 << " " << b2 << " " << b3 << " " << b4;
   VLOG(3) << "trans_a: " << trans_a << ", trans_b: " << trans_b
@@ -456,134 +534,60 @@ void cinn_call_cnnl_matmul(void *v_args,
   int k = trans_a ? a3 : a4;
 
   VLOG(3) << "m: " << m << ", n: " << n << ", k: " << k;
+  std::cout<< "m: " << m << ", n: " << n << ", k: " << k <<std::endl;
 
-  int trans_op_l = trans_o ? !trans_b: trans_a;
-  int trans_op_r = trans_o ? !trans_a: trans_b;
-
-  void *lhs = trans_o ? B : A;
-  void *rhs = trans_o ? A : B;
-
-  cnnlDataType_t cnnl_dtype;
+  memory::data_type onednn_dtype;
   auto type_code = args[0].operator cinn_buffer_t *()->type.code;
   bool is_float = type_code == cinn_type_float;
   bool is_bfloat16 = type_code == cinn_type_bfloat;
   int bytes = args[0].operator cinn_buffer_t *()->type.bits / CHAR_BIT;
-  if (is_float && bytes == sizeof(cinn::common::float16)) {
-    cnnl_dtype = CNNL_DTYPE_HALF;
+  if (is_float && bytes == sizeof(common::float16)) {
+    onednn_dtype = memory::data_type::f16;
   } else if (is_float && bytes == sizeof(float)) {
-    cnnl_dtype = CNNL_DTYPE_FLOAT;
+    onednn_dtype = memory::data_type::f32;
+  } else if (is_float && bytes == sizeof(double)) {
+    onednn_dtype = memory::data_type::f64;
   } else if (is_bfloat16) {
-    cnnl_dtype = CNNL_DTYPE_BFLOAT16;
+    onednn_dtype = memory::data_type::bf16;
   } else {
-    std::stringstream ss;
-    ss << "unsupported cublas data type: " << static_cast<int>(type_code)
-       << ", bytes = " << bytes;
-    PADDLE_THROW(phi::errors::InvalidArgument(ss.str()));
+    LOG(FATAL) << "unsupported cublas data type: "
+               << static_cast<int>(type_code) << ", bytes = " << bytes;
   }
 
-  if (a1 * a2 * b1 * b2 == 1) {
-    VLOG(3) << "call cnnlMatmul for a1 * a2 * b1 * b2 == 1";
-    cinn::utils::RecordEvent record_run("Call cnnlMatmul",
-                                        cinn::utils::EventType::kInstruction);
-    cnnlTensorDescriptor_t desc_A, desc_B, desc_C;
-    int dim_A[2] = {a3, a4}, dim_B[2] = {b3, b4}, dim_C[2] = {m, n};
-    CNNL_CALL(cnnlCreateTensorDescriptor(&desc_A));
-    CNNL_CALL(cnnlCreateTensorDescriptor(&desc_B));
-    CNNL_CALL(cnnlCreateTensorDescriptor(&desc_C));
-    CNNL_CALL(cnnlSetTensorDescriptor(desc_A, CNNL_LAYOUT_NCHW, cnnl_dtype, 2, dim_A));
-    CNNL_CALL(cnnlSetTensorDescriptor(desc_B, CNNL_LAYOUT_NCHW, cnnl_dtype, 2, dim_B));
-    CNNL_CALL(cnnlSetTensorDescriptor(desc_C, CNNL_LAYOUT_NCHW, cnnl_dtype, 2, dim_C));
+  auto a_onednn_tag = trans_a ? tag::ba : tag::ab;
+  auto b_onednn_tag = trans_b ? tag::ba : tag::ab;
+  auto o_onednn_tag = trans_o ? tag::ba : tag::ab;
 
-    cnnlTensorDescriptor_t desc_lhs = trans_o ? desc_B : desc_A;
-    cnnlTensorDescriptor_t desc_rhs = trans_o ? desc_A : desc_B;
+  memory::dims a_dims = {m, k};
+  memory::dims b_dims = {k, n};
+  memory::dims c_dims = {m, n};
 
-    cnnlMatMulDescriptor_t matmul_desc;
-    CNNL_CALL(cnnlMatMulDescCreate(&matmul_desc));
-    CNNL_CALL(cnnlSetMatMulDescAttr(matmul_desc, CNNL_MATMUL_DESC_TRANSA, &trans_op_l, sizeof(trans_op_l)));
-    CNNL_CALL(cnnlSetMatMulDescAttr(matmul_desc, CNNL_MATMUL_DESC_TRANSB, &trans_op_r, sizeof(trans_op_r)));
+  auto a_md = memory::desc(a_dims, onednn_dtype, a_onednn_tag);
+  auto b_md = memory::desc(b_dims, onednn_dtype, b_onednn_tag);
+  auto c_md = memory::desc(c_dims, onednn_dtype, o_onednn_tag);
+  
+  auto a_mem = dnnl::memory(a_md, onednn_engine, A);
+  auto b_mem = dnnl::memory(b_md, onednn_engine, B);
+  auto c_mem = dnnl::memory(c_md, onednn_engine, C);
 
-    size_t workspace_size = 0;
-    void *workspace = nullptr;
-    cnnlMatMulAlgo_t algo;
-    CNNL_CALL(cnnlMatMulAlgoCreate(&algo));
-    cnnlMatMulHeuristicResult_t heuristic_result;
-    CNNL_CALL(cnnlCreateMatMulHeuristicResult(&heuristic_result));
-    int requested_algo_count = 1, return_algo_count = 0;
-    CNNL_CALL(cnnlGetMatMulAlgoHeuristic(handle, matmul_desc, desc_lhs, desc_rhs, desc_C, desc_C,
-                                nullptr, requested_algo_count, &heuristic_result,
-                                &return_algo_count));
-    CNNL_CALL(cnnlGetMatMulHeuristicResult(heuristic_result, algo, &workspace_size));
-    if (workspace_size > 0) {
-      CNRT_CALL(cnrtMalloc((void **)&workspace, workspace_size));
-    }
+  // Create primitive descriptor.
+  auto matmul_pd = matmul::primitive_desc(onednn_engine, a_md, b_md, c_md);
 
-    CNNL_CALL(cnnlMatMul_v2(handle, matmul_desc, algo, &alpha, desc_lhs, lhs, desc_rhs,
-                rhs, &beta, desc_C, C, workspace, workspace_size, desc_C, C));
-    CNRT_CALL(cnrtQueueSync(queue));
+  // Create the primitive.
+  auto matmul_prim = matmul(matmul_pd);
 
-    if (workspace != nullptr) {
-      CNRT_CALL(cnrtFree(workspace));
-    }
-    CNNL_CALL(cnnlDestroyMatMulHeuristicResult(heuristic_result));
-    CNNL_CALL(cnnlMatMulAlgoDestroy(algo));
-    CNNL_CALL(cnnlMatMulDescDestroy(matmul_desc));
-    CNNL_CALL(cnnlDestroyTensorDescriptor(desc_A));
-    CNNL_CALL(cnnlDestroyTensorDescriptor(desc_B));
-    CNNL_CALL(cnnlDestroyTensorDescriptor(desc_C));
-  } else {
-    CHECK((a1 == b1 || a1 == 1 || b1 == 1) && (a2 == b2 || a2 == 1 || b2 == 1));
-    cinn::utils::RecordEvent record_run("Call cnnlBatchMatMulBCast",
-                                          cinn::utils::EventType::kInstruction);
-    cnnlTensorDescriptor_t desc_A, desc_B, desc_C;
-    int dim_A[4] = {a1, a2, a3, a4}, dim_B[4] = {b1, b2, b3, b4}, dim_C[4] = {std::max(a1, b1), std::max(a2, b2), m, n};
-    CNNL_CALL(cnnlCreateTensorDescriptor(&desc_A));
-    CNNL_CALL(cnnlCreateTensorDescriptor(&desc_B));
-    CNNL_CALL(cnnlCreateTensorDescriptor(&desc_C));
-    CNNL_CALL(cnnlSetTensorDescriptor(desc_A, CNNL_LAYOUT_NCHW, cnnl_dtype, 4, dim_A));
-    CNNL_CALL(cnnlSetTensorDescriptor(desc_B, CNNL_LAYOUT_NCHW, cnnl_dtype, 4, dim_B));
-    CNNL_CALL(cnnlSetTensorDescriptor(desc_C, CNNL_LAYOUT_NCHW, cnnl_dtype, 4, dim_C));
+  // Primitive arguments.
+  std::unordered_map<int, memory> matmul_args;
+  matmul_args.insert({DNNL_ARG_SRC, a_mem});
+  matmul_args.insert({DNNL_ARG_WEIGHTS, b_mem});
+  matmul_args.insert({DNNL_ARG_DST, c_mem});
 
-    cnnlTensorDescriptor_t desc_lhs = trans_o ? desc_B : desc_A;
-    cnnlTensorDescriptor_t desc_rhs = trans_o ? desc_A : desc_B;
-
-    cnnlMatMulDescriptor_t bmm_bcast_desc;
-    CNNL_CALL(cnnlMatMulDescCreate(&bmm_bcast_desc));
-    CNNL_CALL(cnnlSetMatMulDescAttr(bmm_bcast_desc, CNNL_MATMUL_DESC_TRANSA, &trans_op_l, sizeof(trans_op_l)));
-    CNNL_CALL(cnnlSetMatMulDescAttr(bmm_bcast_desc, CNNL_MATMUL_DESC_TRANSB, &trans_op_r, sizeof(trans_op_r)));
-
-    size_t workspace_size = 0;
-    void *workspace = nullptr;
-    cnnlMatMulAlgo_t algo;
-    CNNL_CALL(cnnlMatMulAlgoCreate(&algo));
-    cnnlMatMulHeuristicResult_t heuristic_result;
-    CNNL_CALL(cnnlCreateMatMulHeuristicResult(&heuristic_result));
-    int requested_algo_count = 1, return_algo_count = 0;
-    CNNL_CALL(cnnlGetBatchMatMulAlgoHeuristic(handle, bmm_bcast_desc, desc_lhs, desc_rhs, desc_C,
-                                nullptr, requested_algo_count, &heuristic_result,
-                                &return_algo_count));
-    CNNL_CALL(cnnlGetBatchMatMulHeuristicResult(heuristic_result, algo, &workspace_size));
-    if (workspace_size > 0) {
-      CNRT_CALL(cnrtMalloc((void **)&workspace, workspace_size));
-    }
-
-    CNNL_CALL(cnnlBatchMatMulBCast_v2(handle, bmm_bcast_desc, algo, &alpha, desc_lhs, lhs, desc_rhs,
-                rhs, &beta, desc_C, C, workspace, workspace_size));
-    CNRT_CALL(cnrtQueueSync(queue));
-
-    if (workspace != nullptr) {
-      CNRT_CALL(cnrtFree(workspace));
-    }
-    CNNL_CALL(cnnlDestroyMatMulHeuristicResult(heuristic_result));
-    CNNL_CALL(cnnlMatMulAlgoDestroy(algo));
-    CNNL_CALL(cnnlMatMulDescDestroy(bmm_bcast_desc));
-    CNNL_CALL(cnnlDestroyTensorDescriptor(desc_A));
-    CNNL_CALL(cnnlDestroyTensorDescriptor(desc_B));
-    CNNL_CALL(cnnlDestroyTensorDescriptor(desc_C));
-  }
-  CNRT_CALL(cnrtQueueDestroy(queue));
+  // Execution.
+  matmul_prim.execute(onednn_stream, matmul_args);
 }
 
-void cinn_call_cnnl_conv2d_forward(void *v_args,
+
+void cinn_call_onednn_conv2d_forward(void *v_args,
                                     int num_args,
                                     int format,
                                     float alpha,
@@ -606,87 +610,123 @@ void cinn_call_cnnl_conv2d_forward(void *v_args,
                                     int output_n,
                                     int output_c,
                                     int output_h,
-                                    int output_w) {
+                                    int output_w,
+                                    void* stream) {
+  std::cout<<"============= cinn call onednn conv2d forward ==============="<<std::endl;                                      
   PADDLE_ENFORCE_EQ(
     num_args,
     3,
     phi::errors::InvalidArgument(
-        "Expected number of argruments is 3, but recived %d.", num_args));
-  cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
-  auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
-  CNRT_CALL(cnrtSetDevice(device));
-  cnrtQueue_t queue;
-  CNRT_CALL(cnrtQueueCreate(&queue));
-  CNNL_CALL(cnnlSetQueue(handle, queue));
+        "Expected number of argruments is 3, but recived %d.", num_args))ls
+        ;
+  cinn::utils::RecordEvent record_run("cinn_call_onednn_conv2d_forward",
+                                      cinn::utils::EventType::kInstruction);
+  
 
+  dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
+  dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+
+  // Get tensor data layout
+  memory::format_tag tensor_format;
+  if (format == static_cast<int>(memory::format_tag::nchw)) {
+    tensor_format = memory::format_tag::nchw;
+  } else if (format == static_cast<int>(memory::format_tag::nhwc)) {
+    tensor_format = memory::format_tag::nhwc;
+  } else {
+    //tensor_format = memory::format_tag::nchw;
+    //std::cout<<"common::layout is: "<<format<<std::endl;
+    CINN_RUNTIME_NOT_IMPLEMENTED
+  }
+
+  // Tensor dimensions.
+  const memory::dim N = input_n, // batch size
+          IC = input_c, // input channels
+          IH = input_h, // input height
+          IW = input_w, // input width
+          OC = output_c, // output channels
+          KH = filter_h, // weights height
+          KW = filter_w, // weights width
+          PH_L = pad_h, // height padding: left
+          PH_R = pad_h, // height padding: right
+          PW_L = pad_w, // width padding: left
+          PW_R = pad_w, // width padding: right
+          SH = stride_h, // height-wise stride
+          SW = stride_w, // width-wise stride
+          //DH = dilation_h,
+          //DW = dilation_w,
+          OH = output_h, // output height
+          OW = output_w; // output width
+
+  // Source (src), weights, bias, and destination (dst) tensors
+  // dimensions.
+  memory::dims src_dims = {N, IC, IH, IW};
+  memory::dims weights_dims = {OC, IC, KH, KW};
+  memory::dims bias_dims = {OC};
+  memory::dims dst_dims = {N, OC, OH, OW};
+
+  // Strides, padding dimensions.
+  memory::dims strides_dims = {SH, SW};
+  memory::dims padding_dims_l = {PH_L, PW_L};
+  memory::dims padding_dims_r = {PH_R, PW_R};
+  //memory::dims dilation_dims = {DH, DW};
+
+  // TODO: Get data type
+  auto data_type = convert_to_onednn_dtype(v_args, num_args);
+
+  // Get input and output memory handle
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
   void *_x = args[0].operator cinn_buffer_t *()->memory;
   void *_w = args[1].operator cinn_buffer_t *()->memory;
   void *_y = args[2].operator cinn_buffer_t *()->memory;
-  int pad[4] = {pad_h, pad_h, pad_w, pad_w};
-  int stride[4] = {stride_h, stride_h, stride_w, stride_w};
-  int dilation[4] = {dilation_h, dilation_h, dilation_w, dilation_w};
 
-  cnnlTensorLayout_t tensor_format = static_cast<cnnlTensorLayout_t>(format);
-  cnnlDataType_t data_type = convert_to_cnnl_dtype(v_args, num_args);
+  // Create memory objects for tensor data (src, weights, dst). In this
+  // example, NCHW layout is assumed for src and dst, and OIHW for weights.
+  auto conv_src_mem = dnnl::memory({src_dims, data_type, tensor_format}, onednn_engine, _x);
+  auto conv_weights_mem = dnnl::memory({weights_dims, data_type, tag::oihw}, onednn_engine, _w);
+  auto conv_dst_mem = dnnl::memory({dst_dims, data_type, tensor_format}, onednn_engine, _y);
 
-  std::string hash_key =
-      "conv2d forward, layout=" + debug_cnnl_tensor_format(tensor_format) +
-      ", dtype=" + debug_cnnl_tensor_dtype(data_type) + ", input_nchw={" +
-      std::to_string(input_n) + "," + std::to_string(input_c) + "," +
-      std::to_string(input_h) + "," + std::to_string(input_w) +
-      "}, filter_nchw={" + std::to_string(filter_n) + "," +
-      std::to_string(filter_c) + "," + std::to_string(filter_h) + "," +
-      std::to_string(filter_w) + "}, output_nchw={" + std::to_string(output_n) +
-      "," + std::to_string(output_c) + "," + std::to_string(output_h) + "," +
-      std::to_string(output_w) + "}";
-  VLOG(4) << hash_key;
+  // Create memory descriptors with format_tag::any for the primitive. This
+  // enables the convolution primitive to choose memory layouts for an
+  // optimized primitive implementation, and these layouts may differ from the
+  // ones provided by the user.
+  auto conv_src_md = dnnl::memory::desc(src_dims, data_type, tensor_format);
+  auto conv_weights_md = dnnl::memory::desc(weights_dims, data_type, tensor_format);
+  auto conv_dst_md = dnnl::memory::desc(dst_dims, data_type, tensor_format);
 
-  cnnlTensorDescriptor_t x_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&x_desc));
-  int dim_x[4] = {input_n, input_c, input_h, input_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(x_desc, tensor_format, data_type, 4, dim_x));
 
-  cnnlTensorDescriptor_t w_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&w_desc));
-  int dim_w[4] = {filter_n, filter_c, filter_h, filter_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(w_desc, tensor_format, data_type, 4, dim_w));
+  // Create primitive post-ops (ReLU).
+  /*
+  const float alpha = 0.f;
+  const float beta = 0.f;
+  post_ops conv_ops;
+  conv_ops.append_eltwise(algorithm::eltwise_relu, alpha, beta);
+  primitive_attr conv_attr;
+  conv_attr.set_post_ops(conv_ops);
+  */
 
-  cnnlTensorDescriptor_t y_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&y_desc));
-  int dim_y[4] = {output_n, output_c, output_h, output_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(y_desc, tensor_format, data_type, 4, dim_y));
+  // Create primitive descriptor.
+  auto conv_pd = convolution_forward::primitive_desc(onednn_engine,
+          prop_kind::forward_inference, algorithm::convolution_direct,
+          conv_src_md, conv_weights_md, conv_dst_md,
+          strides_dims, 
+          //dilation_dims,
+          padding_dims_l, padding_dims_r);
+  
+  // Create the primitive.
+  auto conv_prim = convolution_forward(conv_pd);
 
-  cnnlConvolutionDescriptor_t conv_desc;
-  CNNL_CALL(cnnlCreateConvolutionDescriptor(&conv_desc));
-  CNNL_CALL(cnnlSetConvolutionDescriptor(conv_desc, 4, pad, stride, dilation,
-                                          groups, CNNL_DTYPE_FLOAT));
+  // Primitive arguments.
+  std::unordered_map<int, memory> conv_args;
+  conv_args.insert({DNNL_ARG_SRC, conv_src_mem});
+  conv_args.insert({DNNL_ARG_WEIGHTS, conv_weights_mem});
+  //conv_args.insert({DNNL_ARG_BIAS, user_bias_mem});
+  conv_args.insert({DNNL_ARG_DST, conv_dst_mem});
 
-  cnnlConvolutionForwardAlgo_t algo;
-  CNNL_CALL(cnnlGetConvolutionForwardAlgorithm(handle, conv_desc, x_desc, w_desc, y_desc, CNNL_CONVOLUTION_FWD_FASTEST, &algo));
-  void *workspace = nullptr;
-  size_t workspace_size = 0;
-  CNNL_CALL(cnnlGetConvolutionForwardWorkspaceSize(handle, x_desc, w_desc, y_desc, nullptr, conv_desc,
-      algo, &workspace_size));
-  if (workspace_size > 0) {
-    CNRT_CALL(cnrtMalloc((void **)&workspace, workspace_size));
-  }
-
-  CNNL_CALL(cnnlConvolutionForward(handle, conv_desc, algo, &alpha, x_desc, _x, w_desc, _w, nullptr, nullptr, workspace, workspace_size, &beta, y_desc, _y));
-  CNRT_CALL(cnrtQueueSync(queue));
-
-  if (workspace != nullptr) {
-    CNRT_CALL(cnrtFree(workspace));
-  }
-  CNNL_CALL(cnnlDestroyConvolutionDescriptor(conv_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(x_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(w_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(y_desc));
-  CNRT_CALL(cnrtQueueDestroy(queue));
+  // Primitive execution: convolution with ReLU.
+  conv_prim.execute(onednn_stream, conv_args);
 }
 
-void cinn_call_cnnl_conv2d_backward_data(void *v_args,
+void cinn_call_onednn_conv2d_backward_data(void *v_args,
                                           int num_args,
                                           int format,
                                           float alpha,
@@ -709,88 +749,18 @@ void cinn_call_cnnl_conv2d_backward_data(void *v_args,
                                           int output_n,
                                           int output_c,
                                           int output_h,
-                                          int output_w) {
+                                          int output_w,
+                                          void* stream) {
   PADDLE_ENFORCE_EQ(
       num_args,
       3,
       phi::errors::InvalidArgument(
           "Expected number of argruments is 3, but recived %d.", num_args));
-  cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
-  auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
-  CNRT_CALL(cnrtSetDevice(device));
-  cnrtQueue_t queue;
-  CNRT_CALL(cnrtQueueCreate(&queue));
-  CNNL_CALL(cnnlSetQueue(handle, queue));
-
-  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
-  void *_w = args[0].operator cinn_buffer_t *()->memory;
-  void *_dy = args[1].operator cinn_buffer_t *()->memory;
-  void *_dx = args[2].operator cinn_buffer_t *()->memory;
-  int pad[4] = {pad_h, pad_h, pad_w, pad_w};
-  int stride[4] = {stride_h, stride_h, stride_w, stride_w};
-  int dilation[4] = {dilation_h, dilation_h, dilation_w, dilation_w};
-
-  cnnlTensorLayout_t tensor_format = static_cast<cnnlTensorLayout_t>(format);
-  cnnlDataType_t data_type = convert_to_cnnl_dtype(v_args, num_args);
-
-  std::string hash_key =
-    "conv2d backward data, layout=" +
-    debug_cnnl_tensor_format(tensor_format) +
-    ", dtype=" + debug_cnnl_tensor_dtype(data_type) + ", input_nchw={" +
-    std::to_string(input_n) + "," + std::to_string(input_c) + "," +
-    std::to_string(input_h) + "," + std::to_string(input_w) +
-    "}, filter_nchw={" + std::to_string(filter_n) + "," +
-    std::to_string(filter_c) + "," + std::to_string(filter_h) + "," +
-    std::to_string(filter_w) + "}, output_nchw={" + std::to_string(output_n) +
-    "," + std::to_string(output_c) + "," + std::to_string(output_h) + "," +
-    std::to_string(output_w) + "}";
-
-  VLOG(4) << hash_key;
-
-  cnnlTensorDescriptor_t x_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&x_desc));
-  int dim_x[4] = {input_n, input_c, input_h, input_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(x_desc, tensor_format, data_type, 4, dim_x));
-
-  cnnlTensorDescriptor_t w_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&w_desc));
-  int dim_w[4] = {filter_n, filter_c, filter_h, filter_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(w_desc, tensor_format, data_type, 4, dim_w));
-
-  cnnlTensorDescriptor_t y_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&y_desc));
-  int dim_y[4] = {output_n, output_c, output_h, output_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(y_desc, tensor_format, data_type, 4, dim_y));
-
-  cnnlConvolutionDescriptor_t conv_desc;
-  CNNL_CALL(cnnlCreateConvolutionDescriptor(&conv_desc));
-  CNNL_CALL(cnnlSetConvolutionDescriptor(conv_desc, 4, pad, stride, dilation,
-                                          groups, CNNL_DTYPE_FLOAT));
-
-  cnnlConvolutionBwdDataAlgo_t algo;
-  CNNL_CALL(cnnlGetConvolutionBackwardDataAlgorithm(handle, w_desc, y_desc, conv_desc, x_desc, CNNL_CONVOLUTION_BWD_DATA_FASTEST, &algo));
-  void *workspace = nullptr;
-  size_t workspace_size = 0;
-  CNNL_CALL(cnnlGetConvolutionBackwardDataWorkspaceSize(handle, w_desc, y_desc, conv_desc, x_desc, algo, &workspace_size));
-  if (workspace_size > 0) {
-    CNRT_CALL(cnrtMalloc((void **)&workspace, workspace_size));
-  }
-
-  CNNL_CALL(cnnlConvolutionBackwardData(handle, &alpha, w_desc, _w, y_desc, _dy, conv_desc, algo, workspace, workspace_size, &beta, x_desc, _dx));
-  CNRT_CALL(cnrtQueueSync(queue));
-
-  if (workspace != nullptr) {
-    CNRT_CALL(cnrtFree(workspace));
-  }
-  CNNL_CALL(cnnlDestroyConvolutionDescriptor(conv_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(x_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(w_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(y_desc));
-  CNRT_CALL(cnrtQueueDestroy(queue));
+  // TODO reuse onednn_common(...)
+  CINN_RUNTIME_NOT_IMPLEMENTED
 }
 
-void cinn_call_cnnl_conv2d_backward_filter(void *v_args,
+void cinn_call_onednn_conv2d_backward_filter(void *v_args,
                                             int num_args,
                                             int format,
                                             float alpha,
@@ -813,88 +783,18 @@ void cinn_call_cnnl_conv2d_backward_filter(void *v_args,
                                             int output_n,
                                             int output_c,
                                             int output_h,
-                                            int output_w) {
+                                            int output_w,
+                                            void* stream) {
   PADDLE_ENFORCE_EQ(
       num_args,
       3,
       phi::errors::InvalidArgument(
           "Expected number of argruments is 3, but recived %d.", num_args));
-  cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
-  auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
-  CNRT_CALL(cnrtSetDevice(device));
-  cnrtQueue_t queue;
-  CNRT_CALL(cnrtQueueCreate(&queue));
-  CNNL_CALL(cnnlSetQueue(handle, queue));
-
-  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
-  void *_x = args[0].operator cinn_buffer_t *()->memory;
-  void *_dy = args[1].operator cinn_buffer_t *()->memory;
-  void *_dw = args[2].operator cinn_buffer_t *()->memory;
-  int pad[4] = {pad_h, pad_h, pad_w, pad_w};
-  int stride[4] = {stride_h, stride_h, stride_w, stride_w};
-  int dilation[4] = {dilation_h, dilation_h, dilation_w, dilation_w};
-
-  cnnlTensorLayout_t tensor_format = static_cast<cnnlTensorLayout_t>(format);
-  cnnlDataType_t data_type = convert_to_cnnl_dtype(v_args, num_args);
-
-  std::string hash_key =
-    "conv2d backward filter, layout=" +
-    debug_cnnl_tensor_format(tensor_format) +
-    ", dtype=" + debug_cnnl_tensor_dtype(data_type) + ", input_nchw={" +
-    std::to_string(input_n) + "," + std::to_string(input_c) + "," +
-    std::to_string(input_h) + "," + std::to_string(input_w) +
-    "}, filter_nchw={" + std::to_string(filter_n) + "," +
-    std::to_string(filter_c) + "," + std::to_string(filter_h) + "," +
-    std::to_string(filter_w) + "}, output_nchw={" + std::to_string(output_n) +
-    "," + std::to_string(output_c) + "," + std::to_string(output_h) + "," +
-    std::to_string(output_w) + "}";
-
-  VLOG(4) << hash_key;
-
-  cnnlTensorDescriptor_t x_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&x_desc));
-  int dim_x[4] = {input_n, input_c, input_h, input_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(x_desc, tensor_format, data_type, 4, dim_x));
-
-  cnnlTensorDescriptor_t w_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&w_desc));
-  int dim_w[4] = {filter_n, filter_c, filter_h, filter_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(w_desc, tensor_format, data_type, 4, dim_w));
-
-  cnnlTensorDescriptor_t y_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&y_desc));
-  int dim_y[4] = {output_n, output_c, output_h, output_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(y_desc, tensor_format, data_type, 4, dim_y));
-
-  cnnlConvolutionDescriptor_t conv_desc;
-  CNNL_CALL(cnnlCreateConvolutionDescriptor(&conv_desc));
-  CNNL_CALL(cnnlSetConvolutionDescriptor(conv_desc, 4, pad, stride, dilation,
-                                          groups, CNNL_DTYPE_FLOAT));
-
-  cnnlConvolutionBwdFilterAlgo_t algo;
-  CNNL_CALL(cnnlGetConvolutionBackwardFilterAlgorithm(handle, conv_desc, x_desc, y_desc, w_desc, CNNL_CONVOLUTION_BWD_FILTER_FASTEST, &algo));
-  void *workspace = nullptr;
-  size_t workspace_size = 0;
-  CNNL_CALL(cnnlGetConvolutionBackwardFilterWorkspaceSize(handle, x_desc, y_desc, w_desc, conv_desc, algo, &workspace_size));
-  if (workspace_size > 0) {
-    CNRT_CALL(cnrtMalloc((void **)&workspace, workspace_size));
-  }
-
-  CNNL_CALL(cnnlConvolutionBackwardFilter(handle, nullptr, x_desc, _x, y_desc, _dy, conv_desc, algo, workspace, workspace_size, nullptr, w_desc, _dw));
-  CNRT_CALL(cnrtQueueSync(queue));
-
-  if (workspace != nullptr) {
-    CNRT_CALL(cnrtFree(workspace));
-  }
-  CNNL_CALL(cnnlDestroyConvolutionDescriptor(conv_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(x_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(w_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(y_desc));
-  CNRT_CALL(cnrtQueueDestroy(queue));
+  // TODO
+  CINN_RUNTIME_NOT_IMPLEMENTED
 }
 
-void cinn_call_cnnl_pool2d_forward(void *v_args,
+void cinn_call_onednn_pool2d_forward(void *v_args,
                                     int num_args,
                                     int mode,
                                     int format,
@@ -913,104 +813,123 @@ void cinn_call_cnnl_pool2d_forward(void *v_args,
                                     int output_n,
                                     int output_c,
                                     int output_h,
-                                    int output_w) {
+                                    int output_w,
+                                    void* stream) {
+  std::cout<<"============= cinn call onednn pool2d forward ==============="<<std::endl;                                      
   PADDLE_ENFORCE_EQ(
       num_args,
       2,
       phi::errors::InvalidArgument(
           "Expected number of argruments is 2, but recived %d.", num_args));
-  cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
-  auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
-  CNRT_CALL(cnrtSetDevice(device));
-  cnrtQueue_t queue;
-  CNRT_CALL(cnrtQueueCreate(&queue));
-  CNNL_CALL(cnnlSetQueue(handle, queue));
-  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
+  cinn::utils::RecordEvent record_run("cinn_call_onednn_pool2d_forward",
+                                      cinn::utils::EventType::kInstruction);
 
+
+  dnnl::engine onednn_engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
+  dnnl::stream onednn_stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+
+  // Get pool mode
+  dnnl::algorithm pool_mode;
+  if (mode == static_cast<int>(dnnl::algorithm::pooling_max)) {
+    pool_mode = dnnl::algorithm::pooling_max;
+  } else if (mode == static_cast<int>(dnnl::algorithm::pooling_avg_exclude_padding)) {
+    pool_mode = dnnl::algorithm::pooling_avg_exclude_padding;
+  } else if (mode == static_cast<int>(dnnl::algorithm::pooling_avg_include_padding)) {
+    pool_mode = dnnl::algorithm::pooling_avg_include_padding;
+  } else {
+    pool_mode = dnnl::algorithm::pooling_max;
+    //CINN_RUNTIME_NOT_IMPLEMENTED
+  }
+  std::cout<<"pooling is: "<<mode<<" pool mode is: "<<static_cast<int>(pool_mode)<<std::endl;
+
+  // Get tensor data layout
+  memory::format_tag tensor_format;
+  if (format == static_cast<int>(memory::format_tag::nchw)) {
+    tensor_format = memory::format_tag::nchw;
+  } else if (format == static_cast<int>(memory::format_tag::nhwc)) {
+    tensor_format = memory::format_tag::nhwc;
+  } else {
+    tensor_format = memory::format_tag::nchw; 
+    //CINN_RUNTIME_NOT_IMPLEMENTED
+  }
+  std::cout<<"common::layout is: "<<format<<" tensor format: "<<static_cast<int>(tensor_format)<<std::endl;
+
+  // TODO: Get data type
+  auto data_type = convert_to_onednn_dtype(v_args, num_args);
+
+  // Tensor dimensions.
+  const memory::dim N = input_n, // batch size
+          IC = input_c, // input channels
+          IH = input_h, // input height
+          IW = input_w, // input width
+          KH = kernel_h, // weights height
+          KW = kernel_w, // weights width
+          PH_L = pad_h, // height padding: left
+          PH_R = pad_h, // height padding: right
+          PW_L = pad_w, // width padding: left
+          PW_R = pad_w, // width padding: right
+          SH = stride_h, // height-wise stride
+          SW = stride_w, // width-wise stride
+          DH = 0, // height-wise dilation
+          DW = 0, // width-wise dilation
+          OH = output_h, // output height
+          OW = output_w; // output width
+    
+  // Source (src) and destination (dst) tensors dimensions.
+  memory::dims src_dims = {N, IC, IH, IW};
+  memory::dims dst_dims = {N, IC, OH, OW};
+
+  // Kernel dimensions.
+  memory::dims kernel_dims = {KH, KW};
+
+  // Strides, padding dimensions.
+  memory::dims strides_dims = {SH, SW};
+  memory::dims padding_dims_l = {PH_L, PW_L};
+  memory::dims padding_dims_r = {PH_R, PW_R};
+  memory::dims dilation = {DH, DW};
+
+  // Get input and output memory handle
+  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
   void *_x = args[0].operator cinn_buffer_t *()->memory;
   void *_y = args[1].operator cinn_buffer_t *()->memory;
 
-  cnnlPoolingMode_t pool_mode = static_cast<cnnlPoolingMode_t>(mode);
-  cnnlTensorLayout_t tensor_format = static_cast<cnnlTensorLayout_t>(format);
-  cnnlDataType_t data_type = convert_to_cnnl_dtype(v_args, num_args);
 
-  std::string hash_key =
-    "pool2d forward, layout=" + debug_cnnl_tensor_format(tensor_format) +
-    ", pool_type=" + debug_cnnl_pool_mode(pool_mode) +
-    ", dtype=" + debug_cnnl_tensor_dtype(data_type) + ", input_nchw={" +
-    std::to_string(input_n) + "," + std::to_string(input_c) + "," +
-    std::to_string(input_h) + "," + std::to_string(input_w) +
-    "}, kernel_hw={" + std::to_string(kernel_h) + "," +
-    std::to_string(kernel_w) + "}, pad_hw={" + std::to_string(pad_h) + "," +
-    std::to_string(pad_w) + "}, stride_hw={" + std::to_string(stride_h) +
-    "," + std::to_string(stride_w) + "}, output_nchw={" +
-    std::to_string(output_n) + "," + std::to_string(output_c) + "," +
-    std::to_string(output_h) + "," + std::to_string(output_w) + "}";
+  // Create memory descriptors and memory objects for src and dst.
+  auto src_md = dnnl::memory::desc(src_dims, data_type, tensor_format);
+  auto dst_md = dnnl::memory::desc(dst_dims, data_type, tensor_format);
 
-  VLOG(4) << hash_key;
+  // Create memory objects for tensor data (src, weights, dst). In this
+  // example, NCHW layout is assumed for src and dst, and OIHW for weights.
+  auto src_mem = dnnl::memory(src_md, onednn_engine, _x);
+  auto dst_mem = dnnl::memory(dst_md, onednn_engine, _y);
 
-  cnnlPoolingDescriptor_t pool_desc;
-  CNNL_CALL(cnnlCreatePoolingDescriptor(&pool_desc));
-  CNNL_CALL(cnnlSetPooling2dDescriptor_v2(pool_desc,
-                                         pool_mode,
-                                         CNNL_NOT_PROPAGATE_NAN,
-                                         kernel_h,
-                                         kernel_w,
-                                         pad_h,
-                                         pad_h,
-                                         pad_w,
-                                         pad_w,
-                                         stride_h,
-                                         stride_w,
-                                         1,
-                                         1,
-                                         true));
+ 
+  // Create primitive descriptor.
+  auto pooling_pd = pooling_forward::primitive_desc(onednn_engine,
+          prop_kind::forward_inference, pool_mode, src_md, dst_md,
+          strides_dims, kernel_dims, dilation, padding_dims_l,
+          padding_dims_r);
+
+  // Create the primitive.
+  auto pooling_prim = pooling_forward(pooling_pd);
+
+  // Create workspace memory objects using memory descriptor created by the
+  // primitive descriptor.
+  // NOTE: Here, the workspace is required to save the indices where maximum
+  // was found, and is used in backward pooling to perform upsampling.
+  auto workspace_mem = dnnl::memory(pooling_pd.workspace_desc(), onednn_engine);
   
-  cnnlTensorDescriptor_t x_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&x_desc));
-  int dim_x[4] = {input_n, input_c, input_h, input_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(x_desc, tensor_format, data_type, 4, dim_x));
-  cnnlTensorDescriptor_t y_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&y_desc));
-  int dim_y[4] = {output_n, output_c, output_h, output_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(y_desc, tensor_format, data_type, 4, dim_y));
+  // Primitive arguments. Set up in-place execution by assigning src as DST.
+  std::unordered_map<int, memory> pooling_args;
+  pooling_args.insert({DNNL_ARG_SRC, src_mem});
+  pooling_args.insert({DNNL_ARG_DST, dst_mem});
+  pooling_args.insert({DNNL_ARG_WORKSPACE, workspace_mem});
 
-  size_t workspace_size = 0;
-  void *workspace = nullptr;
-  CNNL_CALL(cnnlGetPoolingWorkspaceSize(handle, pool_mode, output_w, output_h, &workspace_size));
-  if (workspace_size > 0) {
-    CNRT_CALL(cnrtMalloc((void **)&workspace, workspace_size));
-  }
-  size_t extra_input_size = 0;
-  void *extra_host_input = nullptr, *extra_device_input = nullptr;
-  CNNL_CALL(cnnlGetPoolingExtraInputSize(handle, pool_mode, output_w, output_h, &extra_input_size));
-  if (extra_input_size > 0) {
-    extra_host_input = std::malloc(extra_input_size);
-    CNRT_CALL(cnrtMalloc((void **)&extra_device_input, extra_input_size));
-    CNNL_CALL(cnnlInitPoolingExtraInput(handle, pool_desc, x_desc, y_desc, extra_host_input));
-    CNRT_CALL(cnrtMemcpy(extra_device_input, extra_host_input, extra_input_size, cnrtMemcpyHostToDev));
-  }
-
-  CNNL_CALL(cnnlPoolingForward_v2(handle, pool_desc, &alpha, x_desc, _x, &beta, extra_device_input, y_desc, _y, workspace, workspace_size));
-  CNRT_CALL(cnrtQueueSync(queue));
-
-  if (extra_host_input != nullptr) {
-    std::free(extra_host_input);
-  }
-  if (extra_device_input != nullptr) {
-    CNRT_CALL(cnrtFree(extra_device_input));
-  }
-  if (workspace != nullptr) {
-    CNRT_CALL(cnrtFree(workspace));
-  }
-  CNNL_CALL(cnnlDestroyTensorDescriptor(x_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(y_desc));
-  CNNL_CALL(cnnlDestroyPoolingDescriptor(pool_desc));
-  CNRT_CALL(cnrtQueueDestroy(queue));
+  // Primitive execution: pooling.
+  pooling_prim.execute(onednn_stream, pooling_args);
 }
 
-void cinn_call_cnnl_pool2d_backward(void *v_args,
+void cinn_call_onednn_pool2d_backward(void *v_args,
                                      int num_args,
                                      int mode,
                                      int format,
@@ -1029,81 +948,17 @@ void cinn_call_cnnl_pool2d_backward(void *v_args,
                                      int output_n,
                                      int output_c,
                                      int output_h,
-                                     int output_w) {
+                                     int output_w,
+                                     void* stream) {
   PADDLE_ENFORCE_EQ(
       num_args,
       4,
       phi::errors::InvalidArgument(
           "Expected number of argruments is 4, but recived %d.", num_args));
-  cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
-  auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
-  CNRT_CALL(cnrtSetDevice(device));
-  cnrtQueue_t queue;
-  CNRT_CALL(cnrtQueueCreate(&queue));
-  CNNL_CALL(cnnlSetQueue(handle, queue));
-  cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
-
-  void *_x = args[0].operator cinn_buffer_t *()->memory;
-  void *_y = args[1].operator cinn_buffer_t *()->memory;
-  void *_dy = args[2].operator cinn_buffer_t *()->memory;
-  void *_dx = args[3].operator cinn_buffer_t *()->memory;
-
-  cnnlPoolingMode_t pool_mode = static_cast<cnnlPoolingMode_t>(mode);
-  cnnlTensorLayout_t tensor_format = static_cast<cnnlTensorLayout_t>(format);
-  cnnlDataType_t data_type = convert_to_cnnl_dtype(v_args, num_args);
-
-  std::string hash_key =
-    "pool2d backward, layout=" + debug_cnnl_tensor_format(tensor_format) +
-    ", pool_type=" + debug_cnnl_pool_mode(pool_mode) +
-    ", dtype=" + debug_cnnl_tensor_dtype(data_type) + ", input_nchw={" +
-    std::to_string(input_n) + "," + std::to_string(input_c) + "," +
-    std::to_string(input_h) + "," + std::to_string(input_w) +
-    "}, kernel_hw={" + std::to_string(kernel_h) + "," +
-    std::to_string(kernel_w) + "}, pad_hw={" + std::to_string(pad_h) + "," +
-    std::to_string(pad_w) + "}, stride_hw={" + std::to_string(stride_h) +
-    "," + std::to_string(stride_w) + "}, output_nchw={" +
-    std::to_string(output_n) + "," + std::to_string(output_c) + "," +
-    std::to_string(output_h) + "," + std::to_string(output_w) + "}";
-
-  VLOG(4) << hash_key;
-
-  cnnlPoolingDescriptor_t pool_desc;
-  CNNL_CALL(cnnlCreatePoolingDescriptor(&pool_desc));
-  CNNL_CALL(cnnlSetPooling2dDescriptor_v2(pool_desc,
-                                         pool_mode,
-                                         CNNL_NOT_PROPAGATE_NAN,
-                                         kernel_h,
-                                         kernel_w,
-                                         pad_h,
-                                         pad_h,
-                                         pad_w,
-                                         pad_w,
-                                         stride_h,
-                                         stride_w,
-                                         1,
-                                         1,
-                                         true));
-  
-  cnnlTensorDescriptor_t x_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&x_desc));
-  int dim_x[4] = {input_n, input_c, input_h, input_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(x_desc, tensor_format, data_type, 4, dim_x));
-  cnnlTensorDescriptor_t y_desc;
-  CNNL_CALL(cnnlCreateTensorDescriptor(&y_desc));
-  int dim_y[4] = {output_n, output_c, output_h, output_w};
-  CNNL_CALL(cnnlSetTensorDescriptor(y_desc, tensor_format, data_type, 4, dim_y));
-
-  CNNL_CALL(cnnlPoolingBackward(handle, pool_desc, &alpha, nullptr, nullptr, y_desc, _dy, x_desc, _x, &beta, x_desc, _dx));
-  CNRT_CALL(cnrtQueueSync(queue));
-
-  CNNL_CALL(cnnlDestroyTensorDescriptor(x_desc));
-  CNNL_CALL(cnnlDestroyTensorDescriptor(y_desc));
-  CNNL_CALL(cnnlDestroyPoolingDescriptor(pool_desc));
-  CNRT_CALL(cnrtQueueDestroy(queue));
+  CINN_RUNTIME_NOT_IMPLEMENTED
 }
 
-#endif // CINN_WITH_CNNL
+#endif // CINN_WITH_ONEDNN
 
 }  // namespace sycl
 }  // namespace runtime

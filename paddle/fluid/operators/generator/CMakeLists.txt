@@ -21,24 +21,6 @@ if(NOT PYTHONINTERP_FOUND)
   find_package(PythonInterp REQUIRED)
 endif()
 
-string(REPLACE "." ";" PYTHON_VERSION_LIST ${PYTHON_VERSION_STRING})
-
-list(GET PYTHON_VERSION_LIST 0 PYTHON_MAJOR)
-list(GET PYTHON_VERSION_LIST 1 PYTHON_MINOR)
-list(GET PYTHON_VERSION_LIST 2 PYTHON_PATCH)
-# 假设PYTHON_VERSION_STRING的内容形如 "3.7.10"
-# string(SUBSTRING ${PYTHON_VERSION_STRING} 0 1 PYTHON_MAJOR) # 提取主版本号
-# string(SUBSTRING ${PYTHON_VERSION_STRING} 3 1 PYTHON_MINOR) # 提取次版本号
-# string(SUBSTRING ${PYTHON_VERSION_STRING} 5 1 PYTHON_PATCH) # 提取修订版本号（如果存在的话，注意根据实际情况调整起始索引）
-
-# 确保版本字符串格式正确处理，对于只有主次版本的情况
-if (${PYTHON_VERSION_STRING} MATCHES "^\\d+.\\d+$")
-  set(PYTHON_PATCH "")
-endif()
-
-message(STATUS "Python version: ${PYTHON_MAJOR}.${PYTHON_MINOR}.${PYTHON_PATCH}")
-message(STATUS "Python version : " ${PYTHON_VERSION_STRING})  
-
 function(install_py_pyyaml)
   execute_process(
     COMMAND
@@ -70,8 +52,7 @@ function(install_py_jinja2)
       OUTPUT_VARIABLE _jinja2_version
       ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
 
-    # if(${PYTHON_VERSION_STRING} VERSION_LESS "3.6.2")
-    if (${PYTHON_MAJOR} LESS 3 OR (${PYTHON_MAJOR} EQUAL 3 AND ${PYTHON_MINOR} LESS 6) OR (${PYTHON_MAJOR} EQUAL 3 AND ${PYTHON_MINOR} EQUAL 6 AND ${PYTHON_PATCH} LESS 2))
+    if(${PYTHON_VERSION_STRING} VERSION_LESS "3.6.2")
       if(NOT _jinja2_version VERSION_LESS "2.11.3")
         execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install -U
                                 jinja2==2.11.3)
@@ -84,10 +65,9 @@ function(install_py_jinja2)
     endif()
   endif()
 
-  # if(${PYTHON_VERSION_STRING} VERSION_LESS "3.6.2")
-  #   execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install -U
-  #                           jinja2==2.11.3)
-  if (${PYTHON_MAJOR} LESS 3 OR (${PYTHON_MAJOR} EQUAL 3 AND ${PYTHON_MINOR} LESS 6) OR (${PYTHON_MAJOR} EQUAL 3 AND ${PYTHON_MINOR} EQUAL 6 AND ${PYTHON_PATCH} LESS 2))
+  if(${PYTHON_VERSION_STRING} VERSION_LESS "3.6.2")
+    execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install -U
+                            jinja2==2.11.3)
     execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install -U
                             jinja2==2.11.3)                            
   else()
@@ -96,8 +76,7 @@ function(install_py_jinja2)
 endfunction()
 
 function(install_py_typing_extensions)
-  # if(${PYTHON_VERSION_STRING} VERSION_LESS "3.6.2")
-  if (${PYTHON_MAJOR} LESS 3 OR (${PYTHON_MAJOR} EQUAL 3 AND ${PYTHON_MINOR} LESS 6) OR (${PYTHON_MAJOR} EQUAL 3 AND ${PYTHON_MINOR} EQUAL 6 AND ${PYTHON_PATCH} LESS 2))
+  if(${PYTHON_VERSION_STRING} VERSION_LESS "3.6.2")
     execute_process(COMMAND ${PYTHON_EXECUTABLE} -m pip install -U
                             typing-extensions>=4.1.1)
     return()

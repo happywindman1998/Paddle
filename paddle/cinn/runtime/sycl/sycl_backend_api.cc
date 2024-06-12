@@ -39,11 +39,11 @@ Target::Arch SYCLBackendAPI::Init(Target::Arch arch) {
       backend = ::sycl::backend::cuda;
       break;
     case Target::Arch::AMDGPU:
-      backend = ::sycl::backend::rocm;
+      backend = ::sycl::backend::hip;
       break;
     case Target::Arch::IntelGPU:
       backend = ::sycl::backend::level_zero;
-      break;
+      break;     
     case Target::Arch::CambriconMLU:
       backend = ::sycl::backend::cnrt;
       break;
@@ -66,7 +66,7 @@ Target::Arch SYCLBackendAPI::Init(Target::Arch arch) {
     case ::sycl::backend::cuda:
       this->arch = Target::Arch::NVGPU;
       break;
-    case ::sycl::backend::rocm:
+    case ::sycl::backend::hip:
       this->arch = Target::Arch::AMDGPU;
       break;
     case ::sycl::backend::level_zero:
@@ -239,6 +239,14 @@ void SYCLBackendAPI::stream_sync(void* stream) {
   return this->queues[now_device_id][0];
 }
 
+::sycl::context* SYCLBackendAPI::get_default_context() {
+  return this->contexts[now_device_id];
+}
+
+::sycl::device SYCLBackendAPI::get_default_device() {
+  return this->devices[now_device_id];
+}
+
 std::string SYCLBackendAPI::GetGpuVersion() {
   ::sycl::device device = this->devices[now_device_id];
   ::sycl::backend backend = device.get_backend();
@@ -246,7 +254,7 @@ std::string SYCLBackendAPI::GetGpuVersion() {
     case ::sycl::backend::cuda: {
       std::string gpu_version = "sm_";
       std::string version_with_point =
-          device.get_info<::sycl::info::device::driver_version>();
+          device.get_info<::sycl::info::device::backend_version>();
       size_t pos = version_with_point.find(".");
       if (pos != std::string::npos) {
         gpu_version +=
@@ -255,7 +263,7 @@ std::string SYCLBackendAPI::GetGpuVersion() {
       }
       return gpu_version;
     }
-    case ::sycl::backend::rocm: {
+    case ::sycl::backend::hip: {
       std::string gpu_version = device.get_info<::sycl::info::device::version>();
       size_t pos = gpu_version.find(":");
       if (pos != std::string::npos) gpu_version = gpu_version.substr(0, pos);

@@ -102,6 +102,8 @@ class SYCLBackendAPI final : public BackendAPI {
   void device_sync() final;
   void stream_sync(void* stream) final;
   ::sycl::queue* get_now_queue();
+  ::sycl::context* get_default_context();
+  ::sycl::device get_default_device();
   std::string GetGpuVersion();
 
  private:

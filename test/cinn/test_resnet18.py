@@ -21,7 +21,8 @@ import unittest
 import numpy as np
 
 from paddle import base
-from paddle.cinn.common import DefaultHostTarget, DefaultNVGPUTarget
+from paddle.cinn import frontend,common
+from paddle.cinn.common import DefaultHostTarget, DefaultNVGPUTarget, SYCLTarget
 from paddle.cinn.frontend import Interpreter
 
 enable_gpu = sys.argv.pop()
@@ -34,6 +35,7 @@ class TestLoadResnetModel(unittest.TestCase):
     def setUp(self):
         if enable_gpu == "ON":
             self.target = DefaultNVGPUTarget()
+            # self.target = SYCLTarget(arch=common.Target.Arch.CambriconMLU)
         else:
             self.target = DefaultHostTarget()
         self.model_dir = model_dir

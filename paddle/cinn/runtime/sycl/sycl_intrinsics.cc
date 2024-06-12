@@ -466,9 +466,10 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<size_t>()  // count
       .End();
 
-#ifdef CINN_WITH_CNNL
-  using cinn::runtime::sycl::cinn_call_cnnl_gaussian_random;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_gaussian_random,
+// #ifdef CINN_WITH_CNNL
+#ifdef CINN_WITH_ONEDNN
+  using cinn::runtime::sycl::cinn_call_onednn_gaussian_random;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_gaussian_random,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -476,10 +477,11 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<float>()   // mean
       .AddInputType<float>()   // std
       .AddInputType<int>()     // seed
+      .AddInputType<void *>()  // stream
       .End();
 
-  using cinn::runtime::sycl::cinn_call_cnnl_uniform_random;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_uniform_random,
+  using cinn::runtime::sycl::cinn_call_onednn_uniform_random;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_uniform_random,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -487,19 +489,21 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<float>()   // min
       .AddInputType<float>()   // max
       .AddInputType<int>()     // seed
+      .AddInputType<void *>()  // stream
       .End();
 
-  using cinn::runtime::sycl::cinn_call_cnnl_randint;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_randint,
+  using cinn::runtime::sycl::cinn_call_onednn_randint;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_randint,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
       .AddInputType<int>()     // num_args
       .AddInputType<int>()     // seed
+      .AddInputType<void *>()  // stream
       .End();
 
-  using cinn::runtime::sycl::cinn_call_cnnl_cholesky;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_cholesky,
+  using cinn::runtime::sycl::cinn_call_onednn_cholesky;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_cholesky,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -507,10 +511,11 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<int>()     // batch_size
       .AddInputType<int>()     // m
       .AddInputType<bool>()    // upper
+      .AddInputType<void *>()  // stream
       .End();
 
-  using cinn::runtime::sycl::cinn_call_cnnl_triangular_solve;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_triangular_solve,
+  using cinn::runtime::sycl::cinn_call_onednn_triangular_solve;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_triangular_solve,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -522,10 +527,11 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<bool>()    // upper
       .AddInputType<bool>()    // transpose_a
       .AddInputType<bool>()    // unit_diagonal
+      .AddInputType<void *>()  // stream
       .End();
 
-  using cinn::runtime::sycl::cinn_call_cnnl_matmul;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_matmul,
+  using cinn::runtime::sycl::cinn_call_onednn_matmul;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_matmul,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -542,10 +548,11 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<int>()     // b2
       .AddInputType<int>()     // b3
       .AddInputType<int>()     // b4
+      .AddInputType<void *>()  // stream
       .End();
 
-  using cinn::runtime::sycl::cinn_call_cnnl_conv2d_forward;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_conv2d_forward,
+  using cinn::runtime::sycl::cinn_call_onednn_conv2d_forward;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_conv2d_forward,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -572,10 +579,11 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<int>()     // oc
       .AddInputType<int>()     // oh
       .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
       .End();
 
-  using cinn::runtime::sycl::cinn_call_cnnl_conv2d_backward_data;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_conv2d_backward_data,
+  using cinn::runtime::sycl::cinn_call_onednn_conv2d_backward_data;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_conv2d_backward_data,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -602,10 +610,11 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<int>()     // oc
       .AddInputType<int>()     // oh
       .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
       .End();
 
-  using cinn::runtime::sycl::cinn_call_cnnl_conv2d_backward_filter;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_conv2d_backward_filter,
+  using cinn::runtime::sycl::cinn_call_onednn_conv2d_backward_filter;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_conv2d_backward_filter,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -632,10 +641,11 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<int>()     // oc
       .AddInputType<int>()     // oh
       .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
       .End();
 
-  using cinn::runtime::sycl::cinn_call_cnnl_pool2d_forward;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_pool2d_forward,
+  using cinn::runtime::sycl::cinn_call_onednn_pool2d_forward;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_pool2d_forward,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -658,10 +668,11 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<int>()     // oc
       .AddInputType<int>()     // oh
       .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
       .End();
 
-  using cinn::runtime::sycl::cinn_call_cnnl_pool2d_backward;
-  REGISTER_EXTERN_FUNC_HELPER(cinn_call_cnnl_pool2d_backward,
+  using cinn::runtime::sycl::cinn_call_onednn_pool2d_backward;
+  REGISTER_EXTERN_FUNC_HELPER(cinn_call_onednn_pool2d_backward,
                               cinn::common::DefaultHostTarget())
       .SetRetType<void>()
       .AddInputType<void *>()  // v_args
@@ -684,6 +695,7 @@ CINN_REGISTER_HELPER(cinn_sycl_host_api) {
       .AddInputType<int>()     // oc
       .AddInputType<int>()     // oh
       .AddInputType<int>()     // ow
+      .AddInputType<void *>()  // stream
       .End();
 #endif // CINN_WITH_CNNL
 

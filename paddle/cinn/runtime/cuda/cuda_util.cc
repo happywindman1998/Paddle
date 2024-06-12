@@ -763,11 +763,13 @@ void cinn_call_cudnn_conv2d_forward(void *v_args,
                                     int output_h,
                                     int output_w,
                                     void *stream) {
+  std::cout<<"============= cinn call cudnn conv2d forward ==============="<<std::endl;  
   PADDLE_ENFORCE_EQ(
       num_args,
       3,
       phi::errors::InvalidArgument(
           "Expected number of argruments is 3, but recived %d.", num_args));
+        
   cudnnHandle_t &handle = CudnnHandle::GetInstance().GetCudnnHandle();
   CUDNN_CALL(cudnnSetStream(handle, static_cast<cudaStream_t>(stream)));
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
@@ -1228,6 +1230,7 @@ void cinn_call_cudnn_pool2d_forward(void *v_args,
                                     int output_h,
                                     int output_w,
                                     void *stream) {
+  std::cout<<"============= cinn call cudnn pool2d forward ==============="<<std::endl; 
   PADDLE_ENFORCE_EQ(
       num_args,
       2,

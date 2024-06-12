@@ -612,7 +612,7 @@ performance if there is no access to global memory.
     TYPE, value, init_value, cinn_warp_shuffle_internal)                     \
   unsigned int subgroup_id = item_ct1.get_sub_group().get_group_id()[0];     \
   auto tmp =                                                                 \
-      *sycl::group_local_memory<TYPE[MAX_SUBGROUPNUM_INGROUP]>( \
+      *sycl::ext::oneapi::group_local_memory<TYPE[MAX_SUBGROUPNUM_INGROUP]>( \
           item_ct1.get_group());                                             \
   if (subgroup_id == 0) {                                                    \
     tmp[item_ct1.get_local_id(2)] = init_value;                              \
