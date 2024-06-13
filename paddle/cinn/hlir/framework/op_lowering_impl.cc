@@ -693,7 +693,14 @@ ir::Expr OpLowererImpl::DoGroupSchedule(
               << ir_sch.GetModule().GetExprs().at(0);
       auto loop_inner = loops.back();
       auto psize = ir::GetLoopExtent(loop_inner);
-      auto vector_width = std::min(psize, 1024);
+      int vector_width = 8192;
+      if (vector_width >= psize)
+        vector_width = psize;
+      else {
+        while (psize % vector_width != 0) {
+          vector_width--;
+        }
+      }
       // get dtype of vectorized var
       auto dtype = this->type_dict_.at(tensor_name);
       VLOG(4) << tensor_name << " dtype " << dtype;

@@ -519,34 +519,13 @@ void CodeGenSYCL_Dev::Visit(const ir::Store *op) {
   str_ += ")";
 }
 
-void CodeGenSYCL_Dev::Visit(const ir::Div *op) {
-  Expr a = op->a();
-  Expr b = op->b();
-  const ir::Ramp *a_ramp = a.template As<ir::Ramp>();
-  const ir::Broadcast *b_broadcast = b.template As<ir::Broadcast>();
-  if (a_ramp && b_broadcast) {
-    // a is ramp, b is broadcast
-    str_ += "IndexVec<";
-    str_ += std::to_string(a_ramp->lanes);
-    str_ += ">::Ramp(";
-    IrPrinter::Visit(a_ramp->base);
-    str_ += ", ";
-    IrPrinter::Visit(a_ramp->stride);
-    str_ += ", ";
-    IrPrinter::Visit(b_broadcast->value);
-    str_ += ")";
-  } else {
-    IrPrinter::Visit(op);
-  }
-}
-
 void CodeGenSYCL_Dev::Visit(const ir::Ramp *op) {
+  if (op->stride.as_int32() != 1)
+    CINN_RUNTIME_NOT_IMPLEMENTED
   str_ += "IndexVec<";
   str_ += std::to_string(op->lanes);
   str_ += ">::Ramp(";
   IrPrinter::Visit(op->base);
-  str_ += ", ";
-  IrPrinter::Visit(op->stride);
   str_ += ")";
 }
 
@@ -562,6 +541,19 @@ void CodeGenSYCL_Dev::Visit(const ir::Select *op) {
   str_ += ", ";
   IrPrinter::Visit(op->false_value);
   str_ += ")";
+}
+
+void CodeGenSYCL_Dev::Visit(const ir::Cast *op) {
+  VLOG(3) << "CodeGenSYCL visiting cast op: " << op;
+  VLOG(3) << op->v().type() << " to " << op->type();
+  if (op->v().type().is_vector()) {
+    if (op->v().type().is_bool()) {
+      IrPrinter::Visit(op->v());
+    } else
+      CINN_RUNTIME_NOT_IMPLEMENTED
+  } else {
+    CodeGenC::Visit(op);
+  }
 }
 
 void CodeGenSYCL_Dev::PrintStackVecType(Type type, int lanes) {

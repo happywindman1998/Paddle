@@ -154,6 +154,19 @@ void MapExternCall(Expr *e, Target target) {
           node->name = "rsqrt";
           node->read_args.erase(node->read_args.begin() + 1);
         }
+      } else if (node->name == "pow" && node->read_args.size() >= 2 &&
+                 node->read_args[1].node_type() == ir::IrNodeTy::Broadcast) {
+        auto *bcast = node->read_args[1].As<ir::Broadcast>();
+        if (bcast->value.is_constant()) {
+          float pow_constant = bcast->value.get_constant();
+          if (pow_constant == 0.5) {
+            node->name = "sqrt";
+            node->read_args.erase(node->read_args.begin() + 1);
+          } else if (pow_constant == -0.5) {
+            node->name = "rsqrt";
+            node->read_args.erase(node->read_args.begin() + 1);
+          }
+        }
       }
     }
   };
