@@ -366,11 +366,11 @@ void cinn_call_onednn_gaussian_random(
   size_t numel = output->num_elements();
 
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   CNRT_CALL(cnrtSetDevice(device));
   cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
 
-  // CNqueue queue = Queue->get_native<::sycl::backend::cnrt>();
+  // CNqueue queue = Queue->get_native<::sycl::backend::ext_oneapi_cnrt>();
   cnrtQueue_t queue;
   CNRT_CALL(cnrtQueueCreate(&queue));
   CNNL_CALL(cnnlSetQueue(handle, queue));
@@ -405,7 +405,7 @@ void cinn_call_onednn_uniform_random(
   // size_t numel = output->num_elements();
 
   // auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  // CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  // CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   // CNRT_CALL(cnrtSetDevice(device));
   // cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
 
@@ -441,7 +441,7 @@ void cinn_call_onednn_randint(void *v_args, int num_args, int seed, void* stream
   // size_t numel = output->num_elements();
 
   // auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  // CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  // CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   // CNRT_CALL(cnrtSetDevice(device));
   // cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
 
@@ -617,8 +617,7 @@ void cinn_call_onednn_conv2d_forward(void *v_args,
     num_args,
     3,
     phi::errors::InvalidArgument(
-        "Expected number of argruments is 3, but recived %d.", num_args))ls
-        ;
+        "Expected number of argruments is 3, but recived %d.", num_args));
   cinn::utils::RecordEvent record_run("cinn_call_onednn_conv2d_forward",
                                       cinn::utils::EventType::kInstruction);
   

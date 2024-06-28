@@ -23,8 +23,10 @@ export LD_LIBRARY_PATH=$TBBROOT/lib:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$TBBROOT/lib:$LIBRARY_PATH
 
 # onednn env
-export DNNLROOT=/home/wzy/oneDNN-mlu
+export DNNLROOT=/home/wzy/sycl_workspace/oneDNN-mlu
 export PATH=$DNNLROOT/bin:$PATH
 export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$DNNLROOT/include
 export LD_LIBRARY_PATH=$DNNLROOT/lib:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$DNNLROOT/lib:$LIBRARY_PATH
+
+export FLAGS_cinn_infer_model_version=1.0
