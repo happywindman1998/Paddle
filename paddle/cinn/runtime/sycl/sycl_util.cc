@@ -293,7 +293,7 @@ void cinn_call_cnnl_gaussian_random(
   size_t numel = output->num_elements();
 
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   CNRT_CALL(cnrtSetDevice(device));
   cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
 
@@ -330,7 +330,7 @@ void cinn_call_cnnl_uniform_random(
   size_t numel = output->num_elements();
 
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   CNRT_CALL(cnrtSetDevice(device));
   cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
 
@@ -365,7 +365,7 @@ void cinn_call_cnnl_randint(void *v_args, int num_args, int seed) {
   size_t numel = output->num_elements();
 
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   CNRT_CALL(cnrtSetDevice(device));
   cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
 
@@ -437,7 +437,7 @@ void cinn_call_cnnl_matmul(void *v_args,
   cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   CNRT_CALL(cnrtSetDevice(device));
   cnrtQueue_t queue;
   CNRT_CALL(cnrtQueueCreate(&queue));
@@ -614,7 +614,7 @@ void cinn_call_cnnl_conv2d_forward(void *v_args,
         "Expected number of argruments is 3, but recived %d.", num_args));
   cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   CNRT_CALL(cnrtSetDevice(device));
   cnrtQueue_t queue;
   CNRT_CALL(cnrtQueueCreate(&queue));
@@ -717,7 +717,7 @@ void cinn_call_cnnl_conv2d_backward_data(void *v_args,
           "Expected number of argruments is 3, but recived %d.", num_args));
   cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   CNRT_CALL(cnrtSetDevice(device));
   cnrtQueue_t queue;
   CNRT_CALL(cnrtQueueCreate(&queue));
@@ -821,7 +821,7 @@ void cinn_call_cnnl_conv2d_backward_filter(void *v_args,
           "Expected number of argruments is 3, but recived %d.", num_args));
   cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   CNRT_CALL(cnrtSetDevice(device));
   cnrtQueue_t queue;
   CNRT_CALL(cnrtQueueCreate(&queue));
@@ -921,7 +921,7 @@ void cinn_call_cnnl_pool2d_forward(void *v_args,
           "Expected number of argruments is 2, but recived %d.", num_args));
   cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   CNRT_CALL(cnrtSetDevice(device));
   cnrtQueue_t queue;
   CNRT_CALL(cnrtQueueCreate(&queue));
@@ -1037,7 +1037,7 @@ void cinn_call_cnnl_pool2d_backward(void *v_args,
           "Expected number of argruments is 4, but recived %d.", num_args));
   cnnlHandle_t handle = CnnlHandle::GetInstance().GetCnnlHandle();
   auto Queue = SYCLBackendAPI::Global()->get_now_queue();
-  CNdev device = Queue->get_device().get_native<::sycl::backend::cnrt>();
+  CNdev device = Queue->get_device().get_native<::sycl::backend::ext_oneapi_cnrt>();
   CNRT_CALL(cnrtSetDevice(device));
   cnrtQueue_t queue;
   CNRT_CALL(cnrtQueueCreate(&queue));
