@@ -1,0 +1,39 @@
+W0613 18:36:36.941975 1581678 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 18:36:42.582952 1581730 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 18:36:50.127900 1581678 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:36:50.150696 1581781 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 18:36:57.721779 1581678 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:36:57.747136 1581831 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 18:37:05.328181 1581678 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:37:05.374995 1581881 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 18:37:13.038764 1581678 sycl_module.cc:36] destructor for SYCLModule
+.I0613 18:37:13.044464 1581931 nn.cc:1578] use_warp_reduce:0
+Sycl_Compiler
+I0613 18:37:13.055974 1581931 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 18:37:20.826563 1581678 sycl_module.cc:36] destructor for SYCLModule
+.F0613 18:37:20.833806 1581981 nn.cc:1336] Check failed: !do_pad 
+*** Check failure stack trace: ***
+    @     0x7f249ce945cd  google::LogMessage::Fail()
+    @     0x7f249ce9687d  google::LogMessage::SendToLog()
+    @     0x7f249ce940bd  google::LogMessage::Flush()
+    @     0x7f249ce97379  google::LogMessageFatal::~LogMessageFatal()
+    @     0x7f2486bf8372  cinn::hlir::pe::PoolImpl()
+    @     0x7f2486bfaf26  cinn::hlir::pe::Pool2d()
+    @     0x7f2486cfbb0e  _ZZN4cinn4hlir2op17StrategyForPool2dERKNS0_9framework8NodeAttrERKSt6vectorINS_2ir6TensorESaIS8_EERKS6_INS_6common4TypeESaISE_EERKS6_IS6_IiSaIiEESaISK_EERKNSD_6TargetEENKUlNS_4lang4ArgsEPNSD_9CINNValueEE1_clEST_SV_
+    @     0x7f2486cfc114  _ZNSt17_Function_handlerIFvN4cinn4lang4ArgsEPNS0_6common9CINNValueEEZNS0_4hlir2op17StrategyForPool2dERKNS7_9framework8NodeAttrERKSt6vectorINS0_2ir6TensorESaISF_EERKSD_INS3_4TypeESaISK_EERKSD_ISD_IiSaIiEESaISQ_EERKNS3_6TargetEEUlS2_S5_E1_E9_M_invokeERKSt9_Any_dataOS2_OS5_
+    @     0x7f2486af7594  cinn::lang::PackedFunc::operator()<>()
+    @     0x7f2486b8d69c  cinn::hlir::framework::OpLowererImpl::DoOpLower()
+    @     0x7f2486b93191  cinn::hlir::framework::OpLowererImpl::LowerOps()
+    @     0x7f2486b937a4  cinn::hlir::framework::OpLowererImpl::LowerGroup()
+    @     0x7f2486b9400c  cinn::hlir::framework::OpLowererImpl::Lower()
+    @     0x7f2486b51374  cinn::hlir::framework::ParallelCompiler::Task::Lowering()
+    @     0x7f2486b5376f  cinn::hlir::framework::ParallelCompiler::RunTask()
+    @     0x7f24f3a40df4  (unknown)
+    @     0x7f24f771f609  start_thread
+    @     0x7f24f7859353  clone
+    @              (nil)  (unknown)
+Aborted (core dumped)

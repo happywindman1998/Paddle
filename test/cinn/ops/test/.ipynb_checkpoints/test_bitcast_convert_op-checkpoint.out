@@ -1,0 +1,65 @@
+EEEE
+======================================================================
+ERROR: test_check_results (__main__.TestBitcastConvertCase1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_bitcast_convert_op.py", line 63, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_bitcast_convert_op.py", line 59, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (__main__.TestBitcastConvertCase2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_bitcast_convert_op.py", line 63, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_bitcast_convert_op.py", line 59, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (__main__.TestBitcastConvertCase3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_bitcast_convert_op.py", line 63, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_bitcast_convert_op.py", line 59, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (__main__.TestBitcastConvertOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_bitcast_convert_op.py", line 63, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_bitcast_convert_op.py", line 59, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.006s
+
+FAILED (errors=4)

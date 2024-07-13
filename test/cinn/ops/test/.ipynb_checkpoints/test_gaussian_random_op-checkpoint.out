@@ -1,0 +1,23 @@
+W0613 17:29:04.375281 1553843 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+F0613 17:29:04.473820 1553892 ir_base.h:200] Check failed: get() IrNodeRef holds null
+*** Check failure stack trace: ***
+    @     0x7fc56a4fa5cd  google::LogMessage::Fail()
+    @     0x7fc56a4fc87d  google::LogMessage::SendToLog()
+    @     0x7fc56a4fa0bd  google::LogMessage::Flush()
+    @     0x7fc56a4fd379  google::LogMessageFatal::~LogMessageFatal()
+    @     0x7fc553d8dd2a  cinn::ir::IrNodeRef::As<>()
+    @     0x7fc55422fb03  cinn::hlir::pe::Identity()
+    @     0x7fc554332df8  _ZZN4cinn4hlir2op25StrategyForGaussianRandomERKNS0_9framework8NodeAttrERKSt6vectorINS_2ir6TensorESaIS8_EERKS6_INS_6common4TypeESaISE_EERKS6_IS6_IiSaIiEESaISK_EERKNSD_6TargetEENKUlNS_4lang4ArgsEPNSD_9CINNValueEE_clEST_SV_.isra.664
+    @     0x7fc554333310  _ZNSt17_Function_handlerIFvN4cinn4lang4ArgsEPNS0_6common9CINNValueEEZNS0_4hlir2op25StrategyForGaussianRandomERKNS7_9framework8NodeAttrERKSt6vectorINS0_2ir6TensorESaISF_EERKSD_INS3_4TypeESaISK_EERKSD_ISD_IiSaIiEESaISQ_EERKNS3_6TargetEEUlS2_S5_E_E9_M_invokeERKSt9_Any_dataOS2_OS5_
+    @     0x7fc55415d594  cinn::lang::PackedFunc::operator()<>()
+    @     0x7fc5541f369c  cinn::hlir::framework::OpLowererImpl::DoOpLower()
+    @     0x7fc5541f9191  cinn::hlir::framework::OpLowererImpl::LowerOps()
+    @     0x7fc5541f97a4  cinn::hlir::framework::OpLowererImpl::LowerGroup()
+    @     0x7fc5541fa00c  cinn::hlir::framework::OpLowererImpl::Lower()
+    @     0x7fc5541b7374  cinn::hlir::framework::ParallelCompiler::Task::Lowering()
+    @     0x7fc5541b976f  cinn::hlir::framework::ParallelCompiler::RunTask()
+    @     0x7fc5c10a6df4  (unknown)
+    @     0x7fc5c4d85609  start_thread
+    @     0x7fc5c4ebf353  clone
+    @              (nil)  (unknown)
+Aborted (core dumped)

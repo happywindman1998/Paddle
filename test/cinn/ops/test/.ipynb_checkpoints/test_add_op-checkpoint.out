@@ -1,0 +1,716 @@
+W0613 14:58:45.372995 1493148 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 14:58:45.572227 1493198 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+Sycl_Compiler
+I0613 14:58:45.572609 1493197 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 14:58:53.209419 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 14:58:53.210312 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 14:58:53.218672 1493284 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+Sycl_Compiler
+I0613 14:58:53.220486 1493283 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 14:59:00.824503 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 14:59:00.825466 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 14:59:00.832959 1493369 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+Sycl_Compiler
+I0613 14:59:00.833364 1493368 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 14:59:08.493804 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 14:59:08.494401 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 14:59:08.503643 1493454 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+Sycl_Compiler
+I0613 14:59:08.504854 1493453 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 14:59:16.163641 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 14:59:16.164614 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 14:59:16.172602 1493538 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+Sycl_Compiler
+I0613 14:59:16.173457 1493539 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 14:59:23.694692 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 14:59:23.695685 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 14:59:23.706827 1493623 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+Sycl_Compiler
+I0613 14:59:23.708554 1493624 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_11.cc -o ./source/sycl_11.so
+I0613 14:59:31.969132 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 14:59:31.970093 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 14:59:31.980954 1493708 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_12.cc -o ./source/sycl_12.so
+Sycl_Compiler
+I0613 14:59:31.981277 1493709 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_13.cc -o ./source/sycl_13.so
+I0613 14:59:39.594938 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 14:59:39.595899 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 14:59:39.604909 1493794 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_14.cc -o ./source/sycl_14.so
+Sycl_Compiler
+I0613 14:59:39.605361 1493793 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_15.cc -o ./source/sycl_15.so
+I0613 14:59:47.272114 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 14:59:47.273106 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 14:59:47.283119 1493879 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_16.cc -o ./source/sycl_16.so
+Sycl_Compiler
+I0613 14:59:47.284613 1493878 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_17.cc -o ./source/sycl_17.so
+I0613 14:59:55.525913 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 14:59:55.526858 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 14:59:55.536547 1493964 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_18.cc -o ./source/sycl_18.so
+Sycl_Compiler
+I0613 14:59:55.536876 1493963 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_19.cc -o ./source/sycl_19.so
+I0613 15:00:03.716940 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:00:03.717989 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:00:03.748325 1494048 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_20.cc -o ./source/sycl_20.so
+Sycl_Compiler
+I0613 15:00:03.752866 1494049 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_21.cc -o ./source/sycl_21.so
+I0613 15:00:11.366400 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:00:11.367409 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:00:11.399082 1494133 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_22.cc -o ./source/sycl_22.so
+Sycl_Compiler
+I0613 15:00:11.405644 1494134 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_23.cc -o ./source/sycl_23.so
+I0613 15:00:19.036916 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:00:19.037879 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:00:19.073673 1494218 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_24.cc -o ./source/sycl_24.so
+Sycl_Compiler
+I0613 15:00:19.076143 1494219 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_25.cc -o ./source/sycl_25.so
+I0613 15:00:26.718106 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:00:26.719084 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:00:26.804996 1494303 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_26.cc -o ./source/sycl_26.so
+Sycl_Compiler
+I0613 15:00:26.810673 1494304 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_27.cc -o ./source/sycl_27.so
+I0613 15:00:34.477622 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:00:34.478497 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:00:34.503058 1494388 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_28.cc -o ./source/sycl_28.so
+Sycl_Compiler
+I0613 15:00:34.506654 1494389 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_29.cc -o ./source/sycl_29.so
+I0613 15:00:42.082005 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:00:42.083029 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:00:42.134528 1494473 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_30.cc -o ./source/sycl_30.so
+Sycl_Compiler
+I0613 15:00:42.141599 1494474 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_31.cc -o ./source/sycl_31.so
+I0613 15:00:50.416821 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:00:50.417800 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:00:50.465004 1494558 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_32.cc -o ./source/sycl_32.so
+Sycl_Compiler
+I0613 15:00:50.473855 1494559 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_33.cc -o ./source/sycl_33.so
+I0613 15:00:58.724069 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:00:58.725054 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:00:58.777812 1494643 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_34.cc -o ./source/sycl_34.so
+Sycl_Compiler
+I0613 15:00:58.786159 1494644 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_35.cc -o ./source/sycl_35.so
+I0613 15:01:07.030108 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:01:07.031116 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:01:07.152805 1494728 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_36.cc -o ./source/sycl_36.so
+Sycl_Compiler
+I0613 15:01:07.162081 1494729 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_37.cc -o ./source/sycl_37.so
+I0613 15:01:15.423961 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:01:15.424750 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:01:15.467090 1494813 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_38.cc -o ./source/sycl_38.so
+Sycl_Compiler
+I0613 15:01:15.474242 1494814 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_39.cc -o ./source/sycl_39.so
+I0613 15:01:23.168386 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:01:23.169387 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:01:23.202342 1494898 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_40.cc -o ./source/sycl_40.so
+Sycl_Compiler
+I0613 15:01:23.208345 1494899 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_41.cc -o ./source/sycl_41.so
+I0613 15:01:30.778028 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:01:30.779036 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:01:30.799681 1494983 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_42.cc -o ./source/sycl_42.so
+Sycl_Compiler
+I0613 15:01:30.807793 1494984 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_43.cc -o ./source/sycl_43.so
+I0613 15:01:38.422075 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:01:38.423101 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:01:38.445395 1495068 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_44.cc -o ./source/sycl_44.so
+Sycl_Compiler
+I0613 15:01:38.452358 1495069 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_45.cc -o ./source/sycl_45.so
+I0613 15:01:45.990020 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:01:45.991010 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:01:46.013541 1495153 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_46.cc -o ./source/sycl_46.so
+Sycl_Compiler
+I0613 15:01:46.019932 1495154 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_47.cc -o ./source/sycl_47.so
+I0613 15:01:53.559731 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:01:53.560722 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:01:53.582008 1495238 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_48.cc -o ./source/sycl_48.so
+Sycl_Compiler
+I0613 15:01:53.583225 1495239 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_49.cc -o ./source/sycl_49.so
+I0613 15:02:01.134899 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:02:01.135912 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:02:01.159132 1495323 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_50.cc -o ./source/sycl_50.so
+Sycl_Compiler
+I0613 15:02:01.167651 1495324 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_51.cc -o ./source/sycl_51.so
+I0613 15:02:08.734253 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:02:08.735249 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:02:08.756667 1495408 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_52.cc -o ./source/sycl_52.so
+Sycl_Compiler
+I0613 15:02:08.762445 1495409 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_53.cc -o ./source/sycl_53.so
+I0613 15:02:16.304308 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:02:16.305310 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:02:16.322832 1495493 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_54.cc -o ./source/sycl_54.so
+Sycl_Compiler
+I0613 15:02:16.328266 1495494 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_55.cc -o ./source/sycl_55.so
+I0613 15:02:23.847946 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:02:23.848932 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:02:23.867414 1495578 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_56.cc -o ./source/sycl_56.so
+Sycl_Compiler
+I0613 15:02:23.880306 1495579 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_57.cc -o ./source/sycl_57.so
+I0613 15:02:31.443418 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:02:31.444448 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:02:31.469964 1495663 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_58.cc -o ./source/sycl_58.so
+Sycl_Compiler
+I0613 15:02:31.476920 1495664 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_59.cc -o ./source/sycl_59.so
+I0613 15:02:39.006108 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:02:39.007144 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:02:39.025539 1495748 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_60.cc -o ./source/sycl_60.so
+Sycl_Compiler
+I0613 15:02:39.028049 1495749 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_61.cc -o ./source/sycl_61.so
+I0613 15:02:47.260452 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:02:47.261523 1493148 sycl_module.cc:36] destructor for SYCLModule
+
+----------------------------------------------------------------------
+Ran 30 tests in 233.642s
+
+OK
+.Sycl_Compiler
+I0613 15:02:47.268738 1495833 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_62.cc -o ./source/sycl_62.so
+Sycl_Compiler
+I0613 15:02:47.269546 1495834 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_63.cc -o ./source/sycl_63.so
+I0613 15:02:55.578527 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:02:55.579663 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:02:55.587219 1495919 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_64.cc -o ./source/sycl_64.so
+Sycl_Compiler
+I0613 15:02:55.587571 1495918 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_65.cc -o ./source/sycl_65.so
+I0613 15:03:03.781484 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:03:03.782466 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:03:03.790607 1496003 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_66.cc -o ./source/sycl_66.so
+Sycl_Compiler
+I0613 15:03:03.792655 1496004 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_67.cc -o ./source/sycl_67.so
+I0613 15:03:11.387506 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:03:11.388482 1493148 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:03:11.396862 1496088 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_68.cc -o ./source/sycl_68.so
+Sycl_Compiler
+I0613 15:03:11.397416 1496089 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_69.cc -o ./source/sycl_69.so
+I0613 15:03:19.032084 1493148 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:03:19.033077 1493148 sycl_module.cc:36] destructor for SYCLModule
+.EEEEE
+Running TestAddAll.TestElementwiseAddOpCase0: {'x_shape': [1], 'y_shape': [1], 'dout_shape': [1], 'axis': 0, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAll.TestElementwiseAddOpCase1: {'x_shape': [1], 'y_shape': [1], 'dout_shape': [1], 'axis': 0, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAll.TestElementwiseAddOpCase2: {'x_shape': [1], 'y_shape': [1], 'dout_shape': [1], 'axis': 0, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAll.TestElementwiseAddOpCase3: {'x_shape': [1], 'y_shape': [1], 'dout_shape': [1], 'axis': 0, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAll.TestElementwiseAddOpCase4: {'x_shape': [1], 'y_shape': [1], 'dout_shape': [1], 'axis': 0, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+
+Running TestAddAll.TestElementwiseAddOpCase5: {'x_shape': [1024], 'y_shape': [1024], 'dout_shape': [1024], 'axis': -1, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAll.TestElementwiseAddOpCase6: {'x_shape': [1024], 'y_shape': [1024], 'dout_shape': [1024], 'axis': -1, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAll.TestElementwiseAddOpCase7: {'x_shape': [1024], 'y_shape': [1024], 'dout_shape': [1024], 'axis': -1, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAll.TestElementwiseAddOpCase8: {'x_shape': [1024], 'y_shape': [1024], 'dout_shape': [1024], 'axis': -1, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAll.TestElementwiseAddOpCase9: {'x_shape': [1024], 'y_shape': [1024], 'dout_shape': [1024], 'axis': -1, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+
+Running TestAddAll.TestElementwiseAddOpCase10: {'x_shape': [512, 256], 'y_shape': [512, 256], 'dout_shape': [512, 256], 'axis': 0, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAll.TestElementwiseAddOpCase11: {'x_shape': [512, 256], 'y_shape': [512, 256], 'dout_shape': [512, 256], 'axis': 0, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAll.TestElementwiseAddOpCase12: {'x_shape': [512, 256], 'y_shape': [512, 256], 'dout_shape': [512, 256], 'axis': 0, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAll.TestElementwiseAddOpCase13: {'x_shape': [512, 256], 'y_shape': [512, 256], 'dout_shape': [512, 256], 'axis': 0, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAll.TestElementwiseAddOpCase14: {'x_shape': [512, 256], 'y_shape': [512, 256], 'dout_shape': [512, 256], 'axis': 0, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+
+Running TestAddAll.TestElementwiseAddOpCase15: {'x_shape': [128, 64, 32], 'y_shape': [128, 64, 32], 'dout_shape': [128, 64, 32], 'axis': -1, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAll.TestElementwiseAddOpCase16: {'x_shape': [128, 64, 32], 'y_shape': [128, 64, 32], 'dout_shape': [128, 64, 32], 'axis': -1, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAll.TestElementwiseAddOpCase17: {'x_shape': [128, 64, 32], 'y_shape': [128, 64, 32], 'dout_shape': [128, 64, 32], 'axis': -1, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAll.TestElementwiseAddOpCase18: {'x_shape': [128, 64, 32], 'y_shape': [128, 64, 32], 'dout_shape': [128, 64, 32], 'axis': -1, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAll.TestElementwiseAddOpCase19: {'x_shape': [128, 64, 32], 'y_shape': [128, 64, 32], 'dout_shape': [128, 64, 32], 'axis': -1, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+
+Running TestAddAll.TestElementwiseAddOpCase20: {'x_shape': [16, 8, 4, 2], 'y_shape': [16, 8, 4, 2], 'dout_shape': [16, 8, 4, 2], 'axis': 0, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAll.TestElementwiseAddOpCase21: {'x_shape': [16, 8, 4, 2], 'y_shape': [16, 8, 4, 2], 'dout_shape': [16, 8, 4, 2], 'axis': 0, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAll.TestElementwiseAddOpCase22: {'x_shape': [16, 8, 4, 2], 'y_shape': [16, 8, 4, 2], 'dout_shape': [16, 8, 4, 2], 'axis': 0, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAll.TestElementwiseAddOpCase23: {'x_shape': [16, 8, 4, 2], 'y_shape': [16, 8, 4, 2], 'dout_shape': [16, 8, 4, 2], 'axis': 0, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAll.TestElementwiseAddOpCase24: {'x_shape': [16, 8, 4, 2], 'y_shape': [16, 8, 4, 2], 'dout_shape': [16, 8, 4, 2], 'axis': 0, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+
+Running TestAddAll.TestElementwiseAddOpCase25: {'x_shape': [16, 8, 4, 2, 1], 'y_shape': [16, 8, 4, 2, 1], 'dout_shape': [16, 8, 4, 2, 1], 'axis': -1, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAll.TestElementwiseAddOpCase26: {'x_shape': [16, 8, 4, 2, 1], 'y_shape': [16, 8, 4, 2, 1], 'dout_shape': [16, 8, 4, 2, 1], 'axis': -1, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAll.TestElementwiseAddOpCase27: {'x_shape': [16, 8, 4, 2, 1], 'y_shape': [16, 8, 4, 2, 1], 'dout_shape': [16, 8, 4, 2, 1], 'axis': -1, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAll.TestElementwiseAddOpCase28: {'x_shape': [16, 8, 4, 2, 1], 'y_shape': [16, 8, 4, 2, 1], 'dout_shape': [16, 8, 4, 2, 1], 'axis': -1, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAll.TestElementwiseAddOpCase29: {'x_shape': [16, 8, 4, 2, 1], 'y_shape': [16, 8, 4, 2, 1], 'dout_shape': [16, 8, 4, 2, 1], 'axis': -1, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase0: {'x_shape': [1], 'y_shape': [1], 'dout_shape': [1], 'axis': 0, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase1: {'x_shape': [1], 'y_shape': [1], 'dout_shape': [1], 'axis': 0, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase2: {'x_shape': [1], 'y_shape': [1], 'dout_shape': [1], 'axis': 0, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase3: {'x_shape': [1], 'y_shape': [1], 'dout_shape': [1], 'axis': 0, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase4: {'x_shape': [1], 'y_shape': [1], 'dout_shape': [1], 'axis': 0, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase5: {'x_shape': [1024], 'y_shape': [1], 'dout_shape': [1024], 'axis': -1, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase6: {'x_shape': [1024], 'y_shape': [1], 'dout_shape': [1024], 'axis': -1, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase7: {'x_shape': [1024], 'y_shape': [1], 'dout_shape': [1024], 'axis': -1, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase8: {'x_shape': [1024], 'y_shape': [1], 'dout_shape': [1024], 'axis': -1, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase9: {'x_shape': [1024], 'y_shape': [1], 'dout_shape': [1024], 'axis': -1, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+EEEEEEEEEEEEEEEEEEEE
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase11)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase12)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase13)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase14)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase15)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase16)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase17)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase18)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase19)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase20)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase21)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase22)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase23)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase24)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase25)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase26)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase27)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase28)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestAddAllWithBroadcast.TestElementwiseAddOpCase29)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_add_op.py", line 118, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_add_op.py", line 101, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+----------------------------------------------------------------------
+Ran 30 tests in 40.172s
+
+FAILED (errors=25)
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase10: {'x_shape': [512, 256], 'y_shape': [1, 1], 'dout_shape': [512, 256], 'axis': 0, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase11: {'x_shape': [512, 256], 'y_shape': [1, 1], 'dout_shape': [512, 256], 'axis': 0, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase12: {'x_shape': [512, 256], 'y_shape': [1, 1], 'dout_shape': [512, 256], 'axis': 0, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase13: {'x_shape': [512, 256], 'y_shape': [1, 1], 'dout_shape': [512, 256], 'axis': 0, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase14: {'x_shape': [512, 256], 'y_shape': [1, 1], 'dout_shape': [512, 256], 'axis': 0, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase15: {'x_shape': [128, 64, 32], 'y_shape': [1, 1, 1], 'dout_shape': [128, 64, 32], 'axis': -1, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase16: {'x_shape': [128, 64, 32], 'y_shape': [1, 1, 1], 'dout_shape': [128, 64, 32], 'axis': -1, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase17: {'x_shape': [128, 64, 32], 'y_shape': [1, 1, 1], 'dout_shape': [128, 64, 32], 'axis': -1, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase18: {'x_shape': [128, 64, 32], 'y_shape': [1, 1, 1], 'dout_shape': [128, 64, 32], 'axis': -1, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase19: {'x_shape': [128, 64, 32], 'y_shape': [1, 1, 1], 'dout_shape': [128, 64, 32], 'axis': -1, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase20: {'x_shape': [16, 8, 4, 2], 'y_shape': [1, 1, 1, 1], 'dout_shape': [16, 8, 4, 2], 'axis': 0, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase21: {'x_shape': [16, 8, 4, 2], 'y_shape': [1, 1, 1, 1], 'dout_shape': [16, 8, 4, 2], 'axis': 0, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase22: {'x_shape': [16, 8, 4, 2], 'y_shape': [1, 1, 1, 1], 'dout_shape': [16, 8, 4, 2], 'axis': 0, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase23: {'x_shape': [16, 8, 4, 2], 'y_shape': [1, 1, 1, 1], 'dout_shape': [16, 8, 4, 2], 'axis': 0, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase24: {'x_shape': [16, 8, 4, 2], 'y_shape': [1, 1, 1, 1], 'dout_shape': [16, 8, 4, 2], 'axis': 0, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase25: {'x_shape': [16, 8, 4, 2, 1], 'y_shape': [1, 1, 1, 1, 1], 'dout_shape': [16, 8, 4, 2, 1], 'axis': -1, 'x_dtype': 'int32', 'y_dtype': 'int32', 'dout_dtype': 'int32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase26: {'x_shape': [16, 8, 4, 2, 1], 'y_shape': [1, 1, 1, 1, 1], 'dout_shape': [16, 8, 4, 2, 1], 'axis': -1, 'x_dtype': 'int64', 'y_dtype': 'int64', 'dout_dtype': 'int64'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase27: {'x_shape': [16, 8, 4, 2, 1], 'y_shape': [1, 1, 1, 1, 1], 'dout_shape': [16, 8, 4, 2, 1], 'axis': -1, 'x_dtype': 'float16', 'y_dtype': 'float16', 'dout_dtype': 'float16', 'max_relative_error': 0.001}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase28: {'x_shape': [16, 8, 4, 2, 1], 'y_shape': [1, 1, 1, 1, 1], 'dout_shape': [16, 8, 4, 2, 1], 'axis': -1, 'x_dtype': 'float32', 'y_dtype': 'float32', 'dout_dtype': 'float32'}
+
+Running TestAddAllWithBroadcast.TestElementwiseAddOpCase29: {'x_shape': [16, 8, 4, 2, 1], 'y_shape': [1, 1, 1, 1, 1], 'dout_shape': [16, 8, 4, 2, 1], 'axis': -1, 'x_dtype': 'float64', 'y_dtype': 'float64', 'dout_dtype': 'float64'}

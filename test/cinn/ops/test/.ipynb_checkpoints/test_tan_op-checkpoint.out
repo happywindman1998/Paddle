@@ -1,0 +1,101 @@
+W0613 20:16:15.421222 1620327 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 20:16:15.536278 1620376 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 20:16:22.983721 1620327 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:16:22.989815 1620427 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 20:16:30.441581 1620327 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:16:30.459038 1620477 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 20:16:37.881886 1620327 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:16:37.904805 1620527 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 20:16:45.977468 1620327 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:16:45.991607 1620577 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 20:16:53.430538 1620327 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:16:53.462028 1620627 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 20:17:00.884529 1620327 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:17:00.909998 1620677 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 20:17:08.943228 1620327 sycl_module.cc:36] destructor for SYCLModule
+F
+======================================================================
+FAIL: test_check_results (op_test_helper.TestTanOpShape.TestTanOpShape1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_tan_op.py", line 55, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 256 different results, offset=8, shape=(1024,), 1.199694e+00 vs -1.553372e+01. Maximum diff of the whole array: maximum_relative_diff=6.204806e+07, maximum_absolute_diff=9.117754e+07.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestTanOpShape.TestTanOpShape2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_tan_op.py", line 55, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 511 different results, offset=8, shape=(1, 2048), 7.669070e-01 vs 9.016085e-01. Maximum diff of the whole array: maximum_relative_diff=1.144072e+03, maximum_absolute_diff=7.625541e+02.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestTanOpShape.TestTanOpShape4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_tan_op.py", line 55, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 512 different results, offset=8, shape=(32, 64), 1.063397e+00 vs 8.209862e-01. Maximum diff of the whole array: maximum_relative_diff=8.723545e+03, maximum_absolute_diff=7.044995e+03.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestTanOpShape.TestTanOpShape5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_tan_op.py", line 55, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 256 different results, offset=8, shape=(16, 8, 4, 2), 9.724352e-02 vs 9.798723e-02. Maximum diff of the whole array: maximum_relative_diff=3.228373e+09, maximum_absolute_diff=4.127484e+09.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestTanOpShape.TestTanOpShape6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_tan_op.py", line 55, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 255 different results, offset=8, shape=(16, 8, 4, 2, 1), 1.108500e+00 vs -1.355779e+03. Maximum diff of the whole array: maximum_relative_diff=1.388241e+05, maximum_absolute_diff=2.116373e+05.
+
+----------------------------------------------------------------------
+Ran 7 tests in 53.534s
+
+FAILED (failures=5)
+
+Running TestTanOpShape.TestTanOpShape0: {'x_shape': [1], 'x_dtype': 'float32'}
+
+Running TestTanOpShape.TestTanOpShape1: {'x_shape': [1024], 'x_dtype': 'float32'}
+
+Running TestTanOpShape.TestTanOpShape2: {'x_shape': [1, 2048], 'x_dtype': 'float32'}
+
+Running TestTanOpShape.TestTanOpShape3: {'x_shape': [1, 1, 1], 'x_dtype': 'float32'}
+
+Running TestTanOpShape.TestTanOpShape4: {'x_shape': [32, 64], 'x_dtype': 'float32'}
+
+Running TestTanOpShape.TestTanOpShape5: {'x_shape': [16, 8, 4, 2], 'x_dtype': 'float32'}
+
+Running TestTanOpShape.TestTanOpShape6: {'x_shape': [16, 8, 4, 2, 1], 'x_dtype': 'float32'}

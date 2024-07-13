@@ -1,0 +1,321 @@
+W0613 20:20:36.917685 1622351 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 20:20:37.020643 1622400 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 20:20:44.308079 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:20:44.358223 1622453 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 20:20:51.829805 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:20:51.842794 1622501 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 20:20:59.324613 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:20:59.355166 1622551 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 20:21:06.741986 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:21:06.757277 1622601 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 20:21:14.255904 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:21:14.284772 1622651 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 20:21:21.731391 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:21:21.740864 1622701 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 20:21:29.184844 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:21:29.262717 1622751 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 20:21:36.670620 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:21:36.683878 1622801 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+I0613 20:21:44.101838 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:21:44.115796 1622851 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 20:21:51.564707 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:21:51.574745 1622901 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+I0613 20:21:59.012646 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:21:59.043035 1622951 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_11.cc -o ./source/sycl_11.so
+I0613 20:22:06.506677 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:22:06.537914 1623001 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_12.cc -o ./source/sycl_12.so
+I0613 20:22:14.553617 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:22:14.583725 1623051 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_13.cc -o ./source/sycl_13.so
+I0613 20:22:22.110697 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:22:22.123800 1623101 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_14.cc -o ./source/sycl_14.so
+I0613 20:22:29.626741 1622351 sycl_module.cc:36] destructor for SYCLModule
+.ESycl_Compiler
+I0613 20:22:29.655396 1623151 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_15.cc -o ./source/sycl_15.so
+I0613 20:22:37.038383 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:22:37.052631 1623201 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_16.cc -o ./source/sycl_16.so
+I0613 20:22:45.027698 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:22:45.041590 1623251 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_17.cc -o ./source/sycl_17.so
+I0613 20:22:52.474517 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:22:52.487349 1623301 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_18.cc -o ./source/sycl_18.so
+I0613 20:23:00.504825 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:23:00.518123 1623351 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_19.cc -o ./source/sycl_19.so
+I0613 20:23:07.986140 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:23:07.995764 1623401 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_20.cc -o ./source/sycl_20.so
+I0613 20:23:15.375249 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:23:15.387620 1623451 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_21.cc -o ./source/sycl_21.so
+I0613 20:23:22.829704 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:23:22.858769 1623501 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_22.cc -o ./source/sycl_22.so
+I0613 20:23:30.220824 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:23:30.247241 1623551 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_23.cc -o ./source/sycl_23.so
+I0613 20:23:37.691793 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:23:37.760113 1623601 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_24.cc -o ./source/sycl_24.so
+I0613 20:23:45.164602 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:23:45.181241 1623651 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_25.cc -o ./source/sycl_25.so
+I0613 20:23:53.183916 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:23:53.198357 1623701 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_26.cc -o ./source/sycl_26.so
+I0613 20:24:00.554766 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:24:00.569244 1623751 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_27.cc -o ./source/sycl_27.so
+I0613 20:24:07.967118 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:24:07.979940 1623801 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_28.cc -o ./source/sycl_28.so
+I0613 20:24:15.388619 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:24:15.399721 1623851 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_29.cc -o ./source/sycl_29.so
+I0613 20:24:23.373059 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:24:23.397378 1623901 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_30.cc -o ./source/sycl_30.so
+I0613 20:24:31.450769 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:24:31.483923 1623951 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_31.cc -o ./source/sycl_31.so
+I0613 20:24:38.851194 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:24:38.860962 1624001 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_32.cc -o ./source/sycl_32.so
+I0613 20:24:46.926678 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:24:46.939654 1624051 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_33.cc -o ./source/sycl_33.so
+I0613 20:24:54.347949 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:24:54.375774 1624101 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_34.cc -o ./source/sycl_34.so
+I0613 20:25:01.766613 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:25:01.797912 1624151 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_35.cc -o ./source/sycl_35.so
+I0613 20:25:09.239881 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:25:09.254288 1624201 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_36.cc -o ./source/sycl_36.so
+I0613 20:25:16.664453 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:25:16.690235 1624251 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_37.cc -o ./source/sycl_37.so
+I0613 20:25:24.688422 1622351 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:25:24.713418 1624301 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_38.cc -o ./source/sycl_38.so
+I0613 20:25:32.682911 1622351 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:25:32.699525 1624351 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_39.cc -o ./source/sycl_39.so
+I0613 20:25:40.058881 1622351 sycl_module.cc:36] destructor for SYCLModule
+.
+======================================================================
+ERROR: test_check_results (__main__.TestIdentityOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_unary_elementwise_op.py", line 57, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+FAIL: test_check_results (__main__.TestAcoshOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 384 different results, offset=8, shape=(32, 64), 5.212272e+00 vs 7.377203e+00. Maximum diff of the whole array: maximum_relative_diff=2.726090e+00, maximum_absolute_diff=2.834717e+00.
+
+======================================================================
+FAIL: test_check_results (__main__.TestAsinhOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 382 different results, offset=8, shape=(32, 64), -7.201993e-01 vs -7.202450e-01. Maximum diff of the whole array: maximum_relative_diff=1.302374e+00, maximum_absolute_diff=3.989791e-02.
+
+======================================================================
+FAIL: test_check_results (__main__.TestAtanhOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 0 different results, offset=-1, shape=(32, 64), 4.595441e-01 vs 4.595441e-01. Maximum diff of the whole array: maximum_relative_diff=0.000000e+00, maximum_absolute_diff=0.000000e+00.
+
+======================================================================
+FAIL: test_check_results (__main__.TestCoshOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 502 different results, offset=8, shape=(32, 64), 1.406954e+02 vs 1.346657e+04. Maximum diff of the whole array: maximum_relative_diff=5.092372e+03, maximum_absolute_diff=4.386922e+07.
+
+======================================================================
+FAIL: test_check_results (__main__.TestErfOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 59 different results, offset=8, shape=(32, 64), -9.919872e-01 vs -9.929791e-01. Maximum diff of the whole array: maximum_relative_diff=6.097192e-02, maximum_absolute_diff=5.184448e-02.
+
+======================================================================
+FAIL: test_check_results (__main__.TestExpOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 384 different results, offset=8, shape=(32, 64), 6.663317e+02 vs 4.792495e+02. Maximum diff of the whole array: maximum_relative_diff=8.924363e-01, maximum_absolute_diff=9.720996e+03.
+
+======================================================================
+FAIL: test_check_results (__main__.TestLog10Op)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 384 different results, offset=8, shape=(32, 64), 7.266231e-01 vs 8.664707e-01. Maximum diff of the whole array: maximum_relative_diff=1.838003e+03, maximum_absolute_diff=9.632508e-01.
+
+======================================================================
+FAIL: test_check_results (__main__.TestLog2Op)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 384 different results, offset=8, shape=(32, 64), 3.109675e+00 vs 2.873667e+00. Maximum diff of the whole array: maximum_relative_diff=2.508677e+01, maximum_absolute_diff=2.989839e+00.
+
+======================================================================
+FAIL: test_check_results (__main__.TestLogOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 384 different results, offset=8, shape=(32, 64), 1.225879e+00 vs 1.634543e+00. Maximum diff of the whole array: maximum_relative_diff=9.346750e+01, maximum_absolute_diff=2.230920e+00.
+
+======================================================================
+FAIL: test_check_results (__main__.TestRsqrtOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 385 different results, offset=8, shape=(32, 64), 3.439589e+00 vs 1.043449e+00. Maximum diff of the whole array: maximum_relative_diff=1.129981e+01, maximum_absolute_diff=1.445907e+01.
+
+======================================================================
+FAIL: test_check_results (__main__.TestSigmoidOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 383 different results, offset=8, shape=(32, 64), 9.998994e-01 vs 9.998821e-01. Maximum diff of the whole array: maximum_relative_diff=8.639072e-01, maximum_absolute_diff=1.203657e-01.
+
+======================================================================
+FAIL: test_check_results (__main__.TestSinhOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 501 different results, offset=8, shape=(32, 64), 5.661777e+02 vs 8.999141e+04. Maximum diff of the whole array: maximum_relative_diff=5.966439e+03, maximum_absolute_diff=6.258941e+07.
+
+======================================================================
+FAIL: test_check_results (__main__.TestSqrtOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 384 different results, offset=8, shape=(32, 64), 2.408715e+01 vs 1.797095e+01. Maximum diff of the whole array: maximum_relative_diff=2.136545e+01, maximum_absolute_diff=2.847171e+01.
+
+======================================================================
+FAIL: test_check_results (__main__.TestTanOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 510 different results, offset=8, shape=(32, 64), -2.927113e+00 vs -4.584655e-01. Maximum diff of the whole array: maximum_relative_diff=2.481059e+10, maximum_absolute_diff=4.625569e+10.
+
+======================================================================
+FAIL: test_check_results (__main__.TestTanhOp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_unary_elementwise_op.py", line 62, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 322 different results, offset=9, shape=(32, 64), -9.145024e-01 vs -1.000000e+00. Maximum diff of the whole array: maximum_relative_diff=7.931016e-01, maximum_absolute_diff=4.423071e-01.
+
+----------------------------------------------------------------------
+Ran 41 tests in 303.146s
+
+FAILED (failures=15, errors=1)

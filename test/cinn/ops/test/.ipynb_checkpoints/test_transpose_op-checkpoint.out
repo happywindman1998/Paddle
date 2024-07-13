@@ -1,0 +1,109 @@
+W0613 20:18:08.646155 1621203 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+EEESycl_Compiler
+I0613 20:18:08.751835 1621252 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 20:18:16.511840 1621203 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:18:16.521760 1621399 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 20:18:23.936177 1621203 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:18:23.953306 1621448 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 20:18:31.350113 1621203 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:18:31.372985 1621498 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 20:18:38.686973 1621203 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:18:38.703377 1621548 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 20:18:46.116976 1621203 sycl_module.cc:36] destructor for SYCLModule
+.ESycl_Compiler
+I0613 20:18:46.125046 1621598 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 20:18:53.461670 1621203 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:18:53.471170 1621648 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 20:19:00.888880 1621203 sycl_module.cc:36] destructor for SYCLModule
+.
+======================================================================
+ERROR: test_check_results (op_test_helper.TestTransposeOpShapeTest.TestTransposeOpShapeTest0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_transpose_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_transpose_op.py", line 57, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestTransposeOpShapeTest.TestTransposeOpShapeTest1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_transpose_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_transpose_op.py", line 57, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestTransposeOpShapeTest.TestTransposeOpShapeTest2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_transpose_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_transpose_op.py", line 57, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestTransposeOpShapeTest.TestTransposeOpShapeTest8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_transpose_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_transpose_op.py", line 57, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+----------------------------------------------------------------------
+Ran 11 tests in 52.248s
+
+FAILED (errors=4)
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest0: {'shape': [512], 'axes': [0], 'dtype': 'float32'}
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest1: {'shape': [1024], 'axes': [-1], 'dtype': 'float32'}
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest2: {'shape': [1200], 'axes': [0], 'dtype': 'float32'}
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest3: {'shape': [64, 16], 'axes': [1, 0], 'dtype': 'float32'}
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest4: {'shape': [4, 32, 8], 'axes': [1, 0, 2], 'dtype': 'float32'}
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest5: {'shape': [16, 8, 4, 2], 'axes': [0, 2, 1, 3], 'dtype': 'float32'}
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest6: {'shape': [2, 8, 4, 2, 5], 'axes': [0, 2, 3, 1, 4], 'dtype': 'float32'}
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest7: {'shape': [4, 8, 1, 2, 16], 'axes': [0, 2, 4, 1, 3], 'dtype': 'float32'}
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest8: {'shape': [1], 'axes': [0], 'dtype': 'float32'}
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest9: {'shape': [1, 1, 1, 1], 'axes': [0, 2, 3, 1], 'dtype': 'float32'}
+
+Running TestTransposeOpShapeTest.TestTransposeOpShapeTest10: {'shape': [1, 1, 1, 1, 1], 'axes': [0, 2, 3, 1, 4], 'dtype': 'float32'}

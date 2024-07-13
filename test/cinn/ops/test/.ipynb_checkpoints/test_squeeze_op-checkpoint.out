@@ -1,0 +1,244 @@
+W0613 20:08:13.343746 1617075 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+EEEEEEEEEEEEEE
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest11)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest12)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSqueezeOpShapeTest.TestSqueezeOpShapeTest13)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_squeeze_op.py", line 51, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_squeeze_op.py", line 47, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.158s
+
+FAILED (errors=14)
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest0: {'shape': [1], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest1: {'shape': [64], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest2: {'shape': [64, 32], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest3: {'shape': [64, 1], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest4: {'shape': [64, 32, 128], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest5: {'shape': [64, 32, 1], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest6: {'shape': [64, 32, 16, 32], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest7: {'shape': [64, 32, 16, 1], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest8: {'shape': [64, 32, 16, 1, 128], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest9: {'shape': [1, 1], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest10: {'shape': [1, 1, 1], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest11: {'shape': [1, 1, 1, 1], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest12: {'shape': [1, 1, 1, 1, 1], 'dtype': 'float32', 'axes': []}
+
+Running TestSqueezeOpShapeTest.TestSqueezeOpShapeTest13: {'shape': [1, 1, 1024, 1, 1], 'dtype': 'float32', 'axes': []}

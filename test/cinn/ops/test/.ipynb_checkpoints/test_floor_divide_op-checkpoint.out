@@ -1,0 +1,589 @@
+W0613 17:09:37.225245 1545856 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 17:09:37.363802 1545906 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 17:09:44.798677 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:09:44.807904 1545957 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 17:09:52.257603 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:09:52.264478 1546007 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 17:09:59.656757 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:09:59.664235 1546057 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 17:10:06.965590 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:10:07.003600 1546107 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 17:10:14.266963 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:10:14.311223 1546157 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 17:10:21.569972 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:10:21.645509 1546207 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 17:10:28.847482 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:10:28.922359 1546257 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 17:10:36.151576 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:10:36.192373 1546307 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+I0613 17:10:43.403589 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:10:43.441902 1546357 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 17:10:50.671028 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:10:50.721072 1546407 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+I0613 17:10:57.889190 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:10:57.940112 1546457 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_11.cc -o ./source/sycl_11.so
+I0613 17:11:05.167781 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:11:05.181289 1546507 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_12.cc -o ./source/sycl_12.so
+I0613 17:11:12.471413 1545856 sycl_module.cc:36] destructor for SYCLModule
+
+----------------------------------------------------------------------
+Ran 12 tests in 87.948s
+
+OK
+.Sycl_Compiler
+I0613 17:11:12.478395 1546557 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_13.cc -o ./source/sycl_13.so
+I0613 17:11:19.802784 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:11:19.810552 1546607 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_14.cc -o ./source/sycl_14.so
+I0613 17:11:27.125074 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:11:27.132851 1546657 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_15.cc -o ./source/sycl_15.so
+I0613 17:11:34.457216 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:11:34.482417 1546707 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_16.cc -o ./source/sycl_16.so
+I0613 17:11:41.702939 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:11:41.728641 1546757 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_17.cc -o ./source/sycl_17.so
+I0613 17:11:48.947902 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:11:48.993089 1546807 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_18.cc -o ./source/sycl_18.so
+I0613 17:11:56.272781 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:11:56.324364 1546857 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_19.cc -o ./source/sycl_19.so
+I0613 17:12:03.532389 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:12:03.561136 1546907 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_20.cc -o ./source/sycl_20.so
+I0613 17:12:10.803931 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:12:10.831261 1546957 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_21.cc -o ./source/sycl_21.so
+I0613 17:12:18.029127 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:12:18.058657 1547007 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_22.cc -o ./source/sycl_22.so
+I0613 17:12:25.243024 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:12:25.273895 1547057 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_23.cc -o ./source/sycl_23.so
+I0613 17:12:32.539283 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:12:32.552151 1547107 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_24.cc -o ./source/sycl_24.so
+I0613 17:12:40.527065 1545856 sycl_module.cc:36] destructor for SYCLModule
+
+----------------------------------------------------------------------
+Ran 12 tests in 87.366s
+
+OK
+.Sycl_Compiler
+I0613 17:12:40.534773 1547157 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_25.cc -o ./source/sycl_25.so
+I0613 17:12:47.879115 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:12:47.888144 1547207 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_26.cc -o ./source/sycl_26.so
+I0613 17:12:55.254873 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:12:55.262243 1547257 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_27.cc -o ./source/sycl_27.so
+I0613 17:13:02.637214 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:13:02.646862 1547307 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_28.cc -o ./source/sycl_28.so
+I0613 17:13:09.982870 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:13:09.991122 1547358 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_29.cc -o ./source/sycl_29.so
+I0613 17:13:17.228550 1545856 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 17:13:17.238632 1547407 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_30.cc -o ./source/sycl_30.so
+I0613 17:13:24.604600 1545856 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 17:13:24.615754 1547457 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_31.cc -o ./source/sycl_31.so
+I0613 17:13:32.010502 1545856 sycl_module.cc:36] destructor for SYCLModule
+FF0613 17:13:32.018169 1547507 compute.cc:260] Check failed: proto No extern function prototype cinn_sycl_floor_fp16 found
+existing records are:
+block_shuffle_sum_int64
+cinn_block_reduce_min_fp64_internal
+cinn_hip_log_fp32
+cinn_block_reduce_all_internal
+sigmoid
+cinn_warp_reduce_max_int32
+cinn_hip_bitwise_not_int64
+cinn_hip_gt_num_int32
+cinn_hip_index_add_fp64
+cinn_host_find_int
+acosf
+cinn_hip_logical_right_shift_int32
+cinn_hip_abs_fp32
+cinn_hip_resize_bilinear
+isnan
+cinn_warp_reduce_sum_fp64
+cinn_hip_find_float_from
+cinn_hip_bitwise_xor_int8
+cinn_block_reduce_max_fp64_internal
+log10
+cinn_sycl_bitwise_or_int32
+cinn_hip_bitwise_xor_bool
+block_shuffle_prod_fp64
+cinn_sycl_rsqrt_fp64
+cinn_sycl_bitwise_xor_int64
+cinn_hip_asin_fp32
+cinn_hip_trunc_fp64
+cinn_hip_isnan_fp64
+block_shuffle_prod_int32
+ceil
+block_shuffle_all
+cinn_hip_logical_right_shift_int64
+cinn_sycl_pow_fp64
+cinn_hip_mod_int32
+cinn_sycl_cbrt_fp32
+cinn_hip_bitwise_not_int32
+cinn_hip_bitwise_and_int8
+cinn_sycl_tanh_fp32
+right_shift
+cinn_hip_bitwise_or_int8
+cinn_hip_acosh_fp32
+cinn_hip_atan_fp32
+cosh
+cinn_hip_exp_fp32
+cinn_sycl_logical_right_shift_uint8
+cinn_sycl_sqrt_fp32
+cinn_cpu_onednn_softmax_fp32
+cinn_sycl_ceil_fp32
+cinn_sycl_popc_int32
+cinn_sycl_bitwise_or_int64
+cinn_sycl_bitwise_xor_int32
+cinn_block_reduce_min_int64_internal
+cinn_block_reduce_min_fp32_internal
+cinn_host_logical_right_shift_int32
+cinn_block_reduce_prod_fp64_internal
+cinn_block_reduce_max_fp32_internal_shm
+cinn_block_reduce_any_internal_shm
+cinn_hip_logical_right_shift_int8
+cinn_hip_logical_right_shift_uint8
+cinn_hip_tan_fp32
+cinn_mkl_round_v_fp64
+cinn_block_reduce_max_int32_internal
+cinn_sycl_find_float
+cinn_host_logical_right_shift_int64
+cinn_host_find_float
+cinn_hip_isinf_fp64
+cinn_sycl_lt_num_fp64
+cinn_assert_true_host
+cinn_sycl_bitwise_not_int64
+cinn_sycl_gt_num_uint8
+cinn_block_reduce_prod_int64_internal
+cinn_block_reduce_min_int32_internal_shm
+cinn_sycl_right_shift_int32
+cinn_hip_exp_fp64
+cinn_cpu_mkl_gemm_batch_fp32
+cinn_hip_erf_fp32
+cinn_hip_lt_num_uint8
+cinn_sycl_popc_int64
+cinn_hip_resize_bicubic
+cinn_hip_isnan_fp32
+cinn_sycl_cbrt_fp64
+cinn_hip_index_add_int32
+cinn_hip_find_float_nd
+asinf
+bitwise_and
+cinn_block_reduce_all
+cinn_sycl_bitwise_not_bool
+cinn_hip_abs_fp64
+cinn_block_reduce_sum_fp64_internal
+cinn_hip_mod_int64
+cinn_hip_gt_num_fp32
+cinn_hip_bitwise_and_bool
+cinn_sycl_next_smallest_int32
+cinn_hip_sinh_fp32
+cinn_sycl_bitwise_or_int16
+cinn_hip_popc_int64
+cinn_sycl_sigmoid_fp32
+cinn_sycl_floor_fp64
+cinn_sycl_bitwise_xor_int16
+cinn_sycl_lt_num_int16
+cinn_sycl_sinh_fp64
+cinn_block_reduce_prod_fp64
+exp
+cinn_hip_left_shift_int32
+atanf
+cinn_hip_bitwise_or_int32
+cinn_sycl_round_fp64
+cinn_hip_lt_num_fp32
+cinn_sycl_sinh_fp32
+cinn_mkl_erf_v_fp64
+isfinite
+cinn_call_cholesky_host
+cinn_hip_bitwise_or_int64
+cinn_hip_round_fp64
+cinn_sycl_ceil_fp64
+cinn_hip_index_add_int8
+cinn_hip_cosh_fp64
+cinn_host_clz_int64
+cinn_hip_bitwise_not_uint8
+cinn_block_reduce_prod_fp64_internal_shm
+cinn_warp_reduce_min_int64
+cinn_sycl_sin_fp64
+atan
+cinn_block_reduce_min_int32_internal
+cinn_hip_bitwise_and_uint8
+cinn_hip_bitwise_and_int16
+cinn_block_reduce_sum_fp64_internal_shm
+cinn_block_reduce_sum_int64
+cinn_hip_floor_fp32
+cinn_block_reduce_sum_fp32_internal_shm
+cinn_block_reduce_min_fp32_internal_shm
+cinn_sycl_pow_fp32
+cinn_sycl_index_add_int8
+log2
+cinn_sycl_find_float_from
+cinn_block_reduce_prod_fp32_internal_shm
+cinn_hip_tan_fp64
+cinn_sycl_isfinite_fp64
+cinn_sycl_trunc_fp32
+cinn_sycl_trunc_fp64
+cinn_sycl_lt_num_int32
+cinn_hip_lt_num_int32
+cinn_host_lt_num_int32
+block_shuffle_sum_int32
+cinn_host_popc_int32
+cinn_warp_reduce_avg_fp32
+cinn_hip_bitwise_xor_int32
+cinn_sycl_resize_bicubic
+cinn_block_reduce_max_fp32
+cinn_hip_cbrt_fp64
+cinn_hip_sin_fp64
+cinn_hip_asin_fp64
+cinn_block_reduce_sum_fp32_internal
+cinn_sycl_mod_fp32
+block_shuffle_max_int64
+cinn_hip_rsqrt_fp32
+acos
+powf
+cinn_sycl_sqrt_fp64
+cinn_block_reduce_max_int32_internal_shm
+cinn_sycl_find_int_nd
+cinn_warp_reduce_min_fp64
+cinn_host_pow_int32
+cinn_call_sycl_kernel
+cinn_host_find_float_nd
+cinn_block_reduce_min_int64
+cinn_hip_pow_fp64
+cinn_warp_reduce_sum_fp32
+cinn_block_reduce_any
+cinn_hip_find_int
+cinn_hip_ceil_fp32
+cinn_sycl_bitwise_or_uint8
+cinn_sycl_trunc_int32
+cinn_call_hip_kernel
+cinn_hip_tanh_fp64
+cinn_mkl_sqrt_v_fp64
+cinn_hip_lt_num_fp64
+cinn_hip_lt_num_int64
+cinn_hip_index_add_int64
+erff
+cinn_hip_bitwise_not_int16
+cinn_hip_clz_int32
+cinn_warp_reduce_max_int64
+cinn_mkl_sqrt_v_fp32
+cinn_warp_reduce_min_fp32
+cinn_sycl_bitwise_and_uint8
+cinn_sycl_index_add_int64
+cinn_block_reduce_max_fp64
+cinn_sycl_log2_fp32
+bitwise_not
+cinn_host_pow_fp64
+cinn_sycl_log10_fp64
+cinn_mkl_tanh_v_fp32
+cinn_sycl_bitwise_not_int32
+cinn_mkl_exp_v_fp64
+cinn_sycl_abs_fp32
+cinn_block_reduce_sum_int64_internal_shm
+cinn_hip_acosh_fp64
+cinn_hip_isfinite_fp64
+block_shuffle_min_int64
+cinn_hip_bitwise_xor_uint8
+cinn_hip_bitwise_and_int64
+cinn_host_next_smallest_int32
+cinn_sycl_index_add_bool
+fabs
+cinn_sycl_exp_fp64
+cinn_block_reduce_all_internal_shm
+cinn_sycl_find_int
+cinn_hip_sigmoid_fp64
+cinn_hip_popc_int32
+cinn_hip_right_shift_int32
+cinn_sycl_sin_fp32
+cinn_block_reduce_max_int64_internal_shm
+block_shuffle_prod_int64
+cinn_block_reduce_min_fp64_internal_shm
+cinn_hip_mod_fp32
+round
+cinn_hip_acos_fp64
+cinn_hip_find_float
+cinn_hip_logical_right_shift_int16
+cinn_hip_next_smallest_int32
+cinn_sycl_rsqrt_fp32
+cinn_hip_pow_int32
+trunc
+cinn_warp_reduce_prod_fp32
+cinn_sycl_index_add_fp64
+log
+asin
+cinn_sycl_abs_fp64
+cinn_sycl_trunc_int64
+cinn_warp_reduce_max_fp64
+cinn_host_clz_int32
+cinn_hip_gt_num_int16
+cinn_sycl_gt_num_int64
+cinn_warp_reduce_all
+atanh
+tanh_v
+cinn_hip_bitwise_xor_int16
+cinn_hip_cbrt_fp32
+erf
+cinn_sycl_logical_right_shift_int64
+cinn_block_reduce_min_fp32
+cinn_mkl_exp_v_fp32
+cinn_sycl_asinh_fp64
+cinn_hip_log_fp64
+cinn_sycl_acosh_fp64
+cinn_sycl_lt_num_uint8
+cinn_mkl_erf_v_fp32
+cinn_sycl_cos_fp64
+cinn_block_reduce_min_int64_internal_shm
+cinn_hip_round_fp32
+cinn_host_pow_fp32
+block_shuffle_max_fp32
+block_shuffle_sum_fp32
+cinn_sycl_gt_num_int16
+cinn_mkl_ceil_v_fp32
+cinn_hip_bitwise_not_bool
+cinn_warp_reduce_prod_fp64
+cinn_hip_bitwise_xor_int64
+cinn_hip_find_int_nd
+cinn_hip_find_int_from
+cinn_hip_index_add_bool
+asinhf
+cinn_sycl_tan_fp64
+block_shuffle_sum_fp64
+cinn_host_resize_bicubic
+cinn_warp_reduce_sum_int32
+block_shuffle_any
+bitwise_or
+cinn_sycl_acos_fp64
+cinn_sycl_bitwise_and_int64
+cinn_hip_ceil_fp64
+tan
+cinn_block_reduce_max_int64_internal
+cinn_sycl_cosh_fp64
+cinn_cpu_onednn_conv2d_nchw_fp32
+cinn_sycl_asin_fp64
+cinn_hip_gt_num_uint8
+cinn_block_reduce_sum_int32
+sinh
+cinn_sycl_bitwise_and_int8
+cinn_hip_clz_int64
+cinn_sycl_erf_fp64
+cinn_hip_bitwise_or_bool
+cinn_hip_bitwise_not_int8
+cinn_sycl_logical_right_shift_int8
+cinn_sycl_resize_bilinear
+cinn_hip_sin_fp32
+cinn_hip_pow_int64
+cinn_block_reduce_sum_int64_internal
+cinn_hip_lt_num_int16
+cinn_hip_atan_fp64
+cinn_sycl_bitwise_xor_int8
+cinn_sycl_erf_fp32
+cinn_sycl_isinf_fp64
+cinn_block_reduce_prod_fp32_internal
+cinn_sycl_tan_fp32
+cinn_sycl_bitwise_not_uint8
+cinn_sycl_lt_num_fp32
+cinn_hip_bitwise_or_int16
+cinn_mkl_ceil_v_fp64
+cinn_warp_reduce_any
+cinn_host_gt_num_fp64
+cinn_block_reduce_any_internal
+cinn_warp_reduce_prod_int64
+cinn_sycl_cosh_fp32
+cinn_hip_isinf_fp32
+cinn_sycl_log_fp32
+cinn_sycl_bitwise_xor_bool
+cinn_sycl_logical_right_shift_int32
+cinn_block_reduce_max_int32
+cinn_call_hip_memset
+cinn_hip_log10_fp32
+cinn_host_lt_num_int64
+cinn_mkl_log_v_fp32
+cinn_sycl_mod_fp64
+cinn_sycl_gt_num_fp32
+cinn_sycl_atan_fp32
+cinn_sycl_isnan_fp32
+atanhf
+cinn_sycl_sigmoid_fp64
+left_shift
+cinn_host_cbrt_fp32
+cinn_mkl_tanh_v_fp64
+cinn_block_reduce_prod_int32_internal_shm
+cinn_block_reduce_prod_int32_internal
+cinn_sycl_bitwise_not_int16
+cinn_block_reduce_sum_int32_internal
+cinn_block_reduce_max_fp64_internal_shm
+cinn_sycl_pow_int64
+cinn_hip_bitwise_or_uint8
+cinn_cpu_mkl_gemm_fp32
+cinn_hip_asinh_fp32
+cinn_hip_tanh_fp32
+cinn_sycl_bitwise_xor_uint8
+cinn_hip_erf_fp64
+cinn_hip_sqrt_fp64
+cinn_hip_rsqrt_fp64
+cinn_sycl_round_fp32
+asinh
+cinn_host_lt_num_fp32
+cinn_sycl_isfinite_fp32
+cinn_sycl_floor_fp32
+cinn_hip_pow_fp32
+isinf
+cinn_hip_log2_fp64
+cinn_sycl_bitwise_or_bool
+cinn_hip_log10_fp64
+cinn_host_pow_int64
+cinn_block_reduce_prod_int64
+block_shuffle_prod_fp32
+cinn_block_reduce_prod_int32
+cinn_block_reduce_max_int64
+cinn_hip_cos_fp64
+cinn_hip_atanh_fp64
+sin
+cinn_mkl_round_v_fp32
+cinn_sycl_exp_fp32
+cinn_block_reduce_min_int32
+cinn_sycl_lt_num_int64
+cinn_hip_gt_num_fp64
+cinn_sycl_atanh_fp64
+cinn_host_cbrt_fp64
+cinn_hip_floor_fp64
+cinn_hip_sinh_fp64
+cinn_hip_bitwise_and_int32
+cinn_sycl_find_int_from
+cinn_hip_asinh_fp64
+cinn_sycl_log10_fp32
+cinn_sycl_bitwise_not_int8
+cinn_warp_reduce_sum_int64
+cinn_sycl_isnan_fp64
+cinn_sycl_gt_num_fp64
+cinn_hip_log2_fp32
+cinn_sycl_tanh_fp64
+block_shuffle_min_int32
+bitwise_xor
+cinn_mkl_log_v_fp64
+cinn_block_reduce_sum_int32_internal_shm
+cinn_sycl_bitwise_and_int16
+block_shuffle_min_fp32
+cinn_hip_isfinite_fp32
+cinn_sycl_acos_fp32
+cinn_sycl_gt_num_int32
+cinn_sycl_clz_int32
+cos
+cinn_block_reduce_prod_int64_internal_shm
+cinn_host_popc_int64
+cinn_sycl_find_float_nd
+cinn_hip_trunc_int64
+cinn_sycl_bitwise_and_int32
+cinn_hip_index_add_fp32
+cinn_hip_cos_fp32
+cinn_call_hip_memcpy
+cinn_hip_mod_fp64
+block_shuffle_max_fp64
+acosh
+cinn_hip_gt_num_int64
+cinn_sycl_index_add_int32
+cinn_mkl_floor_v_fp32
+cinn_sycl_clz_int64
+block_shuffle_max_int32
+cinn_sycl_asinh_fp32
+cinn_sycl_bitwise_and_bool
+cinn_sycl_log2_fp64
+cinn_sycl_mod_int64
+cinn_sycl_mod_int32
+cinn_sycl_isinf_fp32
+cinn_sycl_index_add_fp32
+cinn_warp_reduce_max_fp32
+cinn_block_reduce_sum_fp32
+cinn_host_find_int_nd
+cinn_sycl_log_fp64
+cinn_block_reduce_sum_fp64
+block_shuffle_min_fp64
+cinn_hip_trunc_fp32
+cinn_sycl_cos_fp32
+sqrt
+cinn_sycl_acosh_fp32
+cinn_sycl_pow_int32
+cinn_sycl_left_shift_int32
+cinn_hip_sqrt_fp32
+cinn_block_reduce_min_fp64
+cinn_hip_cosh_fp32
+cinn_hip_acos_fp32
+cinn_host_gt_num_int64
+cinn_mkl_floor_v_fp64
+floor
+cinn_host_gt_num_fp32
+cinn_warp_reduce_prod_int32
+cinn_hip_sigmoid_fp32
+cinn_hip_trunc_int32
+cinn_host_resize_bilinear
+cinn_sycl_logical_right_shift_int16
+cinn_host_gt_num_int32
+acoshf
+cinn_host_lt_num_fp64
+tanh
+cinn_sycl_atan_fp64
+cinn_sycl_asin_fp32
+cinn_warp_reduce_min_int32
+cinn_block_reduce_max_fp32_internal
+cinn_block_reduce_prod_fp32
+cinn_hip_atanh_fp32
+cinn_sycl_atanh_fp32
+cinn_sycl_bitwise_or_int8
+*** Check failure stack trace: ***
+    @     0x7f29217be5cd  google::LogMessage::Fail()
+    @     0x7f29217c087d  google::LogMessage::SendToLog()
+    @     0x7f29217be0bd  google::LogMessage::Flush()
+    @     0x7f29217c1379  google::LogMessageFatal::~LogMessageFatal()
+    @     0x7f290b380a2b  cinn::lang::CallExtern()
+    @     0x7f290b3d7a00  cinn::optim::MapExternCall()::Mutator::Visit()
+    @     0x7f290b0a579d  cinn::ir::IRVisitorRequireReImpl<>::Visit()
+    @     0x7f290b0a7594  cinn::ir::IRMutator<>::Visit()
+    @     0x7f290b0a55cf  cinn::ir::IRVisitorRequireReImpl<>::Visit()
+    @     0x7f290b0a73ba  cinn::ir::IRMutator<>::Visit()
+    @     0x7f290b0a4fc7  cinn::ir::IRVisitorRequireReImpl<>::Visit()
+    @     0x7f290b104b56  cinn::ir::IRMutator<>::Visit()
+    @     0x7f290b0a4f8f  cinn::ir::IRVisitorRequireReImpl<>::Visit()
+    @     0x7f290b0b742a  cinn::ir::IRMutator<>::Visit()
+    @     0x7f290b0a579d  cinn::ir::IRVisitorRequireReImpl<>::Visit()
+    @     0x7f290b0ad4ad  cinn::ir::IRMutator<>::Visit()
+    @     0x7f290b0a5861  cinn::ir::IRVisitorRequireReImpl<>::Visit()
+    @     0x7f290b0a73ba  cinn::ir::IRMutator<>::Visit()
+    @     0x7f290b0a4fc7  cinn::ir::IRVisitorRequireReImpl<>::Visit()
+    @     0x7f290b104b56  cinn::ir::IRMutator<>::Visit()
+    @     0x7f290b0a4f8f  cinn::ir::IRVisitorRequireReImpl<>::Visit()
+    @     0x7f290b0b742a  cinn::ir::IRMutator<>::Visit()
+    @     0x7f290b0a579d  cinn::ir::IRVisitorRequireReImpl<>::Visit()
+    @     0x7f290b0a53d9  cinn::ir::IRVisitorRequireReImpl<>::Visit()
+    @     0x7f290b3d7ec8  cinn::optim::MapExternCall()
+    @     0x7f290b3ba009  cinn::optim::Optimize()
+    @     0x7f290b4b7254  cinn::hlir::framework::OpLowererImpl::PostProcess()
+    @     0x7f290b4bd9f0  cinn::hlir::framework::OpLowererImpl::LowerGroup()
+    @     0x7f290b4be00c  cinn::hlir::framework::OpLowererImpl::Lower()
+    @     0x7f290b47b374  cinn::hlir::framework::ParallelCompiler::Task::Lowering()
+    @     0x7f290b47d76f  cinn::hlir::framework::ParallelCompiler::RunTask()
+    @     0x7f297836adf4  (unknown)
+Aborted (core dumped)

@@ -1,0 +1,176 @@
+W0613 16:57:53.688928 1541055 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+EEEEEEEEEE
+======================================================================
+ERROR: test_check_results (op_test_helper.TestExpandDimsAll.TestExpandDimsOpCase0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_expand_dims.py", line 65, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_expand_dims.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestExpandDimsAll.TestExpandDimsOpCase1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_expand_dims.py", line 65, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_expand_dims.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestExpandDimsAll.TestExpandDimsOpCase2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_expand_dims.py", line 65, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_expand_dims.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestExpandDimsAll.TestExpandDimsOpCase3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_expand_dims.py", line 65, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_expand_dims.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestExpandDimsAll.TestExpandDimsOpCase4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_expand_dims.py", line 65, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_expand_dims.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestExpandDimsAll.TestExpandDimsOpCase5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_expand_dims.py", line 65, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_expand_dims.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestExpandDimsAll.TestExpandDimsOpCase6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_expand_dims.py", line 65, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_expand_dims.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestExpandDimsAll.TestExpandDimsOpCase7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_expand_dims.py", line 65, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_expand_dims.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestExpandDimsAll.TestExpandDimsOpCase8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_expand_dims.py", line 65, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_expand_dims.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestExpandDimsAll.TestExpandDimsOpCase9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_expand_dims.py", line 65, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_expand_dims.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.204s
+
+FAILED (errors=10)
+
+Running TestExpandDimsAll.TestExpandDimsOpCase0: {'x_shape': [1], 'axes_shape': [0], 'x_dtype': 'float32'}
+
+Running TestExpandDimsAll.TestExpandDimsOpCase1: {'x_shape': [1024], 'axes_shape': [0, 1], 'x_dtype': 'float32'}
+
+Running TestExpandDimsAll.TestExpandDimsOpCase2: {'x_shape': [32, 64], 'axes_shape': [0, 2], 'x_dtype': 'float32'}
+
+Running TestExpandDimsAll.TestExpandDimsOpCase3: {'x_shape': [32, 64], 'axes_shape': [0, 1, 2], 'x_dtype': 'float32'}
+
+Running TestExpandDimsAll.TestExpandDimsOpCase4: {'x_shape': [32, 64, 128], 'axes_shape': [0, 1, 2], 'x_dtype': 'float32'}
+
+Running TestExpandDimsAll.TestExpandDimsOpCase5: {'x_shape': [32, 64, 128], 'axes_shape': [1, 2, 3], 'x_dtype': 'float32'}
+
+Running TestExpandDimsAll.TestExpandDimsOpCase6: {'x_shape': [128, 64, 32, 16], 'axes_shape': [0, 1], 'x_dtype': 'float32'}
+
+Running TestExpandDimsAll.TestExpandDimsOpCase7: {'x_shape': [128, 64, 32, 16], 'axes_shape': [3, 4], 'x_dtype': 'float32'}
+
+Running TestExpandDimsAll.TestExpandDimsOpCase8: {'x_shape': [16, 8, 4, 2, 1], 'axes_shape': [2], 'x_dtype': 'float32'}
+
+Running TestExpandDimsAll.TestExpandDimsOpCase9: {'x_shape': [16, 8, 4, 2, 1], 'axes_shape': [5], 'x_dtype': 'float32'}

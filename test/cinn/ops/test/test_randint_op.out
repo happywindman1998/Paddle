@@ -1,0 +1,50 @@
+W0613 18:41:14.991137 1583599 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+F0613 18:41:15.088177 1583648 ir_base.h:200] Check failed: get() IrNodeRef holds null
+*** Check failure stack trace: ***
+    @     0x7f71363485cd  google::LogMessage::Fail()
+Sycl_Compiler
+I0613 18:41:15.101434 1583649 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+    @     0x7f713634a87d  google::LogMessage::SendToLog()
+    @     0x7f71363480bd  google::LogMessage::Flush()
+    @     0x7f713634b379  google::LogMessageFatal::~LogMessageFatal()
+    @     0x7f711fbdbd2a  cinn::ir::IrNodeRef::As<>()
+    @     0x7f712007db03  cinn::hlir::pe::Identity()
+    @     0x7f712018bc28  _ZZN4cinn4hlir2op18StrategyForRandIntERKNS0_9framework8NodeAttrERKSt6vectorINS_2ir6TensorESaIS8_EERKS6_INS_6common4TypeESaISE_EERKS6_IS6_IiSaIiEESaISK_EERKNSD_6TargetEENKUlNS_4lang4ArgsEPNSD_9CINNValueEE_clEST_SV_.isra.662
+    @     0x7f712018c140  _ZNSt17_Function_handlerIFvN4cinn4lang4ArgsEPNS0_6common9CINNValueEEZNS0_4hlir2op18StrategyForRandIntERKNS7_9framework8NodeAttrERKSt6vectorINS0_2ir6TensorESaISF_EERKSD_INS3_4TypeESaISK_EERKSD_ISD_IiSaIiEESaISQ_EERKNS3_6TargetEEUlS2_S5_E_E9_M_invokeERKSt9_Any_dataOS2_OS5_
+    @     0x7f711ffab594  cinn::lang::PackedFunc::operator()<>()
+    @     0x7f712004169c  cinn::hlir::framework::OpLowererImpl::DoOpLower()
+    @     0x7f7120047191  cinn::hlir::framework::OpLowererImpl::LowerOps()
+    @     0x7f71200477a4  cinn::hlir::framework::OpLowererImpl::LowerGroup()
+    @     0x7f712004800c  cinn::hlir::framework::OpLowererImpl::Lower()
+    @     0x7f7120005374  cinn::hlir::framework::ParallelCompiler::Task::Lowering()
+    @     0x7f712000776f  cinn::hlir::framework::ParallelCompiler::RunTask()
+    @     0x7f718ceeadf4  (unknown)
+    @     0x7f7190bcf609  start_thread
+    @     0x7f7190d09353  clone
+    @              (nil)  (unknown)
+Aborted (core dumped)
+In file included from ./source/sycl_0.cc:1:
+In file included from /opt/DPC++/bin/../include/sycl/sycl.hpp:16:
+In file included from /opt/DPC++/bin/../include/sycl/backend.hpp:27:
+/opt/DPC++/bin/../include/sycl/handler.hpp:1611:59: error: 'space0_fn_reciprocal_0_kernel' is invalid; kernel name should be forward declarable at namespace scope
+ 1611 |       h->kernel_parallel_for<TypesToForward..., Props...>(Args...);
+      |                                                           ^
+/opt/DPC++/bin/../include/sycl/handler.hpp:1697:29: note: in instantiation of function template specialization 'sycl::handler::KernelPropertiesUnpackerImpl<>::kernel_parallel_for_unpack<space0_fn_reciprocal_0_kernel, sycl::nd_item<3>, (lambda at ./source/sycl_0.cc:12:106), (lambda at ./source/sycl_0.cc:12:106)>' requested here
+ 1697 |           Unpacker.template kernel_parallel_for_unpack<KernelName, ElementType,
+      |                             ^
+/opt/DPC++/bin/../include/sycl/handler.hpp:1693:5: note: in instantiation of function template specialization 'sycl::handler::unpack<space0_fn_reciprocal_0_kernel, (lambda at ./source/sycl_0.cc:12:106), sycl::ext::oneapi::experimental::properties<std::tuple<>>, false, (lambda at /opt/DPC++/bin/../include/sycl/handler.hpp:1696:21)>' requested here
+ 1693 |     unpack<KernelName, KernelType, PropertiesT,
+      |     ^
+/opt/DPC++/bin/../include/sycl/handler.hpp:1367:5: note: in instantiation of function template specialization 'sycl::handler::kernel_parallel_for_wrapper<space0_fn_reciprocal_0_kernel, sycl::nd_item<3>, (lambda at ./source/sycl_0.cc:12:106), sycl::ext::oneapi::experimental::properties<std::tuple<>>>' requested here
+ 1367 |     kernel_parallel_for_wrapper<NameT, TransformedArgType, KernelType,
+      |     ^
+/opt/DPC++/bin/../include/sycl/handler.hpp:2359:5: note: in instantiation of function template specialization 'sycl::handler::parallel_for_impl<space0_fn_reciprocal_0_kernel, (lambda at ./source/sycl_0.cc:12:106), 3, sycl::ext::oneapi::experimental::properties<std::tuple<>>>' requested here
+ 2359 |     parallel_for_impl<KernelName>(Range, Properties, std::move(KernelFunc));
+      |     ^
+/opt/DPC++/bin/../include/sycl/handler.hpp:2444:5: note: in instantiation of function template specialization 'sycl::handler::parallel_for<space0_fn_reciprocal_0_kernel, (lambda at ./source/sycl_0.cc:12:106), sycl::ext::oneapi::experimental::properties<std::tuple<>>, 3>' requested here
+ 2444 |     parallel_for<KernelName>(Range,
+      |     ^
+./source/sycl_0.cc:12:7: note: in instantiation of function template specialization 'sycl::handler::parallel_for<space0_fn_reciprocal_0_kernel, 3, (lambda at ./source/sycl_0.cc:12:106)>' requested here
+   12 |     h.parallel_for<class space0_fn_reciprocal_0_kernel>(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), [=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]][[intel::max_work_group_size(1024, 1, 1)]]
+      |       ^
+1 error generated.

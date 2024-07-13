@@ -1,0 +1,50 @@
+W0613 20:18:06.785248 1621129 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+F0613 20:18:06.900849 1621178 eliminate_common_factor_of_local_index.cc:178] Check failed: indexes.size() >= 2 (1 vs. 2) We should guarantee indexes.size() >= 2, because local variable _var_5_index_temp_temp_buffer should at least load and store once.
+Sycl_Compiler
+Sycl_Compiler
+Sycl_Compiler
+*** Check failure stack trace: ***
+I0613 20:18:06.901239 1621180 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 20:18:06.901860 1621179 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 20:18:06.901955 1621181 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+    @     0x7f7a2080e5cd  google::LogMessage::Fail()
+    @     0x7f7a2081087d  google::LogMessage::SendToLog()
+    @     0x7f7a2080e0bd  google::LogMessage::Flush()
+    @     0x7f7a20811379  google::LogMessageFatal::~LogMessageFatal()
+    @     0x7f7a0a44c832  cinn::optim::EliminateCommonFactorOfLocalIndex()
+    @     0x7f7a0a458814  cinn::optim::OptimizeExprGPU()
+    @     0x7f7a0a506f20  cinn::hlir::framework::OpLowererImpl::PostProcess()
+    @     0x7f7a0a50d9f0  cinn::hlir::framework::OpLowererImpl::LowerGroup()
+    @     0x7f7a0a50e00c  cinn::hlir::framework::OpLowererImpl::Lower()
+    @     0x7f7a0a4cb374  cinn::hlir::framework::ParallelCompiler::Task::Lowering()
+    @     0x7f7a0a4cd76f  cinn::hlir::framework::ParallelCompiler::RunTask()
+    @     0x7f7a773badf4  (unknown)
+    @     0x7f7a7b099609  start_thread
+    @     0x7f7a7b1d3353  clone
+    @              (nil)  (unknown)
+Aborted (core dumped)
+In file included from ./source/sycl_0.cc:1:
+In file included from /opt/DPC++/bin/../include/sycl/sycl.hpp:16:
+In file included from /opt/DPC++/bin/../include/sycl/backend.hpp:27:
+/opt/DPC++/bin/../include/sycl/handler.hpp:1611:59: error: 'space0_fn_transpose_0_2_kernel' is invalid; kernel name should be forward declarable at namespace scope
+ 1611 |       h->kernel_parallel_for<TypesToForward..., Props...>(Args...);
+      |                                                           ^
+/opt/DPC++/bin/../include/sycl/handler.hpp:1697:29: note: in instantiation of function template specialization 'sycl::handler::KernelPropertiesUnpackerImpl<>::kernel_parallel_for_unpack<space0_fn_transpose_0_2_kernel, sycl::nd_item<3>, (lambda at ./source/sycl_0.cc:12:107), (lambda at ./source/sycl_0.cc:12:107)>' requested here
+ 1697 |           Unpacker.template kernel_parallel_for_unpack<KernelName, ElementType,
+      |                             ^
+/opt/DPC++/bin/../include/sycl/handler.hpp:1693:5: note: in instantiation of function template specialization 'sycl::handler::unpack<space0_fn_transpose_0_2_kernel, (lambda at ./source/sycl_0.cc:12:107), sycl::ext::oneapi::experimental::properties<std::tuple<>>, false, (lambda at /opt/DPC++/bin/../include/sycl/handler.hpp:1696:21)>' requested here
+ 1693 |     unpack<KernelName, KernelType, PropertiesT,
+      |     ^
+/opt/DPC++/bin/../include/sycl/handler.hpp:1367:5: note: in instantiation of function template specialization 'sycl::handler::kernel_parallel_for_wrapper<space0_fn_transpose_0_2_kernel, sycl::nd_item<3>, (lambda at ./source/sycl_0.cc:12:107), sycl::ext::oneapi::experimental::properties<std::tuple<>>>' requested here
+ 1367 |     kernel_parallel_for_wrapper<NameT, TransformedArgType, KernelType,
+      |     ^
+/opt/DPC++/bin/../include/sycl/handler.hpp:2359:5: note: in instantiation of function template specialization 'sycl::handler::parallel_for_impl<space0_fn_transpose_0_2_kernel, (lambda at ./source/sycl_0.cc:12:107), 3, sycl::ext::oneapi::experimental::properties<std::tuple<>>>' requested here
+ 2359 |     parallel_for_impl<KernelName>(Range, Properties, std::move(KernelFunc));
+      |     ^
+/opt/DPC++/bin/../include/sycl/handler.hpp:2444:5: note: in instantiation of function template specialization 'sycl::handler::parallel_for<space0_fn_transpose_0_2_kernel, (lambda at ./source/sycl_0.cc:12:107), sycl::ext::oneapi::experimental::properties<std::tuple<>>, 3>' requested here
+ 2444 |     parallel_for<KernelName>(Range,
+      |     ^
+./source/sycl_0.cc:12:7: note: in instantiation of function template specialization 'sycl::handler::parallel_for<space0_fn_transpose_0_2_kernel, 3, (lambda at ./source/sycl_0.cc:12:107)>' requested here
+   12 |     h.parallel_for<class space0_fn_transpose_0_2_kernel>(sycl::nd_range<3>(dimGrid * dimBlock, dimBlock), [=](sycl::nd_item<3> item) [[intel::kernel_args_restrict]][[intel::max_work_group_size(1024, 1, 1)]]
+      |       ^
+1 error generated.

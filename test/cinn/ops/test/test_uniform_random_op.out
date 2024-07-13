@@ -1,0 +1,25 @@
+W0613 20:25:41.961169 1624402 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+F0613 20:25:42.062614 1624451 ir_base.h:200] Check failed: get() IrNodeRef holds null
+Sycl_Compiler
+*** Check failure stack trace: ***
+I0613 20:25:42.067420 1624452 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+    @     0x7f0c352025cd  google::LogMessage::Fail()
+    @     0x7f0c3520487d  google::LogMessage::SendToLog()
+    @     0x7f0c352020bd  google::LogMessage::Flush()
+    @     0x7f0c35205379  google::LogMessageFatal::~LogMessageFatal()
+    @     0x7f0c1ea95d2a  cinn::ir::IrNodeRef::As<>()
+    @     0x7f0c1ef37b03  cinn::hlir::pe::Identity()
+    @     0x7f0c1f03cc98  _ZZN4cinn4hlir2op24StrategyForUniformRandomERKNS0_9framework8NodeAttrERKSt6vectorINS_2ir6TensorESaIS8_EERKS6_INS_6common4TypeESaISE_EERKS6_IS6_IiSaIiEESaISK_EERKNSD_6TargetEENKUlNS_4lang4ArgsEPNSD_9CINNValueEE_clEST_SV_.isra.664
+    @     0x7f0c1f03d1b0  _ZNSt17_Function_handlerIFvN4cinn4lang4ArgsEPNS0_6common9CINNValueEEZNS0_4hlir2op24StrategyForUniformRandomERKNS7_9framework8NodeAttrERKSt6vectorINS0_2ir6TensorESaISF_EERKSD_INS3_4TypeESaISK_EERKSD_ISD_IiSaIiEESaISQ_EERKNS3_6TargetEEUlS2_S5_E_E9_M_invokeERKSt9_Any_dataOS2_OS5_
+    @     0x7f0c1ee65594  cinn::lang::PackedFunc::operator()<>()
+    @     0x7f0c1eefb69c  cinn::hlir::framework::OpLowererImpl::DoOpLower()
+    @     0x7f0c1ef01191  cinn::hlir::framework::OpLowererImpl::LowerOps()
+    @     0x7f0c1ef017a4  cinn::hlir::framework::OpLowererImpl::LowerGroup()
+    @     0x7f0c1ef0200c  cinn::hlir::framework::OpLowererImpl::Lower()
+    @     0x7f0c1eebf374  cinn::hlir::framework::ParallelCompiler::Task::Lowering()
+    @     0x7f0c1eec176f  cinn::hlir::framework::ParallelCompiler::RunTask()
+    @     0x7f0c8bdaedf4  (unknown)
+    @     0x7f0c8fa8d609  start_thread
+    @     0x7f0c8fbc7353  clone
+    @              (nil)  (unknown)
+Aborted (core dumped)

@@ -1,0 +1,68 @@
+W0613 15:51:41.500167 1514287 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 15:51:41.596467 1514337 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+Sycl_Compiler
+I0613 15:51:41.602922 1514336 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 15:51:49.288205 1514287 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:51:49.289098 1514287 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:51:49.301517 1514422 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+Sycl_Compiler
+I0613 15:51:49.310743 1514423 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 15:51:56.957195 1514287 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:51:56.958150 1514287 sycl_module.cc:36] destructor for SYCLModule
+/workspace/Paddle/test/cinn/ops/op_test.py:192: RuntimeWarning: invalid value encountered in divide
+  relative_diff = absolute_diff / np.abs(expect).flatten()
+FSycl_Compiler
+I0613 15:51:56.967171 1514508 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+Sycl_Compiler
+I0613 15:51:56.974615 1514507 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 15:52:04.528687 1514287 sycl_module.cc:36] destructor for SYCLModule
+I0613 15:52:04.529743 1514287 sycl_module.cc:36] destructor for SYCLModule
+F
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCholeskyOpShape.TestCholeskyOpShape0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cholesky_op.py", line 73, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 1 different results, offset=0, shape=(1, 1), 6.169611e-01 vs 3.806410e-01. Maximum diff of the whole array: maximum_relative_diff=3.830389e-01, maximum_absolute_diff=2.363201e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCholeskyOpShape.TestCholeskyOpShape1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cholesky_op.py", line 73, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 36 different results, offset=0, shape=(8, 8), 1.524868e+00 vs 2.325221e+00. Maximum diff of the whole array: maximum_relative_diff=1.000686e+01, maximum_absolute_diff=2.339117e+00.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCholeskyOpShape.TestCholeskyOpShape2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cholesky_op.py", line 73, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 55 different results, offset=0, shape=(10, 10), 2.012935e+00 vs 4.051908e+00. Maximum diff of the whole array: maximum_relative_diff=5.202738e+01, maximum_absolute_diff=4.172261e+00.
+
+----------------------------------------------------------------------
+Ran 3 tests in 23.036s
+
+FAILED (failures=3)
+
+Running TestCholeskyOpShape.TestCholeskyOpShape0: {'shape': [1, 1], 'dtype': 'float32', 'upper': False}
+
+Running TestCholeskyOpShape.TestCholeskyOpShape1: {'shape': [8, 8], 'dtype': 'float32', 'upper': False}
+
+Running TestCholeskyOpShape.TestCholeskyOpShape2: {'shape': [10, 10], 'dtype': 'float32', 'upper': False}

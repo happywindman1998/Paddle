@@ -1,0 +1,84 @@
+W0613 18:40:27.229146 1583248 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 18:40:27.354285 1583297 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 18:40:34.794984 1583248 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:40:34.801097 1583348 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 18:40:42.262831 1583248 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:40:42.292578 1583398 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 18:40:49.780274 1583248 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:40:50.291596 1583448 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 18:40:57.711674 1583248 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:40:58.411902 1583498 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 18:41:05.739746 1583248 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:41:05.757752 1583548 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 18:41:13.120219 1583248 sycl_module.cc:36] destructor for SYCLModule
+F
+======================================================================
+FAIL: test_check_results (op_test_helper.TestPowOpShape.TestLogicalRightShiftCase1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_pow_op.py", line 69, in test_check_results
+    self.check_outputs_and_grads(equal_nan=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 94 different results, offset=11, shape=(1024,), 4.796979e+00 vs 4.939639e+00. Maximum diff of the whole array: maximum_relative_diff=8.383173e-01, maximum_absolute_diff=6.768628e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestPowOpShape.TestLogicalRightShiftCase2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_pow_op.py", line 69, in test_check_results
+    self.check_outputs_and_grads(equal_nan=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 12166 different results, offset=11, shape=(512, 256), 4.160739e-02 vs 3.116453e-02. Maximum diff of the whole array: maximum_relative_diff=9.888613e-01, maximum_absolute_diff=2.786364e+06.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestPowOpShape.TestLogicalRightShiftCase3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_pow_op.py", line 69, in test_check_results
+    self.check_outputs_and_grads(equal_nan=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 23521 different results, offset=8, shape=(128, 64, 32), 7.732967e-02 vs 6.232901e-02. Maximum diff of the whole array: maximum_relative_diff=9.800941e-01, maximum_absolute_diff=1.240948e+06.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestPowOpShape.TestLogicalRightShiftCase4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_pow_op.py", line 69, in test_check_results
+    self.check_outputs_and_grads(equal_nan=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 97 different results, offset=9, shape=(16, 8, 4, 2), 1.275007e+00 vs 8.096762e-01. Maximum diff of the whole array: maximum_relative_diff=8.720066e-01, maximum_absolute_diff=8.534071e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestPowOpShape.TestLogicalRightShiftCase5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_pow_op.py", line 69, in test_check_results
+    self.check_outputs_and_grads(equal_nan=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 95 different results, offset=9, shape=(16, 8, 4, 2, 1), 9.732111e-02 vs 1.754751e-01. Maximum diff of the whole array: maximum_relative_diff=8.030530e-01, maximum_absolute_diff=2.818500e+01.
+
+----------------------------------------------------------------------
+Ran 6 tests in 45.901s
+
+FAILED (failures=5)

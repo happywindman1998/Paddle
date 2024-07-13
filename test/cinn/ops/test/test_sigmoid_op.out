@@ -1,0 +1,174 @@
+W0613 19:44:51.284034 1609298 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 19:44:51.401608 1609347 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 19:44:58.821130 1609298 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 19:44:58.829625 1609398 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 19:45:06.256914 1609298 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:45:06.271560 1609448 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 19:45:14.369751 1609298 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:45:14.402029 1609498 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 19:45:22.454735 1609298 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:45:22.883271 1609548 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 19:45:30.841449 1609298 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:45:30.906136 1609598 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 19:45:38.791100 1609298 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:45:44.205410 1609648 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 19:45:51.655534 1609298 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:50:07.381287 1609698 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 19:50:14.768304 1609298 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 19:50:14.772759 1609748 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+I0613 19:50:22.145426 1609298 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:50:22.154898 1609798 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 19:50:29.632999 1609298 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:50:29.650127 1609848 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+I0613 19:50:37.093706 1609298 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:50:37.117156 1609898 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_11.cc -o ./source/sycl_11.so
+I0613 19:50:44.583703 1609298 sycl_module.cc:36] destructor for SYCLModule
+.
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSigmoidOpShape.TestSigmoidOpShape1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sigmoid_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 4 different results, offset=8, shape=(8, 5), 6.331265e-01 vs 6.007335e-01. Maximum diff of the whole array: maximum_relative_diff=2.305302e-01, maximum_absolute_diff=9.978527e-02.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSigmoidOpShape.TestSigmoidOpShape2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sigmoid_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 24 different results, offset=8, shape=(10, 3, 5), 7.145535e-01 vs 6.095898e-01. Maximum diff of the whole array: maximum_relative_diff=5.128695e-01, maximum_absolute_diff=1.398253e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSigmoidOpShape.TestSigmoidOpShape3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sigmoid_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 20748 different results, offset=8, shape=(80, 40, 5, 7), 3.927278e-01 vs 3.467247e-01. Maximum diff of the whole array: maximum_relative_diff=5.292931e-01, maximum_absolute_diff=1.702859e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSigmoidOpShape.TestSigmoidOpShape4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sigmoid_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 524 different results, offset=8, shape=(80, 1, 5, 7), 2.999368e-01 vs 2.846962e-01. Maximum diff of the whole array: maximum_relative_diff=4.115179e-01, maximum_absolute_diff=1.606677e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSigmoidOpShape.TestSigmoidOpShape5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sigmoid_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 322389 different results, offset=8, shape=(80, 3, 1024, 7), 4.432789e-01 vs 4.401088e-01. Maximum diff of the whole array: maximum_relative_diff=5.363125e-01, maximum_absolute_diff=1.713394e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSigmoidOpShape.TestSigmoidOpShape6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sigmoid_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 19660089 different results, offset=8, shape=(10, 5, 1024, 2048), 6.853219e-01 vs 6.191790e-01. Maximum diff of the whole array: maximum_relative_diff=5.399734e-01, maximum_absolute_diff=1.715296e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSigmoidOpShape.TestSigmoidOpShape8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sigmoid_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 96 different results, offset=8, shape=(512,), 2.705468e-01 vs 2.732598e-01. Maximum diff of the whole array: maximum_relative_diff=4.356583e-01, maximum_absolute_diff=1.316024e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSigmoidOpShape.TestSigmoidOpShape9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sigmoid_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 192 different results, offset=8, shape=(1024,), 6.042852e-01 vs 6.000892e-01. Maximum diff of the whole array: maximum_relative_diff=4.776051e-01, maximum_absolute_diff=1.569467e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSigmoidOpShape.TestSigmoidOpShape10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sigmoid_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 384 different results, offset=8, shape=(2048,), 6.374987e-01 vs 6.752214e-01. Maximum diff of the whole array: maximum_relative_diff=5.104589e-01, maximum_absolute_diff=1.509338e-01.
+
+----------------------------------------------------------------------
+Ran 12 tests in 353.304s
+
+FAILED (failures=9)
+
+Running TestSigmoidOpShape.TestSigmoidOpShape0: {'shape': [10], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape1: {'shape': [8, 5], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape2: {'shape': [10, 3, 5], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape3: {'shape': [80, 40, 5, 7], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape4: {'shape': [80, 1, 5, 7], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape5: {'shape': [80, 3, 1024, 7], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape6: {'shape': [10, 5, 1024, 2048], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape7: {'shape': [1], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape8: {'shape': [512], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape9: {'shape': [1024], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape10: {'shape': [2048], 'dtype': 'float32'}
+
+Running TestSigmoidOpShape.TestSigmoidOpShape11: {'shape': [1, 1, 1, 1], 'dtype': 'float32'}

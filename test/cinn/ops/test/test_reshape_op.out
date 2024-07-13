@@ -1,0 +1,448 @@
+EW0613 19:15:35.652336 1597307 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+EEEEEEEEEEEEEEEEEEEEEEEEE
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape11)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape12)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape13)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape14)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape15)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape16)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape17)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape18)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape19)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape20)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape21)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape22)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape23)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape24)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReshapeOpShape.TestReshapeOpShape25)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reshape_op.py", line 57, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reshape_op.py", line 53, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+----------------------------------------------------------------------
+Ran 26 tests in 0.111s
+
+FAILED (errors=26)
+
+Running TestReshapeOpShape.TestReshapeOpShape0: {'shape': [100], 'target_shape': [100], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape1: {'shape': [100], 'target_shape': [10, 10], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape2: {'shape': [125], 'target_shape': [5, 5, 5], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape3: {'shape': [256], 'target_shape': [4, 4, 4, 4], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape4: {'shape': [1024], 'target_shape': [8, 8, 4, 4], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape5: {'shape': [5, 5], 'target_shape': [25], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape6: {'shape': [6, 8], 'target_shape': [4, 12], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape7: {'shape': [10, 20], 'target_shape': [5, 10, 4], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape8: {'shape': [4, 8], 'target_shape': [2, 2, 2, 4], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape9: {'shape': [16, 16], 'target_shape': [4, 2, 2, 1, 16], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape10: {'shape': [1, 1, 1], 'target_shape': [1], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape11: {'shape': [1, 2, 3], 'target_shape': [6, 1], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape12: {'shape': [4, 8, 16], 'target_shape': [16, 8, 4], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape13: {'shape': [6, 6, 6], 'target_shape': [4, 9, 2, 3], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape14: {'shape': [8, 1, 8], 'target_shape': [2, 2, 2, 2, 4], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape15: {'shape': [4, 1, 2, 1], 'target_shape': [8], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape16: {'shape': [2, 2, 4, 8], 'target_shape': [4, 32], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape17: {'shape': [6, 7, 8, 9], 'target_shape': [42, 36, 2], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape18: {'shape': [1024, 1, 1, 1], 'target_shape': [4, 4, 8, 8], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape19: {'shape': [10, 20, 30, 40], 'target_shape': [8, 6, 4, 2, 625], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape20: {'shape': [1, 1024, 4], 'target_shape': [1, 2048, 2], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape21: {'shape': [2048, 2, 2], 'target_shape': [256, 8, 4], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape22: {'shape': [1, 1, 256], 'target_shape': [16, 1, 16], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape23: {'shape': [1, 1, 1, 1], 'target_shape': [1, 1], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape24: {'shape': [1, 1, 1], 'target_shape': [1], 'dtype': 'float32'}
+
+Running TestReshapeOpShape.TestReshapeOpShape25: {'shape': [1], 'target_shape': [1, 1, 1, 1], 'dtype': 'float32'}

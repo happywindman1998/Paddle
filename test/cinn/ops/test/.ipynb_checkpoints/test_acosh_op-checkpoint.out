@@ -1,0 +1,28 @@
+W0613 14:58:27.447402 1492997 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 14:58:27.570866 1493046 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 14:58:34.972764 1492997 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 14:58:35.410205 1493097 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 14:58:43.544497 1492997 sycl_module.cc:36] destructor for SYCLModule
+.
+======================================================================
+FAIL: test_check_results (op_test_helper.TestAcoshCase1.TestAcoshCase10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_acosh_op.py", line 66, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 24505 different results, offset=8, shape=(512, 256), 5.256402e+00 vs 5.268104e+00. Maximum diff of the whole array: maximum_relative_diff=1.879234e+00, maximum_absolute_diff=2.667566e+00.
+
+----------------------------------------------------------------------
+Ran 2 tests in 16.105s
+
+FAILED (failures=1)
+
+Running TestAcoshCase1.TestAcoshCase10: {'x_shape': [512, 256], 'x_dtype': 'float32'}
+
+Running TestAcoshCase1.TestAcoshCase11: {'x_shape': [512, 256], 'x_dtype': 'float64'}

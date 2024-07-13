@@ -1,0 +1,28 @@
+W0613 15:11:13.378216 1499458 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 15:11:13.505671 1499507 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 15:11:20.915205 1499458 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:11:21.390429 1499558 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 15:11:28.898546 1499458 sycl_module.cc:36] destructor for SYCLModule
+.
+======================================================================
+FAIL: test_check_results (op_test_helper.TestAsinhCase1.TestAsinhCase10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_asinh_op.py", line 63, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 24242 different results, offset=8, shape=(512, 256), 8.514618e-01 vs 8.535469e-01. Maximum diff of the whole array: maximum_relative_diff=8.545663e+01, maximum_absolute_diff=5.779018e-02.
+
+----------------------------------------------------------------------
+Ran 2 tests in 15.530s
+
+FAILED (failures=1)
+
+Running TestAsinhCase1.TestAsinhCase10: {'x_shape': [512, 256], 'x_dtype': 'float32'}
+
+Running TestAsinhCase1.TestAsinhCase11: {'x_shape': [512, 256], 'x_dtype': 'float64'}

@@ -1,0 +1,19 @@
+W0613 20:25:43.829391 1624470 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+F0613 20:25:43.937023 1624519 eliminate_common_factor_of_local_index.cc:178] Check failed: indexes.size() >= 2 (1 vs. 2) We should guarantee indexes.size() >= 2, because local variable _var_0_index_temp_temp_buffer should at least load and store once.
+*** Check failure stack trace: ***
+    @     0x7f1932f7c5cd  google::LogMessage::Fail()
+    @     0x7f1932f7e87d  google::LogMessage::SendToLog()
+    @     0x7f1932f7c0bd  google::LogMessage::Flush()
+    @     0x7f1932f7f379  google::LogMessageFatal::~LogMessageFatal()
+    @     0x7f191cbba832  cinn::optim::EliminateCommonFactorOfLocalIndex()
+    @     0x7f191cbc6814  cinn::optim::OptimizeExprGPU()
+    @     0x7f191cc74f20  cinn::hlir::framework::OpLowererImpl::PostProcess()
+    @     0x7f191cc7b9f0  cinn::hlir::framework::OpLowererImpl::LowerGroup()
+    @     0x7f191cc7c00c  cinn::hlir::framework::OpLowererImpl::Lower()
+    @     0x7f191cc39374  cinn::hlir::framework::ParallelCompiler::Task::Lowering()
+    @     0x7f191cc3b76f  cinn::hlir::framework::ParallelCompiler::RunTask()
+    @     0x7f1989b68df4  (unknown)
+    @     0x7f198d849609  start_thread
+    @     0x7f198d983353  clone
+    @              (nil)  (unknown)
+Aborted (core dumped)

@@ -15,15 +15,15 @@
 # limitations under the License.
 
 from op_test import OpTest, OpTestTool
+from op_test import OpTest, OpTestTool, is_compile_with_device
 from op_test_helper import TestCaseHelper
 
 import paddle
-from paddle.cinn.common import is_compiled_with_cuda
 from paddle.cinn.frontend import NetBuilder
 
 
 @OpTestTool.skip_if(
-    not is_compiled_with_cuda(), "x86 test will be skipped due to timeout."
+    not is_compile_with_device, "x86 test will be skipped due to timeout."
 )
 class TestCeilOp(OpTest):
     def setUp(self):
@@ -136,5 +136,6 @@ class TestCeilOpDtype(TestCaseHelper):
 
 
 if __name__ == "__main__":
+    print("it can run")
     TestCeilOpShape().run()
     TestCeilOpDtype().run()

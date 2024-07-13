@@ -1,0 +1,84 @@
+W0613 19:05:29.609884 1593354 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 19:05:29.744396 1593404 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 19:05:38.296216 1593354 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 19:05:38.304111 1593455 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 19:05:46.399946 1593354 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 19:05:46.422634 1593506 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 19:05:53.910832 1593354 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 19:05:53.953195 1593555 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 19:06:01.289731 1593354 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 19:06:01.311426 1593605 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 19:06:10.016742 1593354 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 19:06:10.033077 1593655 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 19:06:18.028954 1593354 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 19:06:18.037194 1593705 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 19:06:26.088536 1593354 sycl_module.cc:36] destructor for SYCLModule
+
+----------------------------------------------------------------------
+Ran 6 tests in 48.423s
+
+OK
+.Sycl_Compiler
+I0613 19:06:26.096525 1593755 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 19:06:34.187987 1593354 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:06:34.197767 1593805 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+I0613 19:06:41.712055 1593354 sycl_module.cc:36] destructor for SYCLModule
+/workspace/Paddle/test/cinn/ops/op_test.py:192: RuntimeWarning: overflow encountered in divide
+  relative_diff = absolute_diff / np.abs(expect).flatten()
+/workspace/Paddle/test/cinn/ops/op_test.py:192: RuntimeWarning: invalid value encountered in divide
+  relative_diff = absolute_diff / np.abs(expect).flatten()
+FSycl_Compiler
+I0613 19:06:41.728614 1593855 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 19:06:49.800423 1593354 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 19:06:49.815974 1593905 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+I0613 19:06:57.280658 1593354 sycl_module.cc:36] destructor for SYCLModule
+.
+======================================================================
+FAIL: test_check_results (op_test_helper.TestRemainderOpDtype.TestRemainderOpCase1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_remainder_op.py", line 69, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 11 different results, the first different result's offset=56, where expect value is 1 but actual is -1.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestRemainderOpDtype.TestRemainderOpCase2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_remainder_op.py", line 69, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 108 different results, offset=8, shape=(1024,), -2.335938e+00 vs 2.730469e+00. Maximum diff of the whole array: maximum_relative_diff=inf, maximum_absolute_diff=1.363000e+03.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestRemainderOpDtype.TestRemainderOpCase3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_remainder_op.py", line 69, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 107 different results, offset=9, shape=(1024,), -1.654474e+00 vs 6.964965e-01. Maximum diff of the whole array: maximum_relative_diff=2.273060e+04, maximum_absolute_diff=2.159844e+02.
+
+----------------------------------------------------------------------
+Ran 5 tests in 39.249s
+
+FAILED (failures=3)

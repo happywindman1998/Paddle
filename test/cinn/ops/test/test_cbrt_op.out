@@ -1,0 +1,186 @@
+Sycl_Compiler
+I0613 15:44:30.832455 1513018 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 15:44:38.223443 1512970 sycl_module.cc:36] destructor for SYCLModule
+W0613 15:44:38.225610 1512970 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+FSycl_Compiler
+I0613 15:44:38.358980 1513070 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 15:44:45.761518 1512970 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:44:45.773620 1513120 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 15:44:53.150892 1512970 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:44:53.187644 1513170 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 15:45:01.143455 1512970 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:45:01.542992 1513220 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 15:45:08.919142 1512970 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:45:08.984778 1513270 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 15:45:16.359397 1512970 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:45:21.751709 1513320 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 15:45:29.244450 1512970 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:49:27.523551 1513370 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 15:49:34.978238 1512970 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 15:49:34.982617 1513420 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+I0613 15:49:43.129355 1512970 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:49:43.136792 1513470 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 15:49:50.587167 1512970 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:49:50.599853 1513520 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+I0613 15:49:58.045181 1512970 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 15:49:58.066670 1513570 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_11.cc -o ./source/sycl_11.so
+I0613 15:50:05.449576 1512970 sycl_module.cc:36] destructor for SYCLModule
+.
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCbrtOpShape.TestCbrtOpShape0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cbrt_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 2 different results, offset=8, shape=(10,), 4.508263e+00 vs 9.780318e+00. Maximum diff of the whole array: maximum_relative_diff=1.169421e+00, maximum_absolute_diff=5.272056e+00.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCbrtOpShape.TestCbrtOpShape1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cbrt_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 8 different results, offset=8, shape=(8, 5), 3.792907e+00 vs 7.577137e+00. Maximum diff of the whole array: maximum_relative_diff=1.284744e+00, maximum_absolute_diff=5.454529e+00.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCbrtOpShape.TestCbrtOpShape2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cbrt_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 36 different results, offset=8, shape=(10, 3, 5), 4.510434e+00 vs 9.757348e+00. Maximum diff of the whole array: maximum_relative_diff=1.739483e+00, maximum_absolute_diff=7.539916e+00.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCbrtOpShape.TestCbrtOpShape3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cbrt_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 27951 different results, offset=8, shape=(80, 40, 5, 7), -3.519242e+00 vs -6.302176e+00. Maximum diff of the whole array: maximum_relative_diff=3.333701e+01, maximum_absolute_diff=1.392109e+02.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCbrtOpShape.TestCbrtOpShape4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cbrt_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 700 different results, offset=8, shape=(80, 1, 5, 7), -4.392686e+00 vs -1.185256e+01. Maximum diff of the whole array: maximum_relative_diff=6.411118e+00, maximum_absolute_diff=2.722853e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCbrtOpShape.TestCbrtOpShape5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cbrt_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 430040 different results, offset=8, shape=(80, 3, 1024, 7), -2.835041e+00 vs -4.555506e+00. Maximum diff of the whole array: maximum_relative_diff=9.751300e+01, maximum_absolute_diff=4.500131e+02.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCbrtOpShape.TestCbrtOpShape6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cbrt_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 26213104 different results, offset=8, shape=(10, 5, 1024, 2048), 4.269623e+00 vs 9.542110e+00. Maximum diff of the whole array: maximum_relative_diff=2.695152e+02, maximum_absolute_diff=1.187280e+03.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCbrtOpShape.TestCbrtOpShape8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cbrt_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 128 different results, offset=8, shape=(512,), -4.628945e+00 vs -1.286010e+01. Maximum diff of the whole array: maximum_relative_diff=4.752110e+00, maximum_absolute_diff=2.129702e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCbrtOpShape.TestCbrtOpShape9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cbrt_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 256 different results, offset=8, shape=(1024,), 3.485251e+00 vs 6.134455e+00. Maximum diff of the whole array: maximum_relative_diff=4.539006e+00, maximum_absolute_diff=1.917056e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestCbrtOpShape.TestCbrtOpShape10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_cbrt_op.py", line 61, in test_check_results
+    self.check_outputs_and_grads(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 512 different results, offset=8, shape=(2048,), 3.836138e+00 vs 1.302754e+01. Maximum diff of the whole array: maximum_relative_diff=1.029417e+01, maximum_absolute_diff=4.609624e+01.
+
+----------------------------------------------------------------------
+Ran 12 tests in 334.625s
+
+FAILED (failures=10)
+
+Running TestCbrtOpShape.TestCbrtOpShape0: {'shape': [10], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape1: {'shape': [8, 5], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape2: {'shape': [10, 3, 5], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape3: {'shape': [80, 40, 5, 7], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape4: {'shape': [80, 1, 5, 7], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape5: {'shape': [80, 3, 1024, 7], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape6: {'shape': [10, 5, 1024, 2048], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape7: {'shape': [1], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape8: {'shape': [512], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape9: {'shape': [1024], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape10: {'shape': [2048], 'dtype': 'float32'}
+
+Running TestCbrtOpShape.TestCbrtOpShape11: {'shape': [1, 1, 1, 1], 'dtype': 'float32'}

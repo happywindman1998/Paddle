@@ -1,0 +1,110 @@
+W0613 20:01:00.102671 1614103 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 20:01:00.200896 1614152 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 20:01:08.811622 1614103 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:01:08.820860 1614204 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 20:01:16.237816 1614103 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:01:16.247857 1614253 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 20:01:23.733289 1614103 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:01:23.741309 1614303 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 20:01:31.153326 1614103 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:01:31.164615 1614353 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 20:01:39.222294 1614103 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:01:39.228714 1614403 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 20:01:46.753057 1614103 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:01:46.759975 1614453 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 20:01:54.217731 1614103 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:01:54.226604 1614503 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 20:02:01.560236 1614103 sycl_module.cc:36] destructor for SYCLModule
+
+----------------------------------------------------------------------
+Ran 7 tests in 54.119s
+
+OK
+.Sycl_Compiler
+I0613 20:02:01.568657 1614553 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+I0613 20:02:08.976246 1614103 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:02:08.986589 1614603 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 20:02:16.377651 1614103 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:02:16.395834 1614653 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+I0613 20:02:23.849727 1614103 sycl_module.cc:36] destructor for SYCLModule
+.EESycl_Compiler
+I0613 20:02:23.876641 1614703 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_11.cc -o ./source/sycl_11.so
+I0613 20:02:31.249195 1614103 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:02:31.270687 1614753 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_12.cc -o ./source/sycl_12.so
+I0613 20:02:38.792325 1614103 sycl_module.cc:36] destructor for SYCLModule
+.
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSliceOpShapeTest.TestSliceOpShapeTest4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_slice_op.py", line 82, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_slice_op.py", line 76, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSliceOpShapeTest.TestSliceOpShapeTest5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_slice_op.py", line 82, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_slice_op.py", line 76, in build_cinn_program
+    res = self.get_cinn_output(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+----------------------------------------------------------------------
+Ran 8 tests in 44.571s
+
+FAILED (errors=2)
+
+Running TestSliceOpLegacyTestCase.TestSliceOpLegacyTestCase0: {'shape': [10, 12], 'axes': [0, 1], 'starts': [2, 2], 'ends': [5, 5], 'strides': [1, 1], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpLegacyTestCase.TestSliceOpLegacyTestCase1: {'shape': [10, 12], 'axes': [0, 1], 'starts': [1, 2], 'ends': [6, 1000], 'strides': [1, 2], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpLegacyTestCase.TestSliceOpLegacyTestCase2: {'shape': [10, 12], 'axes': [0, 1], 'starts': [2, 1], 'ends': [-1, 7], 'strides': [3, 2], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpLegacyTestCase.TestSliceOpLegacyTestCase3: {'shape': [10, 12], 'axes': [0, 1], 'starts': [2, 1000], 'ends': [8, 1], 'strides': [1, -2], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpLegacyTestCase.TestSliceOpLegacyTestCase4: {'shape': [10, 12], 'axes': [0, 1], 'starts': [-1, -2], 'ends': [-5, -8], 'strides': [-1, -2], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpLegacyTestCase.TestSliceOpLegacyTestCase5: {'shape': [10, 12], 'axes': [0, 1], 'starts': [2, 2], 'ends': [5, 3], 'strides': [1, 1], 'decrease_axis': [1], 'dtype': 'float32'}
+
+Running TestSliceOpLegacyTestCase.TestSliceOpLegacyTestCase6: {'shape': [10, 12], 'axes': [0, 1], 'starts': [2, 2], 'ends': [3, 3], 'strides': [1, 1], 'decrease_axis': [0, 1], 'dtype': 'float32'}
+
+Running TestSliceOpShapeTest.TestSliceOpShapeTest0: {'shape': [64], 'axes': [0], 'starts': [2], 'ends': [5], 'strides': [1], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpShapeTest.TestSliceOpShapeTest1: {'shape': [128, 32], 'axes': [0, 1], 'starts': [24, 10], 'ends': [56, 26], 'strides': [1, 1], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpShapeTest.TestSliceOpShapeTest2: {'shape': [32, 10, 64], 'axes': [0, 1, 2], 'starts': [24, 4, 0], 'ends': [32, 8, 64], 'strides': [1, 1, 4], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpShapeTest.TestSliceOpShapeTest3: {'shape': [10, 12, 9, 5], 'axes': [0, 1, 2], 'starts': [2, 4, 0], 'ends': [5, 9, 7], 'strides': [1, 1, 2], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpShapeTest.TestSliceOpShapeTest4: {'shape': [1], 'axes': [0], 'starts': [0], 'ends': [1], 'strides': [1], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpShapeTest.TestSliceOpShapeTest5: {'shape': [1, 1, 1, 1, 1], 'axes': [0], 'starts': [0], 'ends': [1], 'strides': [1], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpShapeTest.TestSliceOpShapeTest6: {'shape': [1024, 1, 2], 'axes': [0], 'starts': [128], 'ends': [640], 'strides': [1], 'decrease_axis': [], 'dtype': 'float32'}
+
+Running TestSliceOpShapeTest.TestSliceOpShapeTest7: {'shape': [2, 4096, 8], 'axes': [1], 'starts': [1024], 'ends': [3072], 'strides': [1], 'decrease_axis': [], 'dtype': 'float32'}

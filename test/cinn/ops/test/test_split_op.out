@@ -1,0 +1,206 @@
+W0613 20:04:39.097803 1615623 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 20:04:39.207245 1615672 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 20:04:46.503834 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:04:46.529392 1615723 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 20:04:54.085557 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:04:54.222455 1615773 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 20:05:02.220624 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:05:02.244061 1615823 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 20:05:09.655566 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:05:09.676096 1615873 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 20:05:17.088990 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:05:17.119879 1615923 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 20:05:24.482178 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:05:24.511782 1615973 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 20:05:31.920171 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:05:32.043612 1616023 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 20:05:39.640910 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:05:39.722872 1616073 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+I0613 20:05:47.189450 1615623 sycl_module.cc:36] destructor for SYCLModule
+
+----------------------------------------------------------------------
+Ran 8 tests in 60.622s
+
+OK
+.Sycl_Compiler
+I0613 20:05:47.196467 1616123 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 20:05:54.732697 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:05:54.746937 1616173 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+I0613 20:06:02.733670 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:06:02.772581 1616223 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_11.cc -o ./source/sycl_11.so
+I0613 20:06:10.753005 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:06:10.778122 1616273 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_12.cc -o ./source/sycl_12.so
+I0613 20:06:18.735682 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:06:18.810631 1616323 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_13.cc -o ./source/sycl_13.so
+I0613 20:06:26.196324 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:06:27.487493 1616373 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_14.cc -o ./source/sycl_14.so
+I0613 20:06:34.991226 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:06:36.162786 1616423 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_15.cc -o ./source/sycl_15.so
+I0613 20:06:44.207504 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:06:44.212940 1616473 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_16.cc -o ./source/sycl_16.so
+I0613 20:06:51.569756 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:06:51.576572 1616523 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_17.cc -o ./source/sycl_17.so
+I0613 20:06:59.043916 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:06:59.051018 1616573 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_18.cc -o ./source/sycl_18.so
+I0613 20:07:06.507696 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:07:06.517668 1616623 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_19.cc -o ./source/sycl_19.so
+I0613 20:07:13.959530 1615623 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:07:13.973366 1616673 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_20.cc -o ./source/sycl_20.so
+I0613 20:07:22.010912 1615623 sycl_module.cc:36] destructor for SYCLModule
+.
+----------------------------------------------------------------------
+Ran 13 tests in 102.296s
+
+OK
+EEEEE
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSplitOpOnes.TestSplitOpOnes0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_split_op.py", line 63, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_split_op.py", line 59, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], out)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSplitOpOnes.TestSplitOpOnes1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_split_op.py", line 63, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_split_op.py", line 59, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], out)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSplitOpOnes.TestSplitOpOnes2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_split_op.py", line 63, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_split_op.py", line 59, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], out)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSplitOpOnes.TestSplitOpOnes3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_split_op.py", line 63, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_split_op.py", line 59, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], out)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestSplitOpOnes.TestSplitOpOnes4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_split_op.py", line 63, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_split_op.py", line 59, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.inputs["x"]], out)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.009s
+
+FAILED (errors=5)
+
+Running TestSplitOpLegacy.TestSplitOpLegacy0: {'shape': [9, 9, 5], 'num_or_sections': [2, 3, 4], 'axis': 0, 'dtype': 'float32'}
+
+Running TestSplitOpLegacy.TestSplitOpLegacy1: {'shape': [9, 9, 5], 'num_or_sections': [3], 'axis': 0, 'dtype': 'float32'}
+
+Running TestSplitOpLegacy.TestSplitOpLegacy2: {'shape': [9, 9, 5], 'num_or_sections': [3], 'axis': 1, 'dtype': 'float32'}
+
+Running TestSplitOpLegacy.TestSplitOpLegacy3: {'shape': [9, 9, 5], 'num_or_sections': [2, 3, -1], 'axis': 1, 'dtype': 'float32'}
+
+Running TestSplitOpLegacy.TestSplitOpLegacy4: {'shape': [8, 9, 5], 'num_or_sections': [2], 'axis': 0, 'dtype': 'float32'}
+
+Running TestSplitOpLegacy.TestSplitOpLegacy5: {'shape': [8, 9, 5], 'num_or_sections': [-1, 2, 2, 2], 'axis': 0, 'dtype': 'float32'}
+
+Running TestSplitOpLegacy.TestSplitOpLegacy6: {'shape': [2048, 9, 6], 'num_or_sections': [2], 'axis': 2, 'dtype': 'float32'}
+
+Running TestSplitOpLegacy.TestSplitOpLegacy7: {'shape': [10, 128, 4096], 'num_or_sections': [2], 'axis': 2, 'dtype': 'float32'}
+
+Running TestSplitOpShape.TestSplitOpShape0: {'shape': [10], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape1: {'shape': [8, 5], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape2: {'shape': [10, 3, 5], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape3: {'shape': [80, 40, 5, 7], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape4: {'shape': [80, 1, 5, 7], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape5: {'shape': [80, 3, 1024, 7], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape6: {'shape': [10, 5, 1024, 2048], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape7: {'shape': [512], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape8: {'shape': [1024], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape9: {'shape': [2048], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape10: {'shape': [2048], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape11: {'shape': [65536], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpShape.TestSplitOpShape12: {'shape': [131072], 'dtype': 'float32', 'num_or_sections': [2], 'axis': 0}
+
+Running TestSplitOpOnes.TestSplitOpOnes0: {'shape': [1], 'num_or_sections': [1], 'axis': 0, 'dtype': 'float32'}
+
+Running TestSplitOpOnes.TestSplitOpOnes1: {'shape': [1], 'num_or_sections': [1], 'axis': 0, 'dtype': 'float32'}
+
+Running TestSplitOpOnes.TestSplitOpOnes2: {'shape': [1, 1, 1, 1], 'num_or_sections': [1], 'axis': 0, 'dtype': 'float32'}
+
+Running TestSplitOpOnes.TestSplitOpOnes3: {'shape': [1, 1, 1, 1], 'num_or_sections': [1], 'axis': 2, 'dtype': 'float32'}
+
+Running TestSplitOpOnes.TestSplitOpOnes4: {'shape': [1, 1, 1, 1, 1], 'num_or_sections': [1], 'axis': 4, 'dtype': 'float32'}

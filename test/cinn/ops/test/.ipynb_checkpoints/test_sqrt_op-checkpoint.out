@@ -1,0 +1,96 @@
+W0613 20:07:23.937115 1616724 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 20:07:24.052531 1616773 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 20:07:31.417973 1616724 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:07:31.424822 1616824 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 20:07:39.461098 1616724 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:07:39.478390 1616874 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 20:07:47.511472 1616724 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:07:47.539270 1616924 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 20:07:54.952700 1616724 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:07:54.982991 1616974 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 20:08:03.002233 1616724 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:08:03.027668 1617024 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 20:08:11.549273 1616724 sycl_module.cc:36] destructor for SYCLModule
+F
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSqrtOpShape.TestUnaryOpCase1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sqrt_op.py", line 58, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 192 different results, offset=8, shape=(1024,), 9.359128e+01 vs 9.960328e+01. Maximum diff of the whole array: maximum_relative_diff=7.492479e+00, maximum_absolute_diff=8.103719e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSqrtOpShape.TestUnaryOpCase2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sqrt_op.py", line 58, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 384 different results, offset=8, shape=(1, 2048), 8.088476e+01 vs 8.087513e+01. Maximum diff of the whole array: maximum_relative_diff=1.239395e+02, maximum_absolute_diff=8.229175e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSqrtOpShape.TestUnaryOpCase3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sqrt_op.py", line 58, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 384 different results, offset=8, shape=(32, 64), 5.895316e+01 vs 7.660458e+01. Maximum diff of the whole array: maximum_relative_diff=1.019169e+01, maximum_absolute_diff=9.073495e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSqrtOpShape.TestUnaryOpCase4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sqrt_op.py", line 58, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 192 different results, offset=8, shape=(16, 8, 4, 2), 5.154621e+01 vs 7.917449e+01. Maximum diff of the whole array: maximum_relative_diff=1.148294e+01, maximum_absolute_diff=8.874002e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSqrtOpShape.TestUnaryOpCase5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_sqrt_op.py", line 58, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 192 different results, offset=8, shape=(16, 8, 4, 2, 1), 9.597916e+01 vs 2.559529e+01. Maximum diff of the whole array: maximum_relative_diff=3.392656e+01, maximum_absolute_diff=7.904115e+01.
+
+----------------------------------------------------------------------
+Ran 6 tests in 47.624s
+
+FAILED (failures=5)
+
+Running TestSqrtOpShape.TestUnaryOpCase0: {'x_shape': [1], 'x_dtype': 'float32'}
+
+Running TestSqrtOpShape.TestUnaryOpCase1: {'x_shape': [1024], 'x_dtype': 'float32'}
+
+Running TestSqrtOpShape.TestUnaryOpCase2: {'x_shape': [1, 2048], 'x_dtype': 'float32'}
+
+Running TestSqrtOpShape.TestUnaryOpCase3: {'x_shape': [32, 64], 'x_dtype': 'float32'}
+
+Running TestSqrtOpShape.TestUnaryOpCase4: {'x_shape': [16, 8, 4, 2], 'x_dtype': 'float32'}
+
+Running TestSqrtOpShape.TestUnaryOpCase5: {'x_shape': [16, 8, 4, 2, 1], 'x_dtype': 'float32'}

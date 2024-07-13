@@ -1,0 +1,221 @@
+Sycl_Compiler
+I0613 16:37:56.961380 1532894 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 16:38:04.274344 1532846 sycl_module.cc:36] destructor for SYCLModule
+W0613 16:38:04.276329 1532846 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+.Sycl_Compiler
+I0613 16:38:04.384742 1532946 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 16:38:11.672696 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:38:11.677362 1532997 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 16:38:18.972416 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:38:18.988806 1533046 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 16:38:26.411250 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:38:26.523589 1533096 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 16:38:34.374135 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:38:34.444519 1533146 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 16:38:41.817322 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:38:41.823470 1533196 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 16:38:49.176393 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:38:49.344308 1533246 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 16:38:57.866518 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:38:58.362030 1533296 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+I0613 16:39:09.890640 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:39:09.897753 1533346 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 16:39:17.222486 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:39:17.240101 1533396 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+I0613 16:39:24.542972 1532846 sycl_module.cc:36] destructor for SYCLModule
+
+----------------------------------------------------------------------
+Ran 10 tests in 80.269s
+
+OK
+.Sycl_Compiler
+I0613 16:39:24.548281 1533446 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_11.cc -o ./source/sycl_11.so
+I0613 16:39:31.899715 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:39:31.903800 1533496 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_12.cc -o ./source/sycl_12.so
+I0613 16:39:39.216748 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:39:39.220733 1533546 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_13.cc -o ./source/sycl_13.so
+I0613 16:39:46.473697 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:39:46.480008 1533596 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_14.cc -o ./source/sycl_14.so
+I0613 16:39:53.777132 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:39:53.781323 1533646 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_15.cc -o ./source/sycl_15.so
+I0613 16:40:01.084275 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:40:01.088970 1533696 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_16.cc -o ./source/sycl_16.so
+I0613 16:40:08.977147 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:40:08.983137 1533746 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_17.cc -o ./source/sycl_17.so
+I0613 16:40:16.304261 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:40:16.309561 1533796 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_18.cc -o ./source/sycl_18.so
+I0613 16:40:24.205875 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:40:24.212725 1533846 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_19.cc -o ./source/sycl_19.so
+I0613 16:40:32.098891 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:40:32.103823 1533896 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_20.cc -o ./source/sycl_20.so
+I0613 16:40:39.373580 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:40:39.378738 1533946 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_21.cc -o ./source/sycl_21.so
+I0613 16:40:46.654847 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:40:46.661253 1533996 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_22.cc -o ./source/sycl_22.so
+I0613 16:40:53.949908 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:40:53.956048 1534046 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_23.cc -o ./source/sycl_23.so
+I0613 16:41:01.872574 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:41:01.877712 1534096 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_24.cc -o ./source/sycl_24.so
+I0613 16:41:09.119910 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:41:09.125721 1534146 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_25.cc -o ./source/sycl_25.so
+I0613 16:41:16.323140 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:41:16.333900 1534196 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_26.cc -o ./source/sycl_26.so
+I0613 16:41:24.238811 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:41:24.254287 1534246 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_27.cc -o ./source/sycl_27.so
+I0613 16:41:31.619697 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:41:31.634531 1534296 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_28.cc -o ./source/sycl_28.so
+I0613 16:41:38.905198 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:41:38.916806 1534346 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_29.cc -o ./source/sycl_29.so
+I0613 16:41:46.206781 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:41:46.219367 1534396 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_30.cc -o ./source/sycl_30.so
+I0613 16:41:54.145680 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:41:54.156625 1534446 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_31.cc -o ./source/sycl_31.so
+I0613 16:42:01.427057 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:42:01.442327 1534496 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_32.cc -o ./source/sycl_32.so
+I0613 16:42:09.375427 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:42:09.390651 1534546 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_33.cc -o ./source/sycl_33.so
+I0613 16:42:17.325707 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:42:17.437373 1534596 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_34.cc -o ./source/sycl_34.so
+I0613 16:42:25.145561 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:42:25.289268 1534646 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_35.cc -o ./source/sycl_35.so
+I0613 16:42:33.500288 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:42:33.648512 1534696 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_36.cc -o ./source/sycl_36.so
+I0613 16:42:41.913713 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:42:42.026738 1534746 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_37.cc -o ./source/sycl_37.so
+I0613 16:42:49.618050 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:42:49.730634 1534796 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_38.cc -o ./source/sycl_38.so
+I0613 16:42:57.089314 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:42:57.202172 1534846 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_39.cc -o ./source/sycl_39.so
+I0613 16:43:04.581670 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:43:04.727070 1534896 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_40.cc -o ./source/sycl_40.so
+I0613 16:43:13.288705 1532846 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 16:43:13.434477 1534946 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_41.cc -o ./source/sycl_41.so
+I0613 16:43:21.445639 1532846 sycl_module.cc:36] destructor for SYCLModule
+.
+----------------------------------------------------------------------
+Ran 32 tests in 244.212s
+
+OK
+
+Running TestConstantOpShape.TestConstantOpShape0: {'constant_value': 10, 'dtype': 'float32'}
+
+Running TestConstantOpShape.TestConstantOpShape1: {'constant_value': -5, 'dtype': 'float32'}
+
+Running TestConstantOpShape.TestConstantOpShape2: {'shape': [10], 'dtype': 'float32'}
+
+Running TestConstantOpShape.TestConstantOpShape3: {'shape': [8, 5], 'dtype': 'float32'}
+
+Running TestConstantOpShape.TestConstantOpShape4: {'shape': [10, 3, 5], 'dtype': 'float32'}
+
+Running TestConstantOpShape.TestConstantOpShape5: {'shape': [1, 2, 4, 8], 'dtype': 'float32'}
+
+Running TestConstantOpShape.TestConstantOpShape6: {'shape': [1], 'dtype': 'float32'}
+
+Running TestConstantOpShape.TestConstantOpShape7: {'shape': [512], 'dtype': 'float32'}
+
+Running TestConstantOpShape.TestConstantOpShape8: {'shape': [1024], 'dtype': 'float32'}
+
+Running TestConstantOpShape.TestConstantOpShape9: {'shape': [1, 1, 1, 1], 'dtype': 'float32'}
+
+Running TestConstantOpDtype.TestConstantOpDtype0: {'constant_value': 1, 'dtype': 'float16'}
+
+Running TestConstantOpDtype.TestConstantOpDtype1: {'constant_value': 1, 'dtype': 'float32'}
+
+Running TestConstantOpDtype.TestConstantOpDtype2: {'constant_value': 1, 'dtype': 'float64'}
+
+Running TestConstantOpDtype.TestConstantOpDtype3: {'constant_value': 1, 'dtype': 'bool'}
+
+Running TestConstantOpDtype.TestConstantOpDtype4: {'constant_value': 1, 'dtype': 'uint8'}
+
+Running TestConstantOpDtype.TestConstantOpDtype5: {'constant_value': 1, 'dtype': 'int8'}
+
+Running TestConstantOpDtype.TestConstantOpDtype6: {'constant_value': 1, 'dtype': 'int32'}
+
+Running TestConstantOpDtype.TestConstantOpDtype7: {'constant_value': 1, 'dtype': 'int64'}
+
+Running TestConstantOpDtype.TestConstantOpDtype8: {'shape': [10], 'dtype': 'float16'}
+
+Running TestConstantOpDtype.TestConstantOpDtype9: {'shape': [10], 'dtype': 'float32'}
+
+Running TestConstantOpDtype.TestConstantOpDtype10: {'shape': [10], 'dtype': 'float64'}
+
+Running TestConstantOpDtype.TestConstantOpDtype11: {'shape': [10], 'dtype': 'bool'}
+
+Running TestConstantOpDtype.TestConstantOpDtype12: {'shape': [10], 'dtype': 'uint8'}
+
+Running TestConstantOpDtype.TestConstantOpDtype13: {'shape': [10], 'dtype': 'int8'}
+
+Running TestConstantOpDtype.TestConstantOpDtype14: {'shape': [10], 'dtype': 'int32'}
+
+Running TestConstantOpDtype.TestConstantOpDtype15: {'shape': [10], 'dtype': 'int64'}
+
+Running TestConstantOpDtype.TestConstantOpDtype16: {'shape': [8, 5], 'dtype': 'float16'}
+
+Running TestConstantOpDtype.TestConstantOpDtype17: {'shape': [8, 5], 'dtype': 'float32'}
+
+Running TestConstantOpDtype.TestConstantOpDtype18: {'shape': [8, 5], 'dtype': 'float64'}
+
+Running TestConstantOpDtype.TestConstantOpDtype19: {'shape': [8, 5], 'dtype': 'bool'}
+
+Running TestConstantOpDtype.TestConstantOpDtype20: {'shape': [8, 5], 'dtype': 'uint8'}
+
+Running TestConstantOpDtype.TestConstantOpDtype21: {'shape': [8, 5], 'dtype': 'int8'}
+
+Running TestConstantOpDtype.TestConstantOpDtype22: {'shape': [8, 5], 'dtype': 'int32'}
+
+Running TestConstantOpDtype.TestConstantOpDtype23: {'shape': [8, 5], 'dtype': 'int64'}
+
+Running TestConstantOpDtype.TestConstantOpDtype24: {'shape': [10, 3, 5], 'dtype': 'float16'}
+
+Running TestConstantOpDtype.TestConstantOpDtype25: {'shape': [10, 3, 5], 'dtype': 'float32'}
+
+Running TestConstantOpDtype.TestConstantOpDtype26: {'shape': [10, 3, 5], 'dtype': 'float64'}
+
+Running TestConstantOpDtype.TestConstantOpDtype27: {'shape': [10, 3, 5], 'dtype': 'bool'}
+
+Running TestConstantOpDtype.TestConstantOpDtype28: {'shape': [10, 3, 5], 'dtype': 'uint8'}
+
+Running TestConstantOpDtype.TestConstantOpDtype29: {'shape': [10, 3, 5], 'dtype': 'int8'}
+
+Running TestConstantOpDtype.TestConstantOpDtype30: {'shape': [10, 3, 5], 'dtype': 'int32'}
+
+Running TestConstantOpDtype.TestConstantOpDtype31: {'shape': [10, 3, 5], 'dtype': 'int64'}

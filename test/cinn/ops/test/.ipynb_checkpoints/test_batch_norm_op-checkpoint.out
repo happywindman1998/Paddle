@@ -1,0 +1,25 @@
+W0613 15:13:54.524196 1500662 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+
+
+--------------------------------------
+C++ Traceback (most recent call last):
+--------------------------------------
+0   cinn::frontend::Optimize(cinn::frontend::Program*, std::unordered_set<std::string, std::hash<std::string >, std::equal_to<std::string >, std::allocator<std::string > > const&, cinn::common::Target, std::vector<std::string, std::allocator<std::string > > const&)
+1   cinn::frontend::Optimize(cinn::frontend::Program*, std::unordered_set<std::string, std::hash<std::string >, std::equal_to<std::string >, std::allocator<std::string > > const&, cinn::common::Target, cinn::frontend::OptimizeOptions const&)
+2   cinn::hlir::framework::ApplyPasses(cinn::hlir::framework::Graph*, std::vector<std::string, std::allocator<std::string > > const&)
+3   cinn::hlir::pass::OpFusionPassInternal(cinn::hlir::framework::Graph*)
+4   cinn::hlir::pass::OpFusionPassHelper::operator()(bool)
+5   cinn::hlir::pass::OpFusionPassHelper::DoOpFusion()
+6   cinn::hlir::pass::OpFusionPassHelper::CanFuse(cinn::hlir::framework::Node const*, cinn::hlir::framework::Node const*)
+7   cinn::hlir::pass::horizontal_or_vertical_reduce_relation(cinn::hlir::pass::FusionHelperBase const*, cinn::hlir::framework::Node const*, std::shared_ptr<cinn::hlir::framework::Graph::Group> const&)
+8   cinn::common::Target::max_num_threads() const
+9   cinn::runtime::Sycl::SYCLBackendAPI::get_device_property(cinn::runtime::BackendAPI::DeviceProperty, std::optional<int>)
+
+----------------------
+Error Message Summary:
+----------------------
+FatalError: `Segmentation fault` is detected by the operating system.
+  [TimeInfo: *** Aborted at 1718262840 (unix time) try "date -d @1718262840" if you are using GNU date ***]
+  [SignalInfo: *** SIGSEGV (@0x18) received by PID 1500662 (TID 0x7f2d9fe3d740) from PID 24 ***]
+
+Segmentation fault (core dumped)

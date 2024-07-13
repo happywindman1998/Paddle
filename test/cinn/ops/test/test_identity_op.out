@@ -1,0 +1,125 @@
+W0613 17:30:22.801373 1554459 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+EEEEEEE
+======================================================================
+ERROR: test_check_results (op_test_helper.TestIdentityOpShape.TestIdentityOpShape0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_identity_op.py", line 60, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_identity_op.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestIdentityOpShape.TestIdentityOpShape1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_identity_op.py", line 60, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_identity_op.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestIdentityOpShape.TestIdentityOpShape2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_identity_op.py", line 60, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_identity_op.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestIdentityOpShape.TestIdentityOpShape3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_identity_op.py", line 60, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_identity_op.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestIdentityOpShape.TestIdentityOpShape4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_identity_op.py", line 60, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_identity_op.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestIdentityOpShape.TestIdentityOpShape5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_identity_op.py", line 60, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_identity_op.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestIdentityOpShape.TestIdentityOpShape6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_identity_op.py", line 60, in test_check_results
+    self.check_outputs_and_grads(all_equal=True)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_identity_op.py", line 55, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.103s
+
+FAILED (errors=7)
+
+Running TestIdentityOpShape.TestIdentityOpShape0: {'x_shape': [1], 'x_dtype': 'float32'}
+
+Running TestIdentityOpShape.TestIdentityOpShape1: {'x_shape': [1024], 'x_dtype': 'float32'}
+
+Running TestIdentityOpShape.TestIdentityOpShape2: {'x_shape': [1, 2048], 'x_dtype': 'float32'}
+
+Running TestIdentityOpShape.TestIdentityOpShape3: {'x_shape': [1, 1, 1], 'x_dtype': 'float32'}
+
+Running TestIdentityOpShape.TestIdentityOpShape4: {'x_shape': [32, 64], 'x_dtype': 'float32'}
+
+Running TestIdentityOpShape.TestIdentityOpShape5: {'x_shape': [16, 8, 4, 2], 'x_dtype': 'float32'}
+
+Running TestIdentityOpShape.TestIdentityOpShape6: {'x_shape': [16, 8, 4, 2, 1], 'x_dtype': 'float32'}

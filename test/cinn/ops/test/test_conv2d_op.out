@@ -1,0 +1,4 @@
+  File "test_conv2d_op.py", line 37
+    )from op_test import OpTest, OpTestTool, is_compile_with_device
+     ^
+SyntaxError: invalid syntax

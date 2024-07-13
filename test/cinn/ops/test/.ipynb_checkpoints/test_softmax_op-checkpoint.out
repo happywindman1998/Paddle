@@ -1,0 +1,168 @@
+W0613 20:02:40.703786 1614804 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+Sycl_Compiler
+I0613 20:02:46.371073 1614856 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 20:02:54.003862 1614804 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:02:54.017706 1614907 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 20:03:01.609714 1614804 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:03:01.622942 1614957 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 20:03:09.285558 1614804 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:03:09.306068 1615007 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 20:03:17.176445 1614804 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:03:17.196785 1615057 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 20:03:24.831562 1614804 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:03:25.157347 1615108 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 20:03:32.852713 1614804 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:03:32.937491 1615157 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 20:03:40.461685 1614804 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:03:41.002724 1615207 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 20:03:48.586241 1614804 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:03:48.736106 1615258 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+I0613 20:03:56.279050 1614804 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:03:56.317137 1615307 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 20:04:04.027746 1614804 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:04:04.075569 1615357 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+I0613 20:04:11.704223 1614804 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:04:11.759769 1615407 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_11.cc -o ./source/sycl_11.so
+I0613 20:04:19.340332 1614804 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 20:04:19.355751 1615457 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_12.cc -o ./source/sycl_12.so
+I0613 20:04:26.905254 1614804 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 20:04:26.919158 1615507 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_13.cc -o ./source/sycl_13.so
+I0613 20:04:34.497962 1614804 sycl_module.cc:36] destructor for SYCLModule
+.
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSoftmaxAll.TestSoftmaxCase2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_softmax_op.py", line 49, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 1024 different results, offset=0, shape=(1024,), 8.721671e-04 vs 1.699295e-03. Maximum diff of the whole array: maximum_relative_diff=2.633034e+00, maximum_absolute_diff=2.159850e-03.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSoftmaxAll.TestSoftmaxCase3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_softmax_op.py", line 49, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 1024 different results, offset=0, shape=(1024,), 9.774223e-04 vs 1.930261e-03. Maximum diff of the whole array: maximum_relative_diff=9.748481e-01, maximum_absolute_diff=1.522916e-03.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSoftmaxAll.TestSoftmaxCase4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_softmax_op.py", line 49, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 130816 different results, offset=0, shape=(512, 256), 1.985786e-03 vs 1.000000e+00. Maximum diff of the whole array: maximum_relative_diff=8.762933e+02, maximum_absolute_diff=9.988601e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSoftmaxAll.TestSoftmaxCase5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_softmax_op.py", line 49, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 130816 different results, offset=0, shape=(512, 256), 2.725476e-03 vs 1.000000e+00. Maximum diff of the whole array: maximum_relative_diff=8.818256e+02, maximum_absolute_diff=9.988673e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSoftmaxAll.TestSoftmaxCase6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_softmax_op.py", line 49, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 258048 different results, offset=0, shape=(128, 64, 32), 1.471663e-02 vs 1.000000e+00. Maximum diff of the whole array: maximum_relative_diff=1.155494e+02, maximum_absolute_diff=9.914200e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSoftmaxAll.TestSoftmaxCase7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_softmax_op.py", line 49, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 258048 different results, offset=0, shape=(128, 64, 32), 2.104095e-02 vs 1.000000e+00. Maximum diff of the whole array: maximum_relative_diff=1.162479e+02, maximum_absolute_diff=9.914711e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSoftmaxAll.TestSoftmaxCase8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_softmax_op.py", line 49, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 768 different results, offset=0, shape=(16, 8, 4, 2), 2.338792e-01 vs 1.000000e+00. Maximum diff of the whole array: maximum_relative_diff=6.815453e+00, maximum_absolute_diff=8.720484e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSoftmaxAll.TestSoftmaxCase9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_softmax_op.py", line 49, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 768 different results, offset=0, shape=(16, 8, 4, 2), 3.627311e-01 vs 1.000000e+00. Maximum diff of the whole array: maximum_relative_diff=6.383920e+00, maximum_absolute_diff=8.645706e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSoftmaxAll.TestSoftmaxCase10)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_softmax_op.py", line 49, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 768 different results, offset=0, shape=(16, 8, 4, 2, 1), 1.622659e-01 vs 1.000000e+00. Maximum diff of the whole array: maximum_relative_diff=6.380691e+00, maximum_absolute_diff=8.645113e-01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestSoftmaxAll.TestSoftmaxCase11)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_softmax_op.py", line 49, in test_check_results
+    self.check_outputs_and_grads()
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 768 different results, offset=0, shape=(16, 8, 4, 2, 1), 1.795877e-01 vs 1.000000e+00. Maximum diff of the whole array: maximum_relative_diff=6.387320e+00, maximum_absolute_diff=8.646329e-01.
+
+----------------------------------------------------------------------
+Ran 14 tests in 113.799s
+
+FAILED (failures=10)

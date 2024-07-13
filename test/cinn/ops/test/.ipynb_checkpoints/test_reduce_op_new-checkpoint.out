@@ -1,0 +1,610 @@
+W0613 18:52:37.378193 1588200 gpu_resources.cc:119] Please NOTE: device: 0, GPU Compute Capability: 90.0, Driver API Version: 50400.0, Runtime API Version: 50400.0
+EEEEEEEESycl_Compiler
+I0613 18:52:37.485350 1588249 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_0.cc -o ./source/sycl_0.so
+I0613 18:52:45.582767 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:52:45.590720 1588300 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_1.cc -o ./source/sycl_1.so
+I0613 18:52:53.126354 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:52:53.189138 1588350 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_2.cc -o ./source/sycl_2.so
+I0613 18:53:00.709831 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:53:00.716598 1588400 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_3.cc -o ./source/sycl_3.so
+I0613 18:53:09.426805 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:53:09.433025 1588450 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_4.cc -o ./source/sycl_4.so
+I0613 18:53:17.000926 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:53:17.009635 1588500 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_5.cc -o ./source/sycl_5.so
+I0613 18:53:24.485706 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:53:24.494021 1588550 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_6.cc -o ./source/sycl_6.so
+I0613 18:53:32.665288 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:53:32.671536 1588600 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_7.cc -o ./source/sycl_7.so
+I0613 18:53:40.828424 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:53:40.839416 1588650 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_8.cc -o ./source/sycl_8.so
+I0613 18:53:48.377285 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:53:48.392467 1588700 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_9.cc -o ./source/sycl_9.so
+I0613 18:53:55.952471 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:53:55.965442 1588750 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_10.cc -o ./source/sycl_10.so
+I0613 18:54:03.488835 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:54:03.498229 1588800 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_11.cc -o ./source/sycl_11.so
+I0613 18:54:11.064589 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:54:11.078047 1588850 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_12.cc -o ./source/sycl_12.so
+I0613 18:54:18.620168 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:54:18.634999 1588900 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_13.cc -o ./source/sycl_13.so
+I0613 18:54:26.193864 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:54:26.207491 1588950 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_14.cc -o ./source/sycl_14.so
+I0613 18:54:33.684089 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:54:33.701651 1589000 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_15.cc -o ./source/sycl_15.so
+I0613 18:54:41.221526 1588200 sycl_module.cc:36] destructor for SYCLModule
+FSycl_Compiler
+I0613 18:54:41.245586 1589050 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_16.cc -o ./source/sycl_16.so
+I0613 18:54:48.747280 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:54:48.762367 1589100 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_17.cc -o ./source/sycl_17.so
+I0613 18:54:56.852455 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:54:56.867890 1589150 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_18.cc -o ./source/sycl_18.so
+I0613 18:55:04.385843 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:55:04.400923 1589200 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_19.cc -o ./source/sycl_19.so
+I0613 18:55:11.918619 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:55:11.934751 1589250 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_20.cc -o ./source/sycl_20.so
+I0613 18:55:19.448024 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:55:19.463069 1589300 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_21.cc -o ./source/sycl_21.so
+I0613 18:55:27.543509 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:55:27.562148 1589350 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_22.cc -o ./source/sycl_22.so
+I0613 18:55:35.090107 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:55:35.105193 1589401 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_23.cc -o ./source/sycl_23.so
+I0613 18:55:42.678929 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:55:42.694922 1589450 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_24.cc -o ./source/sycl_24.so
+I0613 18:55:50.235350 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:55:50.246893 1589500 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_25.cc -o ./source/sycl_25.so
+I0613 18:55:57.619304 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:55:57.637694 1589550 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_26.cc -o ./source/sycl_26.so
+I0613 18:56:05.779080 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:56:05.794486 1589600 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_27.cc -o ./source/sycl_27.so
+I0613 18:56:13.296666 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:56:13.312337 1589650 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_28.cc -o ./source/sycl_28.so
+I0613 18:56:21.435200 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:56:21.450345 1589700 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_29.cc -o ./source/sycl_29.so
+I0613 18:56:28.993434 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:56:29.010142 1589750 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_30.cc -o ./source/sycl_30.so
+I0613 18:56:36.569327 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:56:36.580902 1589800 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_31.cc -o ./source/sycl_31.so
+I0613 18:56:44.014315 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:56:44.027318 1589850 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_32.cc -o ./source/sycl_32.so
+I0613 18:56:51.497076 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:56:51.514585 1589900 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_33.cc -o ./source/sycl_33.so
+I0613 18:57:00.223830 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:57:00.236681 1589951 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_34.cc -o ./source/sycl_34.so
+I0613 18:57:08.230222 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:57:08.246644 1590000 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_35.cc -o ./source/sycl_35.so
+I0613 18:57:16.952385 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:57:16.981657 1590050 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_36.cc -o ./source/sycl_36.so
+I0613 18:57:25.600494 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:57:25.612906 1590100 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_37.cc -o ./source/sycl_37.so
+I0613 18:57:33.086182 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:57:33.103271 1590150 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_38.cc -o ./source/sycl_38.so
+I0613 18:57:41.245558 1588200 sycl_module.cc:36] destructor for SYCLModule
+.Sycl_Compiler
+I0613 18:57:41.257967 1590200 compiler_sycl.cc:78] compile command: /opt/DPC++/bin/clang++ -I /workspace/Paddle/build/python/paddle/libs -fsycl -fsycl-targets=amdgcn-amd-amdhsa -Xsycl-target-backend --offload-arch=gfx906 -std=c++17 -O3 -fPIC -shared -ldl -fbracket-depth=1030 ./source/sycl_39.cc -o ./source/sycl_39.so
+I0613 18:57:49.257802 1588200 sycl_module.cc:36] destructor for SYCLModule
+.EEEEEEEE
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase48)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase49)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase50)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase51)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase52)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase53)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase54)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+ERROR: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase55)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 156, in check_outputs_and_grads
+    self.build_cinn_program(self.target)
+  File "test_reduce_op_new.py", line 89, in build_cinn_program
+    res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 124, in get_cinn_output
+    result = prog.build_and_get_output(
+SystemError: (Fatal) sycl not support custom call memset! (at /workspace/Paddle/paddle/cinn/hlir/pass/single_group_optimize_pass.cc:147)
+
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase8)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 1 different results, offset=0, shape=(1,), 5.197892e+02 vs 2.676652e+02. Maximum diff of the whole array: maximum_relative_diff=4.850506e-01, maximum_absolute_diff=2.521241e+02.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase9)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 1 different results, offset=0, shape=(), 4.967400e+02 vs 2.591867e+02. Maximum diff of the whole array: maximum_relative_diff=4.782246e-01, maximum_absolute_diff=2.375533e+02.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase12)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 1 different results, offset=0, shape=(1,), 9.992509e-01 vs 9.915378e-01. Maximum diff of the whole array: maximum_relative_diff=7.718862e-03, maximum_absolute_diff=7.713079e-03.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase13)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 1 different results, offset=0, shape=(), 9.998868e-01 vs 9.968268e-01. Maximum diff of the whole array: maximum_relative_diff=3.060270e-03, maximum_absolute_diff=3.059924e-03.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase15)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 1 different results, offset=0, shape=(), 4.614649e-04 vs 6.834046e-04. Maximum diff of the whole array: maximum_relative_diff=4.809461e-01, maximum_absolute_diff=2.219397e-04.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase16)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 512 different results, offset=0, shape=(512, 1), 1.198773e+02 vs 5.352482e+01. Maximum diff of the whole array: maximum_relative_diff=5.561710e-01, maximum_absolute_diff=7.367679e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase17)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 512 different results, offset=0, shape=(512,), 1.219110e+02 vs 5.890661e+01. Maximum diff of the whole array: maximum_relative_diff=5.612645e-01, maximum_absolute_diff=7.222657e+01.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase20)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 270 different results, offset=2, shape=(512, 1), 9.988006e-01 vs 9.945064e-01. Maximum diff of the whole array: maximum_relative_diff=4.811999e-02, maximum_absolute_diff=4.808861e-02.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase21)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 258 different results, offset=0, shape=(512,), 9.982917e-01 vs 9.963623e-01. Maximum diff of the whole array: maximum_relative_diff=3.883679e-02, maximum_absolute_diff=3.876603e-02.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase22)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 268 different results, offset=0, shape=(512, 1), 2.932914e-03 vs 3.897144e-03. Maximum diff of the whole array: maximum_relative_diff=2.385634e+02, maximum_absolute_diff=4.344524e-02.
+
+======================================================================
+FAIL: test_check_results (op_test_helper.TestReduceAll.TestReduceOpCase23)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_reduce_op_new.py", line 98, in test_check_results
+    self.check_outputs_and_grads(max_relative_error=max_relative_error)
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 158, in check_outputs_and_grads
+    self.check_results(
+  File "/workspace/Paddle/test/cinn/ops/op_test.py", line 313, in check_results
+    self.assertTrue(is_allclose, msg=error_message)
+AssertionError: False is not true : [Check Outputs] [CPU] The 0-th output: total 285 different results, offset=0, shape=(512,), 8.045313e-03 vs 8.508793e-03. Maximum diff of the whole array: maximum_relative_diff=1.752985e+03, maximum_absolute_diff=3.769482e-02.
+
+----------------------------------------------------------------------
+Ran 56 tests in 311.897s
+
+FAILED (failures=11, errors=16)
+
+Running TestReduceAll.TestReduceOpCase0: {'shape': [1], 'axis': [-1], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase1: {'shape': [1], 'axis': [-1], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase2: {'shape': [1], 'axis': [-1], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase3: {'shape': [1], 'axis': [-1], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase4: {'shape': [1], 'axis': [-1], 'dtype': 'float32', 'op_type': 'max', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase5: {'shape': [1], 'axis': [-1], 'dtype': 'float32', 'op_type': 'max', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase6: {'shape': [1], 'axis': [-1], 'dtype': 'float32', 'op_type': 'min', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase7: {'shape': [1], 'axis': [-1], 'dtype': 'float32', 'op_type': 'min', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase8: {'shape': [1024], 'axis': [0], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase9: {'shape': [1024], 'axis': [0], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase10: {'shape': [1024], 'axis': [0], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase11: {'shape': [1024], 'axis': [0], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase12: {'shape': [1024], 'axis': [0], 'dtype': 'float32', 'op_type': 'max', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase13: {'shape': [1024], 'axis': [0], 'dtype': 'float32', 'op_type': 'max', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase14: {'shape': [1024], 'axis': [0], 'dtype': 'float32', 'op_type': 'min', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase15: {'shape': [1024], 'axis': [0], 'dtype': 'float32', 'op_type': 'min', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase16: {'shape': [512, 256], 'axis': [1], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase17: {'shape': [512, 256], 'axis': [1], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase18: {'shape': [512, 256], 'axis': [1], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase19: {'shape': [512, 256], 'axis': [1], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase20: {'shape': [512, 256], 'axis': [1], 'dtype': 'float32', 'op_type': 'max', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase21: {'shape': [512, 256], 'axis': [1], 'dtype': 'float32', 'op_type': 'max', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase22: {'shape': [512, 256], 'axis': [1], 'dtype': 'float32', 'op_type': 'min', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase23: {'shape': [512, 256], 'axis': [1], 'dtype': 'float32', 'op_type': 'min', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase24: {'shape': [128, 64, 32], 'axis': [2], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase25: {'shape': [128, 64, 32], 'axis': [2], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase26: {'shape': [128, 64, 32], 'axis': [2], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase27: {'shape': [128, 64, 32], 'axis': [2], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase28: {'shape': [128, 64, 32], 'axis': [2], 'dtype': 'float32', 'op_type': 'max', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase29: {'shape': [128, 64, 32], 'axis': [2], 'dtype': 'float32', 'op_type': 'max', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase30: {'shape': [128, 64, 32], 'axis': [2], 'dtype': 'float32', 'op_type': 'min', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase31: {'shape': [128, 64, 32], 'axis': [2], 'dtype': 'float32', 'op_type': 'min', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase32: {'shape': [16, 8, 4, 2], 'axis': [3], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase33: {'shape': [16, 8, 4, 2], 'axis': [3], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase34: {'shape': [16, 8, 4, 2], 'axis': [3], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase35: {'shape': [16, 8, 4, 2], 'axis': [3], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase36: {'shape': [16, 8, 4, 2], 'axis': [3], 'dtype': 'float32', 'op_type': 'max', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase37: {'shape': [16, 8, 4, 2], 'axis': [3], 'dtype': 'float32', 'op_type': 'max', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase38: {'shape': [16, 8, 4, 2], 'axis': [3], 'dtype': 'float32', 'op_type': 'min', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase39: {'shape': [16, 8, 4, 2], 'axis': [3], 'dtype': 'float32', 'op_type': 'min', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase40: {'shape': [16, 8, 4, 2, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase41: {'shape': [16, 8, 4, 2, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase42: {'shape': [16, 8, 4, 2, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase43: {'shape': [16, 8, 4, 2, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase44: {'shape': [16, 8, 4, 2, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'max', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase45: {'shape': [16, 8, 4, 2, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'max', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase46: {'shape': [16, 8, 4, 2, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'min', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase47: {'shape': [16, 8, 4, 2, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'min', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase48: {'shape': [1, 1, 1, 1, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase49: {'shape': [1, 1, 1, 1, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'sum', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase50: {'shape': [1, 1, 1, 1, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase51: {'shape': [1, 1, 1, 1, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'prod', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase52: {'shape': [1, 1, 1, 1, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'max', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase53: {'shape': [1, 1, 1, 1, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'max', 'keepdim': False}
+
+Running TestReduceAll.TestReduceOpCase54: {'shape': [1, 1, 1, 1, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'min', 'keepdim': True}
+
+Running TestReduceAll.TestReduceOpCase55: {'shape': [1, 1, 1, 1, 1], 'axis': [3], 'dtype': 'float32', 'op_type': 'min', 'keepdim': False}
