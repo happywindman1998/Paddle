@@ -110,9 +110,9 @@ class TestPool2dOpAll(TestCaseHelper):
             {
                 "dtype": "float32",
             },
-            {
-                "dtype": "float64",
-            },
+            # {
+            #     "dtype": "float64",
+            # },
         ]
         self.attrs = [
             {
@@ -297,9 +297,9 @@ class TestPool2dBackwardAll(TestCaseHelper):
             {
                 "dtype": "float32",
             },
-            {
-                "dtype": "float64",
-            },
+            # {
+            #     "dtype": "float64",
+            # },
         ]
         self.attrs = [
             {

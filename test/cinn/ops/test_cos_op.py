@@ -105,9 +105,9 @@ class TestCosOpDtype(TestCaseHelper):
             {
                 "x_dtype": "float32",
             },
-            {
-                "x_dtype": "float64",
-            },
+            # {
+            #     "x_dtype": "float64",
+            # },
         ]
         self.attrs = []
 

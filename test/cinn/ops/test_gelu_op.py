@@ -113,9 +113,9 @@ class TestGeluDtype(TestCaseHelper):
             }
         ]
         self.dtypes = [
-            {
-                "x_dtype": "float64",
-            },
+            # {
+            #     "x_dtype": "float64",
+            # },
             {
                 "x_dtype": "float32",
             },

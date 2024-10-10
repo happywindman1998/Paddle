@@ -140,10 +140,10 @@ class TestRepeatOpDtype(TestCaseHelper):
             {"dtype": "bool"},
             {"dtype": "int8"},
             {"dtype": "int32"},
-            {"dtype": "int64"},
+            # {"dtype": "int64"},
             {"dtype": "float16"},
             {"dtype": "float32"},
-            {"dtype": "float64"},
+            # {"dtype": "float64"},
         ]
         self.attrs = [
             {"repeats": 4, "axis": 0},

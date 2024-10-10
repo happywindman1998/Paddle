@@ -74,7 +74,7 @@ void ArgsortKernel(const Context& dev_ctx,
                    int axis,
                    bool descending,
                    DenseTensor* output,
-                   DenseTensor* indices) {
+                   DenseTensor* indices) {                  
   auto in_dims = input.dims();
   auto rank = in_dims.size();
   axis = (axis < 0) ? (in_dims.size() + axis) : axis;
@@ -152,7 +152,14 @@ void ArgsortKernel(const Context& dev_ctx,
 
 }  // namespace phi
 
+#ifndef PADDLE_WITH_CUSTOM_DEVICE
+PD_REGISTER_KERNEL(
+    argsort, CPU, ALL_LAYOUT, phi::ArgsortKernel, float, double, int, int32_t) {
+  kernel->OutputAt(1).SetDataType(phi::DataType::INT32);
+}
+#else
 PD_REGISTER_KERNEL(
     argsort, CPU, ALL_LAYOUT, phi::ArgsortKernel, float, double, int, int64_t) {
   kernel->OutputAt(1).SetDataType(phi::DataType::INT64);
 }
+#endif

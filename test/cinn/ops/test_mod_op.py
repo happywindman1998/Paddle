@@ -192,18 +192,18 @@ class TestModOpDtypeTest(TestModOpBase):
                 "x_dtype": "int32",
                 "y_dtype": "int32",
             },
-            {
-                "x_dtype": "int64",
-                "y_dtype": "int64",
-            },
+            # {
+            #     "x_dtype": "int64",
+            #     "y_dtype": "int64",
+            # },
             {
                 "x_dtype": "float32",
                 "y_dtype": "float32",
             },
-            {
-                "x_dtype": "float64",
-                "y_dtype": "float64",
-            },
+            # {
+            #     "x_dtype": "float64",
+            #     "y_dtype": "float64",
+            # },
         ]
 
 

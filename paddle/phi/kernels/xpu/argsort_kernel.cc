@@ -247,7 +247,9 @@ PD_REGISTER_KERNEL(argsort,
                    phi::ArgsortKernel,
                    float,
                    int,
-                   int64_t,
+                  //  int64_t,
+                   int32_t,
                    phi::dtype::float16) {
-  kernel->OutputAt(1).SetDataType(phi::DataType::INT64);
+  // kernel->OutputAt(1).SetDataType(phi::DataType::INT64);
+  kernel->OutputAt(1).SetDataType(phi::DataType::INT32);
 }

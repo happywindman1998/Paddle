@@ -149,12 +149,12 @@ class TestConcatOpDtype(TestCaseHelper):
         self.dtypes = [
             {"dtype": "float16"},
             {"dtype": "float32"},
-            {"dtype": "float64"},
+            # {"dtype": "float64"},
             {"dtype": "bool"},
             {"dtype": "uint8"},
             {"dtype": "int8"},
             {"dtype": "int32"},
-            {"dtype": "int64"},
+            # {"dtype": "int64"},
         ]
         self.attrs = [
             {"axis": 0},

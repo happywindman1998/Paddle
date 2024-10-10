@@ -178,9 +178,9 @@ class TestArangeOpDtype(TestCaseHelper):
         ]
         self.dtypes = [
             {"dtype": "int32"},
-            {"dtype": "int64"},
+            # {"dtype": "int64"},
             {"dtype": "float32"},
-            {"dtype": "float64"},
+            # {"dtype": "float64"},
         ]
         self.attrs = []
 

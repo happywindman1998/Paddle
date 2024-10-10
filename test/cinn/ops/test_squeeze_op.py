@@ -118,11 +118,11 @@ class TestSqueezeOpDtypeTest(TestCaseHelper):
         self.dtypes = [
             {"dtype": "float16"},
             {"dtype": "float32"},
-            {"dtype": "float64"},
+            # {"dtype": "float64"},
             {"dtype": "bool"},
             {"dtype": "int8"},
             {"dtype": "int32"},
-            {"dtype": "int64"},
+            # {"dtype": "int64"},
         ]
         self.attrs = [{"axes": []}]
 

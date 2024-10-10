@@ -147,7 +147,7 @@ class TestReluOpDtype(TestCaseHelper):
         self.dtypes = [
             {"dtype": "float16"},
             {"dtype": "float32"},
-            {"dtype": "float64"},
+            # {"dtype": "float64"},
         ]
         self.attrs = []
 

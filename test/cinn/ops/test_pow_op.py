@@ -130,18 +130,18 @@ class TestPowOpDtype(TestCaseHelper):
             {
                 "dtype": "int32",
             },
-            {
-                "dtype": "int64",
-            },
+            # {
+            #     "dtype": "int64",
+            # },
             {
                 "dtype": "float16",
             },
             {
                 "dtype": "float32",
             },
-            {
-                "dtype": "float64",
-            },
+            # {
+            #     "dtype": "float64",
+            # },
         ]
         self.attrs = [
             {

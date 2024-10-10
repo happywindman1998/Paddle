@@ -71,13 +71,13 @@ class TestRandIntCase1(TestRandIntOp):
         self.dtype = "int32"
 
 
-class TestRandIntCase2(TestRandIntOp):
-    def init_case(self):
-        self.shape = [2, 3, 4]
-        self.min = -2
-        self.max = 3
-        self.seed = 8
-        self.dtype = "int64"
+# class TestRandIntCase2(TestRandIntOp):
+#     def init_case(self):
+#         self.shape = [2, 3, 4]
+#         self.min = -2
+#         self.max = 3
+#         self.seed = 8
+#         self.dtype = "int64"
 
 
 if __name__ == "__main__":

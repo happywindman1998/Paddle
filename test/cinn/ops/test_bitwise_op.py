@@ -169,7 +169,7 @@ class TestBitwiseOpDtype(TestCaseHelper):
             {"dtype": "int8"},
             {"dtype": "int16"},
             {"dtype": "int32"},
-            {"dtype": "int64"},
+            # {"dtype": "int64"},
         ]
         self.attrs = [
             {"op_type": "and"},

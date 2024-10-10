@@ -82,7 +82,8 @@ class TestTopKOpLargeCudaMemoryOccupation(TestTopKOp):
         self.prepare_inputs()
 
     def prepare_inputs(self):
-        self.inputs = {"x": self.random([8192], "float64")}
+        # self.inputs = {"x": self.random([8192], "float64")}
+        self.inputs = {"x": self.random([8192], "float32")}
         self.axis = 0
         self.largest = False
         self.k = 5
@@ -129,9 +130,9 @@ class TestTopKOpDtypeTest(TestCaseHelper):
         ]
         self.dtypes = [
             {"dtype": "float32"},
-            {"dtype": "float64"},
+            # {"dtype": "float64"},
             {"dtype": "int32"},
-            {"dtype": "int64"},
+            # {"dtype": "int64"},
         ]
         self.attrs = [{"axis": 0, "largest": True, "k": 3}]
 

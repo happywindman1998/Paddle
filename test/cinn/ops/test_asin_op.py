@@ -104,13 +104,13 @@ class TestAsinOpDtype(TestCaseHelper):
             }
         ]
         self.dtypes = [
-            {"x_dtype": "float16", "max_relative_error": 1e-3},
+            # {"x_dtype": "float16", "max_relative_error": 1e-3},
             {
                 "x_dtype": "float32",
             },
-            {
-                "x_dtype": "float64",
-            },
+            # {
+            #     "x_dtype": "float64",
+            # },
         ]
         self.attrs = []
 

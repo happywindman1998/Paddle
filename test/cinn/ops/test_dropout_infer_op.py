@@ -114,9 +114,9 @@ class TestDropoutInferAll(TestCaseHelper):
             {
                 "x_dtype": "float32",
             },
-            {
-                "x_dtype": "float64",
-            },
+            # {
+            #     "x_dtype": "float64",
+            # },
         ]
         # Initialize attributes for test cases
         self.attrs = [

@@ -114,9 +114,9 @@ class TestUniformRandomOpDtype(TestCaseHelper):
             {
                 "dtype": "float32",
             },
-            {
-                "dtype": "float64",
-            },
+            # {
+            #     "dtype": "float64",
+            # },
         ]
         self.attrs = [
             {

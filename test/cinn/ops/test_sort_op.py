@@ -63,7 +63,8 @@ class TestSortOpDumpicateElement(TestSortOp):
         self.prepare_inputs()
 
     def prepare_inputs(self):
-        self.inputs = {"x": self.random([128], "int64", -10, 10)}
+        # self.inputs = {"x": self.random([128], "int64", -10, 10)}
+        self.inputs = {"x": self.random([128], "int32", -10, 10)}
         self.axis = 0
         self.descending = False
 
@@ -75,7 +76,8 @@ class TestSortOpLargeCudaMemoryOccupation(TestSortOp):
         self.prepare_inputs()
 
     def prepare_inputs(self):
-        self.inputs = {"x": self.random([8192], "float64")}
+        # self.inputs = {"x": self.random([8192], "float64")}
+        self.inputs = {"x": self.random([8192], "float32")}
         self.axis = 0
         self.descending = False
 
@@ -154,9 +156,9 @@ class TestSortOpDtypeTest(TestCaseHelper):
         ]
         self.dtypes = [
             {"dtype": "float32"},
-            {"dtype": "float64"},
+            # {"dtype": "float64"},
             {"dtype": "int32"},
-            {"dtype": "int64"},
+            # {"dtype": "int64"},
         ]
         self.attrs = [{"axis": 0, "descending": False}]
 

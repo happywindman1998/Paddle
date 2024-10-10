@@ -23,9 +23,12 @@ export CXX=g++-8
 export DPCPP_ROOT=/home/wzy/sycl_workspace/build-cuda-2022-06
 export ONEDNN_ROOT=/home/wzy/sycl_workspace/oneDNN-cuda-v32
 
-export DPCPP_ROOT=/home/wzy/repos/zkjh-llvm-mlu/build
-export CINN_WITH_SYCL=/home/wzy/repos/llvm-mlu
+export DPCPP_ROOT=/home/wzy/sycl_workspace/llvm-mlu/build
+export CINN_WITH_SYCL=/home/wzy/sycl_workspace/llvm-mlu
 export ONEDNN_ROOT=/home/wzy/sycl_workspace/oneDNN-mlu/
+
+source env_.sh
+source env_cuda.sh
 
 mkdir build-docker
 cd build-docker
@@ -37,9 +40,12 @@ export CUDA_TOOLKIT_ROOT_DIR = /usr/local/cuda
 cmake .. -DWITH_CINN=ON -DCINN_WITH_SYCL=ON -DCINN_WITH_ONEDNN=ON -DWITH_MKL=OFF  -DWITH_GPU=ON -DWITH_CUDNN=OFF -DWITH_NCCL=OFF -DWITH_CUSTOM_DEVICE=OFF -DPYTHON_EXECUTABLE=/usr/bin/python3.8 -DPY_VERSION=3.8 -DWITH_TESTING=OFF -DWITH_DISTRIBUTE=OFF -DCMAKE_BUILD_TYPE=Release -G Ninja
 
 mlu
-cmake .. -DWITH_CINN=ON -DCINN_WITH_SYCL=ON -DCINN_WITH_ONEDNN=ON -DWITH_MKL=OFF -DWITH_CUSTOM_DEVICE=ON -DWITH_GPU=OFF -DPYTHON_EXECUTABLE=/home/wzy/build-python3-10-14/bin/python3.10 -DPY_VERSION=3.10 -DWITH_TESTING=OFF -DWITH_DISTRIBUTE=OFF -DCMAKE_BUILD_TYPE=Release -G Ninja
+cmake .. -DWITH_CINN=ON -DCINN_WITH_SYCL=ON -DCINN_WITH_ONEDNN=ON -DWITH_MKL=OFF -DWITH_CUSTOM_DEVICE=ON -DWITH_GPU=OFF -DPYTHON_EXECUTABLE=/usr/bin/python3.8 -DPY_VERSION=3.8 -DWITH_TESTING=OFF -DWITH_DISTRIBUTE=OFF -DCMAKE_BUILD_TYPE=Release -G Ninja
+cmake .. -DWITH_CINN=ON -DCINN_WITH_SYCL=ON -DCINN_WITH_ONEDNN=ON -DWITH_MKL=OFF -DWITH_CUSTOM_DEVICE=ON -DWITH_GPU=OFF -DPYTHON_EXECUTABLE=/usr/local/python3.9/bin/python3.9 -DPY_VERSION=3.9 -DWITH_TESTING=OFF -DWITH_DISTRIBUTE=OFF -DCMAKE_BUILD_TYPE=Release -G Ninja
 
 ninja -j 16
+
+/home/wzy/build-python3-10-14/bin/python3.10 -m pip install --force-reinstall build/python/dist/paddlepaddle-0.0.0-cp38-cp38-linux_x86_64.whl
 
 ```
 

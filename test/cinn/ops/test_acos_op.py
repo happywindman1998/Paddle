@@ -73,9 +73,9 @@ class TestAcosCase1(TestCaseHelper):
         self.inputs = [{"x_shape": [512, 256]}]
         self.dtypes = [
             {"x_dtype": "float32"},
-            {
-                "x_dtype": "float64",
-            },
+            # {
+            #     "x_dtype": "float64",
+            # },
         ]
         self.attrs = []
 

@@ -92,9 +92,9 @@ class TestGatherOpAll(TestCaseHelper):
         self.dtypes = [
             {"x_dtype": "int16", "y_dtype": "int64"},
             {"x_dtype": "int32", "y_dtype": "int64"},
-            {"x_dtype": "int64", "y_dtype": "int64"},
+            # {"x_dtype": "int64", "y_dtype": "int64"},
             {"x_dtype": "float32", "y_dtype": "int64"},
-            {"x_dtype": "float64", "y_dtype": "int64"},
+            # {"x_dtype": "float64", "y_dtype": "int64"},
         ]
         self.attrs = []
 

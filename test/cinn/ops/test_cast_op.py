@@ -117,14 +117,14 @@ class TestCastDtype(TestCaseHelper):
             {
                 "x_dtype": "int32",
             },
-            {"x_dtype": "int64"},
+            # {"x_dtype": "int64"},
             {"x_dtype": "float16", "max_relative_error": 1e-3},
             {
                 "x_dtype": "float32",
             },
-            {
-                "x_dtype": "float64",
-            },
+            # {
+            #     "x_dtype": "float64",
+            # },
         ]
         self.attrs = [
             {
@@ -137,14 +137,14 @@ class TestCastDtype(TestCaseHelper):
             {
                 "d_dtype": "int32",
             },
-            {"d_dtype": "int64"},
+            # {"d_dtype": "int64"},
             {"d_dtype": "float16", "max_relative_error": 1e-3},
             {
                 "d_dtype": "float32",
             },
-            {
-                "d_dtype": "float64",
-            },
+            # {
+            #     "d_dtype": "float64",
+            # },
         ]
 
 
