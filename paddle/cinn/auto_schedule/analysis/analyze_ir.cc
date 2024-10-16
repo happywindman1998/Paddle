@@ -170,7 +170,7 @@ ir::LoweredFunc UpdateFuncWithNewBody(const cinn::common::Target& target,
 
   ir::Expr updated_body = ir_sch.GetModule().GetExprs()[0];
 #ifdef CINN_WITH_GPU
-  if (target.arch_is_gpu()) {
+  if (target.arch_is_gpu() || target.arch_is_mlu()) {
     optim::OptimizeExprGPU(&updated_body);
   }
 #endif
@@ -179,7 +179,7 @@ ir::LoweredFunc UpdateFuncWithNewBody(const cinn::common::Target& target,
       lang::GetTempBuffers(old_func->args, updated_body);
   ir::LoweredFunc new_func = ir::_LoweredFunc_::Make(
       old_func->name, old_func->args, updated_body, new_temp_bufs);
-  if (target.arch_is_gpu()) {
+  if (target.arch_is_gpu() || target.arch_is_mlu()) {
     new_func->PrepareCudaAxisInfoFromBody();
   }
   new_func =

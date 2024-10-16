@@ -817,7 +817,7 @@ std::vector<ir::LoweredFunc> OpLowererImpl::PostProcess(
   for (ir::Expr func_body : func_bodies) {
     optim::EliminateDeadScheduleBlock(&(func_body), group->output_names());
 #ifdef CINN_WITH_GPU
-    if (target_.arch_is_gpu()) {
+    if (target_.arch_is_gpu() || target_.arch_is_mlu()) {
       optim::EliminateCommonGlobalMemoryRead(&(func_body));
       optim::OptimizeExprGPU(&(func_body));
     }

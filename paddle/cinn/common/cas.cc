@@ -346,7 +346,7 @@ bool ExprPosCmp::operator()(const Expr& a, const Expr& b) {
 
   {
     if (a.As<Mod>()) {
-      if (!b.As<Mod>()) {
+      if (!b.As<Mod>() && !b->type().is_vector()) {
         // Todo: may be wrong especially for negative value
         return operator()(a, Mod::Make(b, Sum::Make({b, Expr(1)})));
       }
@@ -1449,9 +1449,10 @@ Expr CasSimplifyMutator::SimplifyCmp(Expr u) {
 
 /**
  * deal with index's div-mod add simplification, temporary solution, not cover
- * all situations. case 1: (m / n) * n + m % n = m (m, n's type is int) case 2:
- * (m / n1) * n3 + (n2 * m) % n3 = n2 * m if n3 = n1 * n2 (m, n1, n2, n3's type
+ * all situations. case 1: (m / n) * n + m % n = m (m, n's type is int) 
+ * case 2: (m / n1) * n3 + (n2 * m) % n3 = n2 * m if n3 = n1 * n2 (m, n1, n2, n3's type
  * is int)
+ * case 3: ((m % n1) / n2) * n2 + m % n2 = m % n1 if n1 % n2 = 0 (m, n1, n2's type is int)
  */
 Expr CasSimplifyMutator::SimplifySpecificSum(Expr tmp) {
   auto sum = tmp.As<Sum>();
@@ -1490,6 +1491,9 @@ Expr CasSimplifyMutator::SimplifySpecificSum(Expr tmp) {
     // case 1: (m / n) * n + m % n = m (m, n's type is int)
     // case 2: (m / n1) * n3 + (n2 * m) % n3 = n2 * m if n3 = n1 * n2 (m, n1,
     // n2, n3's type is int)
+    // case 3: ((m % n1) / n2) * n2 + m % n2 = m % n1 if n1 % n2 = 0 (m, n1, 
+    // n2's type is int)
+    VLOG(4) << "SimplefySpecificSum. left: " << left << " right: " << right;
     CHECK_GE(left_mul->operands().size(), 2U);
     Expr mul_left = left_mul->operand(0);
     Expr mul_right = left_mul->operand(1);
@@ -1519,6 +1523,22 @@ Expr CasSimplifyMutator::SimplifySpecificSum(Expr tmp) {
         tmp = tmp + sum->operand(i);
       }
       return tmp;
+    } else {
+      // handle the case 3: ((m % n1) / n2) * n2 + m % n2 = m % n1 if n1 % n2 = 0 
+      // (m, n1, n2's type is int)
+      auto div_left_mod = div_left.As<Mod>();
+      if (div_left_mod) {
+        auto div_left_mod_left = div_left_mod->operand(0);
+        auto div_left_mod_right = div_left_mod->operand(1);
+        if (MathEqual(div_left_mod_left, mod_left) &&
+            is_zero(div_left_mod_right % mod_right)) {
+          tmp = div_left;
+          for (int i = 2; i < sum->operands().size(); i++) {
+            tmp = tmp + sum->operand(i);
+          }
+          VLOG(4) << "SimplefySpecificSum. result: " << tmp;
+        }
+      }
     }
   }
   return tmp;

@@ -83,10 +83,24 @@ void IRElementwiseSchedule(ir::IRSchedule &ir_sch,  // NOLINT
       ir_sch.Bind(splited[0], "blockIdx.x");
       ir_sch.Bind(splited[1], "threadIdx.x");
     }
-  } else if (target.arch_is_mlu()) {
-    // TODO: add MLU schedule
-    auto blocks = ir_sch.GetAllBlocks();
-    ir_sch.FlattenLoops(ir_sch.GetLoops(blocks[0]), true);
+  // } else if (target.arch_is_mlu()) {
+  //   auto blocks = ir_sch.GetAllBlocks();
+  //   auto loops = ir_sch.GetLoops(blocks[0]);
+  //   ir::Expr loop = ir_sch.Fuse(loops);
+
+  //   auto size = std::accumulate(
+  //       output_shape.begin(), output_shape.end(), 1, std::multiplies<int>());
+  //   if (size <= target.max_num_threads()) {
+  //     ir_sch.Bind(loop, "threadIdx.x");
+  //   } else if (size <= target.max_num_threads() * target.get_multi_processor_count()) {
+  //     auto splited = ir_sch.Split(loop, {-1, target.max_num_threads()});
+  //     ir_sch.Bind(splited[0], "blockIdx.x");
+  //     ir_sch.Bind(splited[1], "threadIdx.x");
+  //   } else {
+  //     auto splited = ir_sch.Split(loop, {target.get_multi_processor_count(), target.max_num_threads(), -1});
+  //     ir_sch.Bind(splited[0], "blockIdx.x");
+  //     ir_sch.Bind(splited[1], "threadIdx.x");
+  //   }
   } else {
     // IRScheduleInjectiveCPU(ir_sch, output_shape, target, false);
     auto blocks = ir_sch.GetAllBlocks();
@@ -115,10 +129,24 @@ void IRInjectiveSchedule(ir::IRSchedule &ir_sch,  // NOLINT
       ir_sch.Bind(splited[0], "blockIdx.x");
       ir_sch.Bind(splited[1], "threadIdx.x");
     }
-  } else if (target.arch_is_mlu()) {
-    // TODO: add MLU schedule
-    auto blocks = ir_sch.GetAllBlocks();
-    ir_sch.FlattenLoops(ir_sch.GetLoops(blocks[0]), false);
+  // } else if (target.arch_is_mlu()) {
+  //   auto blocks = ir_sch.GetAllBlocks();
+  //   auto loops = ir_sch.GetLoops(blocks[0]);
+  //   ir::Expr loop = ir_sch.Fuse(loops);
+
+  //   auto size = std::accumulate(
+  //       output_shape.begin(), output_shape.end(), 1, std::multiplies<int>());
+  //   if (size <= target.max_num_threads()) {
+  //     ir_sch.Bind(loop, "threadIdx.x");
+  //   } else if (size <= target.max_num_threads() * target.get_multi_processor_count()) {
+  //     auto splited = ir_sch.Split(loop, {-1, target.max_num_threads()});
+  //     ir_sch.Bind(splited[0], "blockIdx.x");
+  //     ir_sch.Bind(splited[1], "threadIdx.x");
+  //   } else {
+  //     auto splited = ir_sch.Split(loop, {target.get_multi_processor_count(), target.max_num_threads(), -1});
+  //     ir_sch.Bind(splited[0], "blockIdx.x");
+  //     ir_sch.Bind(splited[1], "threadIdx.x");
+  //   }
   } else {
     // IRScheduleInjectiveCPU(ir_sch, output_shape, target, false);
     auto blocks = ir_sch.GetAllBlocks();
@@ -165,7 +193,6 @@ void IRScheduleInjectiveCPU(ir::IRSchedule &ir_sch,  // NOLINT
           << ir_sch.GetModule().GetExprs().at(0);
 }
 
-// TODO: add MLU schedule
 void IRScheduleInjectiveMLU(ir::IRSchedule &ir_sch,  // NOLINT
                             const std::vector<int> &output_shape,
                             const cinn::common::Target &target) {
@@ -185,6 +212,25 @@ void IRScheduleInjectiveMLU(ir::IRSchedule &ir_sch,  // NOLINT
     fused = ir_sch.Fuse({loops[0], loops[1]});
     dims = dims - 1;
   }
+  // auto all_blocks = ir_sch.GetAllBlocks();
+  // auto loops = ir_sch.GetLoops(all_blocks[0]);
+  // auto fused = ir_sch.Fuse(loops);
+
+  // int num_thread = target.max_num_threads();
+  // int mp_count = target.get_multi_processor_count();
+  // int prod_size = std::accumulate(
+  //     output_shape.begin(), output_shape.end(), 1, std::multiplies<int>());
+  // if (prod_size > num_thread * mp_count) {
+  //   auto splited = ir_sch.Split(fused, {mp_count, num_thread, -1});
+  //   ir_sch.Bind(splited[0], "blockIdx.x");
+  //   ir_sch.Bind(splited[1], "threadIdx.x");
+  // } else if (prod_size > num_thread) {
+  //   auto splited = ir_sch.Split(fused, {-1, num_thread});
+  //   ir_sch.Bind(splited[0], "blockIdx.x");
+  //   ir_sch.Bind(splited[1], "threadIdx.x");
+  // } else {
+  //   ir_sch.Bind(fused, "threadIdx.x");
+  // }
   VLOG(3) << "After IRScheduleInjectiveMLU, new ir is : "
           << ir_sch.GetModule().GetExprs().at(0);
 }

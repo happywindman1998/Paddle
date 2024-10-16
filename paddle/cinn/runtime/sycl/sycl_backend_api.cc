@@ -43,7 +43,6 @@ Target::Arch SYCLBackendAPI::Init(Target::Arch arch) {
       break;
     case Target::Arch::IntelGPU:
       backend = ::sycl::backend::ext_oneapi_level_zero;
-      break;     
     case Target::Arch::CambriconMLU:
       backend = ::sycl::backend::ext_oneapi_cnrt;
       break;

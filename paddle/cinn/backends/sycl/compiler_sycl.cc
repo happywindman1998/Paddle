@@ -71,7 +71,7 @@ std::string Compiler::CompileToSo(const std::string& source_code,
     command += " -I " + header;
   }
   SetDeviceArchOptions(gpu_type);
-  std::string no_warning_options = "-Wno-deprecated-declarations -Wno-linker-warnings";
+  std::string no_warning_options = "-Wno-deprecated-declarations -Wno-#warnings ";
   command += " " + device_arch_options + " " + cxx_compile_options + " " +
              no_warning_options + " " +
              source_file_path + " -o " + shared_lib_path;
@@ -103,7 +103,8 @@ void Compiler::SetDeviceArchOptions(const Target::Arch gpu_type) {
       device_arch_options = "-fsycl";
       break;
     case Target::Arch::CambriconMLU:
-      device_arch_options = "-fsycl -fsycl-targets=mlisa-cambricon-bang";
+      device_arch_options = "-fsycl";
+      device_arch_options += " -fsycl-targets=mlisa-cambricon-bang";
       break;
     default:
       PADDLE_THROW(::common::errors::Fatal(

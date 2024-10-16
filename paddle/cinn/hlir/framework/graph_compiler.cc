@@ -428,7 +428,7 @@ std::vector<ir::LoweredFunc> GetFuncFromImpl(
   std::vector<ir::LoweredFunc> res;
   for (int i = 0; i < funcs_after_schedule.size(); i++) {
 #ifdef CINN_WITH_GPU
-    if (target.arch_is_gpu()) {
+    if (target.arch_is_gpu() || target.arch_is_mlu()) {
       optim::OptimizeExprGPU(&(funcs_after_schedule[i]->body));
     }
 #endif

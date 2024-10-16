@@ -14,6 +14,7 @@
 
 #include "paddle/cinn/optim/map_extern_call.h"
 
+#include "paddle/cinn/backends/extern_func_protos.h"
 #include "paddle/cinn/cinn.h"
 #include "paddle/cinn/hlir/op/op_util.h"
 #include "paddle/cinn/ir/ir_mutator.h"
@@ -56,8 +57,10 @@ void MapExternCall(Expr *e, Target target) {
       auto *node = expr->As<ir::Call>();
       CHECK(node);
       OptimizeConstantPow(node);
-      if (target.arch_is_gpu() || target.arch_is_mlu()) {
+      if (target.arch_is_gpu()) {
         DealWithGpuintrinsics(node, expr);
+      } else if (target.arch_is_mlu()) {
+        DealWithMluintrinsics(node, expr);
       } else {
         DealWithCpuIntrinsics(node, expr);
       }
@@ -101,6 +104,40 @@ void MapExternCall(Expr *e, Target target) {
       *expr = lang::CallExtern(extern_func, node->read_args, node->attrs);
     }
 
+    void DealWithMluintrinsics(ir::Call *node, Expr *expr) {
+      auto arg_size = node->read_args.size();
+      if (arg_size == 0UL) {
+        // some node like __syncthreads hasn't arguments
+        return;
+      }
+      const auto &dtype = node->read_args.front().type();
+      const auto &name = node->name;
+
+      bool node_in_extern_fp32 = kExternFp32CallsGPU.count(name);
+      bool node_in_extern_int32 = kExternInt32CallsGPU.count(name);
+      if (!node_in_extern_fp32 && !node_in_extern_int32) {
+        return;
+      }
+
+      std::string extern_func = hlir::GetExternFuncName(target, dtype, name);
+      auto *proto = backends::ExternFunctionProtoRegistry::Global().Lookup(extern_func);
+      CHECK(proto)
+          << "No extern function prototype " << extern_func << " found\n"
+          << "existing records are:\n"
+          << backends::ExternFunctionProtoRegistry::Global().debug_string();
+
+      auto call = ir::Call::Make(node->type(),
+                                extern_func,
+                                node->read_args,
+                                {},
+                                ir::CallType::Extern,
+                                ir::FunctionRef(),
+                                0,
+                                node->attrs);
+      std::vector<Expr> mutable_args;
+      *expr = call;
+    }
+
     // Replace pow(x, 0.5) to sqrt(x) and pow(x, -0.5) to rsqrt(x), which
     // can speed up a lot.
     //
@@ -116,6 +153,19 @@ void MapExternCall(Expr *e, Target target) {
         } else if (pow_constant == -0.5) {
           node->name = "rsqrt";
           node->read_args.erase(node->read_args.begin() + 1);
+        }
+      } else if (node->name == "pow" && node->read_args.size() >= 2 &&
+                 node->read_args[1].node_type() == ir::IrNodeTy::Broadcast) {
+        auto *bcast = node->read_args[1].As<ir::Broadcast>();
+        if (bcast->value.is_constant()) {
+          float pow_constant = bcast->value.get_constant();
+          if (pow_constant == 0.5) {
+            node->name = "sqrt";
+            node->read_args.erase(node->read_args.begin() + 1);
+          } else if (pow_constant == -0.5) {
+            node->name = "rsqrt";
+            node->read_args.erase(node->read_args.begin() + 1);
+          }
         }
       }
     }

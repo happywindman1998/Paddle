@@ -31,3 +31,4 @@ export LD_LIBRARY_PATH=$DNNLROOT/lib:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$DNNLROOT/lib:$LIBRARY_PATH
 
 export FLAGS_cinn_infer_model_version=1.0
+export FLAGS_cinn_use_cuda_vectorize=1
