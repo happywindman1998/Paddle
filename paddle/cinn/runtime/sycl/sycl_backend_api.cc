@@ -18,6 +18,7 @@
 namespace cinn {
 namespace runtime {
 namespace sycl {
+
 SYCLBackendAPI* SYCLBackendAPI::Global() {
   static auto* inst = new SYCLBackendAPI();
   return inst;
@@ -29,27 +30,25 @@ Target::Arch SYCLBackendAPI::Init(Target::Arch arch) {
   if (devices.size() == 0) {
     std::cerr << "No valid gpu device found!";
   }
-  // Target::Arch -> sycl::backend
+  // Target::Arch -> ::sycl::backend
   ::sycl::backend backend;
   switch (arch) {
     case Target::Arch::Unk:
-      backend = devices[0].get_backend();
+      backend = devices[0].get_backend();                  
       break;
     case Target::Arch::NVGPU:
-      backend = ::sycl::backend::cuda;
+      backend = ::sycl::backend::ext_oneapi_cuda;
       break;
     case Target::Arch::AMDGPU:
-      backend = ::sycl::backend::hip;
+      backend = ::sycl::backend::ext_oneapi_hip;
       break;
     case Target::Arch::IntelGPU:
-      backend = ::sycl::backend::level_zero;
-      break;     
-    case Target::Arch::CambriconMLU:
-      backend = ::sycl::backend::cnrt;
+      backend = ::sycl::backend::ext_oneapi_level_zero;
       break;
     default:
-      std::cerr << "SYCL Not supported arch:" << arch;
+      LOG(FATAL) << "SYCL Not supported arch:" << arch;
   }
+
   // look for matched devices
   for (auto device : devices) {
     if (device.get_backend() == backend) {
@@ -61,23 +60,21 @@ Target::Arch SYCLBackendAPI::Init(Target::Arch arch) {
   }
   this->contexts.resize(this->devices.size(), nullptr);
   this->queues.resize(this->devices.size());
-  // sycl::backend -> Target::Arch
+  // ::sycl::backend -> Target::Arch
   switch (backend) {
-    case ::sycl::backend::cuda:
+    case ::sycl::backend::ext_oneapi_cuda:
       this->arch = Target::Arch::NVGPU;
       break;
-    case ::sycl::backend::hip:
+    case ::sycl::backend::ext_oneapi_hip:
       this->arch = Target::Arch::AMDGPU;
       break;
-    case ::sycl::backend::level_zero:
+    case ::sycl::backend::ext_oneapi_level_zero:
       this->arch = Target::Arch::IntelGPU;
       break;
-    case ::sycl::backend::cnrt:
-      this->arch = Target::Arch::CambriconMLU;
-      break;
     default:
-      std::cerr << "SYCL Not supported arch:" << arch;
+      LOG(FATAL) << "SYCL Not supported arch:" << arch;
   }
+
   initialized_ = true;
   set_device(0);
   return this->arch;
@@ -121,20 +118,15 @@ std::variant<int, std::array<int, 3>> SYCLBackendAPI::get_device_property(
   std::variant<int, std::array<int, 3>> rv;
   switch (device_property) {
     case DeviceProperty::MaxBlockDims: {
-      ::sycl::id<3> max_work_item_sizes =
-          this->devices[index]
-              .get_info<::sycl::info::device::max_work_item_sizes>();
-      rv = std::array<int, 3>{max_work_item_sizes[2],
-                              max_work_item_sizes[1],
-                              max_work_item_sizes[0]};
+      // TODO fix it
+      //sycl::id<3> max_work_item_sizes = this->devices[index].get_info<::sycl::info::device::max_work_item_sizes<3>>();
+      //rv = std::array<int, 3>{max_work_item_sizes[2], max_work_item_sizes[1], max_work_item_sizes[0]};
+      rv = std::array<int, 3>{1024, 1024 , 1024};
       break;
     }
     case DeviceProperty::MaxGridDims: {
-      // sycl::id<3> grid_dims =
-      // this->devices[index].get_info<sycl::ext::oneapi::experimental::info::device::max_work_groups<3>>()
-      // /
-      // this->devices[index].get_info<sycl::info::device::max_work_item_sizes<3>>();
-      rv = std::array<int, 3>{2097151, 2097151, 2097151};
+      //sycl::id<3> grid_dims = this->devices[index].get_info<::sycl::ext::oneapi::experimental::info::device::max_work_groups<3>>() / this->devices[index].get_info<::sycl::info::device::max_work_item_sizes<3>>();
+      rv = std::array<int, 3>{2097151, 1024, 1024};
       break;
     }
     case DeviceProperty::MaxSharedMemoryPerBlock: {
@@ -142,30 +134,25 @@ std::variant<int, std::array<int, 3>> SYCLBackendAPI::get_device_property(
       break;
     }
     case DeviceProperty::MaxThreadsPerBlock: {
-      rv = this->devices[index]
-               .get_info<::sycl::info::device::max_work_group_size>();
+      rv = this->devices[index].get_info<::sycl::info::device::max_work_group_size>();
       break;
     }
     case DeviceProperty::MaxThreadsPerSM: {
       // LOG(FATAL) << "SYCL Not supported device property : MaxThreadsPerSM !";
-      rv = this->devices[index]
-               .get_info<::sycl::info::device::max_work_group_size>();
+      rv = this->devices[index].get_info<::sycl::info::device::max_work_group_size>();
       break;
     }
     case DeviceProperty::MultiProcessorCount: {
-      rv = this->devices[index]
-               .get_info<::sycl::info::device::max_compute_units>();
+      rv = this->devices[index].get_info<::sycl::info::device::max_compute_units>();
       break;
     }
-    case DeviceProperty::MaxBlocksPerSM: {
+    case DeviceProperty:: MaxBlocksPerSM: {
       LOG(FATAL) << "SYCL Not supported device property : MaxBlocksPerSM !";
       break;
     }
     case DeviceProperty::WarpSize: {
-      std::vector<size_t> sub_group_sizes =
-          this->devices[index].get_info<::sycl::info::device::sub_group_sizes>();
-      size_t max_sub_group_size =
-          *max_element(std::begin(sub_group_sizes), std::end(sub_group_sizes));
+      std::vector<size_t> sub_group_sizes = this->devices[index].get_info<::sycl::info::device::sub_group_sizes>();
+      size_t max_sub_group_size = *max_element(std::begin(sub_group_sizes), std::end(sub_group_sizes));
       rv = static_cast<int>(max_sub_group_size);
       break;
     }
@@ -176,14 +163,15 @@ std::variant<int, std::array<int, 3>> SYCLBackendAPI::get_device_property(
 }
 
 void* SYCLBackendAPI::malloc(size_t numBytes) {
-  VLOG(3) << "sycl malloc";
-  void* dev_mem = nullptr;
-  SYCL_CALL(dev_mem = ::sycl::malloc_device(numBytes,
-                                          this->devices[now_device_id],
-                                          *this->contexts[now_device_id]));
-  if (dev_mem == nullptr)
-    LOG(ERROR) << "allocate sycl device memory failure!" << std::endl;
-  return dev_mem;
+  if (now_device_id == -1) set_device(0);
+    VLOG(3) << "sycl malloc";
+    void* dev_mem = nullptr;
+    SYCL_CALL(dev_mem = ::sycl::malloc_device(
+        numBytes, this->devices[now_device_id], *this->contexts[now_device_id]));
+    if (dev_mem == nullptr)
+      LOG(ERROR) << "allocate sycl device memory failure!" << std::endl;
+    return dev_mem;
+
 }
 
 void SYCLBackendAPI::free(void* data) {
@@ -248,10 +236,11 @@ void SYCLBackendAPI::stream_sync(void* stream) {
 }
 
 std::string SYCLBackendAPI::GetGpuVersion() {
+  if (now_device_id == -1) set_device(0);
   ::sycl::device device = this->devices[now_device_id];
   ::sycl::backend backend = device.get_backend();
   switch (backend) {
-    case ::sycl::backend::cuda: {
+    case ::sycl::backend::ext_oneapi_cuda: {
       std::string gpu_version = "sm_";
       std::string version_with_point =
           device.get_info<::sycl::info::device::backend_version>();
@@ -263,22 +252,20 @@ std::string SYCLBackendAPI::GetGpuVersion() {
       }
       return gpu_version;
     }
-    case ::sycl::backend::hip: {
+    case ::sycl::backend::ext_oneapi_hip: {
       std::string gpu_version = device.get_info<::sycl::info::device::version>();
       size_t pos = gpu_version.find(":");
       if (pos != std::string::npos) gpu_version = gpu_version.substr(0, pos);
       return gpu_version;
     }
-    case ::sycl::backend::level_zero:
+    case ::sycl::backend::ext_oneapi_level_zero:
       return "";
-    case ::sycl::backend::cnrt: {
-      std::string cnrt_version = device.get_info<::sycl::info::device::driver_version>();
-      return cnrt_version;
-    }
     default:
       LOG(ERROR) << "unknown sycl backend!";
   }
+
 }
+
 }  // namespace sycl
 }  // namespace runtime
 }  // namespace cinn

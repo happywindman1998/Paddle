@@ -8,7 +8,7 @@ export LIBRARY_PATH=$CUDA_PATH/lib:$LIBRARY_PATH
 # export CNRT_PRINT_INFO=1
 
 # llvm clang & sycl env
-export LLVM_PATH=/home/wzy/sycl_workspace/build-cuda-2022-06
+export LLVM_PATH=/home/wzy/sycl_workspace/build-cuda-2022-12
 
 export PATH=$LLVM_PATH/bin:$PATH
 export CPLUS_INCLUDE_PATH=$LLVM_PATH/include:$CPLUS_INCLUDE_PATH

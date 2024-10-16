@@ -2,7 +2,7 @@
 <img align="center" src="doc/imgs/logo.png", width=1600>
 <p>
 
---------------------------------------------------------------------------------
+---
 
 English | [简体中文](./README_cn.md) | [日本語](./README_ja.md)
 
@@ -12,7 +12,6 @@ English | [简体中文](./README_cn.md) | [日本語](./README_ja.md)
 [![License](https://img.shields.io/badge/license-Apache%202-blue.svg)](LICENSE)
 [![Twitter](https://img.shields.io/badge/Twitter-1ca0f1.svg?logo=twitter&logoColor=white)](https://twitter.com/PaddlePaddle)
 
-
 当前选择的Paddle版本为2.6，是最新的发版。
 下载源文件并编译，编译命令为：
 
@@ -20,21 +19,15 @@ English | [简体中文](./README_cn.md) | [日本語](./README_ja.md)
 export CC=gcc-8
 export CXX=g++-8
 
-export DPCPP_ROOT=/home/wzy/sycl_workspace/build-cuda-2022-06
+export DPCPP_ROOT=/home/wzy/sycl_workspace/build-cuda-2022-12
 export ONEDNN_ROOT=/home/wzy/sycl_workspace/oneDNN-cuda-v32
 
-export DPCPP_ROOT=/home/wzy/repos/zkjh-llvm-mlu/build
-export CINN_WITH_SYCL=/home/wzy/repos/llvm-mlu
-export ONEDNN_ROOT=/home/wzy/oneDNN-mlu/
+source env_cuda.sh
 
-mkdir build-docker
-cd build-docker
-cmake -DCMAKE_BUILD_TYPE=Debug -DCINN_ONLY=ON -DWITH_CINN=ON -DWITH_GPU=OFF -DCINN_WITH_SYCL=ON -DWITH_DISTRIBUTE=OFF -DCINN_WITH_ONEDNN=ON -DWITH_TESTING=OFF \
-      -DWITH_MKL=OFF -DPYTHON_EXECUTABLE=python3.8 -DPY_VERSION=3.8 -G Ninja ..
 
 nvidia
 export CUDA_TOOLKIT_ROOT_DIR = /usr/local/cuda
-cmake .. -DWITH_CINN=ON -DCINN_WITH_SYCL=ON -DCINN_WITH_ONEDNN=ON -DWITH_MKL=OFF  -DWITH_GPU=ON -DWITH_CUDNN=OFF -DWITH_NCCL=OFF -DWITH_CUSTOM_DEVICE=OFF -DPYTHON_EXECUTABLE=/usr/bin/python3.8 -DPY_VERSION=3.8 -DWITH_TESTING=OFF -DWITH_DISTRIBUTE=OFF -DCMAKE_BUILD_TYPE=Release -G Ninja
+cmake .. -DWITH_CINN=ON -DCINN_WITH_SYCL=ON -DCINN_WITH_ONEDNN=ON -DWITH_MKL=OFF  -DWITH_GPU=ON -DWITH_CUDNN=OFF -DWITH_NCCL=OFF -DWITH_CUSTOM_DEVICE=OFF -DPYTHON_EXECUTABLE=/usr/local/python3.9/bin/python3.9 -DPY_VERSION=3.9 -DWITH_TESTING=OFF -DWITH_DISTRIBUTE=OFF -DCMAKE_BUILD_TYPE=Release -G Ninja
 
 mlu
 cmake .. -DWITH_CINN=ON -DCINN_WITH_SYCL=ON -DCINN_WITH_ONEDNN=ON -DWITH_MKL=OFF -DWITH_CUSTOM_DEVICE=ON -DWITH_GPU=OFF -DPYTHON_EXECUTABLE=/usr/bin/python3.8 -DPY_VERSION=3.8 -DWITH_TESTING=OFF -DWITH_DISTRIBUTE=OFF -DCMAKE_BUILD_TYPE=Release -G Ninja
@@ -57,7 +50,7 @@ Please refer to our [release announcement](https://github.com/PaddlePaddle/Paddl
 
 ### Install Latest Stable Release
 
-``` sh
+```sh
 # CPU
 pip install paddlepaddle
 # GPU
@@ -72,21 +65,18 @@ Now our developers can acquire Tesla V100 online computing resources for free. I
 
 - **Agile Framework for Industrial Development of Deep Neural Networks**
 
-    The PaddlePaddle deep learning framework facilitates the development while lowering the technical burden, through leveraging a programmable scheme to architect the neural networks. It supports both declarative programming and imperative programming with both development flexibility and high runtime performance preserved.  The neural architectures could be automatically designed by algorithms with better performance than the ones designed by human experts.
-
+  The PaddlePaddle deep learning framework facilitates the development while lowering the technical burden, through leveraging a programmable scheme to architect the neural networks. It supports both declarative programming and imperative programming with both development flexibility and high runtime performance preserved.  The neural architectures could be automatically designed by algorithms with better performance than the ones designed by human experts.
 - **Support Ultra-Large-Scale Training of Deep Neural Networks**
 
-    PaddlePaddle has made breakthroughs in ultra-large-scale deep neural networks training. It launched the world's first large-scale open-source training platform that supports the training of deep networks with 100 billion features and trillions of parameters using data sources distributed over hundreds of nodes. PaddlePaddle overcomes the online deep learning challenges for ultra-large-scale deep learning models, and further achieved real-time model updating with more than 1 trillion parameters.
-     [Click here to learn more](https://github.com/PaddlePaddle/Fleet)
-
+  PaddlePaddle has made breakthroughs in ultra-large-scale deep neural networks training. It launched the world's first large-scale open-source training platform that supports the training of deep networks with 100 billion features and trillions of parameters using data sources distributed over hundreds of nodes. PaddlePaddle overcomes the online deep learning challenges for ultra-large-scale deep learning models, and further achieved real-time model updating with more than 1 trillion parameters.
+  [Click here to learn more](https://github.com/PaddlePaddle/Fleet)
 - **High-Performance Inference Engines for Comprehensive Deployment Environments**
 
-   PaddlePaddle is not only compatible with models trained in 3rd party open-source frameworks , but also offers complete inference products for various production scenarios. Our inference product line includes [Paddle Inference](https://www.paddlepaddle.org.cn/inference/master/guides/introduction/index_intro.html): Native inference library for high-performance server and cloud inference; [FastDeploy](https://github.com/PaddlePaddle/FastDeploy): Easy-to-use and High Performance AI model deployment toolkit for Cloud, Mobile and Edge without-of-the-box and unified experience; [Paddle Lite](https://github.com/PaddlePaddle/Paddle-Lite): Ultra-Lightweight inference engine for mobile and IoT environments; [Paddle.js](https://www.paddlepaddle.org.cn/paddle/paddlejs): A frontend inference engine for browser and mini-apps. Furthermore, by great amounts of optimization with leading hardware in each scenario, Paddle inference engines outperform most of the other mainstream frameworks.
-
+  PaddlePaddle is not only compatible with models trained in 3rd party open-source frameworks , but also offers complete inference products for various production scenarios. Our inference product line includes [Paddle Inference](https://www.paddlepaddle.org.cn/inference/master/guides/introduction/index_intro.html): Native inference library for high-performance server and cloud inference; [FastDeploy](https://github.com/PaddlePaddle/FastDeploy): Easy-to-use and High Performance AI model deployment toolkit for Cloud, Mobile and Edge without-of-the-box and unified experience; [Paddle Lite](https://github.com/PaddlePaddle/Paddle-Lite): Ultra-Lightweight inference engine for mobile and IoT environments; [Paddle.js](https://www.paddlepaddle.org.cn/paddle/paddlejs): A frontend inference engine for browser and mini-apps. Furthermore, by great amounts of optimization with leading hardware in each scenario, Paddle inference engines outperform most of the other mainstream frameworks.
 - **Industry-Oriented Models and Libraries with Open Source Repositories**
 
-     PaddlePaddle includes and maintains more than 100 mainstream models that have been practiced and polished for a long time in the industry. Some of these models have won major prizes from key international competitions. In the meanwhile, PaddlePaddle has further more than 200 pre-training models (some of them with source codes) to facilitate the rapid development of industrial applications.
-     [Click here to learn more](https://github.com/PaddlePaddle/models)
+  PaddlePaddle includes and maintains more than 100 mainstream models that have been practiced and polished for a long time in the industry. Some of these models have won major prizes from key international competitions. In the meanwhile, PaddlePaddle has further more than 200 pre-training models (some of them with source codes) to facilitate the rapid development of industrial applications.
+  [Click here to learn more](https://github.com/PaddlePaddle/models)
 
 ## Documentation
 
@@ -96,33 +86,28 @@ We provide [English](https://www.paddlepaddle.org.cn/documentation/docs/en/guide
 - [Guides](https://www.paddlepaddle.org.cn/documentation/docs/en/guides/index_en.html)
 
   You might want to start from how to implement deep learning basics with PaddlePaddle.
-
 - [Practice](https://www.paddlepaddle.org.cn/documentation/docs/zh/tutorial/index_cn.html)
 
   So far you have already been familiar with Fluid. And the next step should be building a more efficient model or inventing your original Operator.
-
 - [API Reference](https://www.paddlepaddle.org.cn/documentation/docs/en/api/index_en.html)
 
-   Our new API enables much shorter programs.
-
+  Our new API enables much shorter programs.
 - [How to Contribute](https://www.paddlepaddle.org.cn/documentation/docs/en/guides/08_contribution/index_en.html)
 
-   We appreciate your contributions!
+  We appreciate your contributions!
 
 ## Open Source Community
 
 - [Github Issues](https://github.com/PaddlePaddle/Paddle/issues): bug reports, feature requests, install issues, usage issues, etc.
-
 - Open Source Contribution Activities:
 
   - Beginner: Happy Open Source Activity（[Regular Season](https://github.com/PaddlePaddle/Paddle/issues/56689)、[Pre-Hackathon Camp](https://github.com/PaddlePaddle/Paddle/issues/58497)）
   - Advanced: PaddlePaddle Hackathon（[Personal Challenge Competition](https://github.com/PaddlePaddle/Paddle/issues/57262)、[LLM Application Competition](https://github.com/PaddlePaddle/Paddle/issues/57585)、[Hackathon Code Camp](https://github.com/PaddlePaddle/Paddle/issues/57264)）
-
 - Community Organizations:
+
   - Technical Organization: [Paddle Framework Contributor Club, PFCC](https://github.com/PaddlePaddle/community/tree/master/pfcc)
   - Community Governance Organization: [PaddlePaddle OpenSource Development Working Group, PPOSDWG](https://github.com/PaddlePaddle/community/tree/master/pposdwg)
-
-- Community Blog: <https://pfcc.blog/>
+- Community Blog: [https://pfcc.blog/](https://pfcc.blog/)
 
 ## Courses
 
