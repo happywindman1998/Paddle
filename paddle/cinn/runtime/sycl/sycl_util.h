@@ -20,9 +20,9 @@
 
 #include <sycl/sycl.hpp>
 
-#ifdef CINN_WITH_CNNL
-#include <cnrt.h>
-#include <cnnl.h>
+#ifdef CINN_WITH_DNNL
+#include <dnnl.hpp>
+#include <dnnl_sycl.hpp>
 #endif
 
 namespace cinn {
@@ -54,50 +54,50 @@ void cinn_call_sycl_memcpy(void *v_args,
                            int num_args,
                            size_t count);
 
-#ifdef CINN_WITH_CNNL
-#define CNRT_CALL(func)                                     \
-  {                                                         \
-    auto status = func;                                     \
-    if (status != cnrtSuccess) {                            \
-      std::stringstream ss;                                 \
-      ss << "CNRT Error : " << cnrtGetErrorStr(status);     \
-      PADDLE_THROW(phi::errors::Fatal(ss.str()));           \
-    }                                                       \
-  }
+#ifdef CINN_WITH_DNNL
+#define DNNL_STATUS_TO_STRING(status) \
+    ((status) == dnnl_success           ? "dnnl_success" : \
+    (status) == dnnl_out_of_memory      ? "dnnl_out_of_memory" : \
+    (status) == dnnl_invalid_arguments  ? "dnnl_invalid_arguments" : \
+    (status) == dnnl_unimplemented      ? "dnnl_unimplemented" : \
+    (status) == dnnl_last_impl_reached  ? "dnnl_last_impl_reached" : \
+    (status) == dnnl_runtime_error      ? "dnnl_runtime_error" : \
+    (status) == dnnl_not_required       ? "dnnl_not_required" : \
+    (status) == dnnl_invalid_graph      ? "dnnl_invalid_graph" : \
+    (status) == dnnl_invalid_graph_op   ? "dnnl_invalid_graph_op" : \
+    (status) == dnnl_invalid_shape      ? "dnnl_invalid_shape" : \
+    (status) == dnnl_invalid_data_type  ? "dnnl_invalid_data_type" : "Unknown status")
 
-#define CNNL_CALL(func)                                     \
-  {                                                         \
-    auto status = func;                                     \
-    if (status != CNNL_STATUS_SUCCESS) {                    \
-      std::stringstream ss;                                 \
-      ss << "CNNL Error : " << cnnlGetErrorString(status);  \
-      PADDLE_THROW(phi::errors::Fatal(ss.str()));           \
-    }                                                       \
-  }
+#define CHECK_DNNL_STATUS(status)\
+  do { \
+      if ((status) != dnnl_success) { \
+          printf("DNNL Error: %s\n", DNNL_STATUS_TO_STRING(status)); \
+      } \
+  } while (0)
 
-void cinn_call_cnnl_gaussian_random(void* v_args,
+void cinn_call_onednn_gaussian_random(void* v_args,
                                int num_args,
                                float mean,
                                float std,
                                int seed);
 
-void cinn_call_cnnl_uniform_random(void* v_args,
+void cinn_call_onednn_uniform_random(void* v_args,
                               int num_args,
                               float min,
                               float max,
                               int seed);
 
-void cinn_call_cnnl_randint(void* v_args,
+void cinn_call_onednn_randint(void* v_args,
                        int num_args,
                        int seed);
 
-void cinn_call_cnnl_cholesky(void* v_args,
+void cinn_call_onednn_cholesky(void* v_args,
                               int num_args,
                               int batch_size,
                               int m,
                               bool upper);
 
-void cinn_call_cnnl_triangular_solve(void* v_args,
+void cinn_call_onednn_triangular_solve(void* v_args,
                                       int num_args,
                                       int batch_size,
                                       int m,
@@ -107,7 +107,7 @@ void cinn_call_cnnl_triangular_solve(void* v_args,
                                       bool transpose_a,
                                       bool unit_diagonal);
 
-void cinn_call_cnnl_matmul(void* v_args,
+void cinn_call_onednn_matmul(void* v_args,
                       int num_args,
                       bool trans_a,
                       bool trans_b,
@@ -123,7 +123,7 @@ void cinn_call_cnnl_matmul(void* v_args,
                       int b3,
                       int b4);
 
-void cinn_call_cnnl_conv2d_forward(void* v_args,
+void cinn_call_onednn_conv2d_forward(void* v_args,
                                     int num_args,
                                     int format,
                                     float alpha,
@@ -148,7 +148,7 @@ void cinn_call_cnnl_conv2d_forward(void* v_args,
                                     int output_h,
                                     int output_w);
 
-void cinn_call_cnnl_conv2d_backward_data(void* v_args,
+void cinn_call_onednn_conv2d_backward_data(void* v_args,
                                           int num_args,
                                           int format,
                                           float alpha,
@@ -173,7 +173,7 @@ void cinn_call_cnnl_conv2d_backward_data(void* v_args,
                                           int output_h,
                                           int output_w);
 
-void cinn_call_cnnl_conv2d_backward_filter(void* v_args,
+void cinn_call_onednn_conv2d_backward_filter(void* v_args,
                                             int num_args,
                                             int format,
                                             float alpha,
@@ -198,7 +198,7 @@ void cinn_call_cnnl_conv2d_backward_filter(void* v_args,
                                             int output_h,
                                             int output_w);
 
-void cinn_call_cnnl_pool2d_forward(void* v_args,
+void cinn_call_onednn_pool2d_forward(void* v_args,
                                     int num_args,
                                     int mode,
                                     int format,
@@ -219,7 +219,7 @@ void cinn_call_cnnl_pool2d_forward(void* v_args,
                                     int output_h,
                                     int output_w);
 
-void cinn_call_cnnl_pool2d_backward(void* v_args,
+void cinn_call_onednn_pool2d_backward(void* v_args,
                                      int num_args,
                                      int mode,
                                      int format,
@@ -239,7 +239,7 @@ void cinn_call_cnnl_pool2d_backward(void* v_args,
                                      int output_c,
                                      int output_h,
                                      int output_w);
-#endif // CINN_WITH_CNNL
+#endif // CINN_WITH_DNNL
 
 }  // namespace sycl
 }  // namespace runtime

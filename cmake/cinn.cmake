@@ -78,6 +78,21 @@ if(CINN_WITH_ROCM)
   endif()
 endif()
 
+
+if(CINN_WITH_DNNL)
+  message(STATUS "Enable CINN oneDNN")
+  add_definitions(-DCINN_WITH_DNNL)
+  find_library(DNNL_LIB dnnl HINTS $ENV{DNNL_ROOT}/lib REQUIRED)
+  if(DNNL_LIB)
+    message(STATUS "Found oneDNN: ${DNNL_LIB}")
+    find_path(DNNL_INCLUDE_DIR NAMES dnnl.h HINTS $ENV{DNNL_ROOT}/include
+              REQUIRED)
+    include_directories(${DNNL_INCLUDE_DIR})
+  else()
+    message(FATAL_ERROR "oneDNN not found")
+  endif()
+endif()
+
 if(WITH_GPU
    OR CINN_WITH_SYCL
    OR CINN_WITH_ROCM)
@@ -123,16 +138,6 @@ if(WITH_GPU)
                                          /usr/lib /usr/lib64 REQUIRED)
   find_library(CUSOLVER libcusolver.so HINTS ${CUDA_TOOLKIT_ROOT_DIR}/lib64
                                              /usr/lib /usr/lib64 REQUIRED)
-endif()
-
-if(WITH_CNNL)
-  message(STATUS "Enable CINN CNNL")
-  add_definitions(-DCINN_WITH_CNNL)
-  include_directories($ENV{NEUWARE_HOME}/include)
-  find_library(CNNL libcnnl.so HINTS $ENV{NEUWARE_HOME}/lib64 /usr/local/neuware/lib64 REQUIRED)
-  if(NOT CNNL)
-    message(FATAL_ERROR "CNNL not found")
-  endif()
 endif()
 
 set(cinnapi_src CACHE INTERNAL "" FORCE)
@@ -233,8 +238,8 @@ if(CINN_WITH_ROCM)
   target_link_libraries(cinnapi ${ROCM_HIPRTC_LIB})
 endif()
 
-if(CINN_WITH_CNNL)
-  target_link_libraries(cinnapi ${CNNL})
+if(CINN_WITH_DNNL)
+  target_link_libraries(cinnapi ${DNNL_LIB})
 endif()
 
 if(WITH_CUTLASS)

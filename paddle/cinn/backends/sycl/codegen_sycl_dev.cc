@@ -309,7 +309,7 @@ void CodeGenSYCL_Dev::PrintTempBufferCreation(const ir::Buffer &buffer) {
     case ir::MemoryType::GPUShared: {
       str_ += "auto ";
       str_ += buffer->name;
-      str_ += " = *sycl::group_local_memory<";
+      str_ += " = *sycl::ext::oneapi::group_local_memory<";
       str_ += GetTypeRepr(buffer->dtype);
       str_ += "[ ";
       Expr buffer_size(1);

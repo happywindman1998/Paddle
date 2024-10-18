@@ -29,8 +29,9 @@
 #ifdef CINN_WITH_CUDNN
 #include <cudnn.h>
 #endif
-#ifdef CINN_WITH_CNNL
-#include <cnnl.h>
+#ifdef CINN_WITH_DNNL
+#include <dnnl.hpp>
+#include <dnnl_sycl.hpp>
 #endif
 
 namespace cinn {
@@ -709,8 +710,8 @@ std::vector<ir::Expr> CustomCallArgsForCudnnPoolBackward(
 }
 #endif
 
-#ifdef CINN_WITH_CNNL
-std::vector<ir::Expr> CustomCallArgsForCnnlConvForward(
+#ifdef CINN_WITH_DNNL
+std::vector<ir::Expr> CustomCallArgsForOneDNNConvForward(
     const framework::NodeAttr &attrs,
     const std::vector<ir::Tensor> &inputs,
     const std::vector<std::vector<int>> &output_shapes) {
@@ -740,8 +741,8 @@ std::vector<ir::Expr> CustomCallArgsForCnnlConvForward(
 
   int groups =
       attr_store.count("groups") ? absl::get<int>(attr_store.at("groups")) : 1;
-  cnnlTensorLayout_t format =
-      data_format == "NCHW" ? CNNL_LAYOUT_NCHW : CNNL_LAYOUT_NHWC;
+  dnnl::memory::format_tag format =
+      data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
 
   std::vector<Expr> input = inputs[0]->shape;
   std::vector<Expr> filter = inputs[1]->shape;
@@ -751,11 +752,11 @@ std::vector<ir::Expr> CustomCallArgsForCnnlConvForward(
                  std::back_inserter(output),
                  [](const int dim) { return ir::Expr(dim); });
   // if format is nhwc
-  // if (format == CNNL_LAYOUT_NHWC) {
-  //   input = {input[0], input[3], input[1], input[2]};
-  //   filter = {filter[0], filter[3], filter[1], filter[2]};
-  //   output = {output[0], output[3], output[1], output[2]};
-  // }
+  if (format == dnnl::memory::format_tag::nhwc) {
+    input = {input[0], input[3], input[1], input[2]};
+    filter = {filter[0], filter[3], filter[1], filter[2]};
+    output = {output[0], output[3], output[1], output[2]};
+  }
 
   std::vector<ir::Expr> args = {
       ir::Expr(static_cast<int>(format)), ir::Expr(alpha), ir::Expr(beta)};
@@ -773,12 +774,12 @@ std::vector<ir::Expr> CustomCallArgsForCnnlConvForward(
   return args;
 }
 
-std::vector<ir::Expr> CustomCallArgsForCnnlConvBackwardData(
+std::vector<ir::Expr> CustomCallArgsForOneDNNConvBackwardData(
     const framework::NodeAttr &attrs,
     const std::vector<ir::Tensor> &inputs,
     const std::vector<std::vector<int>> &output_shapes) {
   CHECK_EQ(inputs.size(), 2UL);
-  CHECK_EQ(output_shapes.size(), 1UL);
+  // CHECK_EQ(output_shapes.size(), 1UL);
   const auto &attr_store = attrs.attr_store;
   float alpha = attr_store.count("alpha")
                     ? absl::get<float>(attr_store.at("alpha"))
@@ -803,8 +804,8 @@ std::vector<ir::Expr> CustomCallArgsForCnnlConvBackwardData(
 
   int groups =
       attr_store.count("groups") ? absl::get<int>(attr_store.at("groups")) : 1;
-  cnnlTensorLayout_t format =
-      data_format == "NCHW" ? CNNL_LAYOUT_NCHW : CNNL_LAYOUT_NHWC;
+  dnnl::memory::format_tag format =
+      data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
 
   std::vector<Expr> input = {};
   std::transform(output_shapes[0].begin(),
@@ -814,11 +815,11 @@ std::vector<ir::Expr> CustomCallArgsForCnnlConvBackwardData(
   std::vector<Expr> filter = inputs[0]->shape;
   std::vector<Expr> output = inputs[1]->shape;
   // if format is nhwc
-  // if (format == CNNL_LAYOUT_NHWC) {
-  //   input = {input[0], input[3], input[1], input[2]};
-  //   filter = {filter[0], filter[3], filter[1], filter[2]};
-  //   output = {output[0], output[3], output[1], output[2]};
-  // }
+  if (format == dnnl::memory::format_tag::nhwc) {
+    input = {input[0], input[3], input[1], input[2]};
+    filter = {filter[0], filter[3], filter[1], filter[2]};
+    output = {output[0], output[3], output[1], output[2]};
+  }
 
   std::vector<ir::Expr> args = {
       ir::Expr(static_cast<int>(format)), ir::Expr(alpha), ir::Expr(beta)};
@@ -835,12 +836,12 @@ std::vector<ir::Expr> CustomCallArgsForCnnlConvBackwardData(
   return args;
 }
 
-std::vector<ir::Expr> CustomCallArgsForCnnlConvBackwardFilter(
+std::vector<ir::Expr> CustomCallArgsForOneDNNConvBackwardFilter(
     const framework::NodeAttr &attrs,
     const std::vector<ir::Tensor> &inputs,
     const std::vector<std::vector<int>> &output_shapes) {
   CHECK_EQ(inputs.size(), 2UL);
-  CHECK_EQ(output_shapes.size(), 1UL);
+  // CHECK_EQ(output_shapes.size(), 1UL);
   const auto &attr_store = attrs.attr_store;
   float alpha = attr_store.count("alpha")
                     ? absl::get<float>(attr_store.at("alpha"))
@@ -866,8 +867,8 @@ std::vector<ir::Expr> CustomCallArgsForCnnlConvBackwardFilter(
   int groups =
       attr_store.count("groups") ? absl::get<int>(attr_store.at("groups")) : 1;
 
-  cnnlTensorLayout_t format =
-      data_format == "NCHW" ? CNNL_LAYOUT_NCHW : CNNL_LAYOUT_NHWC;
+  dnnl::memory::format_tag format =
+      data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
 
   std::vector<Expr> input = inputs[0]->shape;
   std::vector<Expr> filter = {};
@@ -877,11 +878,11 @@ std::vector<ir::Expr> CustomCallArgsForCnnlConvBackwardFilter(
                  [](const int dim) { return ir::Expr(dim); });
   std::vector<Expr> output = inputs[1]->shape;
   // if format is nhwc
-  // if (format == CNNL_LAYOUT_NHWC) {
-  //   input = {input[0], input[3], input[1], input[2]};
-  //   filter = {filter[0], filter[3], filter[1], filter[2]};
-  //   output = {output[0], output[3], output[1], output[2]};
-  // }
+  if (format == dnnl::memory::format_tag::nhwc) {
+    input = {input[0], input[3], input[1], input[2]};
+    filter = {filter[0], filter[3], filter[1], filter[2]};
+    output = {output[0], output[3], output[1], output[2]};
+  }
 
   std::vector<ir::Expr> args = {
       ir::Expr(static_cast<int>(format)), ir::Expr(alpha), ir::Expr(beta)};
@@ -898,7 +899,7 @@ std::vector<ir::Expr> CustomCallArgsForCnnlConvBackwardFilter(
   return args;
 }
 
-std::vector<ir::Expr> CustomCallArgsForCnnlMatmul(
+std::vector<ir::Expr> CustomCallArgsForOneDNNMatmul(
     const framework::NodeAttr &attrs,
     const std::vector<ir::Tensor> &inputs,
     const std::vector<std::vector<int>> &output_shapes) {
@@ -1023,7 +1024,7 @@ std::vector<ir::Expr> CustomCallArgsForCnnlMatmul(
   return args;
 }
 
-std::vector<ir::Expr> CustomCallArgsForCnnlPoolForward(
+std::vector<ir::Expr> CustomCallArgsForOneDNNPoolForward(
     const framework::NodeAttr &attrs,
     const std::vector<ir::Tensor> &inputs,
     const std::vector<std::vector<int>> &output_shapes) {
@@ -1051,13 +1052,14 @@ std::vector<ir::Expr> CustomCallArgsForCnnlPoolForward(
   bool exclusive = attr_store.count("exclusive")
                        ? absl::get<bool>(attrs.attr_store.at("exclusive"))
                        : true;
-  cnnlPoolingMode_t mode =
+  dnnl::algorithm mode =
       pool_type == "max"
-          ? CNNL_POOLING_MAX
-          : (exclusive ? CNNL_POOLING_AVERAGE_COUNT_EXCLUDE_PADDING
-                       : CNNL_POOLING_AVERAGE_COUNT_INCLUDE_PADDING);
-  cnnlTensorLayout_t format =
-      data_format == "NCHW" ? CNNL_LAYOUT_NCHW : CNNL_LAYOUT_NHWC;
+          ? dnnl::algorithm::pooling_max
+          : (exclusive ? dnnl::algorithm::pooling_avg_exclude_padding
+                       : dnnl::algorithm::pooling_avg_include_padding);
+  
+  dnnl::memory::format_tag format =
+      data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
 
   std::vector<Expr> input = inputs[0]->shape;
   std::vector<Expr> output;
@@ -1065,6 +1067,11 @@ std::vector<ir::Expr> CustomCallArgsForCnnlPoolForward(
                  output_shapes[0].end(),
                  std::back_inserter(output),
                  [](const int dim) { return ir::Expr(dim); });
+  // if format is nhwc
+  if (format == dnnl::memory::format_tag::nhwc) {
+    input = {input[0], input[3], input[1], input[2]};
+    output = {output[0], output[3], output[1], output[2]};
+  }
 
   std::vector<ir::Expr> args = {ir::Expr(static_cast<int>(mode)),
                                 ir::Expr(static_cast<int>(format)),
@@ -1081,7 +1088,7 @@ std::vector<ir::Expr> CustomCallArgsForCnnlPoolForward(
   return args;
 }
 
-std::vector<ir::Expr> CustomCallArgsForCnnlPoolBackward(
+std::vector<ir::Expr> CustomCallArgsForOneDNNPoolBackward(
     const framework::NodeAttr &attrs,
     const std::vector<ir::Tensor> &inputs,
     const std::vector<std::vector<int>> &output_shapes) {
@@ -1109,16 +1116,23 @@ std::vector<ir::Expr> CustomCallArgsForCnnlPoolBackward(
   bool exclusive = attr_store.count("exclusive")
                        ? absl::get<bool>(attrs.attr_store.at("exclusive"))
                        : true;
-  cnnlPoolingMode_t mode =
+  
+  dnnl::algorithm mode =
       pool_type == "max"
-          ? CNNL_POOLING_MAX
-          : (exclusive ? CNNL_POOLING_AVERAGE_COUNT_EXCLUDE_PADDING
-                       : CNNL_POOLING_AVERAGE_COUNT_INCLUDE_PADDING);
-  cnnlTensorLayout_t format =
-      data_format == "NCHW" ? CNNL_LAYOUT_NCHW : CNNL_LAYOUT_NHWC;
+          ? dnnl::algorithm::pooling_max
+          : (exclusive ? dnnl::algorithm::pooling_avg_exclude_padding
+                       : dnnl::algorithm::pooling_avg_include_padding);
+
+  dnnl::memory::format_tag format =
+      data_format == "NCHW" ? dnnl::memory::format_tag::nchw : dnnl::memory::format_tag::nhwc;
 
   std::vector<Expr> input = inputs[0]->shape;   // 'x'
   std::vector<Expr> output = inputs[1]->shape;  // 'y'
+  // if format is nhwc
+  if (format == dnnl::memory::format_tag::nhwc) {
+    input = {input[0], input[3], input[1], input[2]};
+    output = {output[0], output[3], output[1], output[2]};
+  }
 
   std::vector<ir::Expr> args = {ir::Expr(static_cast<int>(mode)),
                                 ir::Expr(static_cast<int>(format)),
@@ -1476,51 +1490,51 @@ bool RegisterCustomCallArgsFunc() {
       cinn::common::SYCLTarget(),
       CustomCallArgsForMemcpy);
 
-#ifdef CINN_WITH_CNNL
+#ifdef CINN_WITH_DNNL
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_gaussian_random",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
+      "cinn_call_onednn_gaussian_random",
+      cinn::common::SYCLTarget(),
       CustomCallArgsForGaussianRandom);
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_uniform_random",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
+      "cinn_call_onednn_uniform_random",
+      cinn::common::SYCLTarget(),
       CustomCallArgsForUniformRandom);
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_randint",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
+      "cinn_call_onednn_randint",
+      cinn::common::SYCLTarget(),
       CustomCallArgsForRandInt);
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_cholesky",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
+      "cinn_call_onednn_cholesky",
+      cinn::common::SYCLTarget(),
       CustomCallArgsForCholesky);
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_triangular_solve",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
+      "cinn_call_onednn_triangular_solve",
+      cinn::common::SYCLTarget(),
       CustomCallArgsForTriangularSolve);
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_matmul",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
-      CustomCallArgsForCnnlMatmul);
+      "cinn_call_onednn_matmul",
+      cinn::common::SYCLTarget(),
+      CustomCallArgsForOneDNNMatmul);
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_conv2d_forward",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
-      CustomCallArgsForCnnlConvForward);
+      "cinn_call_onednn_conv2d_forward",
+      cinn::common::SYCLTarget(),
+      CustomCallArgsForOneDNNConvForward);
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_conv2d_backward_data",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
-      CustomCallArgsForCnnlConvBackwardData);
+      "cinn_call_onednn_conv2d_backward_data",
+      cinn::common::SYCLTarget(),
+      CustomCallArgsForOneDNNConvBackwardData);
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_conv2d_backward_filter",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
-      CustomCallArgsForCnnlConvBackwardFilter);
+      "cinn_call_onednn_conv2d_backward_filter",
+      cinn::common::SYCLTarget(),
+      CustomCallArgsForOneDNNConvBackwardFilter);
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_pool2d_forward",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
-      CustomCallArgsForCnnlPoolForward);
+      "cinn_call_onednn_pool2d_forward",
+      cinn::common::SYCLTarget(),
+      CustomCallArgsForOneDNNPoolForward);
   CustomCallArgsFuncRegistry::Global().Register(
-      "cinn_call_cnnl_pool2d_backward",
-      cinn::common::SYCLTarget(cinn::common::Target::Arch::CambriconMLU),
-      CustomCallArgsForCnnlPoolBackward);
+      "cinn_call_onednn_pool2d_backward",
+      cinn::common::SYCLTarget(),
+      CustomCallArgsForOneDNNPoolBackward);
 #endif
 
 #endif
