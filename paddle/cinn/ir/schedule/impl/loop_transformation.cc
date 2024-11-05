@@ -707,6 +707,9 @@ void StScheduleImpl::FlattenLoops(const std::vector<Expr>& loops,
                             last->for_type(),
                             last->device_api,
                             last->body);
+  absl::flat_hash_map<std::string, common::CasInterval> var_intervals;
+  var_intervals.insert({var->name, common::CasInterval(0, extent - 1)});
+  var_intervals.insert({_var->name, common::CasInterval(0, extent - 1)});
 
   // map loop var to old loop var.
   auto _iter = ir::Expr(_var);
@@ -719,7 +722,7 @@ void StScheduleImpl::FlattenLoops(const std::vector<Expr>& loops,
       // flat_i_to_loop_var.push_back(_iter / Expr(strides[idx]));
       loops_to_flat_var_map[loops[idx].As<ir::For>()->loop_var->name] =
           _iter / Expr(strides[idx]);
-      _iter = _iter % Expr(strides[idx]);
+      _iter = common::AutoSimplify(_iter % Expr(strides[idx]), var_intervals);
     }
   }
 

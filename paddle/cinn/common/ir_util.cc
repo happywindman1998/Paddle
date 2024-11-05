@@ -93,14 +93,21 @@ Expr RampRelatedAdd(Expr a, Expr b) {
     return a + b;
   } else if (a_ramp && b_ramp) {  // a_ramp && b_ramp
     return RampRelatedAdd(a_ramp, b_ramp);
-  } else if (a_broadcast && !b_broadcast) {
+  } else if (a_broadcast && !b->type().is_vector()) {
     return RampRelatedAdd(a_broadcast, b);
-  } else if (!a_broadcast && b_broadcast) {
+  } else if (!a->type().is_vector() && b_broadcast) {
     return RampRelatedAdd(b_broadcast, a);
   } else if (a_broadcast && b_broadcast) {
     CHECK_EQ(a_broadcast->lanes, b_broadcast->lanes);
     return ir::Broadcast::Make(a_broadcast->value + b_broadcast->value,
                                a_broadcast->lanes);
+  } else if (a->type().is_vector() && b->type().is_vector()) {
+    CHECK_EQ(a->type().lanes(), b->type().lanes());
+    return a + b;
+  } else if (a->type().is_vector() && !b->type().is_vector()) {
+    return a + ir::Broadcast::Make(b, a->type().lanes());
+  } else if (!a->type().is_vector() && b->type().is_vector()) {
+    return ir::Broadcast::Make(a, b->type().lanes()) + b;
   } else {
     CINN_NOT_IMPLEMENTED
   }
@@ -120,14 +127,21 @@ Expr RampRelatedMul(Expr a, Expr b) {
     return a * b;
   } else if (a_ramp && b_ramp) {  // a_ramp && b_ramp
     return RampRelatedMul(a_ramp, b_ramp);
-  } else if (a_broadcast && !b_broadcast) {
+  } else if (a_broadcast && !b->type().is_vector()) {
     return RampRelatedMul(a_broadcast, b);
-  } else if (!a_broadcast && b_broadcast) {
+  } else if (!a->type().is_vector() && b_broadcast) {
     return RampRelatedMul(b_broadcast, a);
   } else if (a_broadcast && b_broadcast) {
     CHECK_EQ(a_broadcast->lanes, b_broadcast->lanes);
     return ir::Broadcast::Make(a_broadcast->value * b_broadcast->value,
                                a_broadcast->lanes);
+  } else if (a->type().is_vector() && b->type().is_vector()) {
+    CHECK_EQ(a->type().lanes(), b->type().lanes());
+    return a * b;
+  } else if (a->type().is_vector() && !b->type().is_vector()) {
+    return a * ir::Broadcast::Make(b, a->type().lanes());
+  } else if (!a->type().is_vector() && b->type().is_vector()) {
+    return ir::Broadcast::Make(a, b->type().lanes()) * b;
   } else {
     VLOG(3) << "a,b: " << a << " " << b;
     CINN_NOT_IMPLEMENTED

@@ -400,7 +400,7 @@ std::vector<Expr> CasSimplifyMutator::SimplifyBinaryProduct(Expr left,
       // -2 * cinn_min/cinn_max(a, b) = cinn_max/cinn_min(-2*b, -2*a)
       Expr const_oper;
       Expr cmp_oper;
-      int const_value;
+      float const_value;
       if (ai) {
         const_oper = a;
         cmp_oper = b;
@@ -421,10 +421,10 @@ std::vector<Expr> CasSimplifyMutator::SimplifyBinaryProduct(Expr left,
         cmp_oper = a;
         const_value = bf->value;
       }
-      if (const_value == 0) {
-        return {make_const(a->type(), 0)};
-      }
       if (cmp_oper.defined() && const_oper.defined()) {
+        if (const_value == 0) {
+          return {make_const(a->type(), 0)};
+        }
         auto cmp_min = cmp_oper.As<Min>();
         auto cmp_max = cmp_oper.As<Max>();
         if (const_value > 0) {

@@ -842,7 +842,7 @@ bool CanbeInline(Node* node,
     return false;
   }
 
-  if (consumers.size() == 1) {
+  if (consumers.size() <= 2) {
     return true;
   }
 

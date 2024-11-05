@@ -693,7 +693,7 @@ ir::Expr OpLowererImpl::DoGroupSchedule(
               << ir_sch.GetModule().GetExprs().at(0);
       auto loop_inner = loops.back();
       auto psize = ir::GetLoopExtent(loop_inner);
-      int vector_width = 8192;
+      int vector_width = 4096;
       if (vector_width >= psize)
         vector_width = psize;
       else {

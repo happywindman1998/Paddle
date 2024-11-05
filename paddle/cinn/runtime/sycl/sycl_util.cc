@@ -141,8 +141,8 @@ public:
     return instance;
   }
 
-  dnnl::engine GetOneDNNEngine() { return onednn_engine; }
-  dnnl::stream GetOneDNNStream() { return onednn_stream; }
+  dnnl::engine& GetEngine() { return onednn_engine; }
+  dnnl::stream& GetStream() { return onednn_stream; }
 
 private:
   OneDNNHandle() {
@@ -321,8 +321,8 @@ void cinn_call_onednn_matmul(void *v_args,
           "Expected number of arguments is 3, but received %d.", num_args));
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
 
-  dnnl::engine engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
-  dnnl::stream stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+  auto &engine = OneDNNHandle::GetInstance().GetEngine();
+  auto &stream = OneDNNHandle::GetInstance().GetStream();
   VLOG(3) << "a1 ~ a4: " << a1 << " " << a2 << " " << a3 << " " << a4;
   VLOG(3) << "b1 ~ b4: " << b1 << " " << b2 << " " << b3 << " " << b4;
   VLOG(3) << "trans_a: " << trans_a << ", trans_b: " << trans_b
@@ -392,6 +392,7 @@ void cinn_call_onednn_matmul(void *v_args,
   }
 
   matmul_prim.execute(stream, matmul_args);
+  stream.wait();
 }
 
 void cinn_call_onednn_conv2d_forward(void *v_args,
@@ -424,8 +425,8 @@ void cinn_call_onednn_conv2d_forward(void *v_args,
     phi::errors::InvalidArgument(
         "Expected number of argruments >= 3, but recived %d.", num_args));
 
-  dnnl::engine engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
-  dnnl::stream stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+  auto &engine = OneDNNHandle::GetInstance().GetEngine();
+  auto &stream = OneDNNHandle::GetInstance().GetStream();
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
   void *_x = args[0].operator cinn_buffer_t *()->memory;
   void *_w = args[1].operator cinn_buffer_t *()->memory;
@@ -516,6 +517,7 @@ void cinn_call_onednn_conv2d_forward(void *v_args,
   if (conv_pd.dst_desc() != user_dst_mem.get_desc()) {
     reorder(dst_mem, user_dst_mem).execute(stream, dst_mem, user_dst_mem);
   }
+  stream.wait();
 }
 
 void cinn_call_onednn_conv2d_backward_data(void *v_args,
@@ -547,8 +549,8 @@ void cinn_call_onednn_conv2d_backward_data(void *v_args,
       3,
       phi::errors::InvalidArgument(
           "Expected number of argruments >= 3, but recived %d.", num_args));
-  dnnl::engine engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
-  dnnl::stream stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+  auto &engine = OneDNNHandle::GetInstance().GetEngine();
+  auto &stream = OneDNNHandle::GetInstance().GetStream();
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
   void *_w = args[0].operator cinn_buffer_t *()->memory;
   void *_dy = args[1].operator cinn_buffer_t *()->memory;
@@ -624,6 +626,7 @@ void cinn_call_onednn_conv2d_backward_data(void *v_args,
   if (conv_bwd_data_pd.diff_src_desc() != user_diff_src_mem.get_desc()) {
     reorder(diff_src_mem, user_diff_src_mem).execute(stream, diff_src_mem, user_diff_src_mem);
   }
+  stream.wait();
 }
 
 void cinn_call_onednn_conv2d_backward_filter(void *v_args,
@@ -655,8 +658,8 @@ void cinn_call_onednn_conv2d_backward_filter(void *v_args,
       3,
       phi::errors::InvalidArgument(
           "Expected number of argruments >= 3, but recived %d.", num_args));
-  dnnl::engine engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
-  dnnl::stream stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+  auto &engine = OneDNNHandle::GetInstance().GetEngine();
+  auto &stream = OneDNNHandle::GetInstance().GetStream();
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
   void *_x = args[0].operator cinn_buffer_t *()->memory;
   void *_dy = args[1].operator cinn_buffer_t *()->memory;
@@ -732,6 +735,7 @@ void cinn_call_onednn_conv2d_backward_filter(void *v_args,
   if (conv_bwd_weights_pd.diff_weights_desc() != user_diff_weights_mem.get_desc()) {
     reorder(diff_weights_mem, user_diff_weights_mem).execute(stream, diff_weights_mem, user_diff_weights_mem);
   }
+  stream.wait();
 }
 
 void cinn_call_onednn_pool2d_forward(void *v_args,
@@ -759,8 +763,8 @@ void cinn_call_onednn_pool2d_forward(void *v_args,
       2,
       phi::errors::InvalidArgument(
           "Expected number of argruments is 2, but recived %d.", num_args));
-  dnnl::engine engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
-  dnnl::stream stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+  auto &engine = OneDNNHandle::GetInstance().GetEngine();
+  auto &stream = OneDNNHandle::GetInstance().GetStream();
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
 
   void *_x = args[0].operator cinn_buffer_t *()->memory;
@@ -809,6 +813,7 @@ void cinn_call_onednn_pool2d_forward(void *v_args,
   pooling_args.insert({DNNL_ARG_DST, dst_mem});
 
   pooling.execute(stream, pooling_args);
+  stream.wait();
 }
 
 void cinn_call_onednn_pool2d_backward(void *v_args,
@@ -836,8 +841,8 @@ void cinn_call_onednn_pool2d_backward(void *v_args,
       4,
       phi::errors::InvalidArgument(
           "Expected number of argruments is 4, but recived %d.", num_args));
-  dnnl::engine engine = OneDNNHandle::GetInstance().GetOneDNNEngine();
-  dnnl::stream stream = OneDNNHandle::GetInstance().GetOneDNNStream();
+  auto &engine = OneDNNHandle::GetInstance().GetEngine();
+  auto &stream = OneDNNHandle::GetInstance().GetStream();
   cinn_pod_value_t *args = static_cast<cinn_pod_value_t *>(v_args);
 
   void *_x = args[0].operator cinn_buffer_t *()->memory;
@@ -900,6 +905,7 @@ void cinn_call_onednn_pool2d_backward(void *v_args,
   pooling_bwd_args.insert({DNNL_ARG_WORKSPACE, workspace_mem});
 
   pooling_bwd.execute(stream, pooling_bwd_args);
+  stream.wait();
 }
 
 #endif // CINN_WITH_DNNL
