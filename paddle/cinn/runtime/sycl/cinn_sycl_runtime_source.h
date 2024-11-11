@@ -256,19 +256,19 @@ struct DataVec {
   }
 
 #define DEF_CMP_OP(op, func)                                                          \
-  inline DataVec<uint8_t, Num> operator op(const self_type& other) && {               \
-    DataVec<uint8_t, Num> res(data_);                                                 \
-    sycl::ext::mlu::vector_##func((bool *)res.data_, data_, other.data_, Num);        \
+  inline DataVec<bool, Num> operator op(const self_type& other) && {               \
+    DataVec<bool, Num> res(data_);                                                 \
+    sycl::ext::mlu::vector_##func(res.data_, data_, other.data_, Num);        \
     return res;                                                                       \
   }                                                                                   \
-  inline DataVec<uint8_t, Num> operator op(value_type val) && {                       \
-    DataVec<uint8_t, Num> res(data_);                                                 \
-    sycl::ext::mlu::vector_##func((bool *)res.data_, data_, val, Num);                \
+  inline DataVec<bool, Num> operator op(value_type val) && {                       \
+    DataVec<bool, Num> res(data_);                                                 \
+    sycl::ext::mlu::vector_##func(res.data_, data_, val, Num);                \
     return res;                                                                       \
   }                                                                                   \
-  inline friend DataVec<uint8_t, Num> operator op(value_type val, self_type&& vec) {  \
-    DataVec<uint8_t, Num> res(vec.data_);                                             \
-    sycl::ext::mlu::vector_##func((bool *)res.data_, val, vec.data_, Num);            \
+  inline friend DataVec<bool, Num> operator op(value_type val, self_type&& vec) {  \
+    DataVec<bool, Num> res(vec.data_);                                             \
+    sycl::ext::mlu::vector_##func(res.data_, val, vec.data_, Num);            \
     return res;                                                                       \
   }
 
@@ -352,10 +352,11 @@ inline T cinn_sycl_select(bool condition, T true_val, T false_val) {
 }
 
 template <typename T, size_t Num>
-inline DataVec<T, Num>&& cinn_sycl_select(const DataVec<T, Num> &condition, DataVec<T, Num> &&true_val,
+inline DataVec<T, Num> cinn_sycl_select(const DataVec<bool, Num> &condition, const DataVec<T, Num> &true_val,
                                         const DataVec<T, Num> &false_val) {
-  sycl::ext::mlu::vector_select(true_val.data_, condition.data_, true_val.data_, false_val.data_, Num);
-  return std::move(true_val);
+  DataVec<T, Num> res;
+  sycl::ext::mlu::vector_select(res.data_, condition.data_, true_val.data_, false_val.data_, Num);
+  return res;
 }
 
 #define DEF_FN_FP32_VEC_UNARY(func)                                                \
