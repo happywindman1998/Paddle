@@ -13,91 +13,52 @@
 # limitations under the License.
 
 
-from op_test import OpTest, OpTestTool, is_compile_with_device
-from op_test_helper import TestCaseHelper
-
+import os
+os.environ['FLAGS_cinn_new_group_scheduler'] = '1'
+os.environ['FLAGS_group_schedule_tiling_first'] = '1'
+os.environ['FLAGS_prim_all'] = 'true'
+os.environ['FLAGS_enable_pir_api'] = '1'
+os.environ['FLAGS_use_cinn'] = '1'
+os.environ['FLAGS_cinn_bucket_compile'] = '1'
 import paddle
-from paddle.cinn.frontend import NetBuilder
-
-
-@OpTestTool.skip_if(
-    not is_compile_with_device, "x86 test will be skipped due to timeout."
-)
-class TestAcoshOp(OpTest):
+from paddle import nn
+import unittest
+import numpy as np
+def apply_to_static(net, use_cinn, input_spec=None):
+    build_strategy = paddle.static.BuildStrategy()
+    build_strategy.build_cinn_pass = use_cinn
+    return paddle.jit.to_static(
+        net,
+        input_spec=input_spec,
+        build_strategy=build_strategy,
+        full_graph=True,
+    )
+class AbsNet(nn.Layer):
+    def __init__(self):
+        super().__init__()
+    def forward(self, x):
+        out = paddle.acos(x)
+        return out
+class TestAbs(unittest.TestCase):
     def setUp(self):
-        print(f"\nRunning {self.__class__.__name__}: {self.case}")
-        self.prepare_inputs()
-
-    def prepare_inputs(self):
-        self.x_np = self.random(
-            low=2,
-            high=100,
-            shape=self.case["x_shape"],
-            dtype=self.case["x_dtype"],
+        paddle.seed(2024)
+        self.prepare_data()
+    def prepare_data(self):
+        # 可以仿照之前脚本，设置多个shape case
+        self.shape = [4, 4, 4096]
+        self.x = paddle.randn(self.shape, dtype="float32")
+        self.x.stop_gradient = False # or True
+    def eval(self, use_cinn):
+        net = AbsNet()
+        net = apply_to_static(net, use_cinn)
+        net.eval()
+        out = net(self.x)
+        return out
+    def test_eval(self):
+        dy_out = self.eval(use_cinn=False)
+        cinn_out = self.eval(use_cinn=True)
+        np.testing.assert_allclose(
+            cinn_out.numpy(), dy_out.numpy(), atol=1e-6, rtol=1e-6
         )
-
-    def build_paddle_program(self, target):
-        x = paddle.to_tensor(self.x_np, stop_gradient=False)
-        out = paddle.acosh(x)
-
-        self.paddle_outputs = [out]
-
-    def build_cinn_program(self, target):
-        builder = NetBuilder("acosh")
-        x = builder.create_input(
-            self.nptype2cinntype(self.case["x_dtype"]),
-            self.case["x_shape"],
-            "x",
-        )
-
-        out = builder.acosh(x)
-
-        prog = builder.build()
-        res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
-
-        self.cinn_outputs = res
-
-    def test_check_results(self):
-        max_relative_error = (
-            self.case["max_relative_error"]
-            if "max_relative_error" in self.case
-            else 1e-5
-        )
-        self.check_outputs_and_grads(max_relative_error=max_relative_error)
-
-
-class TestAcoshCase1(TestCaseHelper):
-    def init_attrs(self):
-        self.class_name = "TestAcoshCase1"
-        self.cls = TestAcoshOp
-        self.inputs = [{"x_shape": [512, 256]}]
-        self.dtypes = [
-            {"x_dtype": "float32"},
-            {
-                "x_dtype": "float64",
-            },
-        ]
-        self.attrs = []
-
-
-class TestAcoshCase2(TestCaseHelper):
-    def init_attrs(self):
-        self.class_name = "TestAcoshCase2"
-        self.cls = TestAcoshOp
-        self.inputs = [
-            {"x_shape": [1]},
-            {"x_shape": [1024]},
-            {"x_shape": [512, 256]},
-            {"x_shape": [128, 64, 32]},
-            {"x_shape": [128, 2048, 32]},
-            {"x_shape": [16, 8, 4, 2]},
-            {"x_shape": [1, 1, 1, 1]},
-            {"x_shape": [16, 8, 4, 2, 1]},
-        ]
-        self.dtypes = [{"x_dtype": "float32"}]
-        self.attrs = []
-
-
-if __name__ == "__main__":
-    TestAcoshCase1().run()
-    TestAcoshCase2().run()
+if __name__ == '__main__':
+    unittest.main()
