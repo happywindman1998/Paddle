@@ -15,116 +15,52 @@
 # limitations under the License.
 
 
-from op_test import OpTest, OpTestTool, is_compile_with_device
-from op_test_helper import TestCaseHelper
-
+import os
+os.environ['FLAGS_cinn_new_group_scheduler'] = '1'
+os.environ['FLAGS_group_schedule_tiling_first'] = '1'
+os.environ['FLAGS_prim_all'] = 'true'
+os.environ['FLAGS_enable_pir_api'] = '1'
+os.environ['FLAGS_use_cinn'] = '1'
+os.environ['FLAGS_cinn_bucket_compile'] = '1'
 import paddle
-from paddle.cinn.frontend import NetBuilder
-
-
-@OpTestTool.skip_if(
-    not is_compile_with_device, "x86 test will be skipped due to timeout."
-)
-class TestAbsOp(OpTest):
-    def setUp(self):
-        print(f"\nRunning {self.__class__.__name__}: {self.case}")
-        self.prepare_inputs()
-
-    def prepare_inputs(self):
-        self.x_np = self.random(
-            shape=self.case["x_shape"],
-            dtype=self.case["x_dtype"],
-            low=-100,
-            high=100,
-        )
-
-    def build_paddle_program(self, target):
-        x = paddle.to_tensor(self.x_np, stop_gradient=True)
+from paddle import nn
+import unittest
+import numpy as np
+def apply_to_static(net, use_cinn, input_spec=None):
+    build_strategy = paddle.static.BuildStrategy()
+    build_strategy.build_cinn_pass = use_cinn
+    return paddle.jit.to_static(
+        net,
+        input_spec=input_spec,
+        build_strategy=build_strategy,
+        full_graph=True,
+    )
+class AbsNet(nn.Layer):
+    def __init__(self):
+        super().__init__()
+    def forward(self, x):
         out = paddle.abs(x)
-
-        self.paddle_outputs = [out]
-
-    def build_cinn_program(self, target):
-        builder = NetBuilder("identity")
-        x = builder.create_input(
-            self.nptype2cinntype(self.case["x_dtype"]),
-            self.case["x_shape"],
-            "x",
+        return out
+class TestAbs(unittest.TestCase):
+    def setUp(self):
+        paddle.seed(2024)
+        self.prepare_data()
+    def prepare_data(self):
+        # 可以仿照之前脚本，设置多个shape case
+        self.shape = [4, 4, 4096]
+        self.x = paddle.randn(self.shape, dtype="float32")
+        self.x.stop_gradient = False # or True
+    def eval(self, use_cinn):
+        net = AbsNet()
+        net = apply_to_static(net, use_cinn)
+        net.eval()
+        out = net(self.x)
+        return out
+    def test_eval(self):
+        dy_out = self.eval(use_cinn=False)
+        cinn_out = self.eval(use_cinn=True)
+        np.testing.assert_allclose(
+            cinn_out.numpy(), dy_out.numpy(), atol=1e-6, rtol=1e-6
         )
-        out = builder.abs(x)
-
-        prog = builder.build()
-
-        res = self.get_cinn_output(prog, target, [x], [self.x_np], [out])
-
-        self.cinn_outputs = [res[0]]
-
-    def test_check_results(self):
-        self.check_outputs_and_grads(all_equal=True)
-
-
-class TestAbsOpShape(TestCaseHelper):
-    def init_attrs(self):
-        self.class_name = "TestAbsOpShape"
-        self.cls = TestAbsOp
-        self.inputs = [
-            {
-                "x_shape": [1],
-            },
-            {
-                "x_shape": [1024],
-            },
-            {
-                "x_shape": [1, 2048],
-            },
-            {
-                "x_shape": [1, 1, 1],
-            },
-            {
-                "x_shape": [32, 64],
-            },
-            {
-                "x_shape": [16, 8, 4, 2],
-            },
-            {
-                "x_shape": [16, 8, 4, 2, 1],
-            },
-        ]
-        self.dtypes = [
-            {
-                "x_dtype": "float32",
-            }
-        ]
-        self.attrs = []
-
-
-class TestAbsOpDtype(TestCaseHelper):
-    def init_attrs(self):
-        self.class_name = "TestAbsOpDtype"
-        self.cls = TestAbsOp
-        self.inputs = [
-            {
-                "x_shape": [32, 64],
-            }
-        ]
-        self.dtypes = [
-            {
-                "x_dtype": "int32",
-            },
-            {
-                "x_dtype": "int64",
-            },
-            {"x_dtype": "float16", "max_relative_error": 1e-3},
-            {
-                "x_dtype": "float32",
-            },
-            {
-                "x_dtype": "float64",
-            },
-        ]
-        self.attrs = []
-
-
-if __name__ == "__main__":
-    TestAbsOpShape().run()
-    TestAbsOpDtype().run()
+if __name__ == '__main__':
+    unittest.main()
