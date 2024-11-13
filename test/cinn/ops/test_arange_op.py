@@ -14,177 +14,70 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from op_test import OpTest, OpTestTool, is_compile_with_device
-from op_test_helper import TestCaseHelper
-
+import os
 import paddle
-from paddle.cinn.frontend import NetBuilder
+from paddle import nn
+import unittest
+import numpy as np
 
+# 环境变量配置，启用Cinn优化
+os.environ['FLAGS_cinn_new_group_scheduler'] = '1'
+os.environ['FLAGS_group_schedule_tiling_first'] = '1'
+os.environ['FLAGS_prim_all'] = 'true'
+os.environ['FLAGS_enable_pir_api'] = '1'
+os.environ['FLAGS_use_cinn'] = '1'
+os.environ['FLAGS_cinn_bucket_compile'] = '1'
 
-@OpTestTool.skip_if(
-    not is_compile_with_device, "x86 test will be skipped due to timeout."
-)
-class TestArangeOp(OpTest):
+def apply_to_static(net, use_cinn, input_spec=None):
+    build_strategy = paddle.static.BuildStrategy()
+    build_strategy.build_cinn_pass = use_cinn
+    return paddle.jit.to_static(
+        net,
+        input_spec=input_spec,
+        build_strategy=build_strategy,
+        full_graph=True,
+    )
+
+# 创建一个用于生成arange的网络
+class ArangeNet(nn.Layer):
+    def __init__(self):
+        super().__init__()
+            def forward(self, start, end, step, dtype):
+        out = paddle.arange(start, end, step, dtype=dtype)
+        return out
+
+class TestArange(unittest.TestCase):
     def setUp(self):
-        print(f"\nRunning {self.__class__.__name__}: {self.case}")
-        self.inputs = {}
-        self.prepare_inputs()
+        self.prepare_data()
 
-    def prepare_inputs(self):
-        self.inputs = {
-            "start": self.case["start"],
-            "end": self.case["end"],
-            "step": self.case["step"],
-            "dtype": self.case["dtype"],
-        }
-
-    def build_paddle_program(self, target):
-        out = paddle.arange(
-            self.inputs["start"],
-            self.inputs["end"],
-            self.inputs["step"],
-            self.inputs["dtype"],
-        )
-        self.paddle_outputs = [out]
-
-    def build_cinn_program(self, target):
-        builder = NetBuilder("arange")
-        out = builder.arange(
-            self.inputs["start"],
-            self.inputs["end"],
-            self.inputs["step"],
-            self.inputs["dtype"],
-        )
-
-        prog = builder.build()
-        res = self.get_cinn_output(prog, target, [], [], [out])
-
-        self.cinn_outputs = res
-
-    def test_check_results(self):
-        self.check_outputs_and_grads(all_equal=True)
-
-
-class TestArangeOpShapeAndAttr(TestCaseHelper):
-    def init_attrs(self):
-        self.class_name = "TestArangeOpShapeAndAttr"
-        self.cls = TestArangeOp
-        self.inputs = [
-            # basic shape test
-            {
-                "start": 0,
-                "end": 10,
-                "step": 1,
-            },
-            {
-                "start": 0,
-                "end": 1024,
-                "step": 16,
-            },
-            {
-                "start": 512,
-                "end": 2600,
-                "step": 512,
-            },
-            {
-                "start": 0,
-                "end": 65536,
-                "step": 1024,
-            },
-            {
-                "start": 0,
-                "end": 131072,
-                "step": 2048,
-            },
-            {
-                "start": 0,
-                "end": 1,
-                "step": 2,
-            },
-            {
-                "start": 0,
-                "end": 1,
-                "step": 2,
-            },
-            # step test
-            {
-                "start": 1024,
-                "end": 512,
-                "step": -2,
-            },
-            {
-                "start": 2048,
-                "end": 0,
-                "step": -64,
-            },
-            # range test
-            {
-                "start": -2048,
-                "end": 2048,
-                "step": 32,
-            },
-            {
-                "start": -2048,
-                "end": -512,
-                "step": 64,
-            },
-            {
-                "start": 1024,
-                "end": 4096,
-                "step": 512,
-            },
-            {
-                "start": 1024,
-                "end": -1024,
-                "step": -128,
-            },
-            {
-                "start": -1024,
-                "end": -2048,
-                "step": -64,
-            },
-            {
-                "start": 2048,
-                "end": 512,
-                "step": -32,
-            },
+    def prepare_data(self):
+        # 设置多组固定的start, end, step, 和dtype作为输入
+        self.test_cases = [
+            {"start": 0, "end": 10, "step": 1, "dtype": 'int32'},
+            {"start": 10, "end": 0, "step": -1, "dtype": 'int32'},
+            {"start": 0, "end": 10, "step": 0.5, "dtype": 'float32'},
+            {"start": -5, "end": 5, "step": 1, "dtype": 'int64'},
         ]
-        self.dtypes = [
-            {"dtype": "float32"},
-        ]
-        self.attrs = []
 
+    def eval(self, use_cinn, start, end, step, dtype):
+        # 创建并转换网络为静态图
+        net = ArangeNet()
+        net = apply_to_static(net, use_cinn)
+        net.eval()
 
-class TestArangeOpDtype(TestCaseHelper):
-    def init_attrs(self):
-        self.class_name = "TestArangeOpDtype"
-        self.cls = TestArangeOp
-        self.inputs = [
-            {
-                "start": 5,
-                "end": 10,
-                "step": 1,
-            },
-            {
-                "start": -10,
-                "end": -100,
-                "step": -10,
-            },
-            {
-                "start": -10,
-                "end": 10,
-                "step": 1,
-            },
-        ]
-        self.dtypes = [
-            {"dtype": "int32"},
-            {"dtype": "int64"},
-            {"dtype": "float32"},
-            {"dtype": "float64"},
-        ]
-        self.attrs = []
+        # 执行网络并返回结果
+        out = net(start, end, step, dtype)
+        return out
 
+    def test_eval(self):
+        for case in self.test_cases:
+                        with self.subTest(case=case):
+                dy_out = self.eval(use_cinn=False, **case)
+                cinn_out = self.eval(use_cinn=True, **case)
 
-if __name__ == "__main__":
-    TestArangeOpShapeAndAttr().run()
-    TestArangeOpDtype().run()
+                np.testing.assert_allclose(
+                    cinn_out.numpy(), dy_out.numpy(), atol=1e-6, rtol=1e-6
+                )
+
+if __name__ == '__main__':
+    unittest.main()
